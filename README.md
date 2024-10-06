@@ -1,97 +1,51 @@
-# E-commerce de Tênis
+1. Acesse a pasta do projeto backend:
+   - `cd backend`
 
-Um e-commerce para venda de tênis, desenvolvido com **Quarkus** no backend e **Angular V18** no frontend.
+2. Execute o Quarkus:
+   - `./mvnw quarkus:dev`
 
-## Descrição
+### Frontend (Angular)
 
-Este projeto é um sistema de e-commerce especializado em tênis, permitindo que clientes possam navegar por diversas categorias, adicionar produtos ao carrinho, realizar compras e acompanhar o status dos pedidos. A administração da loja permite que funcionários cadastrem novos produtos e gerenciem as vendas.
+1. Acesse a pasta do projeto frontend:
+   - `cd frontend`
 
-## Tecnologias Utilizadas
+2. Instale as dependências:
+   - `npm install`
 
-- **Backend**: Quarkus, JPA, Hibernate
-- **Frontend**: Angular V18, TypeScript
-- **Banco de Dados**: PostgreSQL
-- **Outras**: Docker (opcional para containerização)
+3. Execute o Angular:
+   - `ng serve`
 
-## Instalação
+### Banco de Dados (PostgreSQL)
 
-### Clonando o repositório
-
-```bash
-git clone https://github.com/seu-repositorio/nome-do-projeto.git
-
-## Backend (Quarkus)
-Acesse a pasta do projeto backend:
-
-```bash
-cd backend
-
-### Execute o Quarkus:
-```bash
-./mvnw quarkus:dev
-
-Frontend (Angular)
-
-### Acesse a pasta do projeto frontend:
-
-```bash
-cd frontend
-
-### Instale as dependências:
-
-```bash
-npm install
-
-### Execute o Angular:
-
-```bash
-ng serve
-
-## Banco de Dados (PostgreSQL)
-
-### Configure o banco de dados conforme o arquivo de configuração application.properties.
-
-### Execute o banco de dados localmente.
+1. Configure o banco de dados conforme o arquivo de configuração `application.properties`.
+2. Execute o banco de dados localmente.
 
 ## Funcionalidades
 
-### Cadastro de Produtos: Administre o catálogo de tênis, adicionando, editando e removendo produtos.
-
-### Gerenciamento de Usuários: Controle os usuários do sistema, incluindo clientes e funcionários.
-
-### Carrinho de Compras: Permita que os usuários adicionem produtos ao carrinho e realizem compras.
-
-### Registro de Vendas: Acompanhe e administre o histórico de vendas da loja.
+- **Cadastro de Produtos**: Administre o catálogo de tênis, adicionando, editando e removendo produtos.
+- **Gerenciamento de Usuários**: Controle os usuários do sistema, incluindo clientes e funcionários.
+- **Carrinho de Compras**: Permita que os usuários adicionem produtos ao carrinho e realizem compras.
+- **Registro de Vendas**: Acompanhe e administre o histórico de vendas da loja.
 
 ## Como Usar
 
-### Para navegar como cliente, acesse o frontend e explore as opções de tênis disponíveis.
-
-### Para administrar a loja, faça login como funcionário e acesse o painel de administração para gerenciar produtos e vendas.
+1. Para navegar como cliente, acesse o frontend e explore as opções de tênis disponíveis.
+2. Para administrar a loja, faça login como funcionário e acesse o painel de administração para gerenciar produtos e vendas.
 
 ## Contribuição
 
-### Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
+Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
 
-### Faça um fork do projeto.
-
-### Crie uma branch com a nova funcionalidade:
-
-```bash
-git checkout -b minha-nova-feature
-
-### Faça commit das suas mudanças:
-
-```bash
-git commit -m 'Adiciona nova feature'
-
-Envie as mudanças para o repositório remoto:
-
-```bash
-git push origin minha-nova-feature
-
-### Abra um Pull Request.
+1. Faça um fork do projeto.
+2. Crie uma branch com a nova funcionalidade:
+   - `git checkout -b minha-nova-feature`
+3. Faça commit das suas mudanças:
+   - `git commit -m 'Adiciona nova feature'`
+4. Envie as mudanças para o repositório remoto:
+   - `git push origin minha-nova-feature`
+5. Abra um Pull Request.
 
 ## Autores
-### Nome 1 - @githubuser
-### Nome 2 - @githubuser
+
+- Nome 1 - @JoaoVittorOliveira
+- Nome 2 - @giseleveloso
