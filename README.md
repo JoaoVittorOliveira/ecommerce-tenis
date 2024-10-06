@@ -54,23 +54,9 @@ Este projeto é um sistema de e-commerce especializado em tênis, permitindo que
 
 ## Como Usar
 
-1. Para navegar como cliente, acesse o frontend e explore as opções de tênis disponíveis.
-2. Para administrar a loja, faça login como funcionário e acesse o painel de administração para gerenciar produtos e vendas.
-
-## Contribuição
-
-Contribuições são bem-vindas! Siga os passos abaixo para contribuir:
-
-1. Faça um fork do projeto.
-2. Crie uma branch com a nova funcionalidade:
-   - `git checkout -b minha-nova-feature`
-3. Faça commit das suas mudanças:
-   - `git commit -m 'Adiciona nova feature'`
-4. Envie as mudanças para o repositório remoto:
-   - `git push origin minha-nova-feature`
-5. Abra um Pull Request.
+- Ainda será feito o modo de uso
 
 ## Autores
 
-- Nome 1 - @githubuser
-- Nome 2 - @githubuser
+- Nome 1 - @JoaoVittorOliveira
+- Nome 2 - @giseleveloso
