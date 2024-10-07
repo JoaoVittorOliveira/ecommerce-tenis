@@ -1,3 +1,8 @@
 import { Routes } from '@angular/router';
+import { EnderecoListComponent } from './components/endereco/endereco-list/endereco-list.component';
+import { EnderecoFormComponent } from './components/endereco/endereco-form/endereco-form.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+    {path: 'enderecos', component: EnderecoListComponent, title: 'Lista de Endereços'},
+    {path: 'enderecos/new',component: EnderecoFormComponent, title: 'Novo Endereço'}
+];
