@@ -5,7 +5,7 @@ import org.jboss.logging.Logger;
 import br.unitins.joaovittor.basqueteiros.Cor.resource.CorResource;
 import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomDTO;
 import br.unitins.joaovittor.basqueteiros.Cupom.service.CupomService;
-import jakarta.annotation.security.RolesAllowed;
+// import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.Consumes;
@@ -22,13 +22,13 @@ import jakarta.ws.rs.core.Response;
 @Path("/cupons")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RolesAllowed("Funcionario")
+// @RolesAllowed("Funcionario")
 public class CupomResource {
     
     @Inject
     public CupomService service;
 
-    private static final Logger LOG = Logger.getLogger(CorResource.class);
+    private static final Logger LOG = Logger.getLogger(CupomResource.class);
 
     @POST
     public Response create(CupomDTO dto){

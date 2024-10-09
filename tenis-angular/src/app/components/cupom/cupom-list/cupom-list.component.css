@@ -1,0 +1,47 @@
+.pagina {
+    padding: 18px 100px;
+}
+
+.toolbar-title {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .flex-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+table {
+    width: 100%;
+}
+
+th.mat-header-cell, td.mat-cell {
+    text-align: center;
+    padding: 8px;
+}
+
+.mat-column-id {
+    width: 10%;
+}
+
+.mat-column-codigo {
+    width: 25%;
+}
+
+.mat-column-porcentagemDesconto {
+    width: 20%;
+}
+
+.mat-column-valorDesconto {
+    width: 20%;
+}
+
+.mat-column-acao {
+    width: 15%;
+    text-align: right; /* Alinha o conteúdo da coluna "Ação" à direita */
+    padding-right: 16; /* Remove padding adicional */
+}
+
+  

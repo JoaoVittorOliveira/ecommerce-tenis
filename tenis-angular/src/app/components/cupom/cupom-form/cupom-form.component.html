@@ -1,0 +1,75 @@
+<mat-toolbar color="primary">
+    <div class="toolbar-title" *ngIf="formGroup?.get('id')?.value">
+        Atualização de Cupom de Desconto
+    </div>
+    <div class="toolbar-title" *ngIf="!formGroup?.get('id')?.value">
+        Cadastro de Cupom de Desconto
+    </div>
+</mat-toolbar>
+
+<div class="form-container">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formGroup">
+
+                <mat-form-field appearance="fill" class="half-width-input">
+                    <mat-label>Código</mat-label>
+                    <input matInput type="text" formControlName="codigo" maxlength="5">
+                    <mat-error *ngIf="formGroup.get('codigo')?.errors?.['required']">
+                        O código é obrigatório.
+                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('codigo')?.errors?.['minlength']">
+                        O código deve conter 5 caracteres.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field floatLabel="always" class="half-width-input">
+                    <mat-label>Percentual de Desconto</mat-label>
+                    <input matInput type="number" class="example-right-align" formControlName="porcentagemDesconto" maxlength="3"/>
+                    <span matTextSuffix>%</span>
+                    <mat-error *ngIf="formGroup.get('porcentagemDesconto')?.errors?.['required']">
+                        O percentual de desconto é obrigatório.
+                      </mat-error>
+                      <mat-error *ngIf="formGroup.get('porcentagemDesconto')?.errors?.['max']">
+                        O percentual de desconto não pode ser maior que 30%.
+                      </mat-error>
+                      <mat-error *ngIf="formGroup.get('porcentagemDesconto')?.errors?.['min']">
+                        O percentual de desconto deve ser positivo.
+                      </mat-error>
+                </mat-form-field>
+
+                <mat-form-field floatLabel="always" class="half-width-input">
+                    <mat-label>Valor de Desconto</mat-label>
+                    <input matInput type="number" class="example-right-align" formControlName="valorDesconto"/>
+                    <span matTextPrefix>R$&nbsp;</span>
+                    <span matTextSuffix>,00</span>
+                    <mat-error *ngIf="formGroup.get('valorDesconto')?.errors?.['required']">
+                        O valor de desconto é obrigatório (Coloque 0 caso não use).
+                      </mat-error>
+                      <mat-error *ngIf="formGroup.get('valorDesconto')?.errors?.['max']">
+                        O valor de desconto não pode ser maior que R$ 1000,00.
+                      </mat-error>
+                      <mat-error *ngIf="formGroup.get('valorDesconto')?.errors?.['min']">
+                        O valor de desconto deve ser positivo.
+                      </mat-error>
+                  </mat-form-field>
+
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button routerLink="/cupons">
+                Cancelar
+            </button>
+
+            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
+                [disabled]="formGroup.invalid">
+                Excluir
+            </button>
+
+            <button mat-raised-button color="primary" (click)="salvar()" [disabled]="formGroup.invalid">
+                Salvar
+            </button>
+
+        </mat-card-actions>
+    </mat-card>
+</div>

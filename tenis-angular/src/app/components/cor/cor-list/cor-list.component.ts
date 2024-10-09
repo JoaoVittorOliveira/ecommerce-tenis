@@ -20,7 +20,7 @@ export class CorListComponent implements OnInit{
   displayedColumns: string[] = ['id', 'nome', 'codigoHex', 'acao'];
   cores: Cor[] = [];
 
-   constructor(private corService: CorService) {
+  constructor(private corService: CorService) {
 
   }
 

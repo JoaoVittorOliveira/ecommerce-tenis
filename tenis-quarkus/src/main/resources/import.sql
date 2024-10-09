@@ -23,6 +23,10 @@ values
 ('preto', 'FFFFFFF', CURRENT_DATE),
 ('branco', '0000000', CURRENT_DATE);
 
+insert into cupom(codigo, porcentagem_desconto, valor_desconto, data_cadastro)
+values
+('TESTE', 10, 0, CURRENT_DATE);
+
 -- ADICIONANDO CLIENTE
 insert into usuario (username, `password`) 
 values ('joao', 'Z7dL+3VaMV++fdWH0b8S3NV26muviRKuWXNk5ayr2RVBF9BE8tMorc/G7NB1P51lHzLhjc7irjXu+Q5f3T997w==');

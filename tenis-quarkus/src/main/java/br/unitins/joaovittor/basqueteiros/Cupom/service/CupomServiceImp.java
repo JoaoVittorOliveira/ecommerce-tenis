@@ -23,7 +23,7 @@ public class CupomServiceImp implements CupomService{
     public CupomResponseDTO create(@Valid CupomDTO dto) {
         Cupom cupom = new Cupom();
 
-        cupom.setCodigo(dto.codigo());
+        cupom.setCodigo(dto.codigo().toUpperCase());
         cupom.setPorcentagemDesconto(dto.porcentagemDesconto());
         cupom.setValorDesconto(dto.valorDesconto());
 
@@ -47,7 +47,7 @@ public class CupomServiceImp implements CupomService{
     @Transactional
     public void update(Long id, CupomDTO dto) {
         Cupom cupom = repository.findById(id);
-        cupom.setCodigo(dto.codigo());
+        cupom.setCodigo(dto.codigo().toUpperCase());
         cupom.setPorcentagemDesconto(dto.porcentagemDesconto());
         cupom.setValorDesconto(dto.valorDesconto());        
     }
