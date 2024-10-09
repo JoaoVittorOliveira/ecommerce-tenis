@@ -15,7 +15,7 @@ import { RouterModule } from '@angular/router';
   styleUrl: './endereco-list.component.css'
 })
 export class EnderecoListComponent implements OnInit {
-  displayedColumns: string[] = ['id','cep','rua','complemento'];
+  displayedColumns: string[] = ['id','cep','rua','complemento','acao'];
   enderecos: Endereco[]=[];
 
   constructor(private enderecoService: EnderecoService){
@@ -23,7 +23,9 @@ export class EnderecoListComponent implements OnInit {
   }
   ngOnInit(): void {
     this.enderecoService.findAll().subscribe(
-      data => { this.enderecos = data }
+      data => { 
+        console.log(data);  // Verifique se o 'id' está presente
+        this.enderecos = data }
     );
   }
 

@@ -18,7 +18,7 @@ export class EnderecoService {
   }
 
   findById(id: string): Observable<Endereco> {
-    return this.httpClient.get<Endereco>(`${this.baseUrl}/${id}`); 
+    return this.httpClient.get<Endereco>(`${this.baseUrl}/search/id/${id}`); 
   }
 
   insert(endereco: Endereco): Observable<Endereco> {
@@ -26,7 +26,12 @@ export class EnderecoService {
   }
 
   update(endereco: Endereco): Observable<Endereco> {
-    return this.httpClient.put<any>(`${this.baseUrl}/${endereco.id}`, endereco); 
+    const data = {
+      cep: endereco.cep,
+      rua: endereco.rua,
+      complemento: endereco.complemento
+    }
+    return this.httpClient.put<any>(`${this.baseUrl}/${endereco.id}`, data); 
   }
 
   delete(endereco: Endereco): Observable<any>{

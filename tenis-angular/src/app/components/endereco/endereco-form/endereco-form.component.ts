@@ -29,8 +29,8 @@ export class EnderecoFormComponent {
 
     this.formGroup = formBuilder.group({
       id: [(endereco && endereco.id) ? endereco.id : null],
-      nome: [(endereco && endereco.cep) ? endereco.cep : '', Validators.required],
-      sigla: [(endereco && endereco.rua) ? endereco.rua : '', Validators.required],
+      cep: [(endereco && endereco.cep) ? endereco.cep : '', Validators.required],
+      rua: [(endereco && endereco.rua) ? endereco.rua : '', Validators.required],
       complemento: [(endereco && endereco.complemento) ? endereco.complemento : '', Validators.required]
     })
   }
