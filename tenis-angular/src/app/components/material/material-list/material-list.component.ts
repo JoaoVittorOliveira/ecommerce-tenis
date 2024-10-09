@@ -1,47 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { Telefone } from '../../../models/telefone.model';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
-import { TelefoneService } from '../../../services/telefone.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
+import { MaterialService } from '../../../services/material.service';
+import { Material } from '../../../models/material.model';
 
 @Component({
-  selector: 'app-telefone-list',
+  selector: 'app-material-list',
   standalone: true,
   imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
-  templateUrl: './telefone-list.component.html',
-  styleUrl: './telefone-list.component.css'
+  templateUrl: './material-list.component.html',
+  styleUrl: './material-list.component.css'
 })
-export class TelefoneListComponent implements OnInit {
-  displayedColumns: string[] = ['id','ddd','numero','acao'];
-  telefones: Telefone[]=[];
+export class MaterialListComponent implements OnInit {
+  displayedColumns: string[] = ['id','descricao','categoria','acao'];
+  materiais: Material[]=[];
 
-  constructor(private telefoneService: TelefoneService, private dialog: MatDialog){
+  constructor(private materialService: MaterialService, private dialog: MatDialog){
 
   }
   ngOnInit(): void {
-    this.telefoneService.findAll().subscribe(
+    this.materialService.findAll().subscribe(
       data => { 
         console.log(data); 
-        this.telefones = data }
+        this.materiais = data }
     );
   }
 
-  excluir(telefone: Telefone): void {
+  excluir(material: Material): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.telefoneService.delete(telefone).subscribe({
+        this.materialService.delete(material).subscribe({
           next: () => {
-            this.telefones = this.telefones.filter(e => e.id !== telefone.id);
+            this.materiais = this.materiais.filter(e => e.id !== material.id);
           },
           error: (err) => {
-            console.error('Erro ao tentar excluir o telefone', err);
+            console.error('Erro ao tentar excluir o material', err);
           }
         });
       }

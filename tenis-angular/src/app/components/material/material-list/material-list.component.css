@@ -38,31 +38,3 @@
 table {
     width: 100%;
 }
-
-
-
-
-
-
-
-
-
-
-
-/* Tabela com bordas e espaçamento */
-.mat-elevation-z8 {
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-
-/* Aumentar o ícone do botão de ação */
-button[mat-icon-button] mat-icon {
-    font-size: 26px;
-}
-
-/* Animação ao passar o mouse nos ícones */
-button[mat-icon-button]:hover mat-icon {
-    transform: scale(1.2);
-    transition: transform 0.2s;
-}
