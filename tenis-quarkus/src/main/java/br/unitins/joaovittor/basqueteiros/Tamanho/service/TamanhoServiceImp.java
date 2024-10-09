@@ -27,6 +27,7 @@ public class TamanhoServiceImp implements TamanhoService{
 
         tamanho.setNumeracao(dto.numeracao());
         tamanho.setTamanhoEmCm(dto.tamanhoEmCm());
+        tamanho.setPais(dto.pais().toUpperCase());
 
         repository.persist(tamanho);
         return TamanhoResponseDTO.valueof(tamanho);
@@ -51,6 +52,7 @@ public class TamanhoServiceImp implements TamanhoService{
         Tamanho tamanho = repository.findById(id);
         tamanho.setNumeracao(dto.numeracao());
         tamanho.setTamanhoEmCm(dto.tamanhoEmCm());
+        tamanho.setPais(dto.pais().toUpperCase());
     }
 
     @Override

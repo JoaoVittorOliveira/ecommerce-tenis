@@ -59,7 +59,7 @@ public class TamanhoResourceTest {
     @Test
     @TestSecurity(user = "tester", roles = "Funcionario")
     public void testCreate(){
-        TamanhoDTO dto = new TamanhoDTO(20, "15");
+        TamanhoDTO dto = new TamanhoDTO(20, "15", "BR");
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
@@ -74,7 +74,7 @@ public class TamanhoResourceTest {
     @Test
     @TestSecurity(user = "tester", roles = "Funcionario")
     public void testUpdate(){
-        TamanhoDTO dto = new TamanhoDTO(25, "18");
+        TamanhoDTO dto = new TamanhoDTO(25, "18", "br");
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
@@ -89,7 +89,7 @@ public class TamanhoResourceTest {
     @TestSecurity(user = "tester", roles = "Funcionario")
     public void testDelete(){
         
-        TamanhoResponseDTO response = service.create(new TamanhoDTO(22, "16"));
+        TamanhoResponseDTO response = service.create(new TamanhoDTO(22, "16", "euw"));
 
         given()
         .when()

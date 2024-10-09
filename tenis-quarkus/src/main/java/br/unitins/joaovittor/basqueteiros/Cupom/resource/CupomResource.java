@@ -1,8 +1,6 @@
 package br.unitins.joaovittor.basqueteiros.Cupom.resource;
 
 import org.jboss.logging.Logger;
-
-import br.unitins.joaovittor.basqueteiros.Cor.resource.CorResource;
 import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomDTO;
 import br.unitins.joaovittor.basqueteiros.Cupom.service.CupomService;
 // import jakarta.annotation.security.RolesAllowed;
