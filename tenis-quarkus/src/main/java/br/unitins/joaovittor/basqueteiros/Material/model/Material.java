@@ -8,10 +8,10 @@ import jakarta.persistence.Entity;
 public class Material extends DefaultEntity{
 
     @Column(name = "descricao")
-    private String descricao; //nome: ex: couro, tecido, jeans
+    private String descricao;
 
     @Column(name = "categoria")
-    private String categoria; //natural, sintético, borracha
+    private String categoria;
 
     
     public String getDescricao() {
