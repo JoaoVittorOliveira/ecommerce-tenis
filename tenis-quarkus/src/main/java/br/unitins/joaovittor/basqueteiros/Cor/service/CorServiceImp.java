@@ -23,6 +23,7 @@ public class CorServiceImp implements CorService {
         Cor Cor = new Cor();
 
         Cor.setNome(dto.nome());
+        Cor.setCodigoHex(dto.codigoHex());
 
         repository.persist(Cor);
         return CorResponseDTO.valueof(Cor);
@@ -39,6 +40,7 @@ public class CorServiceImp implements CorService {
     public void update(Long id, CorDTO dto) {
         Cor Cor = repository.findById(id);
         Cor.setNome(dto.nome());
+        Cor.setCodigoHex(dto.codigoHex());
         
     }
 
@@ -64,5 +66,15 @@ public class CorServiceImp implements CorService {
         return repository.findByNome(nome)
                          .stream()
                          .map(e -> CorResponseDTO.valueof(e)).toList();
+    }
+
+    @Override
+    public CorResponseDTO findByCodigoHex(String codigoHex) {
+
+        Cor cor = repository.findByCodigoHex(codigoHex);
+        if(cor != null)
+            return CorResponseDTO.valueof(cor);
+        return null;
+
     }
 }

@@ -18,10 +18,10 @@ values
 (42, '27,5', CURRENT_DATE),
 (43, '28', CURRENT_DATE);
 
-insert into cor(nome, data_cadastro)
+insert into cor(nome, codigo_hex, data_cadastro)
 values
-('preto', CURRENT_DATE),
-('branco', CURRENT_DATE);
+('preto', 'FFFFFFF', CURRENT_DATE),
+('branco', '0000000', CURRENT_DATE);
 
 -- ADICIONANDO CLIENTE
 insert into usuario (username, `password`) 
