@@ -1,10 +1,11 @@
-package br.unitins.joaovittor.basqueteiros.Telefone.resource;
+package br.unitins.joaovittor.basqueteiros.Endereco.resource;
 
 import org.jboss.logging.Logger;
 
 import br.unitins.joaovittor.basqueteiros.Cor.resource.CorResource;
-import br.unitins.joaovittor.basqueteiros.Telefone.dto.TelefoneDTO;
-import br.unitins.joaovittor.basqueteiros.Telefone.service.TelefoneService;
+import br.unitins.joaovittor.basqueteiros.Endereco.dto.EnderecoDTO;
+import br.unitins.joaovittor.basqueteiros.Endereco.service.EnderecoService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -18,18 +19,19 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
 
-@Path("/telefones")
+@Path("/enderecos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class TelefoneResource {
+//@RolesAllowed("Funcionario")
+public class EnderecoResource {
     
     @Inject
-    TelefoneService service;
+    EnderecoService service;
 
     private static final Logger LOG = Logger.getLogger(CorResource.class);
 
     @POST
-    public Response create(TelefoneDTO dto){
+    public Response create(EnderecoDTO dto){
         LOG.info("Executando o create");
         LOG.debugf("DTO: %s", dto);
         return Response.ok(service.create(dto)).build();
@@ -47,7 +49,7 @@ public class TelefoneResource {
 
     @PUT
     @Path("/{id}")
-    public Response update( @PathParam("id") Long id, TelefoneDTO dto){
+    public Response update( @PathParam("id") Long id, EnderecoDTO dto){
         LOG.info("Executando update");
         LOG.debugf("New DTO: %s", dto);
         service.update(id, dto);
@@ -68,9 +70,9 @@ public class TelefoneResource {
     }
 
     @GET
-    @Path("/search/ddd/{ddd}")
-    public Response findByDdd( @PathParam("ddd") String ddd){
-        LOG.infof("Executando o metodo findByDdd. Ddd: %s", ddd.toString());
-        return Response.ok(service.findByDdd(ddd)).build();
+    @Path("/search/cep/{cep}")
+    public Response findByCep( @PathParam("cep") String cep){
+        LOG.infof("Executando o metodo findByCep. Cep: %s", cep.toString());
+        return Response.ok(service.findByCep(cep)).build();
     }
 }

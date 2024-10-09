@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 public record EnderecoDTO(
     
     @NotBlank(message = "O cep não pode ser nulo ou vazio")
-    @Size(min = 7, max = 8, message = "O tamanho do cep deve ser de 8 caracteres.")
+    @Size(min = 8, max = 8, message = "O tamanho do cep deve ser de 8 caracteres.")
     String cep,
     
     @NotBlank(message = "A rua não pode ser nulo ou vazio")
