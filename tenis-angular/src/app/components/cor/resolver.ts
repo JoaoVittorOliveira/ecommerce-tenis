@@ -5,5 +5,5 @@ import { CorService } from "../../services/cor.service";
 
 export const corResolver: ResolveFn<Cor> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-        return inject(CorService).findById(route.paramMap.get('id')!);
+        return inject(CorService).findById(Number(route.paramMap.get('id')!));
     }

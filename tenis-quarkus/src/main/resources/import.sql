@@ -74,6 +74,5 @@ values
 (5, 0, 2, 220),
 (6, 1, 1, 210);
 
-
 insert into endereco(id,cep,rua,complemento) values (2,'111','rua 1','em frente a rua 2');
 

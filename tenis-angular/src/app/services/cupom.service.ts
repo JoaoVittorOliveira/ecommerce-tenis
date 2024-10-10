@@ -16,7 +16,7 @@ export class CupomService {
     return this.httpClient.get<Cupom[]>(this.baseUrl); 
   }
 
-  findById(id: string): Observable<Cupom> {
+  findById(id: number): Observable<Cupom> {
     return this.httpClient.get<Cupom>(`${this.baseUrl}/search/id/${id}`); 
   }
 

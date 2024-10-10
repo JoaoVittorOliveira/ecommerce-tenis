@@ -1,0 +1,55 @@
+<!-- CABEÇALHO -->
+<mat-toolbar color="primary">
+    <div class="flex-container">
+      <span class="toolbar-title">Controle de Tamanhos</span>
+      <button mat-fab color="accent" routerLink="/tamanhos/new">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+</mat-toolbar>
+
+<!-- TABELA (LISTA) -->
+<table mat-table [dataSource]="tamanhos" class="mat-elevation-z8">
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let tamanho"> {{tamanho.id}} </td>
+    </ng-container>
+  
+    <!-- Numeracao Column -->
+    <ng-container matColumnDef="numeracao">
+      <th mat-header-cell *matHeaderCellDef> Numeracao </th>
+      <td mat-cell *matCellDef="let tamanho"> {{tamanho.numeracao}} </td>
+    </ng-container>
+  
+    <!-- Numeracao em CM Column -->
+    <ng-container matColumnDef="tamanhoEmCm">
+      <th mat-header-cell *matHeaderCellDef> Numeracao em CM </th>
+      <td mat-cell *matCellDef="let tamanho"> {{tamanho.tamanhoEmCm}}cm </td>
+    </ng-container>
+
+    <!-- País Column -->
+    <ng-container matColumnDef="pais">
+        <th mat-header-cell *matHeaderCellDef> País </th>
+        <td mat-cell *matCellDef="let tamanho"> {{tamanho.pais}} </td>
+      </ng-container>
+
+    <!-- Acao Column -->
+    <ng-container matColumnDef="acao">
+      <th mat-header-cell *matHeaderCellDef> Ação </th>
+      <td mat-cell *matCellDef="let tamanho"> 
+        <button mat-icon-button 
+                color="primary"
+                routerLink="/tamanhos/edit/{{tamanho.id}}">
+                <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="excluir(tamanho)">
+                <mat-icon>delete</mat-icon>
+        </button>        
+      </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

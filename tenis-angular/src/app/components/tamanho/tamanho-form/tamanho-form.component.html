@@ -1,0 +1,76 @@
+<mat-toolbar color="primary">
+    <div class="toolbar-title" *ngIf="formGroup?.get('id')?.value">
+        Atualização de Tamanho de Tênis
+    </div>
+    <div class="toolbar-title" *ngIf="!formGroup?.get('id')?.value">
+        Cadastro de Tamanho de Tênis
+    </div>
+</mat-toolbar>
+
+<div class="form-container">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formGroup">
+
+                <mat-form-field appearance="fill" class="half-width-input">
+                    <mat-label>Numeração</mat-label>
+                    <input matInput type="number" formControlName="numeracao" maxlength="2">
+                    <mat-error *ngIf="formGroup.get('numeracao')?.errors?.['required']">
+                        A numeração é obrigatória.
+                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('numeracao')?.errors?.['min']">
+                        A numeração mínima é 30.
+                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('numeracao')?.errors?.['max']">
+                        A numeração máxima é 60.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="half-width-input">
+                    <mat-label>Tamanho (cm)</mat-label>
+                    <input matInput type="number" class="example-right-align" formControlName="tamanhoEmCm" maxlength="3" min="0" max="999"/>
+                    <span matTextSuffix>CM</span>
+                    <mat-error *ngIf="formGroup.get('tamanhoEmCm')?.errors?.['required']">
+                        A numeração é obrigatória.
+                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('tamanhoEmCm')?.errors?.['min']">
+                        O tamanho mínimo é 0.
+                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('tamanhoEmCm')?.errors?.['max']">
+                        O tamanho máximo é 999.
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="half-width-input">
+                    <mat-label>País</mat-label>
+                    <input matInput type="text" formControlName="pais" maxlength="2">
+                    <mat-error *ngIf="formGroup.get('pais')?.errors?.['required']">
+                        O país é obrigatório.
+                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('pais')?.errors?.['minlength']">
+                        O nome do país deve conter 2 caracteres.
+                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('pais')?.errors?.['maxlength']">
+                        O nome do país deve conter menos de 2 caracteres.
+                    </mat-error>
+                </mat-form-field>
+
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button routerLink="/tamanhos">
+                Cancelar
+            </button>
+
+            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
+                [disabled]="formGroup.invalid">
+                Excluir
+            </button>
+
+            <button mat-raised-button color="primary" (click)="salvar()" [disabled]="formGroup.invalid">
+                Salvar
+            </button>
+
+        </mat-card-actions>
+    </mat-card>
+</div>

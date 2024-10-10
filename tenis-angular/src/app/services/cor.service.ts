@@ -16,7 +16,7 @@ export class CorService {
     return this.httpClient.get<Cor[]>(this.baseUrl); 
   }
 
-  findById(id: string): Observable<Cor> {
+  findById(id: number): Observable<Cor> {
     return this.httpClient.get<Cor>(`${this.baseUrl}/search/id/${id}`); 
   }
 

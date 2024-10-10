@@ -11,6 +11,9 @@ import { corResolver } from './components/cor/resolver';
 import { CupomListComponent } from './components/cupom/cupom-list/cupom-list.component';
 import { CupomFormComponent } from './components/cupom/cupom-form/cupom-form.component';
 import { cupomResolver } from './components/cupom/resolver';
+import { TamanhoListComponent } from './components/tamanho/tamanho-list/tamanho-list.component';
+import { TamanhoFormComponent } from './components/tamanho/tamanho-form/tamanho-form.component';
+import { tamanhoResolver } from './components/tamanho/resolver';
 
 export const routes: Routes = [
     {path: 'enderecos', component: EnderecoListComponent, title: 'Lista de Endereços'},
@@ -27,5 +30,9 @@ export const routes: Routes = [
 
     {path: 'cupons', component: CupomListComponent, title: 'Lista de Cupons de Desconto'},
     {path: 'cupons/new',component: CupomFormComponent, title: 'Novo Cupom de Desconto'},
-    {path: 'cupons/edit/:id',component: CupomFormComponent, resolve: {cupom: cupomResolver}}
+    {path: 'cupons/edit/:id',component: CupomFormComponent, resolve: {cupom: cupomResolver}},
+
+    {path: 'tamanhos', component: TamanhoListComponent, title: 'Lista de Tamanhos de Tenis'},
+    {path: 'tamanhos/new',component: TamanhoFormComponent, title: 'Novo Tamanho de Tenis'},
+    {path: 'tamanhos/edit/:id',component: TamanhoFormComponent, resolve: {tamanho: tamanhoResolver}}
 ];

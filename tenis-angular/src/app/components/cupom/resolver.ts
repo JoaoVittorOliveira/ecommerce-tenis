@@ -5,5 +5,5 @@ import { CupomService } from "../../services/cupom.service";
 
 export const cupomResolver: ResolveFn<Cupom> =
     (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-        return inject(CupomService).findById(route.paramMap.get('id')!);
+        return inject(CupomService).findById(Number(route.paramMap.get('id')!));
     }

@@ -17,7 +17,7 @@ export class EnderecoService {
     return this.httpClient.get<Endereco[]>(this.baseUrl); 
   }
 
-  findById(id: string): Observable<Endereco> {
+  findById(id: number): Observable<Endereco> {
     return this.httpClient.get<Endereco>(`${this.baseUrl}/search/id/${id}`); 
   }
 
