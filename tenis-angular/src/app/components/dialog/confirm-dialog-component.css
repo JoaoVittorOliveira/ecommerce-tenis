@@ -1,0 +1,66 @@
+/* Estilo da caixa de diálogo */
+.mat-dialog-container {
+    padding: 32px; /* Aumentei o padding para dar mais espaço ao redor */
+    background-color: #f7f7f7;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+    max-width: 450px;
+    width: 100%;
+}
+
+/* Estilo do título do diálogo */
+.mat-dialog-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #3f51b5;
+    margin-bottom: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    padding-bottom: 8px; /* Espaço extra abaixo do título */
+    border-bottom: 1px solid #ddd; /* Linha separadora para organização */
+}
+
+/* Estilo do conteúdo do diálogo */
+.mat-dialog-content {
+    font-size: 15px;
+    color: #424242;
+    margin: 24px 0; /* Adiciona espaçamento acima e abaixo do conteúdo */
+    text-align: center;
+}
+
+/* Estilo dos botões no rodapé do diálogo */
+.mat-dialog-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px; /* Aumentei o espaço entre os botões */
+    padding-top: 16px; /* Adicionei um padding extra acima dos botões */
+}
+
+/* Botões */
+button[mat-button] {
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    border-radius: 4px;
+    min-width: 120px; /* Tamanho mínimo para os botões ficarem mais largos */
+}
+
+/* Botão de confirmação */
+button[mat-button].confirm {
+    background-color: #4caf50;
+    color: white;
+}
+
+button[mat-button].confirm:hover {
+    background-color: #43a047;
+}
+
+/* Botão de cancelamento */
+button[mat-button].cancel {
+    background-color: #f44336;
+    color: white;
+}
+
+button[mat-button].cancel:hover {
+    background-color: #e53935;
+}

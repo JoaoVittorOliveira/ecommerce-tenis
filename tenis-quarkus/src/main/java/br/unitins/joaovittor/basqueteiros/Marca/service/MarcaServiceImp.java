@@ -23,6 +23,7 @@ public class MarcaServiceImp implements MarcaService{
     public MarcaResponseDTO create(@Valid MarcaDTO dto) {
         Marca marca = new Marca();
         marca.setNome(dto.nome());
+        marca.setLogo(dto.logo());
 
         repository.persist(marca);
         return MarcaResponseDTO.valueof(marca);
@@ -45,6 +46,7 @@ public class MarcaServiceImp implements MarcaService{
     public void update(Long id, MarcaDTO dto) {
         Marca marca = repository.findById(id);
         marca.setNome(dto.nome());
+        marca.setLogo(dto.logo());
         
     }
 
