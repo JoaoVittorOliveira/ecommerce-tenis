@@ -21,14 +21,22 @@
     text-align: center;
 }
 
-.mat-column-name {
-    width: 100%;
+.mat-column-cep {
+    text-align: center;
+    width: 30%;
 }
 
-.mat-column-sigla {
-    text-align: center;
-    width: 5em;
+.mat-column-rua {
+    text-align: center;  
+    width: 30%;
 }
+
+.mat-column-complemento {
+    text-align: center;
+    width: 30%;
+}
+
+
 
 .mat-column-acao {
     text-align: center;

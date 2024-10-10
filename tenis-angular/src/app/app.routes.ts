@@ -44,7 +44,7 @@ export const routes: Routes = [
 
     {path: 'tamanhos', component: TamanhoListComponent, title: 'Lista de Tamanhos de Tenis'},
     {path: 'tamanhos/new',component: TamanhoFormComponent, title: 'Novo Tamanho de Tenis'},
-    {path: 'tamanhos/edit/:id',component: TamanhoFormComponent, resolve: {tamanho: tamanhoResolver}}
+    {path: 'tamanhos/edit/:id',component: TamanhoFormComponent, resolve: {tamanho: tamanhoResolver}},
 
     {path: 'materiais', component: MaterialListComponent, title: 'Lista de Materiais'},
     {path: 'materiais/new',component: MaterialFormComponent, title: 'Novo Material'},
