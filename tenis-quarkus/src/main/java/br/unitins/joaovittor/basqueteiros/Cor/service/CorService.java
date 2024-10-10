@@ -14,4 +14,5 @@ public interface CorService {
     public List<CorResponseDTO> findAll();
     public CorResponseDTO findById(Long id);
     public List<CorResponseDTO> findByNome(String nome);
+    public CorResponseDTO findByCodigoHex(String codigoHex);
 }

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 public record AvaliacaoDTO (
 
     @NotBlank(message = "O comentario não pode ser nulo ou vazio")
-    @Size(max = 200, message = "O limite de caracteres eh de 200")
+    @Size(max = 256, message = "O limite de caracteres eh de 256")
     String comentario
     
 ){ }

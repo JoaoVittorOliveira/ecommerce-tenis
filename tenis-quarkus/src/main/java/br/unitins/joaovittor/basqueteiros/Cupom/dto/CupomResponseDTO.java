@@ -6,7 +6,7 @@ import br.unitins.joaovittor.basqueteiros.Cupom.model.Cupom;
 
 public record CupomResponseDTO (
     Long id,
-    String nome,
+    String codigo,
     Integer porcentagemDesconto,
     Double valorDesconto,
     LocalDateTime dataCadastro,

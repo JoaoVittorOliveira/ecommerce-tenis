@@ -60,7 +60,7 @@ public class CorResourceTest {
     @Test
     @TestSecurity(user = "tester", roles = "Funcionario")
     public void testCreate(){
-        CorDTO dto = new CorDTO("marroma");
+        CorDTO dto = new CorDTO("marroma", "1234567");
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
@@ -74,7 +74,7 @@ public class CorResourceTest {
     @Test
     @TestSecurity(user = "tester", roles = "Funcionario")
     public void testUpdate(){
-        CorDTO dto = new CorDTO("amarelo");
+        CorDTO dto = new CorDTO("amarelo", "1234561");
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
@@ -89,7 +89,7 @@ public class CorResourceTest {
     @TestSecurity(user = "tester", roles = "Funcionario")
     public void testDelete(){
         
-        CorResponseDTO response = service.create(new CorDTO("vermelho"));
+        CorResponseDTO response = service.create(new CorDTO("vermelho", "1123456"));
 
         given()
         .when()

@@ -18,6 +18,7 @@ export class TelefoneService {
   }
 
   findById(id: string): Observable<Telefone> {
+
     return this.httpClient.get<Telefone>(`${this.baseUrl}/search/id/${id}`); 
   }
 

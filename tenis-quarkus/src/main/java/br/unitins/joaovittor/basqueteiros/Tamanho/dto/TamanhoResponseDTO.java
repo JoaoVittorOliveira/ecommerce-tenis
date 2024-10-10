@@ -8,6 +8,7 @@ public record TamanhoResponseDTO(
     Long id,
     Integer numeracao,
     String tamanhoEmCm,
+    String pais,
     LocalDateTime dataCadastro,
     LocalDateTime dataAlteracao
 ) {
@@ -15,6 +16,7 @@ public record TamanhoResponseDTO(
         return new TamanhoResponseDTO(tamanho.getId(),
                                     tamanho.getNumeracao(), 
                                     tamanho.getTamanhoEmCm(), 
+                                    tamanho.getPais(),
                                     tamanho.getDataCadastro(), 
                                     tamanho.getDataAlteracao());
     }

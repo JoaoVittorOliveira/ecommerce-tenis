@@ -5,12 +5,24 @@ import { enderecoResolver } from './components/endereco/resolver';
 import { TelefoneListComponent } from './components/telefone/telefone-list/telefone-list.component';
 import { TelefoneFormComponent } from './components/telefone/telefone-form/telefone-form.component';
 import { telefoneResolver } from './components/telefone/resolver';
+
+import { CorListComponent } from './components/cor/cor-list/cor-list.component';
+import { CorFormComponent } from './components/cor/cor-form/cor-form.component';
+import { corResolver } from './components/cor/resolver';
+import { CupomListComponent } from './components/cupom/cupom-list/cupom-list.component';
+import { CupomFormComponent } from './components/cupom/cupom-form/cupom-form.component';
+import { cupomResolver } from './components/cupom/resolver';
+import { TamanhoListComponent } from './components/tamanho/tamanho-list/tamanho-list.component';
+import { TamanhoFormComponent } from './components/tamanho/tamanho-form/tamanho-form.component';
+import { tamanhoResolver } from './components/tamanho/resolver';
+
 import { MaterialListComponent } from './components/material/material-list/material-list.component';
 import { materialResolver } from './components/material/resolver';
 import { MaterialFormComponent } from './components/material/material-form/material-form.component';
 import { marcaResolver } from './components/marca/resolver';
 import { MarcaListComponent } from './components/marca/marca-list/marca-list.component';
 import { MarcaFormComponent } from './components/marca/marca-form/marca-form.component';
+
 
 export const routes: Routes = [
     {path: 'enderecos', component: EnderecoListComponent, title: 'Lista de Endereços'},
@@ -20,6 +32,19 @@ export const routes: Routes = [
     {path: 'telefones', component: TelefoneListComponent, title: 'Lista de Telefones'},
     {path: 'telefones/new',component: TelefoneFormComponent, title: 'Novo Telefone'},
     {path: 'telefones/edit/:id',component: TelefoneFormComponent, resolve: {telefone: telefoneResolver}},
+
+   
+    {path: 'cores', component: CorListComponent, title: 'Lista de Cores'},
+    {path: 'cores/new',component: CorFormComponent, title: 'Nova Cor'},
+    {path: 'cores/edit/:id',component: CorFormComponent, resolve: {cor: corResolver}},
+
+    {path: 'cupons', component: CupomListComponent, title: 'Lista de Cupons de Desconto'},
+    {path: 'cupons/new',component: CupomFormComponent, title: 'Novo Cupom de Desconto'},
+    {path: 'cupons/edit/:id',component: CupomFormComponent, resolve: {cupom: cupomResolver}},
+
+    {path: 'tamanhos', component: TamanhoListComponent, title: 'Lista de Tamanhos de Tenis'},
+    {path: 'tamanhos/new',component: TamanhoFormComponent, title: 'Novo Tamanho de Tenis'},
+    {path: 'tamanhos/edit/:id',component: TamanhoFormComponent, resolve: {tamanho: tamanhoResolver}}
 
     {path: 'materiais', component: MaterialListComponent, title: 'Lista de Materiais'},
     {path: 'materiais/new',component: MaterialFormComponent, title: 'Novo Material'},

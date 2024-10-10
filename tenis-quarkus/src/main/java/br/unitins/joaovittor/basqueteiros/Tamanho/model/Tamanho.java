@@ -20,6 +20,9 @@ public class Tamanho extends DefaultEntity {
     @Column(name = "tamanho_em_cm")
     private String tamanhoEmCm;
 
+    @Column(name = "pais")
+    private String pais;
+
     public Long getId() {
         return id;
     }
@@ -42,6 +45,14 @@ public class Tamanho extends DefaultEntity {
 
     public void setTamanhoEmCm(String tamanhoEmCm) {
         this.tamanhoEmCm = tamanhoEmCm;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
 }

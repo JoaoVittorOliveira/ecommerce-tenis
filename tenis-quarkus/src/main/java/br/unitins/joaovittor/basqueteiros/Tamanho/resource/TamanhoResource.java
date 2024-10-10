@@ -5,7 +5,7 @@ import org.jboss.logging.Logger;
 import br.unitins.joaovittor.basqueteiros.Cor.resource.CorResource;
 import br.unitins.joaovittor.basqueteiros.Tamanho.dto.TamanhoDTO;
 import br.unitins.joaovittor.basqueteiros.Tamanho.service.TamanhoService;
-import jakarta.annotation.security.RolesAllowed;
+// import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -22,7 +22,7 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/tamanhos")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RolesAllowed("Funcionario")
+// @RolesAllowed("Funcionario")
 public class TamanhoResource {
     
     @Inject

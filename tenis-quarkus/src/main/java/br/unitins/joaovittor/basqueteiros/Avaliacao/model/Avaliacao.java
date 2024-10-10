@@ -10,8 +10,6 @@ public class Avaliacao extends DefaultEntity{
     @Column(name = "comentario")
     private String comentario;
 
-    // private Produto ??
-
     public String getComentario() {
         return comentario;
     }

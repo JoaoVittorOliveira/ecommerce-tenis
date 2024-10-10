@@ -20,6 +20,7 @@ export class TelefoneListComponent implements OnInit {
   displayedColumns: string[] = ['id','ddd','numero','acao'];
   telefones: Telefone[]=[];
 
+  constructor(private telefoneService: TelefoneService){
   constructor(private telefoneService: TelefoneService, private dialog: MatDialog){
 
   }

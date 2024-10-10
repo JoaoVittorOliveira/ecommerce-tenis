@@ -9,11 +9,13 @@ import { RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog'; 
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 
+
 @Component({
   selector: 'app-endereco-list',
   standalone: true,
   imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
   templateUrl: './endereco-list.component.html',
+
   styleUrls: ['./endereco-list.component.css']
 })
 export class EnderecoListComponent implements OnInit {

@@ -8,20 +8,24 @@ values
 ('nike', CURRENT_DATE), 
 ('adidas', CURRENT_DATE);
 
-insert into tamanho(numeracao, tamanho_em_cm, data_cadastro) 
+insert into tamanho(numeracao, tamanho_em_cm, pais, data_cadastro) 
 values 
-(37, '25', CURRENT_DATE),
-(38, '25,5', CURRENT_DATE),
-(39, '26', CURRENT_DATE),
-(40, '26,5', CURRENT_DATE),
-(41, '27', CURRENT_DATE),
-(42, '27,5', CURRENT_DATE),
-(43, '28', CURRENT_DATE);
+(37, '25', 'BR', CURRENT_DATE),
+(38, '25,5', 'BR', CURRENT_DATE),
+(39, '26', 'BR', CURRENT_DATE),
+(40, '26,5', 'BR', CURRENT_DATE),
+(41, '27', 'BR', CURRENT_DATE),
+(42, '27,5', 'BR', CURRENT_DATE),
+(43, '28', 'BR', CURRENT_DATE);
 
-insert into cor(nome, data_cadastro)
+insert into cor(nome, codigo_hex, data_cadastro)
 values
-('preto', CURRENT_DATE),
-('branco', CURRENT_DATE);
+('preto', 'FFFFFFF', CURRENT_DATE),
+('branco', '0000000', CURRENT_DATE);
+
+insert into cupom(codigo, porcentagem_desconto, valor_desconto, data_cadastro)
+values
+('TESTE', 10, 0, CURRENT_DATE);
 
 -- ADICIONANDO CLIENTE
 insert into usuario (username, `password`) 
@@ -61,15 +65,6 @@ values
 ('Meia Classic Backpack', 'Meia Classic', 12, 40.00, 90.00, 2, 1),
 ('Meia 3-Stripes Shorts', 'Meia 3-Stripes', 30, 25.00, 50.00, 2, 1);
 
-insert into meia (id, qtd_pares, id_cor)
-values
-(7, 4, 1),
-(8, 2, 2),
-(9, 6, 1),
-(10, 1, 2),
-(11, 2, 1),
-(12, 2, 2);
-
 insert into basqueteira (id, tamanho_cano, id_tamanho, peso)
 values
 (1, 2, 2, 200),
@@ -78,7 +73,6 @@ values
 (4, 1, 4, 450),
 (5, 0, 2, 220),
 (6, 1, 1, 210);
-
 
 insert into endereco(id,cep,rua,complemento) values (2,'111','rua 1','em frente a rua 2');
 
