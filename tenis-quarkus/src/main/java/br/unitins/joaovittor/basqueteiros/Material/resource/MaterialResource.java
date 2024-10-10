@@ -5,7 +5,6 @@ import org.jboss.logging.Logger;
 import br.unitins.joaovittor.basqueteiros.Cor.resource.CorResource;
 import br.unitins.joaovittor.basqueteiros.Material.dto.MaterialDTO;
 import br.unitins.joaovittor.basqueteiros.Material.service.MaterialService;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -22,7 +21,6 @@ import jakarta.ws.rs.core.Response.Status;
 @Path("/materials")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RolesAllowed("Funcionario")
 public class MaterialResource {
     
     @Inject

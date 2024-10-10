@@ -1,47 +1,47 @@
 import { Component, OnInit } from '@angular/core';
-import { Telefone } from '../../../models/telefone.model';
+import { Marca } from '../../../models/marca.model';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
-import { TelefoneService } from '../../../services/telefone.service';
+import { MarcaService } from '../../../services/marca.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 
 @Component({
-  selector: 'app-telefone-list',
+  selector: 'app-marca-list',
   standalone: true,
   imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
-  templateUrl: './telefone-list.component.html',
-  styleUrl: './telefone-list.component.css'
+  templateUrl: './marca-list.component.html',
+  styleUrl: './marca-list.component.css'
 })
-export class TelefoneListComponent implements OnInit {
-  displayedColumns: string[] = ['id','ddd','numero','acao'];
-  telefones: Telefone[]=[];
+export class MarcaListComponent implements OnInit {
+  displayedColumns: string[] = ['id','nome','logo','acao'];
+  marcas: Marca[]=[];
 
-  constructor(private telefoneService: TelefoneService, private dialog: MatDialog){
+  constructor(private marcaService: MarcaService, private dialog: MatDialog){
 
   }
   ngOnInit(): void {
-    this.telefoneService.findAll().subscribe(
+    this.marcaService.findAll().subscribe(
       data => { 
         console.log(data); 
-        this.telefones = data }
+        this.marcas = data }
     );
   }
 
-  excluir(telefone: Telefone): void {
+  excluir(marca: Marca): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.telefoneService.delete(telefone).subscribe({
+        this.marcaService.delete(marca).subscribe({
           next: () => {
-            this.telefones = this.telefones.filter(e => e.id !== telefone.id);
+            this.marcas = this.marcas.filter(e => e.id !== marca.id);
           },
           error: (err) => {
-            console.error('Erro ao tentar excluir o telefone', err);
+            console.error('Erro ao tentar excluir o marca', err);
           }
         });
       }

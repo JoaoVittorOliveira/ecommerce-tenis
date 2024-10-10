@@ -60,7 +60,7 @@ public class MarcaResourceTest {
     @Test
     @TestSecurity(user = "tester", roles = "Funcionario")
     public void testCreate(){
-        MarcaDTO dto = new MarcaDTO("puma");
+        MarcaDTO dto = new MarcaDTO("puma","fff");
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
@@ -75,7 +75,7 @@ public class MarcaResourceTest {
     @Test
     @TestSecurity(user = "tester", roles = "Funcionario")
     public void testUpdate(){
-        MarcaDTO dto = new MarcaDTO("under armor");
+        MarcaDTO dto = new MarcaDTO("under armor","eee");
 
         given()
             .contentType(MediaType.APPLICATION_JSON)
@@ -90,7 +90,7 @@ public class MarcaResourceTest {
     @TestSecurity(user = "tester", roles = "Funcionario")
     public void testDelete(){
         
-        MarcaResponseDTO response = service.create(new MarcaDTO("mizuno"));
+        MarcaResponseDTO response = service.create(new MarcaDTO("mizuno","ddd"));
 
         given()
         .when()
