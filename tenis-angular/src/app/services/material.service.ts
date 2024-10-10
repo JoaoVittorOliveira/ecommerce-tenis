@@ -27,8 +27,8 @@ export class MaterialService {
 
   update(material: Material): Observable<Material> {
     const data = {
-      cep: material.descricao,
-      rua: material.categoria
+      descricao: material.descricao,
+      categoria: material.categoria
     }
     return this.httpClient.put<any>(`${this.baseUrl}/${material.id}`, data); 
   }

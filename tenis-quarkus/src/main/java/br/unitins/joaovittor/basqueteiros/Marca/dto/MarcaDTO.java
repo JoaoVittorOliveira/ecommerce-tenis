@@ -7,6 +7,7 @@ public record MarcaDTO (
 
     @NotBlank(message = "O nome não pode ser nulo ou vazio")
     @Size(min = 4, max = 60, message = "O tamanho do nome deve ser entre 2 e 60 caracteres.")
-    String nome
+    String nome,
+    String logo
     
 ){ }

@@ -22,7 +22,6 @@ import jakarta.ws.rs.core.Response;
 @Path("/marcas")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@RolesAllowed("Funcionario")
 public class MarcaResource {
     
     @Inject
