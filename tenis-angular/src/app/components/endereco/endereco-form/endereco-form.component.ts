@@ -9,6 +9,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { EnderecoService } from '../../../services/endereco.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Endereco } from '../../../models/endereco.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 
 @Component({
   selector: 'app-endereco-form',
@@ -23,7 +25,8 @@ export class EnderecoFormComponent {
   constructor(private formBuilder: FormBuilder,
     private enderecoService: EnderecoService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog) {
 
     const endereco: Endereco = this.activatedRoute.snapshot.data['endereco'];
 
@@ -63,16 +66,21 @@ export class EnderecoFormComponent {
     if (this.formGroup.valid) {
       const endereco = this.formGroup.value;
       if (endereco.id != null) {
-        if (confirm("Confirma a exclusão PERMANENTE de endereco?")) {
-          this.enderecoService.delete(endereco).subscribe({
-            next: () => {
-              this.router.navigateByUrl('/enderecos');
-            },
-            error: (err) => {
-              console.log('Erro ao Excluir' + JSON.stringify(err));
-            }
-          });
-        }
+
+        const dialogRef = this.dialog.open(ConfirmDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.enderecoService.delete(endereco).subscribe({
+              next: () => {
+                this.router.navigateByUrl('/enderecos');
+              },
+              error: (err) => {
+                console.error('Erro ao tentar excluir o endereco', err);
+              }
+            });
+          }
+        });
+
       }
     }
   }

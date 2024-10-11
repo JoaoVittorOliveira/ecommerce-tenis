@@ -1,4 +1,13 @@
-<mat-toolbar color="primary" class="toolbar-title"> Cadastro de Endereco</mat-toolbar>
+<mat-toolbar color="primary">
+    <div class="toolbar-title" *ngIf="formGroup?.get('id')?.value">
+        Atualização de Endereco
+    </div>
+    <div class="toolbar-title" *ngIf="!formGroup?.get('id')?.value">
+        Cadastro de Endereco
+    </div>
+</mat-toolbar>
+
+
 <div class="form-container">
     <mat-card>
         <mat-card-content>
