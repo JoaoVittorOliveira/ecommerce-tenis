@@ -1,4 +1,12 @@
-<mat-toolbar color="primary" class="toolbar-title"> Cadastro de Telefone</mat-toolbar>
+<mat-toolbar color="primary">
+    <div class="toolbar-title" *ngIf="formGroup?.get('id')?.value">
+        Atualização de Telefone
+    </div>
+    <div class="toolbar-title" *ngIf="!formGroup?.get('id')?.value">
+        Cadastro de Telefone
+    </div>
+</mat-toolbar>
+
 <div class="form-container">
     <mat-card>
         <mat-card-content>
