@@ -10,6 +10,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CorService } from '../../../services/cor.service';
 import { Cor } from '../../../models/cor.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 
 @Component({
   selector: 'app-cor-form',
@@ -28,7 +30,8 @@ export class CorFormComponent {
   constructor(private formBuilder: FormBuilder,
     private corService: CorService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog) {
     this.formGroup = this.formBuilder.group({
       id: [null],
       nome: ['', Validators.required],
@@ -100,16 +103,19 @@ export class CorFormComponent {
       const cor = this.formGroup.value;
       if (cor.id != null) {
 
-        if (confirm(`Confirma a EXCLUSÃO PERMANENTE da cor: ${cor.nome} - ${cor.codigoHex} ?`)){
-          this.corService.delete(cor).subscribe({
-            next: () => {
-              this.router.navigateByUrl('/cores');
-            },
-            error: (err) => {
-              console.log('Erro ao Excluir' + JSON.stringify(err));
-            }
-          });
-        }
+        const dialogRef = this.dialog.open(ConfirmDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.corService.delete(cor).subscribe({
+              next: () => {
+                this.router.navigateByUrl('/cores');
+              },
+              error: (err) => {
+                console.error('Erro ao tentar excluir o cor', err);
+              }
+            });
+          }
+        });
         
 
 
