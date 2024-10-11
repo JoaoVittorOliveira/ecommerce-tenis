@@ -11,6 +11,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {MatSliderModule} from '@angular/material/slider';
 import { Cupom } from '../../../models/cupom.model';
 import { CupomService } from '../../../services/cupom.service';
+import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cupom-form',
@@ -29,13 +31,14 @@ export class CupomFormComponent {
   constructor(private formBuilder: FormBuilder,
     private cupomService: CupomService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
-    this.formGroup = this.formBuilder.group({
-      id: [null],
-      codigo: ['', Validators.required],
-      porcentagemDesconto: ['', Validators.required],
-      valorDesconto: ['', Validators.required]
-    })
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog) {
+      this.formGroup = this.formBuilder.group({
+        id: [null],
+        codigo: ['', Validators.required],
+        porcentagemDesconto: ['', Validators.required],
+        valorDesconto: ['', Validators.required]
+      })
   }
 
   ngOnInit(): void {
@@ -58,11 +61,11 @@ export class CupomFormComponent {
         Validators.compose([Validators.required, Validators.minLength(5),Validators.maxLength(5)])
       ],
       porcentagemDesconto: [
-        (cupom && cupom.porcentagemDesconto) ? cupom.porcentagemDesconto : null, 
+        (cupom && cupom.porcentagemDesconto !== null && cupom.porcentagemDesconto !== undefined) ? cupom.porcentagemDesconto : 0, 
         Validators.compose([Validators.required, Validators.min(0),Validators.max(30)])
       ],
       valorDesconto: [
-        (cupom && cupom.valorDesconto) ? cupom.valorDesconto : null,
+        (cupom && cupom.valorDesconto !== null && cupom.valorDesconto !== undefined) ? cupom.valorDesconto : 0,
         Validators.compose([Validators.required, Validators.min(0), Validators.max(1000)])
       ]
     })
@@ -106,16 +109,20 @@ export class CupomFormComponent {
       const cupom = this.formGroup.value;
       if (cupom.id != null) {
 
-        if (confirm(`Confirma a EXCLUSÃO PERMANENTE do cupom: ${cupom.codigo} ?`)){
-          this.cupomService.delete(cupom).subscribe({
-            next: () => {
-              this.router.navigateByUrl('/cupons');
-            },
-            error: (err) => {
-              console.log('Erro ao Excluir' + JSON.stringify(err));
-            }
-          });
-        }
+        const dialogRef = this.dialog.open(ConfirmDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.cupomService.delete(cupom).subscribe({
+              next: () => {
+                this.router.navigateByUrl('/cupons');
+              },
+              error: (err) => {
+                console.error('Erro ao tentar excluir o cupom', err);
+              }
+            });
+          }
+        });
+
       }
     }
   }

@@ -25,7 +25,7 @@
 
                 <mat-form-field floatLabel="always" class="half-width-input">
                     <mat-label>Percentual de Desconto</mat-label>
-                    <input matInput type="number" class="example-right-align" formControlName="porcentagemDesconto" maxlength="3"/>
+                    <input matInput type="number" value="10" class="example-right-align" formControlName="porcentagemDesconto" maxlength="3"/>
                     <span matTextSuffix>%</span>
                     <mat-error *ngIf="formGroup.get('porcentagemDesconto')?.errors?.['required']">
                         O percentual de desconto é obrigatório.
@@ -40,7 +40,7 @@
 
                 <mat-form-field floatLabel="always" class="half-width-input">
                     <mat-label>Valor de Desconto</mat-label>
-                    <input matInput type="number" class="example-right-align" formControlName="valorDesconto"/>
+                    <input matInput type="number" value=0 class="example-right-align" formControlName="valorDesconto"/>
                     <span matTextPrefix>R$&nbsp;</span>
                     <span matTextSuffix>,00</span>
                     <mat-error *ngIf="formGroup.get('valorDesconto')?.errors?.['required']">

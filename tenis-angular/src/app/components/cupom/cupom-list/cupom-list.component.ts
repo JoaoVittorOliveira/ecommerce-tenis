@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { Cupom } from '../../../models/cupom.model';
 import { CupomService } from '../../../services/cupom.service';
 import { OnInit, Component } from '@angular/core';
+import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cupom-list',
@@ -20,7 +22,7 @@ export class CupomListComponent implements OnInit{
   displayedColumns: string[] = ['id', 'codigo', 'porcentagemDesconto', 'valorDesconto', 'acao'];
   cupons: Cupom[] = [];
 
-  constructor(private cupomService: CupomService){
+  constructor(private cupomService: CupomService, private dialog: MatDialog){
 
   }
 
@@ -31,16 +33,20 @@ export class CupomListComponent implements OnInit{
   }
 
   excluir(cupom: Cupom): void {
-    if (confirm(`Confirma a EXCLUSÃO PERMANENTE da cupom: ${cupom.codigo} ?`)) {
-      this.cupomService.delete(cupom).subscribe({
-        next: () => {
-          this.cupons = this.cupons.filter(e => e.id !== cupom.id);
-        },
-        error: (err) => {
-          console.error('Erro ao tentar excluir a cupom', JSON.stringify(err));
-        }
-      });
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.cupomService.delete(cupom).subscribe({
+          next: () => {
+            this.cupons = this.cupons.filter(e => e.id !== cupom.id);
+          },
+          error: (err) => {
+            console.error('Erro ao tentar excluir o cupom', err);
+          }
+        });
+      }
+    });
   }
 
 }
