@@ -9,6 +9,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Material } from '../../../models/material.model';
 import { MaterialService } from '../../../services/material.service';
+import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-material-form',
@@ -23,7 +25,8 @@ export class MaterialFormComponent {
   constructor(private formBuilder: FormBuilder,
     private materialService: MaterialService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog) {
 
     const material: Material = this.activatedRoute.snapshot.data['material'];
 
@@ -68,17 +71,23 @@ export class MaterialFormComponent {
     if (this.formGroup.valid) {
       const material = this.formGroup.value;
       if (material.id != null) {
-        if (confirm("Confirma a exclusão PERMANENTE de material?")) {
-          this.materialService.delete(material).subscribe({
-            next: () => {
-              this.router.navigateByUrl('/materiais');
-            },
-            error: (err) => {
-              console.log('Erro ao Excluir' + JSON.stringify(err));
-            }
-          });
-        }
+        
+        const dialogRef = this.dialog.open(ConfirmDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.materialService.delete(material).subscribe({
+              next: () => {
+                this.router.navigateByUrl('/materiais');
+              },
+              error: (err) => {
+                console.error('Erro ao tentar excluir o material', err);
+              }
+            });
+          }
+        });
+
       }
+
     }
   }
 

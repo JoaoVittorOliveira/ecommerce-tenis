@@ -1,4 +1,12 @@
-<mat-toolbar color="primary" class="toolbar-title"> Cadastro de Material</mat-toolbar>
+<mat-toolbar color="primary">
+    <div class="toolbar-title" *ngIf="formGroup?.get('id')?.value">
+        Atualização de Material
+    </div>
+    <div class="toolbar-title" *ngIf="!formGroup?.get('id')?.value">
+        Cadastro de Material
+    </div>
+</mat-toolbar>
+
 <div class="form-container">
     <mat-card>
         <mat-card-content>
