@@ -29,7 +29,7 @@
                 <mat-form-field appearance="fill" class="half-width-input">
                     <mat-label>Tamanho (cm)</mat-label>
                     <input matInput type="number" class="example-right-align" formControlName="tamanhoEmCm" maxlength="3" min="0" max="999"/>
-                    <span matTextSuffix>CM</span>
+                    <span matTextSuffix>cm</span>
                     <mat-error *ngIf="formGroup.get('tamanhoEmCm')?.errors?.['required']">
                         A numeração é obrigatória.
                     </mat-error>

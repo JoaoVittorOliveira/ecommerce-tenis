@@ -8,6 +8,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tamanho-list',
@@ -21,7 +23,7 @@ export class TamanhoListComponent implements OnInit{
   displayedColumns: string[] = ['id', 'numeracao', 'tamanhoEmCm', 'pais', 'acao'];
   tamanhos: Tamanho[] = [];
 
-  constructor(private tamanhoService: TamanhoService) {
+  constructor(private tamanhoService: TamanhoService, private dialog: MatDialog) {
 
   }
 
@@ -32,15 +34,21 @@ export class TamanhoListComponent implements OnInit{
   }
 
   excluir(tamanho: Tamanho): void {
-    if (confirm(`Confirma a EXCLUSÃO PERMANENTE da tamanho: ${tamanho.numeracao} - ${tamanho.tamanhoEmCm} - ${tamanho.pais} ?`)) {
-      this.tamanhoService.delete(tamanho).subscribe({
-        next: () => {
-          this.tamanhos = this.tamanhos.filter(e => e.id !== tamanho.id);
-        },
-        error: (err) => {
-          console.error('Erro ao tentar excluir a tamanho', JSON.stringify(err));
-        }
-      });
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.beforeClosed()
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.tamanhoService.delete(tamanho).subscribe({
+          next: () => {
+            this.tamanhos = this.tamanhos.filter(e => e.id !== tamanho.id);
+          },
+          error: (err) => {
+            console.error('Erro ao tentar excluir o tamanho', err);
+          }
+        });
+      }
+    });
   }
 }
