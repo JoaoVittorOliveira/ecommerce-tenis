@@ -1,4 +1,13 @@
-<mat-toolbar color="primary" class="toolbar-title"> Cadastro de Marca</mat-toolbar>
+<mat-toolbar color="primary">
+    <div class="toolbar-title" *ngIf="formGroup?.get('id')?.value">
+        Atualização de Marca
+    </div>
+    <div class="toolbar-title" *ngIf="!formGroup?.get('id')?.value">
+        Cadastro de Marca
+    </div>
+</mat-toolbar>
+
+
 <div class="form-container">
     <mat-card>
         <mat-card-content>

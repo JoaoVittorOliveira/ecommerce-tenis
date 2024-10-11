@@ -46,5 +46,5 @@ export class MarcaListComponent implements OnInit {
         });
       }
     });
-    }
   }
+}

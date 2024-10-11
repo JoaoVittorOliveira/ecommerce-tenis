@@ -9,6 +9,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MarcaService } from '../../../services/marca.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Marca } from '../../../models/marca.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 
 @Component({
   selector: 'app-marca-form',
@@ -23,7 +25,8 @@ export class MarcaFormComponent {
   constructor(private formBuilder: FormBuilder,
     private marcaService: MarcaService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog) {
 
     const marca: Marca = this.activatedRoute.snapshot.data['marca'];
 
@@ -71,16 +74,21 @@ export class MarcaFormComponent {
     if (this.formGroup.valid) {
       const marca = this.formGroup.value;
       if (marca.id != null) {
-        if (confirm("Confirma a exclusão PERMANENTE de marca?")) {
-          this.marcaService.delete(marca).subscribe({
-            next: () => {
-              this.router.navigateByUrl('/marcas');
-            },
-            error: (err) => {
-              console.log('Erro ao Excluir' + JSON.stringify(err));
-            }
-          });
-        }
+
+        const dialogRef = this.dialog.open(ConfirmDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.marcaService.delete(marca).subscribe({
+              next: () => {
+                this.router.navigateByUrl('/marcas');
+              },
+              error: (err) => {
+                console.error('Erro ao tentar excluir o marca', err);
+              }
+            });
+          }
+        });
+
       }
     }
   }
