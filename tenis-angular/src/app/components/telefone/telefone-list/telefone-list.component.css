@@ -21,18 +21,18 @@
     text-align: center;
 }
 
-.mat-column-name {
-    width: 100%;
+.mat-column-ddd {
+    width: 30%;
 }
 
-.mat-column-sigla {
+.mat-column-numero {
     text-align: center;
-    width: 5em;
+    width: 30%;
 }
 
 .mat-column-acao {
     text-align: center;
-    min-width: 10em;
+    min-width: 30%;
 }
 
 table {

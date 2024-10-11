@@ -22,6 +22,7 @@ import { MaterialFormComponent } from './components/material/material-form/mater
 import { marcaResolver } from './components/marca/resolver';
 import { MarcaListComponent } from './components/marca/marca-list/marca-list.component';
 import { MarcaFormComponent } from './components/marca/marca-form/marca-form.component';
+import { IndexListComponent } from './components/index/endereco-list/index-list.component';
 
 
 export const routes: Routes = [
@@ -52,5 +53,8 @@ export const routes: Routes = [
 
     {path: 'marcas', component: MarcaListComponent, title: 'Lista de Marcas'},
     {path: 'marcas/new',component: MarcaFormComponent, title: 'Nova Marca'},
-    {path: 'marcas/edit/:id',component: MarcaFormComponent, resolve: {marca: marcaResolver}}
+    {path: 'marcas/edit/:id',component: MarcaFormComponent, resolve: {marca: marcaResolver}},
+
+    {path: '', component: IndexListComponent, title: 'Gerenciamento'},
+
 ];
