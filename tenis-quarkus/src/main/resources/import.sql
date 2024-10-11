@@ -1,8 +1,3 @@
-insert into fornecedor(nome_empresa, email, telefone, data_cadastro) 
-values
-    ('nike', 'niketop@gmail.com', '999', CURRENT_DATE),
-    ('meia', 'meialegal@gmail.com', '888', CURRENT_DATE);
-
 insert into marca(nome, data_cadastro) 
 values 
 ('nike', CURRENT_DATE), 
@@ -25,7 +20,26 @@ values
 
 insert into cupom(codigo, porcentagem_desconto, valor_desconto, data_cadastro)
 values
-('TESTE', 10, 0, CURRENT_DATE);
+('DEZ10', 10, 0, CURRENT_DATE),
+('20VIN', 0, 20, CURRENT_DATE);
+
+insert into endereco(id,cep,rua,complemento) values (2,'111','rua 1','em frente a rua 2');
+
+insert into telefone(id,ddd,numero,data_cadastro) 
+values 
+(1, 99, 999999999, CURRENT_DATE),
+(2, 11, 111111111, CURRENT_DATE);
+
+insert into material(id,descricao,categoria,data_cadastro) 
+values 
+(1, "couro", "sintético", CURRENT_DATE),
+(2, "tecido", "natural", CURRENT_DATE),
+(3, "jeans", "natural", CURRENT_DATE);
+
+
+
+
+
 
 -- ADICIONANDO CLIENTE
 insert into usuario (username, `password`) 
@@ -64,15 +78,3 @@ values
 ('Meia Originals Hoodie', 'Meia Originals', 18, 70.00, 130.00, 2, 1),
 ('Meia Classic Backpack', 'Meia Classic', 12, 40.00, 90.00, 2, 1),
 ('Meia 3-Stripes Shorts', 'Meia 3-Stripes', 30, 25.00, 50.00, 2, 1);
-
-insert into basqueteira (id, tamanho_cano, id_tamanho, peso)
-values
-(1, 2, 2, 200),
-(2, 0, 1, 320),
-(3, 2, 3, 190),
-(4, 1, 4, 450),
-(5, 0, 2, 220),
-(6, 1, 1, 210);
-
-insert into endereco(id,cep,rua,complemento) values (2,'111','rua 1','em frente a rua 2');
-

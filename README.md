@@ -1,5 +1,6 @@
 
-# E-commerce de Tênis (Trabalho de Tópicos em Programação 2 - UNIVERSIDADE ESTADUAL DO TOCANTINS)
+# E-commerce de Tênis 
+# (Trabalho de Tópicos em Programação 2 - UNIVERSIDADE ESTADUAL DO TOCANTINS)
 
 Um e-commerce para venda de tênis, desenvolvido com **Quarkus** no backend e **Angular V18** no frontend.
 
