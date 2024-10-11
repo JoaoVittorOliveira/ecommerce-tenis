@@ -38,7 +38,7 @@ export class MarcaFormComponent {
       ],
       
       logo: [
-        (marca && marca.logo) ? marca.logo : '', Validators.required
+        (marca && marca.logo) ? marca.logo : '', [Validators.required]
       ]
     });
 
