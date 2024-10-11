@@ -9,6 +9,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { TelefoneService } from '../../../services/telefone.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Telefone } from '../../../models/telefone.model';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 
 @Component({
   selector: 'app-telefone-form',
@@ -23,7 +25,8 @@ export class TelefoneFormComponent {
   constructor(private formBuilder: FormBuilder,
     private telefoneService: TelefoneService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog) {
 
     const telefone: Telefone = this.activatedRoute.snapshot.data['telefone'];
 
@@ -69,16 +72,21 @@ export class TelefoneFormComponent {
     if (this.formGroup.valid) {
       const telefone = this.formGroup.value;
       if (telefone.id != null) {
-        if (confirm("Confirma a exclusão PERMANENTE de telefone?")) {
-          this.telefoneService.delete(telefone).subscribe({
-            next: () => {
-              this.router.navigateByUrl('/telefones');
-            },
-            error: (err) => {
-              console.log('Erro ao Excluir' + JSON.stringify(err));
-            }
-          });
-        }
+
+        const dialogRef = this.dialog.open(ConfirmDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.telefoneService.delete(telefone).subscribe({
+              next: () => {
+                this.router.navigateByUrl('/telefones');
+              },
+              error: (err) => {
+                console.error('Erro ao tentar excluir o telefone', err);
+              }
+            });
+          }
+        });
+
       }
     }
   }
