@@ -11,6 +11,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {MatSliderModule} from '@angular/material/slider';
 import { Tamanho } from '../../../models/tamanho.model';
 import { TamanhoService } from '../../../services/tamanho.service';
+import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-tamanho-form',
@@ -29,7 +31,8 @@ export class TamanhoFormComponent {
   constructor(private formBuilder: FormBuilder,
     private tamanhoService: TamanhoService,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog) {
     this.formGroup = this.formBuilder.group({
       id: [null],
       numeracao: ['', Validators.required],
@@ -108,17 +111,21 @@ export class TamanhoFormComponent {
       const tamanho = this.formGroup.value;
       if (tamanho.id != null) {
 
-        if (confirm(`Confirma a EXCLUSÃO PERMANENTE da tamanho: ${tamanho.numeracao} - ${tamanho.tamanhoEmCm} - ${tamanho.pais} ?`)){
-          this.tamanhoService.delete(tamanho).subscribe({
-            next: () => {
-              this.router.navigateByUrl('/tamanhos');
-            },
-            error: (err) => {
-              console.log('Erro ao Excluir' + JSON.stringify(err));
-            }
-          });
-        }
+        const dialogRef = this.dialog.open(ConfirmDialogComponent);
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.tamanhoService.delete(tamanho).subscribe({
+              next: () => {
+                this.router.navigateByUrl('/tamanhos');
+              },
+              error: (err) => {
+                console.error('Erro ao tentar excluir o tamanho', err);
+              }
+            });
+          }
+        });
       }
+
     }
   }
 
