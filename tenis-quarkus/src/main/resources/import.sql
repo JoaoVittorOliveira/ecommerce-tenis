@@ -1,7 +1,7 @@
-insert into marca(nome, data_cadastro) 
+insert into marca(nome,logo) 
 values 
-('nike', CURRENT_DATE), 
-('adidas', CURRENT_DATE);
+('nike', 'https://upload.wikimedia.org/wikipedia/commons/3/36/Logo_nike_principal.jpg'), 
+('adidas', 'https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg');
 
 insert into tamanho(numeracao, tamanho_em_cm, pais, data_cadastro) 
 values 
@@ -78,3 +78,7 @@ values
 ('Meia Originals Hoodie', 'Meia Originals', 18, 70.00, 130.00, 2, 1),
 ('Meia Classic Backpack', 'Meia Classic', 12, 40.00, 90.00, 2, 1),
 ('Meia 3-Stripes Shorts', 'Meia 3-Stripes', 30, 25.00, 50.00, 2, 1);
+
+
+insert into material (descricao,categoria) values ('Couro','Sintético');
+insert into material (descricao,categoria) values ('Algodão','Natural');

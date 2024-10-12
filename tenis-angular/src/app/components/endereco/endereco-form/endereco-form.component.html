@@ -18,7 +18,7 @@
                     <mat-error *ngIf="formGroup.get('cep')
                                     && formGroup.get('cep')?.invalid
                                     && formGroup.get('cep')?.touched">
-                        O cep é obrigatório.
+                        O cep é obrigatório e deve conter 11 caracteres.
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="full-width-input">
@@ -27,7 +27,7 @@
                     <mat-error *ngIf="formGroup.get('rua')
                                     && formGroup.get('rua')?.invalid
                                     && formGroup.get('rua')?.touched">
-                        A rua é obrigatório.
+                        A rua é obrigatória.
                     </mat-error>
                 </mat-form-field>
 

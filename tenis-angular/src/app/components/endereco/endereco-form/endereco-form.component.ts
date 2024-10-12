@@ -31,8 +31,9 @@ export class EnderecoFormComponent {
     const endereco: Endereco = this.activatedRoute.snapshot.data['endereco'];
 
     this.formGroup = formBuilder.group({
+      
       id: [(endereco && endereco.id) ? endereco.id : null],
-      cep: [(endereco && endereco.cep) ? endereco.cep : '', Validators.required],
+      cep: [(endereco && endereco.cep) ? endereco.cep : '', [Validators.required,Validators.minLength(8),Validators.maxLength(8)]],
       rua: [(endereco && endereco.rua) ? endereco.rua : '', Validators.required],
       complemento: [(endereco && endereco.complemento) ? endereco.complemento : '', Validators.required]
     })

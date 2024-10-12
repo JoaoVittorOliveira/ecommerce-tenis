@@ -34,11 +34,11 @@ export class TelefoneFormComponent {
       id: [(telefone && telefone.id) ? telefone.id : null],
       
       ddd: [
-        (telefone && telefone.ddd) ? telefone.ddd : '', [Validators.required, Validators.maxLength(2), Validators.minLength(2)]
+        (telefone && telefone.ddd) ? telefone.ddd : '', [Validators.required, Validators.maxLength(2), Validators.minLength(2), Validators.pattern('^[0-9]+$')]
       ],
       
       numero: [
-        (telefone && telefone.numero) ? telefone.numero : '', Validators.required
+        (telefone && telefone.numero) ? telefone.numero : '', [Validators.required, Validators.maxLength(9), Validators.minLength(8), Validators.pattern('^[0-9]+$')]
       ]
     });
 

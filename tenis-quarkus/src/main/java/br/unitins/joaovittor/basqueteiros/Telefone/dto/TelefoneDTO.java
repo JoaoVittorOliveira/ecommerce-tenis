@@ -9,7 +9,7 @@ public record TelefoneDTO(
     @Size(min = 2, max = 2, message = "O tamanho do ddd deve ser de 2 caracteres.")
     String ddd,
     
-    @NotBlank(message = "O núemro de telefone não pode ser nulo ou vazio")
+    @NotBlank(message = "O número de telefone não pode ser nulo ou vazio")
     String numero
 ) {
     
