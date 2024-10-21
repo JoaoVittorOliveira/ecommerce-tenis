@@ -11,9 +11,9 @@ import br.unitins.joaovittor.basqueteiros.Pedido.dto.PedidoDTO;
 import br.unitins.joaovittor.basqueteiros.Pedido.dto.PedidoResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Pedido.model.Pedido;
 import br.unitins.joaovittor.basqueteiros.Pedido.repository.PedidoRepository;
-import br.unitins.joaovittor.basqueteiros.Produto.model.Produto;
-import br.unitins.joaovittor.basqueteiros.Produto.repository.ProdutoRepository;
-import br.unitins.joaovittor.basqueteiros.Produto.service.ProdutoService;
+import br.unitins.joaovittor.basqueteiros.Tenis.model.Tenis;
+import br.unitins.joaovittor.basqueteiros.Tenis.repository.TenisRepository;
+import br.unitins.joaovittor.basqueteiros.Tenis.service.TenisService;
 import br.unitins.joaovittor.basqueteiros.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -27,10 +27,10 @@ public class PedidoServiceImpl implements PedidoService{
     public PedidoRepository repository;
 
     @Inject
-    public ProdutoRepository produtoRepository;
+    public TenisRepository produtoRepository;
 
     @Inject
-    public ProdutoService produtoService;
+    public TenisService produtoService;
 
     @Inject
     public ClienteRepository clienteRepository;
@@ -48,14 +48,14 @@ public class PedidoServiceImpl implements PedidoService{
 
         for(ItemPedidoDTO itemDTO : dto.itens()){
             
-            Produto produto = produtoRepository.findById(itemDTO.idProduto());
+            Tenis produto = produtoRepository.findById(itemDTO.idTenis());
 
             if(produto.getQuantidade() >= itemDTO.quantidade()){
                 ItemPedido itemUnidade = new ItemPedido();
 
-                itemUnidade.setDesconto(itemDTO.desconto());
+                //itemUnidade.setDesconto(itemDTO.desconto());
                 itemUnidade.setQuantidade(itemDTO.quantidade());
-                itemUnidade.setProduto(produtoRepository.findById(itemDTO.idProduto()));
+                //itemUnidade.setTenis(produtoRepository.findById(itemDTO.idTenis()));
 
                 // calcular valor total sem desconto
                 itemUnidade.setValor(produto.getPrecoVenda());
@@ -63,10 +63,10 @@ public class PedidoServiceImpl implements PedidoService{
                 itens.add(itemUnidade);
                 
                 // valor total do pedido (com desconto subtraindo o pedido)
-                pedido.setValorTotal((pedido.getValorTotal() + (itemUnidade.getValor() * itemUnidade.getQuantidade()))-itemDTO.desconto()); 
+                //pedido.setValorTotal((pedido.getValorTotal() + (itemUnidade.getValor() * itemUnidade.getQuantidade()))-itemDTO.desconto()); 
 
                 // estoque do produto
-                produtoService.updateEstoque(itemDTO.idProduto(), itemDTO.quantidade());
+                //produtoService.updateEstoque(itemDTO.idTenis(), itemDTO.quantidade());
 
             } else{
                 // quantidade insuficiente daquele item

@@ -1,7 +1,7 @@
 package br.unitins.joaovittor.basqueteiros.ItemPedido.model;
 
 import br.unitins.joaovittor.basqueteiros.DefaultEntity.model.DefaultEntity;
-import br.unitins.joaovittor.basqueteiros.Produto.model.Produto;
+import br.unitins.joaovittor.basqueteiros.Tenis.model.Tenis;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -10,12 +10,11 @@ import jakarta.persistence.ManyToOne;
 public class ItemPedido extends DefaultEntity{
 
     private Double valor;
-    private Double desconto;
     private Integer quantidade;
 
     @ManyToOne
     @JoinColumn(name = "id_produto")
-    private Produto produto;
+    private Tenis tenis;
 
     public Double getValor() {
         return valor;
@@ -23,14 +22,6 @@ public class ItemPedido extends DefaultEntity{
 
     public void setValor(Double valor) {
         this.valor = valor;
-    }
-
-    public Double getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(Double desconto) {
-        this.desconto = desconto;
     }
 
     public Integer getQuantidade() {
@@ -41,14 +32,12 @@ public class ItemPedido extends DefaultEntity{
         this.quantidade = quantidade;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public Tenis getTenis() {
+        return tenis;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setTenis(Tenis tenis) {
+        this.tenis = tenis;
     }
-
-    
     
 }

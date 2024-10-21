@@ -4,19 +4,17 @@ import br.unitins.joaovittor.basqueteiros.ItemPedido.model.ItemPedido;
 
 public record ItemPedidoResponseDTO (
     Long id,
-    String nomeProduto,
+    //String nomeProduto,
     Double valorProduto,
-    String nomeMarcaProduto,
-    Double desconto,
+    //String nomeMarcaProduto,
     Integer quantidade
 ) {
     public static ItemPedidoResponseDTO valueOf(ItemPedido item) {
         return new ItemPedidoResponseDTO(
             item.getId(), 
-            item.getProduto().getNome(), 
+            //item.getProduto().getNome(), 
             item.getValor(),
-            item.getProduto().getMarca().getNome(),
-            item.getDesconto(),
+            //item.getProduto().getMarca().getNome(),
             item.getQuantidade());
     }
 }
