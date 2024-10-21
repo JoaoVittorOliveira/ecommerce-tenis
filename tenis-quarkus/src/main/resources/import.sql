@@ -32,13 +32,20 @@ values
 
 insert into material(id,descricao,categoria,data_cadastro) 
 values 
-(1, "couro", "sintético", CURRENT_DATE),
-(2, "tecido", "natural", CURRENT_DATE),
-(3, "jeans", "natural", CURRENT_DATE);
+(1, 'couro', 'sintético', CURRENT_DATE),
+(2, 'tecido', 'natural', CURRENT_DATE),
+(3, 'jeans', 'natural', CURRENT_DATE);
 
 
-
-
+insert into categoria (id, nome, descricao, genero, faixa_etaria)
+values
+(1, 'Casual', 'Para tênis casuais', 'Unissex', 'Adulto'),
+(2, 'Casual', 'Para tênis casuais', 'Unissex', 'Infantil'),
+(3, 'Esportivo', 'Para tênis esportivos', 'Masculino', 'Adulto'),
+(4, 'Esportivo', 'Para tênis esportivos', 'Feminino', 'Adulto'),
+(5, 'Social', 'Para tênis sociais', 'Masculino', 'Adulto'),
+(6, 'Social', 'Para tênis sociais', 'Feminino', 'Adulto'),
+(7, 'Social', 'Para tênis sociais', 'Masculino', 'Infantil');
 
 
 -- ADICIONANDO CLIENTE

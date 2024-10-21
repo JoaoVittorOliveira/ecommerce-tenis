@@ -1,0 +1,72 @@
+<mat-toolbar color="primary">
+    <div class="toolbar-title" *ngIf="formGroup?.get('id')?.value">
+        Atualização de Categoria
+    </div>
+    <div class="toolbar-title" *ngIf="!formGroup?.get('id')?.value">
+        Cadastro de Categoria
+    </div>
+</mat-toolbar>
+
+<div class="form-container">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formGroup">
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" formControlName="nome" minlength="2" maxlength="20">
+                    <mat-error *ngIf="formGroup.get('nome') 
+                                   && formGroup.get('nome')?.invalid
+                                   && formGroup.get('nome')?.touched">
+                        {{getErrorMessage('nome', formGroup.get('nome')?.errors)}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Descricao</mat-label>
+                    <input matInput type="text" formControlName="descricao" minlength="10" maxlength="200">
+                    <mat-error *ngIf="formGroup.get('descricao') 
+                                   && formGroup.get('descricao')?.invalid
+                                   && formGroup.get('descricao')?.touched">
+                        {{getErrorMessage('descricao', formGroup.get('descricao')?.errors)}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Gênero</mat-label>
+                    <input matInput type="text" formControlName="genero">
+                    <mat-error *ngIf="formGroup.get('genero') 
+                                   && formGroup.get('genero')?.invalid
+                                   && formGroup.get('genero')?.touched">
+                        {{getErrorMessage('genero', formGroup.get('genero')?.errors)}}
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Faixa Etária</mat-label>
+                    <input matInput type="text" formControlName="faixaEtaria">
+                    <mat-error *ngIf="formGroup.get('faixaEtaria') 
+                                   && formGroup.get('faixaEtaria')?.invalid
+                                   && formGroup.get('faixaEtaria')?.touched">
+                        {{getErrorMessage('faixaEtaria', formGroup.get('faixaEtaria')?.errors)}}
+                    </mat-error>
+                </mat-form-field>
+
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button routerLink="/categorias">
+                Cancelar
+            </button>
+
+            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
+                [disabled]="formGroup.invalid">
+                Excluir
+            </button>
+
+            <button mat-raised-button color="primary" (click)="salvar()" [disabled]="formGroup.invalid">
+                Salvar
+            </button>
+
+        </mat-card-actions>
+    </mat-card>
+</div>

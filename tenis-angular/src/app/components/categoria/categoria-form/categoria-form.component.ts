@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+
+import { Categoria } from '../../../models/categoria.model';
+import { CategoriaService } from '../../../services/categoria.service';
+
 import { NgIf } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,59 +12,71 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { CorService } from '../../../services/cor.service';
-import { Cor } from '../../../models/cor.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 
+
 @Component({
-  selector: 'app-cor-form',
+  selector: 'app-categoria-form',
   standalone: true,
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
     MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, 
     RouterModule, MatSelectModule],
-  templateUrl: './cor-form.component.html',
-  styleUrl: './cor-form.component.css'
+  templateUrl: './categoria-form.component.html',
+  styleUrl: './categoria-form.component.css'
 })
-export class CorFormComponent {
-  
+export class CategoriaFormComponent {
+
   formGroup: FormGroup;
-  cores: Cor[] = [];
+  categorias: Categoria[] = [];
 
   constructor(private formBuilder: FormBuilder,
-    private corService: CorService,
+    private categoriaService: CategoriaService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private dialog: MatDialog) {
+    private dialog: MatDialog) 
+  {
+      
     this.formGroup = this.formBuilder.group({
       id: [null],
       nome: ['', Validators.required],
-      codigoHex: ['', Validators.required]
+      descricao: ['', Validators.required],
+      genero: ['', Validators.required],
+      faixaEtaria: ['', Validators.required]
     })
+
   }
 
   ngOnInit(): void {
-    this.corService.findAll().subscribe(data=> {
-      this.cores = data;
+    this.categoriaService.findAll().subscribe(data=> {
+      this.categorias = data;
       this.initializeForm();
     })
   }
 
   initializeForm(): void {
     
-    const cor: Cor = this.activatedRoute.snapshot.data['cor'];
+    const categoria: Categoria = this.activatedRoute.snapshot.data['categoria'];
     
     this.formGroup = this.formBuilder.group({
       id: [
-        (cor && cor.id) ? cor.id : null
+        (categoria && categoria.id) ? categoria.id : null
       ],
       nome: [
-        (cor && cor.nome) ? cor.nome : null, 
+        (categoria && categoria.nome) ? categoria.nome : null, 
         Validators.compose([Validators.required, Validators.minLength(2),Validators.maxLength(20)])
       ],
-      codigoHex: [
-        (cor && cor.codigoHex) ? cor.codigoHex : null, 
-        Validators.compose([Validators.required, Validators.minLength(7),Validators.maxLength(7)])
+      descricao: [
+        (categoria && categoria.descricao) ? categoria.descricao : null, 
+        Validators.compose([Validators.required, Validators.minLength(10),Validators.maxLength(200)])
+      ],
+      genero: [
+        (categoria && categoria.genero) ? categoria.genero : null,
+        Validators.compose([Validators.required])
+      ],
+      faixaEtaria: [
+        (categoria && categoria.faixaEtaria) ? categoria.faixaEtaria : null,
+        Validators.compose([Validators.required])
       ]
     })
 
@@ -69,13 +85,13 @@ export class CorFormComponent {
   salvar() {
     this.formGroup.markAllAsTouched();
     if (this.formGroup.valid) {
-      const cor = this.formGroup.value;
+      const categoria = this.formGroup.value;
 
       // NOVO CADASTRO
-      if (cor.id ==null) {
-        this.corService.insert(cor).subscribe({
-          next: (corCadastrada) => {
-            this.router.navigateByUrl('/cores');
+      if (categoria.id ==null) {
+        this.categoriaService.insert(categoria).subscribe({
+          next: (categoriaCadastrada) => {
+            this.router.navigateByUrl('/categorias');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -84,9 +100,9 @@ export class CorFormComponent {
       } 
       // ATUALIZAR CADASTRO
       else {
-        this.corService.update(cor).subscribe({
-          next: (corAlterada) => {
-            this.router.navigateByUrl('/cores');
+        this.categoriaService.update(categoria).subscribe({
+          next: (categoriaAlterada) => {
+            this.router.navigateByUrl('/categorias');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -100,25 +116,22 @@ export class CorFormComponent {
 
   excluir() {
     if (this.formGroup.valid) {
-      const cor = this.formGroup.value;
-      if (cor.id != null) {
+      const categoria = this.formGroup.value;
+      if (categoria.id != null) {
 
         const dialogRef = this.dialog.open(ConfirmDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
-            this.corService.delete(cor).subscribe({
+            this.categoriaService.delete(categoria).subscribe({
               next: () => {
-                this.router.navigateByUrl('/cores');
+                this.router.navigateByUrl('/categorias');
               },
               error: (err) => {
-                console.error('Erro ao tentar excluir o cor', err);
+                console.error('Erro ao tentar excluir a categoria', err);
               }
             });
           }
         });
-        
-
-
       }
     }
   }
@@ -128,6 +141,17 @@ export class CorFormComponent {
       required: 'O nome deve ser informado.',
       minlength: 'O nome deve conter ao menos 2 letras.',
       maxlength: 'O nome deve conter no máximo 20 letras.',
+    },
+    descricao: {
+      required: 'A descricao deve ser informada',
+      minlength: 'A descricao deve coter ao menos 10 caracteres',
+      maxlength: 'A descricao deve conter no máximo 200 caracteres'
+    },
+    genero: {
+      required: 'O genero deve ser informado.'
+    },
+    faixaEtaria: {
+      required: 'A faixa etaria deve ser informada'
     }
   }
 
@@ -143,6 +167,4 @@ export class CorFormComponent {
 
     return 'invalid field';
   }
-
-
 }

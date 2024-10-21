@@ -23,6 +23,9 @@ import { marcaResolver } from './components/marca/resolver';
 import { MarcaListComponent } from './components/marca/marca-list/marca-list.component';
 import { MarcaFormComponent } from './components/marca/marca-form/marca-form.component';
 import { IndexListComponent } from './components/index/endereco-list/index-list.component';
+import { categoriaResolver } from './components/categoria/resolver';
+import { CategoriaListComponent } from './components/categoria/categoria-list/categoria-list.component';
+import { CategoriaFormComponent } from './components/categoria/categoria-form/categoria-form.component';
 
 
 export const routes: Routes = [
@@ -54,6 +57,10 @@ export const routes: Routes = [
     {path: 'marcas', component: MarcaListComponent, title: 'Lista de Marcas'},
     {path: 'marcas/new',component: MarcaFormComponent, title: 'Nova Marca'},
     {path: 'marcas/edit/:id',component: MarcaFormComponent, resolve: {marca: marcaResolver}},
+    
+    {path: 'categorias', component: CategoriaListComponent, title: 'Lista de Categorias'},
+    {path: 'categorias/new',component: CategoriaFormComponent, title: 'Nova Categoria'},
+    {path: 'categorias/edit/:id',component: CategoriaFormComponent, resolve: {categoria: categoriaResolver}},
 
     {path: '', component: IndexListComponent, title: 'Gerenciamento'},
 
