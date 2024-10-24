@@ -1,39 +1,13 @@
-import {Component, Injectable} from '@angular/core';
-import {MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
-import {Subject} from 'rxjs';
+import { MatPaginatorIntl } from '@angular/material';
 
-@Injectable()
-export class MyCustomPaginatorIntl implements MatPaginatorIntl {
-  changes = new Subject<void>();
+export class MatPaginatorIntlCustom extends MatPaginatorIntl {
 
-  // For internationalization, the `$localize` function from
-  // the `@angular/localize` package can be used.
-  firstPageLabel = $localize`Primeira página`;
-  itemsPerPageLabel = $localize`Itens por página:`;
-  lastPageLabel = $localize`Última página`;
+    itemsPerPageLabel = 'Itens por páginas';
 
-  // You can set labels to an arbitrary string too, or dynamically compute
-  // it through other third-party internationalization libraries.
-  nextPageLabel = 'Página seguinte';
-  previousPageLabel = 'Página anterior';
+    nextPageLabel = 'Próxima';
 
-  getRangeLabel(page: number, pageSize: number, length: number): string {
-    if (length === 0) {
-      return $localize`Página 1 de 1`;
-    }
-    const amountPages = Math.ceil(length / pageSize);
-    return $localize`Página ${page + 1} de ${amountPages}`;
-  }
+    previousPageLabel = 'Anterior';
+
+    firstPageLabel = 'Primeira página';
+    lastPageLabel = 'Última página';
 }
-
-/**
- * @title Paginator internationalization
- */
-@Component({
-  selector: 'paginator-intl',
-  templateUrl: 'paginator-intl.html',
-  standalone: true,
-  imports: [MatPaginatorModule],
-  providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
-})
-export class PaginatorIntlExample {}

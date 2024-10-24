@@ -9,14 +9,16 @@ import { Categoria } from '../../../models/categoria.model';
 import { CategoriaService } from '../../../services/categoria.service';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
-import { PageEvent } from '@angular/material/paginator';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { PaginationService } from '../../../services/paginator.service';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
 
 @Component({
   selector: 'app-categoria-list',
   standalone: true,
-  imports: [MatPaginatorModule,NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+  ],
+  imports: [MatPaginator,NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
   templateUrl: './categoria-list.component.html',
   styleUrl: './categoria-list.component.css'
 })
@@ -30,8 +32,7 @@ export class CategoriaListComponent {
   page = 0;
 
   constructor(private categoriaService: CategoriaService, 
-              private dialog: MatDialog,
-              private paginationService: PaginationService) {
+              private dialog: MatDialog) {
       
   }
 

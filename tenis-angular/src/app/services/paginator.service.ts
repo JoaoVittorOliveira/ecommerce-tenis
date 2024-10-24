@@ -1,32 +1,20 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class PaginationService {
+@Injectable()
+export class CustomMatPaginatorIntl extends MatPaginatorIntl {
+  override itemsPerPageLabel = 'Itens por página';
+  override nextPageLabel = 'Próxima página';
+  override previousPageLabel = 'Página anterior';
+  override firstPageLabel = 'Primeira página';
+  override lastPageLabel = 'Última página';
 
-  // Armazena o estado de página e tamanho da página
-  private page = new BehaviorSubject<number>(0);
-  private pageSize = new BehaviorSubject<number>(4);
-  private totalRecords = new BehaviorSubject<number>(0);
-
-  // Expor como Observables
-  page$ = this.page.asObservable();
-  pageSize$ = this.pageSize.asObservable();
-  totalRecords$ = this.totalRecords.asObservable();
-
-  // Métodos para atualizar os valores
-  setPage(page: number): void {
-    this.page.next(page);
-  }
-
-  setPageSize(pageSize: number): void {
-    this.pageSize.next(pageSize);
-  }
-
-  setTotalRecords(total: number): void {
-    this.totalRecords.next(total);
-  }
-
+  override getRangeLabel = (page: number, pageSize: number, length: number): string => {
+    if (length === 0 || pageSize === 0) {
+      return `0 de ${length}`;
+    }
+    const startIndex = page * pageSize;
+    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+    return `${startIndex + 1} - ${endIndex} de ${length}`;
+  };
 }
