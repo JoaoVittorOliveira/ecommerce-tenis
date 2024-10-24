@@ -36,6 +36,12 @@
     overflow: hidden;
 }
 
+/* Ajustes para as imagens na coluna logo */
+.mat-column-logo img {
+  max-width: 100%; /* Manter proporções */
+  max-height: 50px; /* Limitar altura das imagens */
+  object-fit: contain; /* Ajustar a imagem sem distorcer */
+}
 
 /* Aumentar o ícone do botão de ação */
 button[mat-icon-button] mat-icon {

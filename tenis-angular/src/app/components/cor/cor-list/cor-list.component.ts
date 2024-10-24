@@ -7,6 +7,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
+import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cor-list',
@@ -20,7 +22,7 @@ export class CorListComponent implements OnInit{
   displayedColumns: string[] = ['id', 'nome', 'codigoHex', 'acao'];
   cores: Cor[] = [];
 
-  constructor(private corService: CorService) {
+  constructor(private corService: CorService, private dialog: MatDialog) {
 
   }
 
@@ -31,15 +33,19 @@ export class CorListComponent implements OnInit{
   }
 
   excluir(cor: Cor): void {
-    if (confirm(`Confirma a EXCLUSÃO PERMANENTE da cor: ${cor.nome} - ${cor.codigoHex} ?`)) {
-      this.corService.delete(cor).subscribe({
-        next: () => {
-          this.cores = this.cores.filter(e => e.id !== cor.id);
-        },
-        error: (err) => {
-          console.error('Erro ao tentar excluir a cor', JSON.stringify(err));
-        }
-      });
-    }
+    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.corService.delete(cor).subscribe({
+          next: () => {
+            this.cores = this.cores.filter(e => e.id !== cor.id);
+          },
+          error: (err) => {
+            console.error('Erro ao tentar excluir o cor', err);
+          }
+        });
+      }
+    });
   }
 }
