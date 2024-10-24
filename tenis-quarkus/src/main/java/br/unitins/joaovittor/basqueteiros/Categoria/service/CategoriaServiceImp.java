@@ -1,11 +1,15 @@
 package br.unitins.joaovittor.basqueteiros.Categoria.service;
 
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import br.unitins.joaovittor.basqueteiros.Categoria.dto.CategoriaDTO;
 import br.unitins.joaovittor.basqueteiros.Categoria.dto.CategoriaResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Categoria.model.Categoria;
 import br.unitins.joaovittor.basqueteiros.Categoria.repository.CategoriaRepository;
+import br.unitins.joaovittor.basqueteiros.Categoria.dto.CategoriaResponseDTO;
+import br.unitins.joaovittor.basqueteiros.Categoria.model.Categoria;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -48,11 +52,21 @@ public class CategoriaServiceImp implements CategoriaService {
         
     }
 
+    
+
     @Override
-    public List<CategoriaResponseDTO> findAll() {
-        return repository.findAll()
-                                .stream()
-                                .map(e -> CategoriaResponseDTO.valueof(e)).toList();
+    public List<CategoriaResponseDTO> findAll(int page, int pageSize) {
+        List<Categoria> list = repository
+        .findAll()
+        .page(page,pageSize)
+        .list();
+        return list.stream()
+         .map(e -> CategoriaResponseDTO.valueof(e)).collect(Collectors.toList());
+    }
+
+    @Override
+    public long count(){
+        return repository.count();
     }
 
     @Override
@@ -64,17 +78,31 @@ public class CategoriaServiceImp implements CategoriaService {
             return CategoriaResponseDTO.valueof(repository.findById(id));
         return null;       
     }
-
     @Override
     public List<CategoriaResponseDTO> findByNome(String nome) {
-        return repository.findByNome(nome)
-                         .stream()
-                         .map(e -> CategoriaResponseDTO.valueof(e)).toList();
+        List<Categoria> listCategoria = repository
+                                    .findByNome(nome)
+                                    .list();
+        return listCategoria
+                    .stream()
+                    .map(e -> CategoriaResponseDTO.valueof(e))
+                    .toList();
+    }
+    @Override
+    public List<CategoriaResponseDTO> findByNome(int page, int pageSize, String nome) {
+        List<Categoria> listCategoria = repository
+                                    .findByNome(nome)
+                                    .page(page, pageSize)
+                                    .list();
+        return listCategoria
+                    .stream()
+                    .map(e -> CategoriaResponseDTO.valueof(e))
+                    .toList(); 
     }
 
     @Override
     public CategoriaResponseDTO findByNomeCompleto(String nome) {
-        return CategoriaResponseDTO.valueof(repository.findByNomeCompleto(nome));
+       return CategoriaResponseDTO.valueof(repository.findByNomeCompleto(nome));
     }
 
     @Override
@@ -97,5 +125,7 @@ public class CategoriaServiceImp implements CategoriaService {
                          .stream()
                          .map(e -> CategoriaResponseDTO.valueof(e)).toList();
     }
+
+
 
 }

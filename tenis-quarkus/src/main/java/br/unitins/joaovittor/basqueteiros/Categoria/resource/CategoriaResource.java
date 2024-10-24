@@ -8,12 +8,14 @@ import br.unitins.joaovittor.basqueteiros.Categoria.service.CategoriaService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.Status;
@@ -54,10 +56,14 @@ public class CategoriaResource {
     }
 
     @GET
-    public Response findAll(){
-        LOG.info("Executando o findAll");
-        return Response.ok(service.findAll()).build();
+    public Response findAll(
+        @QueryParam("page") @DefaultValue("0") int page,
+        @QueryParam("pageSize") @DefaultValue("100") int pageSize
+        ){
+        
+        return Response.ok(service.findAll(page,pageSize)).build();
     }
+
 
     @GET
     @Path("/search/id/{id}")
@@ -68,8 +74,15 @@ public class CategoriaResource {
 
     @GET
     @Path("/search/nome/{nome}")
-    public Response findByNome( @PathParam("nome") String nome){
-        LOG.infof("Executando o metodo findByNome. Nome: %s", nome);
-        return Response.ok(service.findByNome(nome)).build();
+    public Response findByNome(@QueryParam("page") @DefaultValue("0") int page,
+                                @QueryParam("pageSize") @DefaultValue("100") int pageSize,
+                                @PathParam("nome") String nome) {
+        return Response.ok(service.findByNome(page, pageSize, nome)).build();
+    }
+
+    @GET
+    @Path("/count")
+    public long count(){
+        return service.count();
     }
 }

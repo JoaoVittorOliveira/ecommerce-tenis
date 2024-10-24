@@ -9,11 +9,14 @@ import { Categoria } from '../../../models/categoria.model';
 import { CategoriaService } from '../../../services/categoria.service';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { PaginationService } from '../../../services/paginator.service';
 
 @Component({
   selector: 'app-categoria-list',
   standalone: true,
-  imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule],
+  imports: [MatPaginatorModule,NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
   templateUrl: './categoria-list.component.html',
   styleUrl: './categoria-list.component.css'
 })
@@ -22,16 +25,31 @@ export class CategoriaListComponent {
   displayedColumns: string[] = ['id', 'nome', 'descricao', 'genero', 'faixaEtaria', 'acao'];
   categorias: Categoria[] = [];
 
-  constructor(private categoriaService: CategoriaService, private dialog: MatDialog) {
+  totalRecords = 0;
+  pageSize = 4;
+  page = 0;
 
+  constructor(private categoriaService: CategoriaService, 
+              private dialog: MatDialog,
+              private paginationService: PaginationService) {
+      
   }
 
   ngOnInit(): void {
-    this.categoriaService.findAll().subscribe(data => {
-      this.categorias = data;
-    })
-  }
+    this.categoriaService.findAll(this.page, this.pageSize).subscribe(
+      data => {
+      this.categorias = data});
+      
+      this.categoriaService.count().subscribe(
+        data => { this.totalRecords = data }
+      );
+    }
 
+    paginar(event: PageEvent): void {
+      this.page = event.pageIndex;
+      this.pageSize = event.pageSize;
+      this.ngOnInit();
+    }
   excluir(categoria: Categoria): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
@@ -47,5 +65,6 @@ export class CategoriaListComponent {
         });
       }
     });
+  
   }
 }

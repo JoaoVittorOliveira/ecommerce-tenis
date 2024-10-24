@@ -12,10 +12,20 @@ export class CategoriaService {
 
   constructor(private httpClient : HttpClient) { }
 
-  findAll(): Observable<Categoria[]> {
-    return this.httpClient.get<Categoria[]>(this.baseUrl); 
+  findAll(page?: number, pageSize?: number): Observable<Categoria[]> {
+    let params = {};
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    }
+    console.log(params);
+    return this.httpClient.get<Categoria[]>(this.baseUrl, {params}); 
   }
-
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count`); 
+ }
   findById(id: number): Observable<Categoria> {
     return this.httpClient.get<Categoria>(`${this.baseUrl}/search/id/${id}`); 
   }

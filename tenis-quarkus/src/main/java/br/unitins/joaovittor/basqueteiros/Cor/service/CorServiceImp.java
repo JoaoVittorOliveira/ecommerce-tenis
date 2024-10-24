@@ -45,10 +45,11 @@ public class CorServiceImp implements CorService {
     }
 
     @Override
-    public List<CorResponseDTO> findAll() {
-        return repository.findAll()
-                                .stream()
-                                .map(e -> CorResponseDTO.valueof(e)).toList();
+    public List<CorResponseDTO> findAll(int page, int pageSize)  {
+        List<Cor> listCor = repository.findAll()
+                            .page(page,pageSize)
+                            .list();
+        return listCor.stream().map(e->CorResponseDTO.valueof(e)).toList();
     }
 
     @Override
@@ -60,12 +61,28 @@ public class CorServiceImp implements CorService {
             return CorResponseDTO.valueof(repository.findById(id));
         return null;       
     }
+    
 
     @Override
     public List<CorResponseDTO> findByNome(String nome) {
-        return repository.findByNome(nome)
-                         .stream()
-                         .map(e -> CorResponseDTO.valueof(e)).toList();
+        List<Cor> listCor = repository
+                                    .findByNome(nome)
+                                    .list();
+        return listCor
+                    .stream()
+                    .map(e -> CorResponseDTO.valueof(e))
+                    .toList();
+    }
+    @Override
+    public List<CorResponseDTO> findByNome(int page, int pageSize, String nome) {
+        List<Cor> listCor = repository
+                                    .findByNome(nome)
+                                    .page(page, pageSize)
+                                    .list();
+        return listCor
+                    .stream()
+                    .map(e -> CorResponseDTO.valueof(e))
+                    .toList(); 
     }
 
     @Override
@@ -77,4 +94,11 @@ public class CorServiceImp implements CorService {
         return null;
 
     }
+
+    @Override
+    public long count() {
+        return repository.count();
+    }
+
+    
 }

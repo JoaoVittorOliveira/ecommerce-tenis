@@ -37,15 +37,15 @@ values
 (3, 'jeans', 'natural', CURRENT_DATE);
 
 
-insert into categoria (id, nome, descricao, genero, faixa_etaria)
+insert into categoria (nome, descricao, genero, faixa_etaria)
 values
-(1, 'Casual', 'Para tênis casuais', 'Unissex', 'Adulto'),
-(2, 'Casual', 'Para tênis casuais', 'Unissex', 'Infantil'),
-(3, 'Esportivo', 'Para tênis esportivos', 'Masculino', 'Adulto'),
-(4, 'Esportivo', 'Para tênis esportivos', 'Feminino', 'Adulto'),
-(5, 'Social', 'Para tênis sociais', 'Masculino', 'Adulto'),
-(6, 'Social', 'Para tênis sociais', 'Feminino', 'Adulto'),
-(7, 'Social', 'Para tênis sociais', 'Masculino', 'Infantil');
+('Casual', 'Para tênis casuais', 'Unissex', 'Adulto'),
+('Casual', 'Para tênis casuais', 'Unissex', 'Infantil'),
+( 'Esportivo', 'Para tênis esportivos', 'Masculino', 'Adulto'),
+( 'Esportivo', 'Para tênis esportivos', 'Feminino', 'Adulto'),
+( 'Social', 'Para tênis sociais', 'Masculino', 'Adulto'),
+( 'Social', 'Para tênis sociais', 'Feminino', 'Adulto'),
+( 'Social', 'Para tênis sociais', 'Masculino', 'Infantil');
 
 
 -- ADICIONANDO CLIENTE
@@ -85,7 +85,3 @@ values
 ('Meia Originals Hoodie', 'Meia Originals', 18, 70.00, 130.00, 2, 1),
 ('Meia Classic Backpack', 'Meia Classic', 12, 40.00, 90.00, 2, 1),
 ('Meia 3-Stripes Shorts', 'Meia 3-Stripes', 30, 25.00, 50.00, 2, 1);
-
-
-insert into material (descricao,categoria) values ('Couro','Sintético');
-insert into material (descricao,categoria) values ('Algodão','Natural');
