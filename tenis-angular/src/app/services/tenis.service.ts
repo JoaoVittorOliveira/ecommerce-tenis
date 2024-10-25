@@ -29,7 +29,7 @@ export class TenisService {
       precoCompra: tenis.precoCompra,
       precoVenda: tenis.precoVenda,
       idMarca: tenis.marca.id,
-      idTenis: tenis.material.id,
+      idMaterial: tenis.material.id,
       idCor: tenis.cor.id,
       idCategoria: tenis.categoria.id,
       idTamanho: tenis.tamanho.id
@@ -45,7 +45,7 @@ export class TenisService {
       precoCompra: tenis.precoCompra,
       precoVenda: tenis.precoVenda,
       idMarca: tenis.marca.id,
-      idTenis: tenis.material.id,
+      idMaterial: tenis.material.id,
       idCor: tenis.cor.id,
       idCategoria: tenis.categoria.id,
       idTamanho: tenis.tamanho.id

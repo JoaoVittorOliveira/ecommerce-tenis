@@ -18,7 +18,7 @@ import { RouterModule } from '@angular/router';
 })
 export class TenisListComponent {
 
-  displayedColumns: string[] = ['id','nome','quantidade', 'marca', 'material', 'cor', 'categoria', 'tamanho','acao'];
+  displayedColumns: string[] = ['id','nome','quantidade','peso', 'precoCompra', 'precoVenda', 'marca', 'material', 'cor', 'categoria', 'tamanho','acao'];
   tenisList: Tenis[]=[];
 
   constructor(private tenisService: TenisService, private dialog: MatDialog){

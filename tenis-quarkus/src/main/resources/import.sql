@@ -23,18 +23,19 @@ values
 ('DEZ10', 10, 0, CURRENT_DATE),
 ('20VIN', 0, 20, CURRENT_DATE);
 
-insert into endereco(id,cep,rua,complemento) values (2,'111','rua 1','em frente a rua 2');
+insert into endereco(cep,rua,complemento) values 
+('111','rua 1','em frente a rua 2');
 
-insert into telefone(id,ddd,numero,data_cadastro) 
+insert into telefone(ddd,numero,data_cadastro) 
 values 
-(1, 99, 999999999, CURRENT_DATE),
-(2, 11, 111111111, CURRENT_DATE);
+(99, 999999999, CURRENT_DATE),
+(11, 111111111, CURRENT_DATE);
 
-insert into material(id,descricao,categoria,data_cadastro) 
+insert into material(descricao,categoria,data_cadastro) 
 values 
-(1, 'couro', 'sintético', CURRENT_DATE),
-(2, 'tecido', 'natural', CURRENT_DATE),
-(3, 'jeans', 'natural', CURRENT_DATE);
+('couro', 'sintético', CURRENT_DATE),
+('tecido', 'natural', CURRENT_DATE),
+('jeans', 'natural', CURRENT_DATE);
 
 
 insert into categoria (nome, descricao, genero, faixa_etaria)
@@ -46,6 +47,22 @@ values
 ( 'Social', 'Para tênis sociais', 'Masculino', 'Adulto'),
 ( 'Social', 'Para tênis sociais', 'Feminino', 'Adulto'),
 ( 'Social', 'Para tênis sociais', 'Masculino', 'Infantil');
+
+
+insert into tenis (nome, quantidade, peso, preco_compra, preco_venda, id_marca, id_material, id_cor, id_categoria, id_tamanho)
+values
+('tenisteste', 100, 100, 50, 100, 1, 1, 1, 1, 1);
+
+
+
+
+
+
+
+
+
+
+
 
 
 -- ADICIONANDO CLIENTE

@@ -21,7 +21,6 @@ export class MarcaService {
         pageSize: pageSize.toString()
       }
     }
-    console.log(params);
     return this.httpClient.get<Marca[]>(this.baseUrl, {params}); 
   }
   count(): Observable<number> {
