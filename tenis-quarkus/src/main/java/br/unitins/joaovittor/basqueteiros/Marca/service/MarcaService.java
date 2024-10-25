@@ -11,7 +11,9 @@ public interface MarcaService {
     public MarcaResponseDTO create(@Valid MarcaDTO dto);
     public void update(Long id, MarcaDTO dto);
     public boolean delete(Long id);
-    public List<MarcaResponseDTO> findAll();
     public MarcaResponseDTO findById(Long id);
     public List<MarcaResponseDTO> findByNome(String nome);
+    public List<MarcaResponseDTO> findAll(int page, int pageSize);
+    public List<MarcaResponseDTO> findByNome(int page, int pageSize, String nome);
+    public long count();
 }

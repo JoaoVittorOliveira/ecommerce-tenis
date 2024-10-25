@@ -1,7 +1,10 @@
 package br.unitins.joaovittor.basqueteiros.Marca.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import br.unitins.joaovittor.basqueteiros.Marca.dto.MarcaResponseDTO;
+import br.unitins.joaovittor.basqueteiros.Marca.model.Marca;
 import br.unitins.joaovittor.basqueteiros.Marca.dto.MarcaDTO;
 import br.unitins.joaovittor.basqueteiros.Marca.dto.MarcaResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Marca.model.Marca;
@@ -51,10 +54,17 @@ public class MarcaServiceImp implements MarcaService{
     }
 
     @Override
-    public List<MarcaResponseDTO> findAll() {
-        return repository.findAll()
-                                .stream()
-                                .map(e -> MarcaResponseDTO.valueof(e)).toList();
+    public List<MarcaResponseDTO> findAll(int page, int pageSize) {
+        List<Marca> list = repository
+        .findAll()
+        .page(page,pageSize)
+        .list();
+        return list.stream()
+         .map(e -> MarcaResponseDTO.valueof(e)).collect(Collectors.toList());
+    }
+    @Override
+    public long count(){
+        return repository.count();
     }
 
     @Override
@@ -67,9 +77,24 @@ public class MarcaServiceImp implements MarcaService{
 
     @Override
     public List<MarcaResponseDTO> findByNome(String nome) {
-        return repository.findByNome(nome)
-                                        .stream()
-                                        .map(e -> MarcaResponseDTO.valueof(e)).toList();
+        List<Marca> listMarca = repository
+                                    .findByNome(nome)
+                                    .list();
+        return listMarca
+                    .stream()
+                    .map(e -> MarcaResponseDTO.valueof(e))
+                    .toList();
+    }
+    @Override
+    public List<MarcaResponseDTO> findByNome(int page, int pageSize, String nome) {
+        List<Marca> listMarca = repository
+                                    .findByNome(nome)
+                                    .page(page, pageSize)
+                                    .list();
+        return listMarca
+                    .stream()
+                    .map(e -> MarcaResponseDTO.valueof(e))
+                    .toList(); 
     }
     
 }

@@ -9,11 +9,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
 
 @Component({
   selector: 'app-cor-list',
   standalone: true,
-  imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+  ],
+  imports: [MatPaginator,NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule],
   templateUrl: './cor-list.component.html',
   styleUrl: './cor-list.component.css'
 })
@@ -22,14 +27,27 @@ export class CorListComponent implements OnInit{
   displayedColumns: string[] = ['id', 'nome', 'codigoHex', 'acao'];
   cores: Cor[] = [];
 
+  totalRecords = 0;
+  pageSize = 4;
+  page = 0;
   constructor(private corService: CorService, private dialog: MatDialog) {
 
   }
 
   ngOnInit(): void {
-    this.corService.findAll().subscribe(data => {
+    this.corService.findAll(this.page, this.pageSize).subscribe(data => {
       this.cores = data;
-    })
+    });
+
+    this.corService.count().subscribe(
+      data => { this.totalRecords = data }
+    );
+  }
+
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   excluir(cor: Cor): void {

@@ -9,27 +9,47 @@ import { CupomService } from '../../../services/cupom.service';
 import { OnInit, Component } from '@angular/core';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
 
 @Component({
   selector: 'app-cupom-list',
   standalone: true,
-  imports: [NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+  ],
+  imports: [MatPaginator,NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule],
   templateUrl: './cupom-list.component.html',
   styleUrl: './cupom-list.component.css'
 })
-export class CupomListComponent implements OnInit{
+export class CupomListComponent{
 
   displayedColumns: string[] = ['id', 'codigo', 'porcentagemDesconto', 'valorDesconto', 'acao'];
   cupons: Cupom[] = [];
 
-  constructor(private cupomService: CupomService, private dialog: MatDialog){
+  totalRecords = 0;
+  pageSize = 4;
+  page = 0;
+
+  constructor(private cupomService: CupomService,
+     private dialog: MatDialog){
 
   }
 
   ngOnInit(): void {
-    this.cupomService.findAll().subscribe(data => {
+    this.cupomService.findAll(this.page, this.pageSize).subscribe(data => {
       this.cupons = data;
-    })
+    });
+
+    this.cupomService.count().subscribe(
+      data => { this.totalRecords = data }
+    );
+  }
+
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   excluir(cupom: Cupom): void {

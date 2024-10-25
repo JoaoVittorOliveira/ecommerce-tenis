@@ -8,11 +8,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { MaterialService } from '../../../services/material.service';
 import { Material } from '../../../models/material.model';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
 
 @Component({
   selector: 'app-material-list',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
+  providers: [
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+  ],
+  imports: [MatPaginator, MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
   templateUrl: './material-list.component.html',
   styleUrl: './material-list.component.css'
 })
@@ -20,15 +25,29 @@ export class MaterialListComponent implements OnInit {
   displayedColumns: string[] = ['id','descricao','categoria','acao'];
   materiais: Material[]=[];
 
+  totalRecords = 0;
+  pageSize = 4;
+  page = 0;
+
   constructor(private materialService: MaterialService, private dialog: MatDialog){
 
   }
   ngOnInit(): void {
-    this.materialService.findAll().subscribe(
+    this.materialService.findAll(this.page, this.pageSize).subscribe(
       data => { 
         console.log(data); 
         this.materiais = data }
     );
+
+    this.materialService.count().subscribe(
+      data => { this.totalRecords = data }
+    );
+  }
+
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.ngOnInit();
   }
 
   excluir(material: Material): void {

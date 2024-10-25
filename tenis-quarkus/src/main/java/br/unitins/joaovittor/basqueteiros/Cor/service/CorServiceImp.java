@@ -1,10 +1,11 @@
 package br.unitins.joaovittor.basqueteiros.Cor.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-import br.unitins.joaovittor.basqueteiros.Cor.dto.CorDTO;
 import br.unitins.joaovittor.basqueteiros.Cor.dto.CorResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Cor.model.Cor;
+import br.unitins.joaovittor.basqueteiros.Cor.dto.CorDTO;
 import br.unitins.joaovittor.basqueteiros.Cor.repository.CorRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -46,10 +47,12 @@ public class CorServiceImp implements CorService {
 
     @Override
     public List<CorResponseDTO> findAll(int page, int pageSize)  {
-        List<Cor> listCor = repository.findAll()
-                            .page(page,pageSize)
-                            .list();
-        return listCor.stream().map(e->CorResponseDTO.valueof(e)).toList();
+        List<Cor> list = repository
+        .findAll()
+        .page(page,pageSize)
+        .list();
+        return list.stream()
+         .map(e -> CorResponseDTO.valueof(e)).collect(Collectors.toList());
     }
 
     @Override

@@ -1,8 +1,11 @@
 package br.unitins.joaovittor.basqueteiros.Material.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.unitins.joaovittor.basqueteiros.Material.dto.MaterialResponseDTO;
+import br.unitins.joaovittor.basqueteiros.Material.dto.MaterialResponseDTO;
+import br.unitins.joaovittor.basqueteiros.Material.model.Material;
 import br.unitins.joaovittor.basqueteiros.Material.dto.MaterialDTO;
 import br.unitins.joaovittor.basqueteiros.Material.model.Material;
 import br.unitins.joaovittor.basqueteiros.Material.repository.MaterialRepository;
@@ -45,11 +48,19 @@ public class MaterialServiceImpl implements MaterialService{
         return repository.deleteById(id);
     }
 
+     @Override
+    public List<MaterialResponseDTO> findAll(int page, int pageSize) {
+        List<Material> list = repository
+        .findAll()
+        .page(page,pageSize)
+        .list();
+        return list.stream()
+         .map(e -> MaterialResponseDTO.valueof(e)).collect(Collectors.toList());
+    }
+
     @Override
-    public List<MaterialResponseDTO> findAll() {
-        return repository.findAll()
-                .stream()
-                .map(e -> MaterialResponseDTO.valueof(e)).toList();
+    public long count(){
+        return repository.count();
     }
 
     @Override
@@ -61,14 +72,27 @@ public class MaterialServiceImpl implements MaterialService{
     }
 
     @Override
-    public MaterialResponseDTO findByDescricao(String descricao) {
-
-        Material material = repository.findByDescricao(descricao);
-
-        if(material != null)
-            return MaterialResponseDTO.valueof(material);
-        return null;
+    public List<MaterialResponseDTO> findByDescricao(String descricao) {
+        List<Material> listMaterial = repository
+                                    .findByDescricao(descricao)
+                                    .list();
+        return listMaterial
+                    .stream()
+                    .map(e -> MaterialResponseDTO.valueof(e))
+                    .toList();
     }
+    @Override
+    public List<MaterialResponseDTO> findByDescricao(int page, int pageSize, String descricao) {
+        List<Material> listMaterial = repository
+                                    .findByDescricao(descricao)
+                                    .page(page, pageSize)
+                                    .list();
+        return listMaterial
+                    .stream()
+                    .map(e -> MaterialResponseDTO.valueof(e))
+                    .toList(); 
+    }
+
 
     @Override
     public MaterialResponseDTO findByCategoria(String categoria) {

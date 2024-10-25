@@ -12,8 +12,19 @@ export class CupomService {
 
   constructor(private httpClient : HttpClient) { }
 
-  findAll(): Observable<Cupom[]> {
-    return this.httpClient.get<Cupom[]>(this.baseUrl); 
+  findAll(page?: number, pageSize?: number): Observable<Cupom[]> {
+    let params = {};
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    }
+    console.log(params);
+    return this.httpClient.get<Cupom[]>(this.baseUrl, {params}); 
+  }
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count`); 
   }
 
   findById(id: number): Observable<Cupom> {

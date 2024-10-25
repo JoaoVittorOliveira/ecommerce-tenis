@@ -3,14 +3,18 @@ package br.unitins.joaovittor.basqueteiros.Tamanho.repository;
 import java.util.List;
 
 import br.unitins.joaovittor.basqueteiros.Tamanho.model.Tamanho;
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class TamanhoRepository implements PanacheRepository<Tamanho>{
-    
-    public List<Tamanho> findByNumeracao(Integer numeracao){
-        return find("numeracao = ?1", numeracao).list();  
+    public PanacheQuery<Tamanho> findByNome(String nome) {
+        return find("UPPER(nome) LIKE ?1", "%"+ nome.toUpperCase() + "%");
+    }
+
+    public PanacheQuery<Tamanho> findByNumeracao(Integer numeracao){
+        return find("numeracao = ?1", numeracao);  
     }
 
     public Tamanho findByNumeracaoFirstResult(Integer numeracao){

@@ -1,7 +1,10 @@
 package br.unitins.joaovittor.basqueteiros.Tamanho.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import br.unitins.joaovittor.basqueteiros.Tamanho.dto.TamanhoResponseDTO;
+import br.unitins.joaovittor.basqueteiros.Tamanho.model.Tamanho;
 import br.unitins.joaovittor.basqueteiros.Tamanho.dto.TamanhoDTO;
 import br.unitins.joaovittor.basqueteiros.Tamanho.dto.TamanhoResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Tamanho.model.Tamanho;
@@ -56,10 +59,18 @@ public class TamanhoServiceImp implements TamanhoService{
     }
 
     @Override
-    public List<TamanhoResponseDTO> findAll() {
-        return repository.findAll()
-        .stream()
-        .map(e -> TamanhoResponseDTO.valueof(e)).toList();
+    public List<TamanhoResponseDTO> findAll(int page, int pageSize) {
+        List<Tamanho> list = repository
+        .findAll()
+        .page(page,pageSize)
+        .list();
+        return list.stream()
+         .map(e -> TamanhoResponseDTO.valueof(e)).collect(Collectors.toList());
+    }
+
+    @Override
+    public long count(){
+        return repository.count();
     }
 
     @Override
@@ -69,6 +80,29 @@ public class TamanhoServiceImp implements TamanhoService{
             return TamanhoResponseDTO.valueof(tamanho);
         return null;
     }
+
+    @Override
+    public List<TamanhoResponseDTO> findByNome(String nome) {
+        List<Tamanho> listTamanho = repository
+                                    .findByNome(nome)
+                                    .list();
+        return listTamanho
+                    .stream()
+                    .map(e -> TamanhoResponseDTO.valueof(e))
+                    .toList();
+    }
+    @Override
+    public List<TamanhoResponseDTO> findByNome(int page, int pageSize, String nome) {
+        List<Tamanho> listTamanho = repository
+                                    .findByNome(nome)
+                                    .page(page, pageSize)
+                                    .list();
+        return listTamanho
+                    .stream()
+                    .map(e -> TamanhoResponseDTO.valueof(e))
+                    .toList(); 
+    }
+
 
     @Override
     public List<TamanhoResponseDTO> findByNumeracao(Integer numeracao) {

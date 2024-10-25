@@ -11,7 +11,9 @@ public interface CupomService {
     public CupomResponseDTO create(@Valid CupomDTO dto);
     public void update(Long id, CupomDTO dto);
     public boolean delete(Long id);
-    public List<CupomResponseDTO> findAll();
+    public List<CupomResponseDTO> findAll(int page, int pageSize);
     public CupomResponseDTO findById(Long id);
     public List<CupomResponseDTO> findByCodigo(String nome);
+    public List<CupomResponseDTO> findByCodigo(int page, int pageSize,String nome);
+    public long count();
 }

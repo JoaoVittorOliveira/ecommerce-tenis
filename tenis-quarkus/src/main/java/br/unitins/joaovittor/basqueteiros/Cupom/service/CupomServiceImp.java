@@ -1,7 +1,12 @@
 package br.unitins.joaovittor.basqueteiros.Cupom.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomResponseDTO;
+import br.unitins.joaovittor.basqueteiros.Cupom.model.Cupom;
+import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomResponseDTO;
+import br.unitins.joaovittor.basqueteiros.Cupom.model.Cupom;
 import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomDTO;
 import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Cupom.model.Cupom;
@@ -53,11 +58,16 @@ public class CupomServiceImp implements CupomService{
     }
 
     @Override
-    public List<CupomResponseDTO> findAll() {
-        return repository.findAll()
-                                .stream()
-                                .map(e -> CupomResponseDTO.valueof(e)).toList();
+    public List<CupomResponseDTO> findAll(int page, int pageSize) {
+        List<Cupom> listCupom = repository
+                                    .findAll()
+                                    .page(page, pageSize)
+                                    .list();
+        return listCupom.stream()
+         .map(e -> CupomResponseDTO.valueof(e)).collect(Collectors.toList());
+
     }
+
 
     @Override
     public CupomResponseDTO findById(Long id) {
@@ -69,9 +79,30 @@ public class CupomServiceImp implements CupomService{
 
     @Override
     public List<CupomResponseDTO> findByCodigo(String codigo) {
-        return repository.findByCodigo(codigo)
-                                        .stream()
-                                        .map(e -> CupomResponseDTO.valueof(e)).toList();
+        List<Cupom> listCupom = repository
+                                    .findByCodigo(codigo)
+                                    .list();
+        return listCupom
+                    .stream()
+                    .map(e -> CupomResponseDTO.valueof(e))
+                    .toList();
     }
+
+    @Override
+    public List<CupomResponseDTO> findByCodigo(int page, int pageSize, String codigo) {
+        List<Cupom> listCupom = repository
+                                    .findByCodigo(codigo)
+                                    .page(page,pageSize)
+                                    .list();
+        return listCupom
+                    .stream()
+                    .map(e -> CupomResponseDTO.valueof(e))
+                    .toList();
     
+    }
+
+    @Override
+    public long count() {
+        return repository.count();
+    }
 }
