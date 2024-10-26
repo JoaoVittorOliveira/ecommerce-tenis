@@ -8,11 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { MatFormField, MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-tenis-list',
   standalone: true,
-  imports: [MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
+  imports: [NgIf,MatInputModule,MatFormField,MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule],
   templateUrl: './tenis-list.component.html',
   styleUrl: './tenis-list.component.css'
 })
@@ -20,6 +22,13 @@ export class TenisListComponent {
 
   displayedColumns: string[] = ['id','nome','quantidade','peso', 'precoCompra', 'precoVenda', 'marca', 'material', 'cor', 'categoria', 'tamanho','acao'];
   tenisList: Tenis[]=[];
+  filteredTenis: Tenis[] = [];
+
+  totalRecords = 0;
+  pageSize = 5;
+  page = 0;
+  showSearch = false;
+  filterValue = '';
 
   constructor(private tenisService: TenisService, private dialog: MatDialog){
 
@@ -29,9 +38,29 @@ export class TenisListComponent {
     this.tenisService.findAll().subscribe(
       data => { 
         console.log(data); 
-        this.tenisList = data 
+        this.tenisList = data;
+        this.filteredTenis = data;
+        this.totalRecords = data.length;
       }
     );
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
+    this.filteredTenis = this.tenisList.filter(cor =>
+      cor.nome.toLowerCase().includes(this.filterValue) ||
+      cor.quantidade.toString().includes(this.filterValue) ||
+      cor.peso.toString().toLowerCase().includes(this.filterValue) ||
+      cor.precoCompra.toString().toLowerCase().includes(this.filterValue) ||
+      cor.precoVenda.toString().toLowerCase().includes(this.filterValue)
+
+    );
+    this.totalRecords = this.filteredTenis.length;  // Atualiza o número total de registros
+  }
+
+  toggleSearch(): void {
+    this.showSearch = !this.showSearch;
   }
 
   excluir(tenis: Tenis): void {

@@ -15,7 +15,7 @@ public interface MaterialService {
     public List<MaterialResponseDTO> findAll(int page, int pageSize);
     public MaterialResponseDTO findById(Long id);
     public List<MaterialResponseDTO> findByDescricao(String descricao);
-    public List<MaterialResponseDTO> findByDescricao(int page, int pageSize, String nome);
+    public List<MaterialResponseDTO> findByDescricao(int page, int pageSize, String descricao);
     public MaterialResponseDTO findByCategoria(String categoria);
     public long count();
 

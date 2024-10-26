@@ -1,6 +1,7 @@
 .toolbar-title {
     flex: 1;
     text-align: center;
+    
   }
   
   .flex-container {
@@ -8,6 +9,11 @@
     align-items: center;
     width: 100%;
   }
+
+  .fixSearch{
+    width: 0;
+  }
+
   
   .mat-column-id {
     width: 5em;

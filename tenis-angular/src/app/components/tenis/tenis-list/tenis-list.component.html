@@ -3,6 +3,15 @@
         <button mat-icon-button color="primary" routerLink="/">
             <mat-icon>home</mat-icon>
         </button>
+        <div class="fixSearch">
+            <button mat-icon-button color="accent" (click)="toggleSearch()">
+              <mat-icon>search</mat-icon>
+            </button>
+            <mat-form-field *ngIf="showSearch" appearance="fill">
+              <mat-label>Pesquisar</mat-label>
+              <input matInput (input)="applyFilter($event)" placeholder="Digite para filtrar">
+            </mat-form-field>
+          </div>
         <span class="toolbar-title">Controle de Tenis</span>
         <button mat-fab color="accent" routerLink="/tenis/new">
             <mat-icon>add</mat-icon>
@@ -10,7 +19,7 @@
     </div>
 </mat-toolbar>
 
-<table mat-table [dataSource]="tenisList" class="mat-elevation-z8">
+<table mat-table [dataSource]="filteredTenis" class="mat-elevation-z8">
 
     <!-- Id Column -->
     <ng-container matColumnDef="id">

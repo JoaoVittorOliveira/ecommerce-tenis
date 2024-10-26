@@ -1,17 +1,28 @@
+<!-- CABEÇALHO -->
 <mat-toolbar color="primary">
     <div class="flex-container">
-        <button mat-icon-button color="primary" routerLink="/">
-            <mat-icon>home</mat-icon>
+      <button mat-icon-button color="primary" routerLink="/">
+        <mat-icon>home</mat-icon>
+      </button>
+      
+      <div class="fixSearch">
+        <button mat-icon-button color="accent" (click)="toggleSearch()">
+          <mat-icon>search</mat-icon>
         </button>
-        <span class="toolbar-title">Controle de Materiais</span>
-        <button mat-fab color="accent" routerLink="/materiais/new">
-            <!--Router Link: Direcionar para outra rota (outro componente para adicionar)-->
-            <mat-icon>add</mat-icon>
-        </button>
+        <mat-form-field *ngIf="showSearch" appearance="fill">
+          <mat-label>Pesquisar</mat-label>
+          <input matInput (input)="applyFilter($event)" placeholder="Digite para filtrar">
+        </mat-form-field>
+      </div>
+      <span class="toolbar-title">Controle de Materiais</span>
+
+      <button mat-fab color="accent" routerLink="/materiais/new">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
 </mat-toolbar>
 
-<table mat-table [dataSource]="materiais" class="mat-elevation-z8">
+<table mat-table [dataSource]="filteredMateriais" class="mat-elevation-z8">
 
     <!-- Id Column -->
     <ng-container matColumnDef="id">
@@ -47,3 +58,11 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> <!--Colunas que serao exibidas-->
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+
+<mat-paginator 
+    [pageSizeOptions]="[5, 10, 20]" 
+    [pageSize]="pageSize"
+    [length]="totalRecords"
+    (page)="paginar($event)">
+</mat-paginator>
