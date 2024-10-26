@@ -4,7 +4,6 @@ import org.jboss.logging.Logger;
 
 import br.unitins.joaovittor.basqueteiros.Cor.resource.CorResource;
 import br.unitins.joaovittor.basqueteiros.Tenis.dto.TenisDTO;
-import br.unitins.joaovittor.basqueteiros.Tenis.dto.TenisResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Tenis.service.TenisService;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
@@ -12,6 +11,7 @@ import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
@@ -35,6 +35,15 @@ public class TenisResource {
         LOG.info("Executando o create");
         LOG.debugf("DTO: %s", dto);
         return Response.ok(service.create(dto)).build(); 
+    }
+
+    @PUT
+    @Path("/{id}")
+    public Response update( @PathParam("id") Long id, TenisDTO dto){
+        LOG.info("Executando update");
+        LOG.debugf("New DTO: %s", dto);
+        service.update(id, dto);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
     @GET

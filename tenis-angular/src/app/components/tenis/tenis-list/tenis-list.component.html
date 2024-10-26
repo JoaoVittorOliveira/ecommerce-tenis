@@ -36,13 +36,13 @@
     <!-- Quantidade Column -->
     <ng-container matColumnDef="quantidade">
         <th mat-header-cell *matHeaderCellDef> Quantidade </th>
-        <td mat-cell *matCellDef="let tenis"> {{tenis.quantidade}} </td>
+        <td mat-cell *matCellDef="let tenis"> {{tenis.quantidade}} un. </td>
     </ng-container>
     
     <!-- Peso Column -->
     <ng-container matColumnDef="peso">
         <th mat-header-cell *matHeaderCellDef> Peso </th>
-        <td mat-cell *matCellDef="let tenis"> {{tenis.peso}} </td>
+        <td mat-cell *matCellDef="let tenis"> {{tenis.peso}}g</td>
     </ng-container>
     
     <!-- Preço Compra Column -->
@@ -60,7 +60,7 @@
     <!-- Marca Column -->
     <ng-container matColumnDef="marca">
         <th mat-header-cell *matHeaderCellDef> Marca </th>
-        <td mat-cell *matCellDef="let tenis"> {{tenis.marca.nome}} </td>
+        <td mat-cell *matCellDef="let tenis"> <img [src]="tenis.marca.logo" alt="" loading="eager"> </td>
     </ng-container>
     
     <!-- Material Column -->
@@ -78,7 +78,7 @@
     <!-- Categoria Column -->
     <ng-container matColumnDef="categoria">
         <th mat-header-cell *matHeaderCellDef> Categoria </th>
-        <td mat-cell *matCellDef="let tenis"> {{tenis.categoria.nome}} </td>
+        <td mat-cell *matCellDef="let tenis"> {{tenis.categoria.nome}} - {{tenis.categoria.faixaEtaria}} </td>
     </ng-container>
     
     <!-- Tamanho Column -->

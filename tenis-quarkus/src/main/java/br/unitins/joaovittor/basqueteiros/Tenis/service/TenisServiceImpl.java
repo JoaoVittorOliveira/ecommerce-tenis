@@ -58,6 +58,23 @@ public class TenisServiceImpl implements TenisService{
     }
 
     @Override
+    @Transactional
+    public void update(Long id, TenisDTO dto) {
+
+        Tenis tenis = repository.findById(id);
+        tenis.setNome(dto.nome());
+        tenis.setQuantidade(dto.quantidade());
+        tenis.setPeso(dto.peso());
+        tenis.setPrecoCompra(dto.precoCompra());
+        tenis.setPrecoVenda(dto.precoVenda());
+        tenis.setMarca(marcaRepository.findById(dto.idMarca()));
+        tenis.setMaterial(materialRepository.findById(dto.idMaterial()));
+        tenis.setCor(corRepository.findById(dto.idCor()));
+        tenis.setCategoria(categoriaRepository.findById(dto.idCategoria()));
+        tenis.setTamanho(tamanhoRepository.findById(dto.idTamanho()));
+    }
+
+    @Override
     public TenisResponseDTO findById(Long id) {
         Tenis tenis = repository.findById(id);
         if (tenis != null)

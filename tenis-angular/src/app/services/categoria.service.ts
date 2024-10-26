@@ -11,6 +11,8 @@ export class CategoriaService {
   private baseUrl = 'http://localhost:8080/categorias';
 
   constructor(private httpClient : HttpClient) { }
+  findAll(): Observable<Categoria[]>;
+  findAll(page: number, pageSize: number): Observable<Categoria[]>;
 
   findAll(page?: number, pageSize?: number): Observable<Categoria[]> {
     let params = {};
@@ -20,7 +22,7 @@ export class CategoriaService {
         pageSize: pageSize.toString()
       }
     }
-    console.log(params);
+    // console.log(params);
     return this.httpClient.get<Categoria[]>(this.baseUrl, {params}); 
   }
   count(): Observable<number> {

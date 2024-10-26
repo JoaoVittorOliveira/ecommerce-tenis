@@ -1,15 +1,12 @@
 package br.unitins.joaovittor.basqueteiros.Categoria.service;
 
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import br.unitins.joaovittor.basqueteiros.Categoria.dto.CategoriaDTO;
 import br.unitins.joaovittor.basqueteiros.Categoria.dto.CategoriaResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Categoria.model.Categoria;
 import br.unitins.joaovittor.basqueteiros.Categoria.repository.CategoriaRepository;
-import br.unitins.joaovittor.basqueteiros.Categoria.dto.CategoriaResponseDTO;
-import br.unitins.joaovittor.basqueteiros.Categoria.model.Categoria;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -52,8 +49,6 @@ public class CategoriaServiceImp implements CategoriaService {
         
     }
 
-    
-
     @Override
     public List<CategoriaResponseDTO> findAll(int page, int pageSize) {
         List<Categoria> list = repository
@@ -62,6 +57,12 @@ public class CategoriaServiceImp implements CategoriaService {
         .list();
         return list.stream()
          .map(e -> CategoriaResponseDTO.valueof(e)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CategoriaResponseDTO> findAll(){
+        List<Categoria> lista = repository.findAll().list();
+        return lista.stream().map(e -> CategoriaResponseDTO.valueof(e)).toList();
     }
 
     @Override

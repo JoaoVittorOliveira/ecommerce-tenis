@@ -81,3 +81,12 @@ button[mat-icon-button]:hover mat-icon {
     transform: scale(1.2);
     transition: transform 0.2s;
 }
+
+
+/* Ajustes para as imagens na coluna logo */
+img {
+  max-width: 100%; /* Manter proporções */
+  max-height: 50px; /* Limitar altura das imagens */
+  object-fit: contain; /* Ajustar a imagem sem distorcer */
+  align-items: center;
+}

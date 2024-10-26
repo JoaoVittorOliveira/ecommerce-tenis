@@ -59,7 +59,13 @@ public class CorResource {
     public Response findAll(@QueryParam("page") @DefaultValue("0") int page,
                             @QueryParam("pageSize") @DefaultValue("100") int pageSize) {
         return Response.ok(service.findAll(page, pageSize)).build();
-    }                            
+    }    
+    
+    @GET
+    public Response findAll(){
+        return Response.ok(service.findAll()).build();
+    }
+
     @GET
     @Path("/search/id/{id}")
     public Response findById( @PathParam("id") Long id){

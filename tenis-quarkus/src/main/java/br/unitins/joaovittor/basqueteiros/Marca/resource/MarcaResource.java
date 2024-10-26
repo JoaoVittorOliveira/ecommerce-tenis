@@ -64,6 +64,11 @@ public class MarcaResource {
     }
 
     @GET
+    public Response findAll(){
+        return Response.ok(service.findAll()).build();
+    }
+
+    @GET
     @Path("/search/id/{id}")
     public Response findById( @PathParam("id") Long id){
         LOG.infof("Executando o metodo findById. Id: %s", id.toString());

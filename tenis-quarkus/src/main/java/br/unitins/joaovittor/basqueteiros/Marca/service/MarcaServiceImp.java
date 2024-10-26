@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import br.unitins.joaovittor.basqueteiros.Marca.dto.MarcaResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Marca.model.Marca;
 import br.unitins.joaovittor.basqueteiros.Marca.dto.MarcaDTO;
-import br.unitins.joaovittor.basqueteiros.Marca.dto.MarcaResponseDTO;
-import br.unitins.joaovittor.basqueteiros.Marca.model.Marca;
 import br.unitins.joaovittor.basqueteiros.Marca.repository.MarcaRepository;
 import br.unitins.joaovittor.basqueteiros.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -62,6 +60,13 @@ public class MarcaServiceImp implements MarcaService{
         return list.stream()
          .map(e -> MarcaResponseDTO.valueof(e)).collect(Collectors.toList());
     }
+
+    @Override
+    public List<MarcaResponseDTO> findAll(){
+        List<Marca> lista = repository.findAll().list();
+        return lista.stream().map(e -> MarcaResponseDTO.valueof(e)).toList();
+    }
+
     @Override
     public long count(){
         return repository.count();

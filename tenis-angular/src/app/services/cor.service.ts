@@ -11,6 +11,8 @@ export class CorService {
   private baseUrl = 'http://localhost:8080/cores';
 
   constructor(private httpClient : HttpClient) { }
+  findAll(): Observable<Cor[]>;
+  findAll(page: number, pageSize: number): Observable<Cor[]>;
 
   findAll(page?: number, pageSize?: number): Observable<Cor[]> {
     let params = {};
@@ -20,7 +22,7 @@ export class CorService {
         pageSize: pageSize.toString()
       }
     }
-    console.log(params);
+    // console.log(params);
     return this.httpClient.get<Cor[]>(this.baseUrl, {params}); 
   }
   count(): Observable<number> {

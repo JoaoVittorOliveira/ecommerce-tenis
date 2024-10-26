@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-
 // Component-imports
 import {MatSelectModule} from '@angular/material/select';
 import { NgIf } from '@angular/common';
