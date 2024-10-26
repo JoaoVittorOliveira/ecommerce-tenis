@@ -11,13 +11,45 @@
               <mat-label>Pesquisar</mat-label>
               <input matInput (input)="applyFilter($event)" placeholder="Digite para filtrar">
             </mat-form-field>
-          </div>
+        </div>
         <span class="toolbar-title">Controle de Tenis</span>
         <button mat-fab color="accent" routerLink="/tenis/new">
             <mat-icon>add</mat-icon>
         </button>
     </div>
 </mat-toolbar>
+
+<!-- Filtros por Categoria, Cor e Marca -->
+<div class="filter-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Filtrar por Categoria</mat-label>
+      <mat-select [(ngModel)]="selectedCategoria" (selectionChange)="applyFilters()">
+        <mat-option *ngFor="let categoria of categorias" [value]="categoria.nome">
+          {{ categoria.nome }} - {{categoria.genero }} -{{categoria.faixaEtaria}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Filtrar por Cor</mat-label>
+      <mat-select [(ngModel)]="selectedCor" (selectionChange)="applyFilters()">
+        <mat-option *ngFor="let cor of cores" [value]="cor.nome">
+          {{ cor.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>   
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Filtrar por Marca</mat-label>
+      <mat-select [(ngModel)]="selectedMarca" (selectionChange)="applyFilters()">
+        <mat-option *ngFor="let marca of marcas" [value]="marca.nome">
+          {{ marca.nome }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <button mat-button (click)="resetFilters()">Resetar Filtros</button>
+</div>
 
 <table mat-table [dataSource]="filteredTenis" class="mat-elevation-z8">
 
