@@ -16,6 +16,7 @@ public interface CategoriaService {
     public List<CategoriaResponseDTO> findByNome(String nome);
     public List<CategoriaResponseDTO> findByNome(int page, int pageSize, String nome);
     public List<CategoriaResponseDTO> findAll(int page, int pageSize);
+    public List<CategoriaResponseDTO> findAll();
     public CategoriaResponseDTO findByNomeCompleto(String nome);
     public List<CategoriaResponseDTO> findByDescricao(String descricao);
     public List<CategoriaResponseDTO> findByGenero(String genero);

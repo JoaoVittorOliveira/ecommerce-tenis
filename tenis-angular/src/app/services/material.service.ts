@@ -12,6 +12,8 @@ export class MaterialService {
   constructor(private httpClient : HttpClient){
 
   }
+  findAll(): Observable<Material[]>;
+  findAll(page: number, pageSize: number): Observable<Material[]>;
 
   findAll(page?: number, pageSize?: number): Observable<Material[]> {
     let params = {};
@@ -21,7 +23,7 @@ export class MaterialService {
         pageSize: pageSize.toString()
       }
     }
-    console.log(params);
+    // console.log(params);
     return this.httpClient.get<Material[]>(this.baseUrl, {params}); 
   }
   count(): Observable<number> {

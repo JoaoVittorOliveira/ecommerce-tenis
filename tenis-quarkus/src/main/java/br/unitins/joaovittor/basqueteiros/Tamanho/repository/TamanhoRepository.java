@@ -9,6 +9,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
 public class TamanhoRepository implements PanacheRepository<Tamanho>{
+    
     public PanacheQuery<Tamanho> findByNome(String nome) {
         return find("UPPER(nome) LIKE ?1", "%"+ nome.toUpperCase() + "%");
     }

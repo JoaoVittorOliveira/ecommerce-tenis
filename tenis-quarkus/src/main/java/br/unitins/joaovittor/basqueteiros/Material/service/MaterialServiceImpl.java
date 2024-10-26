@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.unitins.joaovittor.basqueteiros.Material.dto.MaterialResponseDTO;
-import br.unitins.joaovittor.basqueteiros.Material.dto.MaterialResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Material.model.Material;
 import br.unitins.joaovittor.basqueteiros.Material.dto.MaterialDTO;
-import br.unitins.joaovittor.basqueteiros.Material.model.Material;
 import br.unitins.joaovittor.basqueteiros.Material.repository.MaterialRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -56,6 +54,12 @@ public class MaterialServiceImpl implements MaterialService{
         .list();
         return list.stream()
          .map(e -> MaterialResponseDTO.valueof(e)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MaterialResponseDTO> findAll(){
+        List<Material> lista = repository.findAll().list();
+        return lista.stream().map(e -> MaterialResponseDTO.valueof(e)).toList();
     }
 
     @Override

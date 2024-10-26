@@ -12,6 +12,8 @@ export class TamanhoService {
   constructor(private httpClient : HttpClient){
 
   }
+  findAll(): Observable<Tamanho[]>;
+  findAll(page: number, pageSize: number): Observable<Tamanho[]>;
 
   findAll(page?: number, pageSize?: number): Observable<Tamanho[]> {
     let params = {};
@@ -21,7 +23,7 @@ export class TamanhoService {
         pageSize: pageSize.toString()
       }
     }
-    console.log(params);
+    // console.log(params);
     return this.httpClient.get<Tamanho[]>(this.baseUrl, {params}); 
   }
   count(): Observable<number> {

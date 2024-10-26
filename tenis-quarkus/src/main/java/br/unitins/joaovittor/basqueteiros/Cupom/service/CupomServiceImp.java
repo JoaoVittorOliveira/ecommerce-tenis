@@ -5,11 +5,7 @@ import java.util.stream.Collectors;
 
 import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Cupom.model.Cupom;
-import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomResponseDTO;
-import br.unitins.joaovittor.basqueteiros.Cupom.model.Cupom;
 import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomDTO;
-import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomResponseDTO;
-import br.unitins.joaovittor.basqueteiros.Cupom.model.Cupom;
 import br.unitins.joaovittor.basqueteiros.Cupom.repository.CupomRepository;
 import br.unitins.joaovittor.basqueteiros.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -68,6 +64,11 @@ public class CupomServiceImp implements CupomService{
 
     }
 
+    @Override
+    public List<CupomResponseDTO> findAll(){
+        List<Cupom> lista = repository.findAll().list();
+        return lista.stream().map(e -> CupomResponseDTO.valueof(e)).toList();
+    }
 
     @Override
     public CupomResponseDTO findById(Long id) {

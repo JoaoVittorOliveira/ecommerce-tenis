@@ -10,6 +10,7 @@ public interface TenisService {
 
     public TenisResponseDTO create(@Valid TenisDTO dto);
     public boolean delete(Long id);
+    public void update(Long id, TenisDTO dto);
     public TenisResponseDTO findById(Long id);
     public List<TenisResponseDTO> findAll();
 
