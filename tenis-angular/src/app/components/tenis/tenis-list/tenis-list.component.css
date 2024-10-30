@@ -1,12 +1,17 @@
 .toolbar-title {
     flex: 1;
     text-align: center;
+    font-size: 1.5em;
   }
   
   .flex-container {
     display: flex;
     align-items: center;
     width: 100%;
+  }
+
+  .fixSearch{
+    width: 0;
   }
   
   .mat-column-id {
@@ -77,3 +82,26 @@ button[mat-icon-button]:hover mat-icon {
     transform: scale(1.2);
     transition: transform 0.2s;
 }
+
+
+/* Ajustes para as imagens na coluna logo */
+img {
+  max-width: 100%; /* Manter proporções */
+  max-height: 50px; /* Limitar altura das imagens */
+  object-fit: contain; /* Ajustar a imagem sem distorcer */
+  align-items: center;
+}
+
+/* Estilo do contêiner de filtros */
+.filter-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os filtros se movam para a linha seguinte, se necessário */
+  justify-content: space-between; /* Distribui o espaço entre os filtros */
+  margin: 16px; /* Adiciona uma margem ao redor do contêiner */
+  padding: 16px;
+  background-color: #f5f5f5; /* Fundo claro para destacar a seção de filtros */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para profundidade */
+}
+
+

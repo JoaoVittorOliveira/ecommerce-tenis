@@ -12,6 +12,7 @@ public interface CorService {
     public void update(Long id, CorDTO dto);
     public boolean delete(Long id);
     public List<CorResponseDTO> findAll(int page, int pageSize);
+    public List<CorResponseDTO> findAll();
     public CorResponseDTO findById(Long id);
     public List<CorResponseDTO> findByNome(String nome);
     public List<CorResponseDTO> findByNome(int page, int pageSize, String nome);

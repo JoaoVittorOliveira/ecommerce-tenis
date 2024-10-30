@@ -65,6 +65,11 @@ public class TamanhoResource {
     }
 
     @GET
+    public Response findAll(){
+        return Response.ok(service.findAll()).build();
+    }
+
+    @GET
     @Path("/count")
     public long count() {
         return service.count();

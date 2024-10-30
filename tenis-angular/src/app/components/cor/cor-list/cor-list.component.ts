@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Cor } from '../../../models/cor.model';
 import { CorService } from '../../../services/cor.service';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +11,8 @@ import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-cor-list',
@@ -18,7 +20,7 @@ import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
   providers: [
     { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
   ],
-  imports: [MatPaginator,NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule],
+  imports: [NgIf,MatInputModule,MatFormField, MatLabel,MatPaginator,NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule],
   templateUrl: './cor-list.component.html',
   styleUrl: './cor-list.component.css'
 })
@@ -26,10 +28,14 @@ export class CorListComponent implements OnInit{
   
   displayedColumns: string[] = ['id', 'nome', 'codigoHex', 'acao'];
   cores: Cor[] = [];
+  filteredCores: Cor[] = [];
 
   totalRecords = 0;
   pageSize = 4;
   page = 0;
+  showSearch = false;
+  filterValue = '';
+
   constructor(private corService: CorService, private dialog: MatDialog) {
 
   }
@@ -37,11 +43,27 @@ export class CorListComponent implements OnInit{
   ngOnInit(): void {
     this.corService.findAll(this.page, this.pageSize).subscribe(data => {
       this.cores = data;
+      this.filteredCores = data;
+      this.totalRecords = data.length;
     });
 
     this.corService.count().subscribe(
       data => { this.totalRecords = data }
     );
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
+    this.filteredCores = this.cores.filter(cor =>
+      cor.nome.toLowerCase().includes(this.filterValue) ||
+      cor.codigoHex.toLowerCase().includes(this.filterValue)
+    );
+    this.totalRecords = this.filteredCores.length;  // Atualiza o número total de registros
+  }
+
+  toggleSearch(): void {
+    this.showSearch = !this.showSearch;
   }
 
   paginar(event: PageEvent): void {

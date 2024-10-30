@@ -8,6 +8,10 @@
     align-items: center;
     width: 100%;
   }
+
+  .fixSearch{
+    width: 0;
+  }
   
 table {
     width: 100%;

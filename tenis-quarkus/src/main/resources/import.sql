@@ -51,7 +51,16 @@ values
 
 insert into tenis (nome, quantidade, peso, preco_compra, preco_venda, id_marca, id_material, id_cor, id_categoria, id_tamanho)
 values
-('tenisteste', 100, 100, 50, 100, 1, 1, 1, 1, 1);
+('tenisPro1', 200, 120, 55, 110, 1, 1, 2, 1, 1),
+('tenisPro2', 150, 130, 60, 115, 2, 2, 2, 2, 2),
+('tenisPro3', 100, 140, 52, 105, 1, 3, 1, 3, 3),
+('tenisPro4', 120, 110, 58, 108, 2, 1, 1, 4, 4),
+('tenisPro6', 300, 125, 65, 125, 2, 3, 1, 2, 6),
+('tenisPro5', 250, 115, 70, 130, 1, 2, 1, 1, 5),
+('tenisPro7', 180, 135, 75, 140, 1, 1, 1, 3, 1),
+('tenisPro8', 210, 100, 50, 95, 2, 2, 2, 4, 2),
+('tenisPro10', 140, 140, 80, 150, 2, 1, 2, 2, 4),
+('tenisPro9', 170, 105, 63, 120, 1, 3, 2, 1, 3);
 
 
 

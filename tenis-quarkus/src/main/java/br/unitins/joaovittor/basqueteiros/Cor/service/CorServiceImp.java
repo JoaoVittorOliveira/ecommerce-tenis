@@ -56,6 +56,12 @@ public class CorServiceImp implements CorService {
     }
 
     @Override
+    public List<CorResponseDTO> findAll(){
+        List<Cor> lista = repository.findAll().list();
+        return lista.stream().map(e -> CorResponseDTO.valueof(e)).toList();
+    }
+
+    @Override
     public CorResponseDTO findById(Long id) {
 
         Cor cor = repository.findById(id);

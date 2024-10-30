@@ -64,6 +64,10 @@ public class CategoriaResource {
         return Response.ok(service.findAll(page,pageSize)).build();
     }
 
+    @GET
+    public Response findAll(){
+        return Response.ok(service.findAll()).build();
+    }
 
     @GET
     @Path("/search/id/{id}")

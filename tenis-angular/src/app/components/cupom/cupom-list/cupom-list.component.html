@@ -1,18 +1,29 @@
 <!-- CABEÇALHO -->
 <mat-toolbar color="primary">
     <div class="flex-container">
-        <button mat-icon-button color="primary" routerLink="/">
-            <mat-icon>home</mat-icon>
+      <button mat-icon-button color="primary" routerLink="/">
+        <mat-icon>home</mat-icon>
+      </button>
+      
+      <div class="fixSearch">
+        <button mat-icon-button color="accent" (click)="toggleSearch()">
+          <mat-icon>search</mat-icon>
         </button>
-        <span class="toolbar-title">Controle de Cupons de Desconto</span>
-        <button mat-fab color="accent" routerLink="/cupons/new">
-            <mat-icon>add</mat-icon>
-        </button>
+        <mat-form-field *ngIf="showSearch" appearance="fill">
+          <mat-label>Pesquisar</mat-label>
+          <input matInput (input)="applyFilter($event)" placeholder="Digite para filtrar">
+        </mat-form-field>
+      </div>
+      <span class="toolbar-title">Controle de Cupons</span>
+
+      <button mat-fab color="accent" routerLink="/cupons/new">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
 </mat-toolbar>
 
 <!-- TABELA (LISTA) -->
-<table mat-table [dataSource]="cupons" class="mat-elevation-z8">
+<table mat-table [dataSource]="filteredCupons" class="mat-elevation-z8">
 
     <!-- Position Column -->
     <ng-container matColumnDef="id">

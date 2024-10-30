@@ -14,6 +14,7 @@ public interface MarcaService {
     public MarcaResponseDTO findById(Long id);
     public List<MarcaResponseDTO> findByNome(String nome);
     public List<MarcaResponseDTO> findAll(int page, int pageSize);
+    public List<MarcaResponseDTO> findAll();
     public List<MarcaResponseDTO> findByNome(int page, int pageSize, String nome);
     public long count();
 }

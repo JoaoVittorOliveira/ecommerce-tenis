@@ -6,8 +6,6 @@ import java.util.stream.Collectors;
 import br.unitins.joaovittor.basqueteiros.Tamanho.dto.TamanhoResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Tamanho.model.Tamanho;
 import br.unitins.joaovittor.basqueteiros.Tamanho.dto.TamanhoDTO;
-import br.unitins.joaovittor.basqueteiros.Tamanho.dto.TamanhoResponseDTO;
-import br.unitins.joaovittor.basqueteiros.Tamanho.model.Tamanho;
 import br.unitins.joaovittor.basqueteiros.Tamanho.repository.TamanhoRepository;
 import br.unitins.joaovittor.basqueteiros.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -66,6 +64,12 @@ public class TamanhoServiceImp implements TamanhoService{
         .list();
         return list.stream()
          .map(e -> TamanhoResponseDTO.valueof(e)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TamanhoResponseDTO> findAll(){
+        List<Tamanho> lista = repository.findAll().list();
+        return lista.stream().map(e -> TamanhoResponseDTO.valueof(e)).toList();
     }
 
     @Override

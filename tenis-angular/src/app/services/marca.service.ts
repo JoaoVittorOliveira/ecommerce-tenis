@@ -12,6 +12,8 @@ export class MarcaService {
   constructor(private httpClient : HttpClient){
 
   }
+  findAll(): Observable<Marca[]>;
+  findAll(page: number, pageSize: number): Observable<Marca[]>;
 
   findAll(page?: number, pageSize?: number): Observable<Marca[]> {
     let params = {};
@@ -21,6 +23,7 @@ export class MarcaService {
         pageSize: pageSize.toString()
       }
     }
+    // console.log(params);
     return this.httpClient.get<Marca[]>(this.baseUrl, {params}); 
   }
   count(): Observable<number> {

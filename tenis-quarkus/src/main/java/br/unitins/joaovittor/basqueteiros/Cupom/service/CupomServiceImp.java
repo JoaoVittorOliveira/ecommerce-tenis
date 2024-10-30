@@ -66,6 +66,11 @@ public class CupomServiceImp implements CupomService{
 
     }
 
+    @Override
+    public List<CupomResponseDTO> findAll(){
+        List<Cupom> lista = repository.findAll().list();
+        return lista.stream().map(e -> CupomResponseDTO.valueof(e)).toList();
+    }
 
     @Override
     public CupomResponseDTO findById(Long id) {
