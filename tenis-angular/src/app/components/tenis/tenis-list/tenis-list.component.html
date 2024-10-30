@@ -92,7 +92,7 @@
     <!-- Marca Column -->
     <ng-container matColumnDef="marca">
         <th mat-header-cell *matHeaderCellDef> Marca </th>
-        <td mat-cell *matCellDef="let tenis"> <img [src]="tenis.marca.logo" alt="" loading="eager"> </td>
+        <td mat-cell *matCellDef="let tenis"> <img [src]="tenis.marca.logo" [alt]="tenis.marca.nome" loading="eager"> </td>
     </ng-container>
     
     <!-- Material Column -->

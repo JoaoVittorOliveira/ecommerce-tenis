@@ -197,11 +197,19 @@ export class TenisFormComponent {
     },
     quantidade : {
       required: 'A quantidade deve ser informada.',
-      min: 'O mínimo é 1 unidade.',
+      min: 'O mínimo é 1 unidade.'
     },
     peso : {
       required: 'O peso deve ser informado.',
-      min: 'O mínimo é 1g.',
+      min: 'O mínimo é 1g.'
+    },
+    precoCompra: {
+      required: 'O preço deve ser informado.',
+      min: 'O mínimo é R$00,00.'
+    },
+    precoVenda: {
+      required: 'O preço deve ser informado.',
+      min: 'O mínimo é R$00,00.'
     }
   }
 }
