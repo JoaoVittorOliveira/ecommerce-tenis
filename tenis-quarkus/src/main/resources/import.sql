@@ -20,8 +20,8 @@ values
 
 insert into cupom(codigo, porcentagem_desconto, valor_desconto, data_cadastro, data_vencimento)
 values
-('DEZ10', 10, 0, CURRENT_DATE, '2099-10-10'),
-('20VIN', 0, 20, CURRENT_DATE, '2099-10-10');
+('DEZ10', 10, 0, CURRENT_DATE, '2025-10-20'),
+('20VIN', 0, 20, CURRENT_DATE, '2025-06-21');
 
 insert into endereco(cep,rua,complemento) values 
 ('111','rua 1','em frente a rua 2');

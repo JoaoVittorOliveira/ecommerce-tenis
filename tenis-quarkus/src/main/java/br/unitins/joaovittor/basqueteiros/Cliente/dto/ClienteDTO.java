@@ -15,9 +15,8 @@ public record ClienteDTO(
     int mesNasc,
     int anoNasc,
 
-    // Parte PessoaFisica
-    String cpf,
 
+    // Uusario
     @NotBlank
     String username,
     
@@ -25,5 +24,6 @@ public record ClienteDTO(
     String senha,
 
     // Parte Cliente
-    List<EnderecoDTO> listaEndereco
+    List<EnderecoDTO> listaEndereco,
+    String cpf
 ) {}

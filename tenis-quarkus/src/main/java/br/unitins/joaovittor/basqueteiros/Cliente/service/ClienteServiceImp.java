@@ -9,7 +9,6 @@ import org.eclipse.microprofile.jwt.JsonWebToken;
 
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteResponseDTO;
-import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteSaldoUpdateDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClientePasswordUpdateDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteUsernameUpdateDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.model.Cliente;
@@ -53,7 +52,7 @@ public class ClienteServiceImp implements ClienteService {
     @Override
     @Transactional
     public ClienteResponseDTO create(@Valid ClienteDTO dto) {
-        
+    /*
         Usuario usuario = new Usuario();
         usuario.setUsername(dto.username());
         // fazer hash da senha
@@ -90,6 +89,8 @@ public class ClienteServiceImp implements ClienteService {
         repository.persist(cliente);
         
         return ClienteResponseDTO.valueof(cliente);
+    */
+        return null;
     }
 
     @Override
@@ -102,6 +103,7 @@ public class ClienteServiceImp implements ClienteService {
     @Transactional
     public void update(Long id, ClienteDTO dto) throws ValidationException {
 
+    /* 
         Usuario usuario = repository.findById(id).getPessoaFisica().getUsuario();
         if(usuario != null){
             usuario.setUsername(dto.username());
@@ -142,7 +144,7 @@ public class ClienteServiceImp implements ClienteService {
         } else {
             throw new ValidationException("Cliente inexistente");
         }
-        
+    */
     }
 
     @Transactional
@@ -190,24 +192,14 @@ public class ClienteServiceImp implements ClienteService {
         return null;       
     }
 
+    // REFAZER LOGIN
     @Override
     public UsuarioResponseDTO login(String username, String senha) {
         Cliente cliente = repository.findByUsernameAndSenha(username, senha);
         // verificar se existe ou não
-        if(cliente != null)
-            return UsuarioResponseDTO.valueof(cliente.getPessoaFisica());
+        //if(cliente != null)
+            //return UsuarioResponseDTO.valueof(cliente.getPessoaFisica());
         return null;
-    }
-
-    @Override
-    @Transactional
-    public void updateSaldo(ClienteSaldoUpdateDTO dto){
-        
-        Usuario usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
-        Cliente cliente = repository.findByIdUsuario(usuario.getId());
-
-        cliente.setSaldo(cliente.getSaldo() + dto.acrescimoSaldo());
-        repository.persist(cliente);
     }
 
     @Override
@@ -235,8 +227,8 @@ public class ClienteServiceImp implements ClienteService {
         if (usuario == null || cliente == null) {
             throw new InternalError();
         }
-        cliente.getPessoaFisica().getUsuario().setUsername(usernameUpdateDTO.newUsername());
-        usuarioService.update(cliente.getPessoaFisica().getUsuario());
+        cliente.getUsuario().setUsername(usernameUpdateDTO.newUsername());
+        usuarioService.update(cliente.getUsuario());
         repository.persist(cliente);
     }
 }
