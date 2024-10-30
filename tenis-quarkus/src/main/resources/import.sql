@@ -18,10 +18,10 @@ values
 ('preto', 'FFFFFFF', CURRENT_DATE),
 ('branco', '0000000', CURRENT_DATE);
 
-insert into cupom(codigo, porcentagem_desconto, valor_desconto, data_cadastro)
+insert into cupom(codigo, porcentagem_desconto, valor_desconto, data_cadastro, data_vencimento)
 values
-('DEZ10', 10, 0, CURRENT_DATE),
-('20VIN', 0, 20, CURRENT_DATE);
+('DEZ10', 10, 0, CURRENT_DATE, '2099-10-10'),
+('20VIN', 0, 20, CURRENT_DATE, '2099-10-10');
 
 insert into endereco(cep,rua,complemento) values 
 ('111','rua 1','em frente a rua 2');

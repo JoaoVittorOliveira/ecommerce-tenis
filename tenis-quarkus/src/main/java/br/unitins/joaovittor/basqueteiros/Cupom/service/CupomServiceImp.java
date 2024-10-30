@@ -5,11 +5,7 @@ import java.util.stream.Collectors;
 
 import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Cupom.model.Cupom;
-import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomResponseDTO;
-import br.unitins.joaovittor.basqueteiros.Cupom.model.Cupom;
 import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomDTO;
-import br.unitins.joaovittor.basqueteiros.Cupom.dto.CupomResponseDTO;
-import br.unitins.joaovittor.basqueteiros.Cupom.model.Cupom;
 import br.unitins.joaovittor.basqueteiros.Cupom.repository.CupomRepository;
 import br.unitins.joaovittor.basqueteiros.validation.ValidationException;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -31,6 +27,7 @@ public class CupomServiceImp implements CupomService{
         cupom.setCodigo(dto.codigo().toUpperCase());
         cupom.setPorcentagemDesconto(dto.porcentagemDesconto());
         cupom.setValorDesconto(dto.valorDesconto());
+        cupom.setDataVencimento(dto.dataVencimento());
 
         repository.persist(cupom);
         return CupomResponseDTO.valueof(cupom);
@@ -54,7 +51,8 @@ public class CupomServiceImp implements CupomService{
         Cupom cupom = repository.findById(id);
         cupom.setCodigo(dto.codigo().toUpperCase());
         cupom.setPorcentagemDesconto(dto.porcentagemDesconto());
-        cupom.setValorDesconto(dto.valorDesconto());        
+        cupom.setValorDesconto(dto.valorDesconto());  
+        cupom.setDataVencimento(dto.dataVencimento());      
     }
 
     @Override

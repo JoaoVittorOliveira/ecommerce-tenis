@@ -3,4 +3,5 @@ export class Cupom {
     codigo!:string;
     porcentagemDesconto!:number;
     valorDesconto!:number;
+    dataVencimento!: string;
 }

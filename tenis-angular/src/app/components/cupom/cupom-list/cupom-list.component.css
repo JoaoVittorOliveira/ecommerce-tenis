@@ -33,6 +33,9 @@ th.mat-header-cell, td.mat-cell {
 .mat-column-valorDesconto {
     width: 20%;
 }
+.mat-column-dataVencimento {
+    width: 20%;
+}
 
 .mat-column-acao {
     width: 15%;

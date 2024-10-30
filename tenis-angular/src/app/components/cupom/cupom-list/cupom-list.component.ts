@@ -1,4 +1,4 @@
-import { NgFor } from '@angular/common';
+import { DatePipe, NgFor } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -16,7 +16,8 @@ import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
   selector: 'app-cupom-list',
   standalone: true,
   providers: [
-    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+    DatePipe
   ],
   imports: [MatPaginator,NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule],
   templateUrl: './cupom-list.component.html',
@@ -24,7 +25,7 @@ import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
 })
 export class CupomListComponent{
 
-  displayedColumns: string[] = ['id', 'codigo', 'porcentagemDesconto', 'valorDesconto', 'acao'];
+  displayedColumns: string[] = ['id', 'codigo', 'porcentagemDesconto', 'valorDesconto', 'dataVencimento', 'acao'];
   cupons: Cupom[] = [];
 
   totalRecords = 0;
@@ -32,8 +33,15 @@ export class CupomListComponent{
   page = 0;
 
   constructor(private cupomService: CupomService,
-     private dialog: MatDialog){
+     private dialog: MatDialog,
+     private datePipe: DatePipe){
 
+  }
+
+  formatData(dataVencimento: string): string {
+    const date = new Date(dataVencimento);
+    date.setDate(date.getDate() + 1)
+    return this.datePipe.transform(date, 'dd/MM/yyyy') || '';
   }
 
   ngOnInit(): void {

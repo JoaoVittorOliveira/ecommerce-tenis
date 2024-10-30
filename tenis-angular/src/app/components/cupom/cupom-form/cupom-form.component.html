@@ -54,6 +54,20 @@
                       </mat-error>
                   </mat-form-field>
 
+                  <mat-form-field class="half-width-input">
+                    <mat-label>Escolha a data de vencimento</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dataVencimento" [min]="minDate" readonly>
+                    <mat-hint>Aperte no calendário para inserir a data</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="formGroup.get('dataVencimento')?.errors?.['required']">
+                        A data de vencimento é obrigatória.
+                    </mat-error>
+                    <mat-error *ngIf="formGroup.get('dataVencimento')?.errors?.['pastDate']">
+                        A data de vencimento não pode estar no passado.
+                    </mat-error>
+                  </mat-form-field>
+
             </form>
         </mat-card-content>
         <mat-card-actions>
