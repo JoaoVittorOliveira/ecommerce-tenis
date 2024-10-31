@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import br.unitins.joaovittor.basqueteiros.Funcionario.model.Funcionario;
 import br.unitins.joaovittor.basqueteiros.Telefone.dto.TelefoneResponseDTO;
+import br.unitins.joaovittor.basqueteiros.Usuario.dto.UsuarioResponseDTO;
 
 public record FuncionarioResponseDTO(
     Long id,
@@ -12,10 +13,9 @@ public record FuncionarioResponseDTO(
     TelefoneResponseDTO telefone,
     LocalDate dataNascimento,
     String cpf,
-    String codigoContrato,
+    String codigoAdmissao,
     LocalDate dataAdmissao,
-    String username,
-    String senha,
+    //UsuarioResponseDTO usuario,
     LocalDateTime dataCadastro,
     LocalDateTime dataAlteracao
 ) {
@@ -26,10 +26,9 @@ public record FuncionarioResponseDTO(
                                           TelefoneResponseDTO.valueof(funcionario.getTelefone()),
                                           funcionario.getDataNascimento(),
                                           funcionario.getCpf(),
-                                          funcionario.getCodigoContrato(), 
+                                          funcionario.getCodigoAdmissao(), 
                                           funcionario.getDataAdmissao(),
-                                          funcionario.getUsuario().getUsername(),
-                                          funcionario.getUsuario().getPassword(),
+                                          //UsuarioResponseDTO.funcionario.getUsuario(),
                                           funcionario.getDataCadastro(), 
                                           funcionario.getDataAlteracao()
                                 );

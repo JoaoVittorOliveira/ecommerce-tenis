@@ -25,7 +25,7 @@ export class FuncionarioService {
     const data = {
       nome: funcionario.nome,
       cpf: funcionario.cpf,
-      codigoContrato: funcionario.codigoAdmissao,
+      codigoAdmissao: funcionario.codigoAdmissao,
       dataAdmissao: funcionario.dataAdmissao,
       dataNascimento: funcionario.dataNascimento,
       ddd: funcionario.telefone.ddd,
@@ -40,11 +40,13 @@ export class FuncionarioService {
     const data = {
       nome: funcionario.nome,
       cpf: funcionario.cpf,
-      codigoContrato: funcionario.codigoAdmissao,
+      codigoAdmissao: funcionario.codigoAdmissao,
       dataAdmissao: funcionario.dataAdmissao,
       dataNascimento: funcionario.dataNascimento,
-      telefone: funcionario.telefone,
-      usuario: funcionario.usuario
+      ddd: funcionario.telefone.ddd,
+      numero: funcionario.telefone.numero,
+      username: funcionario.usuario.username,
+      senha: funcionario.usuario.senha
     }
     return this.httpClient.put<any>(`${this.baseUrl}/${funcionario.id}`, data); 
   }

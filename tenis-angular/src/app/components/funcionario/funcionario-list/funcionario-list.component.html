@@ -57,10 +57,10 @@
         <td mat-cell *matCellDef="let funcionario"> {{funcionario.codigoAdmissao}} </td>
     </ng-container>
     
-    <!-- Usuario Column -->
-    <ng-container matColumnDef="usuario">
-        <th mat-header-cell *matHeaderCellDef> Usuario </th>
-        <td mat-cell *matCellDef="let funcionario"> {{funcionario.usuario.username}} </td>
+    <!-- Username Column -->
+    <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef> Username </th>
+        <td mat-cell *matCellDef="let funcionario"> {{ funcionario.usuario }} </td>
     </ng-container>
 
     <!-- Ação Column -->

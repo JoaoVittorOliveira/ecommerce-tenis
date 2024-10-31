@@ -14,8 +14,8 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Funcionario extends DefaultEntity{
 
-    @Column(name = "codigo_contrato")
-    private String codigoContrato;
+    @Column(name = "codigo_admissao")
+    private String codigoAdmissao;
 
     @Column(name = "data_admissao", nullable = false)
     private LocalDate dataAdmissao;
@@ -43,14 +43,6 @@ public class Funcionario extends DefaultEntity{
 
     public void setDataNascimento(LocalDate dataNascimento) {
         this.dataNascimento = dataNascimento;
-    }
-
-    public String getCodigoContrato() {
-        return codigoContrato;
-    }
-
-    public void setCodigoContrato(String codigoContrato) {
-        this.codigoContrato = codigoContrato;
     }
 
     public LocalDate getDataAdmissao() {
@@ -91,6 +83,14 @@ public class Funcionario extends DefaultEntity{
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getCodigoAdmissao() {
+        return codigoAdmissao;
+    }
+
+    public void setCodigoAdmissao(String codigoAdmissao) {
+        this.codigoAdmissao = codigoAdmissao;
     }
     
 }

@@ -67,7 +67,7 @@ export class FuncionarioFormComponent {
 
   initializeForm(): void {
     
-    const funcionario: Funcionario = this.activatedRoute.snapshot.data['funcionario'];
+    const funcionario = this.activatedRoute.snapshot.data['funcionario'];
     console.log(funcionario)
     
     this.formGroup = this.formBuilder.group({
@@ -95,21 +95,23 @@ export class FuncionarioFormComponent {
         Validators.compose([Validators.required])
       ],
       username: [
-        (funcionario && funcionario.usuario.username !== null && funcionario.usuario.username !== undefined) ? funcionario.usuario.username : '',
-        Validators.compose([Validators.required])
+        (funcionario && funcionario.usuario && funcionario.usuario.username) ? funcionario.usuario.username : '', 
+        Validators.required
       ],
       senha: [
-        (funcionario && funcionario.usuario.senha !== null && funcionario.usuario.senha !== undefined) ? funcionario.usuario.senha : '',
-        Validators.compose([Validators.required])
+        (funcionario && funcionario.usuario && funcionario.usuario.senha) ? funcionario.usuario.senha : '', 
+        Validators.required
       ],
       ddd: [
-        (funcionario && funcionario.telefone.ddd !== null && funcionario.telefone.ddd !== undefined) ? funcionario.telefone.ddd : '',
-        Validators.compose([Validators.required])
+        (funcionario && funcionario.telefone && funcionario.telefone.ddd) ? funcionario.telefone.ddd : '', 
+        Validators.required
       ],
       numero: [
-        (funcionario && funcionario.telefone.numero !== null && funcionario.telefone.numero !== undefined) ? funcionario.telefone.numero : '',
-        Validators.compose([Validators.required])
+        (funcionario && funcionario.telefone && funcionario.telefone.numero) ? funcionario.telefone.numero : '', 
+        Validators.required
       ]
+
+      
     })
 
     
@@ -130,8 +132,6 @@ export class FuncionarioFormComponent {
       }
 
       if (funcionario.id == null) {
-
-        console.log(funcionario)
         this.funcionarioService.insert(funcionario).subscribe({
           next: (funcionarioCadastrado) => {
             this.router.navigateByUrl('/funcionarios');

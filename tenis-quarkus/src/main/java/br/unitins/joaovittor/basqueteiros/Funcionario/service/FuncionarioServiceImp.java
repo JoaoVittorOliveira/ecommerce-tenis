@@ -1,6 +1,5 @@
 package br.unitins.joaovittor.basqueteiros.Funcionario.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,7 +51,7 @@ public class FuncionarioServiceImp implements FuncionarioService {
         usuarioRepository.persist(usuario);    
 
         Funcionario funcionario = new Funcionario();
-        funcionario.setCodigoContrato(dto.codigoAdmissao());
+        funcionario.setCodigoAdmissao(dto.codigoAdmissao());
         funcionario.setCpf(dto.cpf());
         funcionario.setNome(dto.nome());
         Telefone telefone = new Telefone();
@@ -91,7 +90,7 @@ public class FuncionarioServiceImp implements FuncionarioService {
         Funcionario funcionario = repository.findById(id);
         if(funcionario != null){
 
-            funcionario.setCodigoContrato(dto.codigoAdmissao());
+            funcionario.setCodigoAdmissao(dto.codigoAdmissao());
             funcionario.setCpf(dto.cpf());
             funcionario.setNome(dto.nome());
             Telefone telefone = new Telefone();

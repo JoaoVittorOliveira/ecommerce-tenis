@@ -34,7 +34,7 @@ import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 })
 export class FuncionarioListComponent {
 
-  displayedColumns: string[] = ['id','nome','cpf','dataAdmissao', 'dataNascimento', 'codigoAdmissao', 'usuario', 'acao'];
+  displayedColumns: string[] = ['id','nome','cpf','dataAdmissao', 'dataNascimento', 'codigoAdmissao', 'username', 'acao'];
   funcionarioList: Funcionario[]=[];
 
   totalRecords = 0;
@@ -53,6 +53,7 @@ export class FuncionarioListComponent {
       data => { 
         console.log(data); 
         this.funcionarioList = data;
+        this.filteredFuncionario = data;
         this.totalRecords = data.length;
       }
     );
@@ -65,9 +66,10 @@ export class FuncionarioListComponent {
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
-    this.filteredFuncionario = this.funcionarioList.filter(funcionario =>
+    this.filteredFuncionario = this.filteredFuncionario.filter(funcionario =>
       funcionario.nome.toLowerCase().includes(this.filterValue) ||
-      funcionario.cpf.includes(this.filterValue)
+      funcionario.cpf.includes(this.filterValue) ||
+      funcionario.codigoAdmissao.includes(this.filterValue)
     );
     this.totalRecords = this.filteredFuncionario.length;  // Atualiza o número total de registros
   }
