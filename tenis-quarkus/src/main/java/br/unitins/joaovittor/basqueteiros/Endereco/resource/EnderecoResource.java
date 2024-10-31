@@ -5,7 +5,6 @@ import org.jboss.logging.Logger;
 import br.unitins.joaovittor.basqueteiros.Cor.resource.CorResource;
 import br.unitins.joaovittor.basqueteiros.Endereco.dto.EnderecoDTO;
 import br.unitins.joaovittor.basqueteiros.Endereco.service.EnderecoService;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;

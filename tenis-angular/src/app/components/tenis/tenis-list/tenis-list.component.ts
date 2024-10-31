@@ -20,7 +20,18 @@ import { MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-tenis-list',
   standalone: true,
-  imports: [NgIf,CommonModule,FormsModule,MatInputModule,MatFormField,MatToolbarModule, MatIconModule, MatButtonModule, MatTableModule, RouterModule, MatCheckboxModule, MatSelectModule],
+  imports: [NgIf,
+            CommonModule,
+            FormsModule,
+            MatInputModule,
+            MatFormField,
+            MatToolbarModule,
+            MatIconModule,
+            MatButtonModule,
+            MatTableModule,
+            RouterModule,
+            MatCheckboxModule,
+            MatSelectModule],
   templateUrl: './tenis-list.component.html',
   styleUrl: './tenis-list.component.css'
 })

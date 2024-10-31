@@ -2,8 +2,6 @@ package br.unitins.joaovittor.basqueteiros.Usuario.dto;
 
 import java.time.LocalDateTime;
 
-import br.unitins.joaovittor.basqueteiros.PessoaFisica.model.PessoaFisica;
-
 public record UsuarioResponseDTO (
     Long id,
     String username,
@@ -11,7 +9,8 @@ public record UsuarioResponseDTO (
     LocalDateTime dataCadastro,
     LocalDateTime dataAlteracao
 ){
-    
+    // AJUSTAR!! (importante para fazer login)
+    /*
     public static UsuarioResponseDTO valueof(PessoaFisica pf){
         return new UsuarioResponseDTO(
             pf.getId(),
@@ -21,5 +20,5 @@ public record UsuarioResponseDTO (
             pf.getDataAlteracao()
         );
     }
-
+    */
 }

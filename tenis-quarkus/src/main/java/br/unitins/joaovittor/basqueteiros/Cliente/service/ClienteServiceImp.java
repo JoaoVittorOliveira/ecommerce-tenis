@@ -16,8 +16,7 @@ import br.unitins.joaovittor.basqueteiros.Cliente.repository.ClienteRepository;
 import br.unitins.joaovittor.basqueteiros.Endereco.dto.EnderecoDTO;
 import br.unitins.joaovittor.basqueteiros.Endereco.model.Endereco;
 import br.unitins.joaovittor.basqueteiros.Hash.service.HashService;
-import br.unitins.joaovittor.basqueteiros.PessoaFisica.model.PessoaFisica;
-import br.unitins.joaovittor.basqueteiros.PessoaFisica.repository.PessoaFisicaRepository;
+import br.unitins.joaovittor.basqueteiros.Telefone.model.Telefone;
 import br.unitins.joaovittor.basqueteiros.Usuario.dto.UsuarioResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Usuario.model.Usuario;
 import br.unitins.joaovittor.basqueteiros.Usuario.repository.UsuarioRepository;
@@ -35,9 +34,6 @@ public class ClienteServiceImp implements ClienteService {
     ClienteRepository repository;
 
     @Inject
-    PessoaFisicaRepository pessoaFisicaRepository;
-
-    @Inject
     UsuarioRepository usuarioRepository;
 
     @Inject
@@ -52,28 +48,24 @@ public class ClienteServiceImp implements ClienteService {
     @Override
     @Transactional
     public ClienteResponseDTO create(@Valid ClienteDTO dto) {
-    /*
+
         Usuario usuario = new Usuario();
         usuario.setUsername(dto.username());
-        // fazer hash da senha
         usuario.setPassword(hashService.getHashSenha(dto.senha()));
-
-        usuarioRepository.persist(usuario);
-
-
-
-        PessoaFisica pf = new PessoaFisica();
-        pf.setNome(dto.nome());
-        pf.setTelefone(dto.telefone());
-        pf.setDataNascimento(LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc()));
-        pf.setCpf(dto.cpf());
-        pf.setUsuario(usuario);
-
-        pessoaFisicaRepository.persist(pf);
-
+        usuarioRepository.persist(usuario);    
 
         Cliente cliente = new Cliente();
+        cliente.setCpf(dto.cpf());
+        cliente.setNome(dto.nome());
 
+        Telefone telefone = new Telefone();
+        telefone.setDdd(dto.telefone().ddd());
+        telefone.setNumero(dto.telefone().numero());
+        cliente.setTelefone(telefone);   
+
+        LocalDate dataNascimento = LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc());
+        cliente.setDataNascimento(dataNascimento);
+        
         cliente.setListaEndereco(new ArrayList<Endereco>());
         for(EnderecoDTO endereco : dto.listaEndereco()){
             Endereco end = new Endereco();
@@ -83,14 +75,10 @@ public class ClienteServiceImp implements ClienteService {
             cliente.getListaEndereco().add(end);
         }
 
-        cliente.setSaldo(0d);
-        cliente.setPessoaFisica(pf);
-
+        cliente.setUsuario(usuario);
         repository.persist(cliente);
-        
         return ClienteResponseDTO.valueof(cliente);
-    */
-        return null;
+
     }
 
     @Override
@@ -103,37 +91,30 @@ public class ClienteServiceImp implements ClienteService {
     @Transactional
     public void update(Long id, ClienteDTO dto) throws ValidationException {
 
-    /* 
-        Usuario usuario = repository.findById(id).getPessoaFisica().getUsuario();
+        Usuario usuario = repository.findById(id).getUsuario();
         if(usuario != null){
             usuario.setUsername(dto.username());
             // fazer hash da nova senha
             usuario.setPassword(hashService.getHashSenha(dto.senha()));
         } else {
-            throw new ValidationException("Cliente inexistente");
+            throw new ValidationException("Funcionario inexistente");
         }
 
-        PessoaFisica pf = repository.findById(id).getPessoaFisica();
-        if(pf != null){
-            pf.setNome(dto.nome());
-            pf.setTelefone(dto.telefone());
-            pf.setDataNascimento(LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc()));
-            pf.setCpf(dto.cpf());
-            pf.setUsuario(usuario);
-        } else {
-            throw new ValidationException("Cliente inexistente");
-        }
-        
         Cliente cliente = repository.findById(id);
-
         if(cliente != null){
-            cliente.setSaldo(0d);
-            cliente.setPessoaFisica(pf);
 
-            // Assim apagaria a lista antiga:
-            // cliente.setListaEndereco(new ArrayList<>());
+            cliente.setCpf(dto.cpf());
+            cliente.setNome(dto.nome());
 
-            cliente.setListaEndereco(cliente.getListaEndereco());
+            Telefone telefone = new Telefone();
+            telefone.setDdd(dto.telefone().ddd());
+            telefone.setNumero(dto.telefone().numero());
+            cliente.setTelefone(telefone);  
+
+            LocalDate dataNascimento = LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc());
+            cliente.setDataNascimento(dataNascimento);
+
+            cliente.setListaEndereco(new ArrayList<Endereco>());
             for(EnderecoDTO endereco : dto.listaEndereco()){
                 Endereco end = new Endereco();
                 end.setCep(endereco.cep());
@@ -141,10 +122,12 @@ public class ClienteServiceImp implements ClienteService {
                 end.setComplemento(endereco.complemento());
                 cliente.getListaEndereco().add(end);
             }
+
+            cliente.setUsuario(usuario);
+
         } else {
-            throw new ValidationException("Cliente inexistente");
+            throw new ValidationException("Funcionario inexistente");
         }
-    */
     }
 
     @Transactional
@@ -195,7 +178,7 @@ public class ClienteServiceImp implements ClienteService {
     // REFAZER LOGIN
     @Override
     public UsuarioResponseDTO login(String username, String senha) {
-        Cliente cliente = repository.findByUsernameAndSenha(username, senha);
+        //Cliente cliente = repository.findByUsernameAndSenha(username, senha);
         // verificar se existe ou não
         //if(cliente != null)
             //return UsuarioResponseDTO.valueof(cliente.getPessoaFisica());

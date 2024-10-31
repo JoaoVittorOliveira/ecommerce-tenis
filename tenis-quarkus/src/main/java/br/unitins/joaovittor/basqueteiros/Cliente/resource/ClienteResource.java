@@ -9,7 +9,6 @@ import br.unitins.joaovittor.basqueteiros.Cliente.service.ClienteService;
 import br.unitins.joaovittor.basqueteiros.Jwt.service.JwtService;
 import br.unitins.joaovittor.basqueteiros.Usuario.repository.UsuarioRepository;
 import br.unitins.joaovittor.basqueteiros.Usuario.service.UsuarioService;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;

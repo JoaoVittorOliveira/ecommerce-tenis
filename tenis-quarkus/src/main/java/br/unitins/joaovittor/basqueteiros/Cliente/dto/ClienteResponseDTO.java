@@ -6,12 +6,12 @@ import java.util.List;
 
 import br.unitins.joaovittor.basqueteiros.Cliente.model.Cliente;
 import br.unitins.joaovittor.basqueteiros.Endereco.dto.EnderecoResponseDTO;
-import br.unitins.joaovittor.basqueteiros.Telefone.model.Telefone;
+import br.unitins.joaovittor.basqueteiros.Telefone.dto.TelefoneResponseDTO;
 
 public record ClienteResponseDTO(
     Long id,
     String nome,
-    Telefone telefone,
+    TelefoneResponseDTO telefone,
     LocalDate dataNascimento,
     String cpf,
     String username,
@@ -30,7 +30,7 @@ public record ClienteResponseDTO(
 
         return new ClienteResponseDTO(cliente.getId(), 
                                 cliente.getNome(),
-                                cliente.getTelefone(),
+                                TelefoneResponseDTO.valueof(cliente.getTelefone()),
                                 cliente.getDataNascimento(),
                                 cliente.getCpf(),
                                 cliente.getUsuario().getUsername(),

@@ -10,23 +10,23 @@ import jakarta.enterprise.context.ApplicationScoped;
 public class ClienteRepository implements PanacheRepository<Cliente> {
     
     public List<Cliente> findByNome(String nome){
-        return find("UPPER(pessoaFisica.nome) LIKE ?1", "%"+ nome.toUpperCase() + "%").list();  
+        return find("UPPER(nome) LIKE ?1", "%"+ nome.toUpperCase() + "%").list();  
     }
 
     public Cliente findByCpf(String cpf){
-        return find("pessoaFisica.cpf = ?1", cpf).firstResult();
+        return find("cpf = ?1", cpf).firstResult();
     }
 
     public Cliente findByUsername(String username){
-        return find("pessoaFisica.usuario.username = ?1", username).firstResult();
+        return find("usuario.username = ?1", username).firstResult();
     }
 
     public Cliente findByUsernameAndSenha(String username, String senha){
-        return find("pessoaFisica.usuario.username = ?1 AND pessoaFisica.usuario.password = ?2", username, senha).firstResult();
+        return find("usuario.username = ?1 AND pessoaFisica.usuario.password = ?2", username, senha).firstResult();
     }
 
     public Cliente findByIdUsuario(Long idUsuario){
-        return find("pessoaFisica.usuario.id = ?1", idUsuario).firstResult();
+        return find("usuario.id = ?1", idUsuario).firstResult();
     }
     
 }
