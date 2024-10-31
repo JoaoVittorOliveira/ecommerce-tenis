@@ -6,10 +6,9 @@ export class Funcionario {
     id!: number;
     nome!: string;
     cpf!: string;
-    codigoContrato!: string;
+    codigoAdmissao!: string;
     dataAdmissao!: Date;
     dataNascimento!: Date;
     telefone!: Telefone;
-    enderecos!: Endereco[];
     usuario!: Usuario;
 }

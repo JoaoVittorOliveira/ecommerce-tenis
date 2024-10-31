@@ -1,1 +1,125 @@
-<p>funcionario-form works!</p>
+<mat-toolbar color="primary">
+    <div class="toolbar-title" *ngIf="formGroup?.get('id')?.value">
+        Atualização de Funcionario
+    </div>
+    <div class="toolbar-title" *ngIf="!formGroup?.get('id')?.value">
+        Cadastro de Funcionario
+    </div>
+</mat-toolbar>
+
+<div class="form-container">
+    <mat-card>
+        <mat-card-content>
+            <form [formGroup]="formGroup">
+                
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" formControlName="nome">
+                    <mat-error *ngIf="formGroup.get('nome') 
+                                   && formGroup.get('nome')?.invalid
+                                   && formGroup.get('nome')?.touched">
+                        
+                    </mat-error>
+                </mat-form-field>
+                
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>CPF</mat-label>
+                    <input matInput type="text" formControlName="cpf">
+                    <mat-error *ngIf="formGroup.get('cpf') 
+                                   && formGroup.get('cpf')?.invalid
+                                   && formGroup.get('cpf')?.touched">
+                        
+                    </mat-error>
+                </mat-form-field>
+                
+                <mat-form-field class="half-width-input">
+                    <mat-label>Escolha a data de admissao</mat-label>
+                    <input matInput [matDatepicker]="admissaoPicker" formControlName="dataAdmissao" readonly>
+                    <mat-hint>Aperte no calendário para inserir a data</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="admissaoPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #admissaoPicker></mat-datepicker>
+                    <mat-error *ngIf="formGroup.get('dataAdmissao')?.errors?.['required']">
+                        A data de vencimento é obrigatória.
+                    </mat-error>
+                  </mat-form-field>
+                
+                  <mat-form-field class="half-width-input">
+                    <mat-label>Escolha a data de nascimento</mat-label>
+                    <input matInput [matDatepicker]="nascimentoPicker" formControlName="dataNascimento" readonly>
+                    <mat-hint>Aperte no calendário para inserir a data</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="nascimentoPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #nascimentoPicker></mat-datepicker>
+                    <mat-error *ngIf="formGroup.get('dataNascimento')?.errors?.['required']">
+                        A data de vencimento é obrigatória.
+                    </mat-error>
+                  </mat-form-field>
+                
+                  <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Código Admissao</mat-label>
+                    <input matInput type="text" formControlName="codigoAdmissao">
+                    <mat-error *ngIf="formGroup.get('codigoAdmissao') 
+                                   && formGroup.get('codigoAdmissao')?.invalid
+                                   && formGroup.get('codigoAdmissao')?.touched">
+                        
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" formControlName="username">
+                    <mat-error *ngIf="formGroup.get('username') 
+                                   && formGroup.get('username')?.invalid
+                                   && formGroup.get('username')?.touched">
+                        
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Senha</mat-label>
+                    <input matInput type="text" formControlName="senha">
+                    <mat-error *ngIf="formGroup.get('senha') 
+                                   && formGroup.get('senha')?.invalid
+                                   && formGroup.get('senha')?.touched">
+                        
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="half-width-input">
+                    <mat-label>DDD</mat-label>
+                    <input matInput type="text" formControlName="ddd">
+                    <mat-error *ngIf="formGroup.get('ddd') 
+                                   && formGroup.get('ddd')?.invalid
+                                   && formGroup.get('ddd')?.touched">
+                        
+                    </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="half-width-input">
+                    <mat-label>Numero</mat-label>
+                    <input matInput type="text" formControlName="numero">
+                    <mat-error *ngIf="formGroup.get('numero') 
+                                   && formGroup.get('numero')?.invalid
+                                   && formGroup.get('numero')?.touched">
+                        
+                    </mat-error>
+                </mat-form-field>
+
+            </form>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button routerLink="/funcionarios">
+                Cancelar
+            </button>
+
+            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
+                [disabled]="formGroup.invalid">
+                Excluir
+            </button>
+
+            <button mat-raised-button color="primary" (click)="salvar()" [disabled]="formGroup.invalid">
+                Salvar
+            </button>
+
+        </mat-card-actions>
+    </mat-card>
+</div>

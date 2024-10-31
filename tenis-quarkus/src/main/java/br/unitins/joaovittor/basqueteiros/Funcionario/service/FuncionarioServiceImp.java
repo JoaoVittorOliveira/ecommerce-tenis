@@ -52,17 +52,15 @@ public class FuncionarioServiceImp implements FuncionarioService {
         usuarioRepository.persist(usuario);    
 
         Funcionario funcionario = new Funcionario();
-        funcionario.setCodigoContrato(dto.codigoContrato());
+        funcionario.setCodigoContrato(dto.codigoAdmissao());
         funcionario.setCpf(dto.cpf());
         funcionario.setNome(dto.nome());
         Telefone telefone = new Telefone();
-        telefone.setDdd(dto.telefone().ddd());
-        telefone.setNumero(dto.telefone().numero());
+        telefone.setDdd(dto.ddd());
+        telefone.setNumero(dto.numero());
         funcionario.setTelefone(telefone);        
-        LocalDate dataNascimento = LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc());
-        funcionario.setDataNascimento(dataNascimento);
-        LocalDate dataAdmissao = LocalDate.of(dto.anoAdmissao(), dto.mesAdmissao(), dto.diaAdmissao());
-        funcionario.setDataAdmissao(dataAdmissao);
+        funcionario.setDataNascimento(dto.dataNascimento());
+        funcionario.setDataAdmissao(dto.dataAdmissao());
 
         funcionario.setUsuario(usuario);
         repository.persist(funcionario);
@@ -93,17 +91,15 @@ public class FuncionarioServiceImp implements FuncionarioService {
         Funcionario funcionario = repository.findById(id);
         if(funcionario != null){
 
-            funcionario.setCodigoContrato(dto.codigoContrato());
+            funcionario.setCodigoContrato(dto.codigoAdmissao());
             funcionario.setCpf(dto.cpf());
             funcionario.setNome(dto.nome());
             Telefone telefone = new Telefone();
-            telefone.setDdd(dto.telefone().ddd());
-            telefone.setNumero(dto.telefone().numero());
+            telefone.setDdd(dto.ddd());
+            telefone.setNumero(dto.numero());
             funcionario.setTelefone(telefone);        
-            LocalDate dataNascimento = LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc());
-            funcionario.setDataNascimento(dataNascimento);
-            LocalDate dataAdmissao = LocalDate.of(dto.anoAdmissao(), dto.mesAdmissao(), dto.diaAdmissao());
-            funcionario.setDataAdmissao(dataAdmissao);
+            funcionario.setDataNascimento(dto.dataNascimento());
+            funcionario.setDataAdmissao(dto.dataAdmissao());
             funcionario.setUsuario(usuario);
 
         } else {

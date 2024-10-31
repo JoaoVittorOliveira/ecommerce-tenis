@@ -35,7 +35,7 @@ import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 export class FuncionarioListComponent {
 
   displayedColumns: string[] = ['id','nome','cpf','dataAdmissao', 'dataNascimento', 'codigoAdmissao', 'usuario', 'acao'];
-  tenisList: Funcionario[]=[];
+  funcionarioList: Funcionario[]=[];
 
   totalRecords = 0;
   pageSize = 5;
@@ -52,7 +52,7 @@ export class FuncionarioListComponent {
     this.funcionarioService.findAll().subscribe(
       data => { 
         console.log(data); 
-        this.tenisList = data;
+        this.funcionarioList = data;
         this.totalRecords = data.length;
       }
     );
@@ -65,24 +65,24 @@ export class FuncionarioListComponent {
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
-    this.filteredFuncionario = this.tenisList.filter(funcionario =>
+    this.filteredFuncionario = this.funcionarioList.filter(funcionario =>
       funcionario.nome.toLowerCase().includes(this.filterValue) ||
       funcionario.cpf.includes(this.filterValue)
     );
     this.totalRecords = this.filteredFuncionario.length;  // Atualiza o número total de registros
   }
 
-  excluir(tenis: Funcionario): void {
+  excluir(funcionario: Funcionario): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.funcionarioService.delete(tenis).subscribe({
+        this.funcionarioService.delete(funcionario).subscribe({
           next: () => {
-            this.tenisList = this.tenisList.filter(e => e.id !== tenis.id);
+            this.funcionarioList = this.funcionarioList.filter(e => e.id !== funcionario.id);
           },
           error: (err) => {
-            console.error('Erro ao tentar excluir o tenis', err);
+            console.error('Erro ao tentar excluir o funcionario', err);
           }
         });
       }
