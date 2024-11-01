@@ -27,7 +27,7 @@
                     <mat-error *ngIf="formGroup.get('rua')
                                     && formGroup.get('rua')?.invalid
                                     && formGroup.get('rua')?.touched">
-                        A rua é obrigatória.
+                        {{getErrorMessage('rua', formGroup.get('rua')?.errors)}}   
                     </mat-error>
                 </mat-form-field>
 
@@ -37,7 +37,7 @@
                     <mat-error *ngIf="formGroup.get('complemento')
                                     && formGroup.get('complemento')?.invalid
                                     && formGroup.get('complemento')?.touched">
-                        O complemento é obrigatório.
+                        {{getErrorMessage('complemento', formGroup.get('complemento')?.errors)}}   
                     </mat-error>
                 </mat-form-field>
             </form>

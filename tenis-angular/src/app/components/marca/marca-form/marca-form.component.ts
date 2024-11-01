@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Marca } from '../../../models/marca.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-marca-form',
@@ -34,8 +35,7 @@ export class MarcaFormComponent {
       id: [(marca && marca.id) ? marca.id : null],
       
       nome: [
-        (marca && marca.nome) ? marca.nome : '', [Validators.required]
-      ],
+        (marca && marca.nome) ? marca.nome : '', [Validators.required,Validators.minLength(2),Validators.maxLength(60)]],
       
       logo: [
         (marca && marca.logo) ? marca.logo : '', [Validators.required]
@@ -95,5 +95,48 @@ export class MarcaFormComponent {
 
   cancelar(){
     this.router.navigateByUrl('/marcas');
+  }
+
+  tratarErros(errorResponse: HttpErrorResponse) {
+    if (errorResponse.status === 400) {
+      if (errorResponse.error?.errors) {
+        errorResponse.error.errors.forEach((validationError: any) => {
+          const formControl = this.formGroup.get(validationError.fieldName);
+          if (formControl) {
+            formControl.setErrors({apiError: validationError.message})
+          }
+        });
+      }
+    } else if (errorResponse.status < 400){
+      alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
+    } else if (errorResponse.status >= 500) {
+
+      //melhorar isso (duplicar username/cpf)
+      alert(errorResponse.error?.details);
+    }
+  }
+
+  getErrorMessage(controlName : string, errors: ValidationErrors | null | undefined): string {
+    if (!errors){
+      return '';
+    }
+    for (const errorName in errors) {
+      if (errors.hasOwnProperty(errorName) && this.errorMessages[controlName][errorName]){
+        return this.errorMessages[controlName][errorName];
+      }
+    }
+
+    return 'invalid field';
+  }
+
+  errorMessages: {[controlName: string]: {[errorName: string]: string}} = {
+    nome : {
+      required: 'O nome deve ser informado.',
+      minlength: 'O nome deve conter ao menos 2 caracteres.',
+      maxlength: 'O nome deve conter no máximo 60 caracteres.'
+    },
+    logo : {
+      required: 'A URL da logo deve ser informada.',
+    }
   }
 }

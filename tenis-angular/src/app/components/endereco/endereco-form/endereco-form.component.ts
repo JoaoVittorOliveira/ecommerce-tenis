@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Endereco } from '../../../models/endereco.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-endereco-form',
@@ -88,5 +89,52 @@ export class EnderecoFormComponent {
 
   cancelar(){
     this.router.navigateByUrl('/enderecos');
+  }
+
+
+  tratarErros(errorResponse: HttpErrorResponse) {
+    if (errorResponse.status === 400) {
+      if (errorResponse.error?.errors) {
+        errorResponse.error.errors.forEach((validationError: any) => {
+          const formControl = this.formGroup.get(validationError.fieldName);
+          if (formControl) {
+            formControl.setErrors({apiError: validationError.message})
+          }
+        });
+      }
+    } else if (errorResponse.status < 400){
+      alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
+    } else if (errorResponse.status >= 500) {
+
+      //melhorar isso (duplicar username/cpf)
+      alert(errorResponse.error?.details);
+    }
+  }
+
+  getErrorMessage(controlName : string, errors: ValidationErrors | null | undefined): string {
+    if (!errors){
+      return '';
+    }
+    for (const errorName in errors) {
+      if (errors.hasOwnProperty(errorName) && this.errorMessages[controlName][errorName]){
+        return this.errorMessages[controlName][errorName];
+      }
+    }
+
+    return 'invalid field';
+  }
+
+  errorMessages: {[controlName: string]: {[errorName: string]: string}} = {
+    cep : {
+      required: 'O cep deve ser informado.',
+      minlength: 'O cep deve conter 8 caracteres.',
+      maxlength: 'O cep deve conter 8 caracteres.'
+    },
+    rua : {
+      required: 'A rua deve ser informada.'
+    },
+    complemento : {
+      required: 'O complemento deve ser informado.'
+    }
   }
 }

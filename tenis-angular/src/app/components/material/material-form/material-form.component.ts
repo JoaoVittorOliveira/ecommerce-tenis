@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,7 @@ import { Material } from '../../../models/material.model';
 import { MaterialService } from '../../../services/material.service';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-material-form',
@@ -34,7 +35,7 @@ export class MaterialFormComponent {
       id: [(material && material.id) ? material.id : null],
       
       descricao: [
-        (material && material.descricao) ? material.descricao : '', Validators.required],
+        (material && material.descricao) ? material.descricao : '', [Validators.required,Validators.minLength(2),Validators.maxLength(60)]],
       
       categoria: [
         (material && material.categoria) ? material.categoria : '', Validators.required
@@ -93,5 +94,48 @@ export class MaterialFormComponent {
 
   cancelar(){
     this.router.navigateByUrl('/materiais');
+  }
+
+  tratarErros(errorResponse: HttpErrorResponse) {
+    if (errorResponse.status === 400) {
+      if (errorResponse.error?.errors) {
+        errorResponse.error.errors.forEach((validationError: any) => {
+          const formControl = this.formGroup.get(validationError.fieldName);
+          if (formControl) {
+            formControl.setErrors({apiError: validationError.message})
+          }
+        });
+      }
+    } else if (errorResponse.status < 400){
+      alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
+    } else if (errorResponse.status >= 500) {
+
+      //melhorar isso (duplicar username/cpf)
+      alert(errorResponse.error?.details);
+    }
+  }
+
+  getErrorMessage(controlName : string, errors: ValidationErrors | null | undefined): string {
+    if (!errors){
+      return '';
+    }
+    for (const errorName in errors) {
+      if (errors.hasOwnProperty(errorName) && this.errorMessages[controlName][errorName]){
+        return this.errorMessages[controlName][errorName];
+      }
+    }
+
+    return 'invalid field';
+  }
+
+  errorMessages: {[controlName: string]: {[errorName: string]: string}} = {
+    descricao : {
+      required: 'A descrição deve ser informada.',
+      minlength: 'A descrição deve conter ao menos 2 caracteres.',
+      maxlength: 'A descrição deve conter no máximo 60 caracteres.'
+    },
+    categoria : {
+      required: 'A categoria deve ser informada.'
+    }
   }
 }

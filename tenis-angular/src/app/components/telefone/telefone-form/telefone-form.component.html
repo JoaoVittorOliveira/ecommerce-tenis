@@ -17,7 +17,7 @@
                     <mat-error *ngIf="formGroup.get('ddd')
                                     && formGroup.get('ddd')?.invalid
                                     && formGroup.get('ddd')?.touched">
-                        O ddd é obrigatório e deve conter 2 caracteres.
+                        {{getErrorMessage('ddd', formGroup.get('ddd')?.errors)}}
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="full-width-input">
@@ -26,7 +26,7 @@
                     <mat-error *ngIf="formGroup.get('numero')
                                     && formGroup.get('numero')?.invalid
                                     && formGroup.get('numero')?.touched">
-                        A numero é obrigatório.
+                        {{getErrorMessage('numero', formGroup.get('numero')?.errors)}}
                     </mat-error>
                 </mat-form-field>
             </form>
