@@ -8,7 +8,6 @@ import br.unitins.joaovittor.basqueteiros.Funcionario.dto.FuncionarioPasswordUpd
 import br.unitins.joaovittor.basqueteiros.Funcionario.dto.FuncionarioUsernameUpdateDTO;
 import br.unitins.joaovittor.basqueteiros.Funcionario.service.FuncionarioService;
 import br.unitins.joaovittor.basqueteiros.Usuario.repository.UsuarioRepository;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -47,7 +46,7 @@ public class FuncionarioResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response delete( @PathParam("id") Long id){
         if(service.delete(id))
             return Response.status(Status.NO_CONTENT).build();
@@ -56,7 +55,7 @@ public class FuncionarioResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response update( @PathParam("id") Long id, FuncionarioDTO dto){
         try {
             service.update(id, dto);
@@ -67,7 +66,7 @@ public class FuncionarioResource {
     }
 
     @PATCH
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     @Path("/update-password")
     public Response updateUsuarioPassword(FuncionarioPasswordUpdateDTO passwordUpdateDTO){
         service.updateUsuarioPassword(passwordUpdateDTO);
@@ -75,7 +74,7 @@ public class FuncionarioResource {
     }
 
     @PATCH
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     @Path("/update-username")
     public Response updateUsuarioUsername(FuncionarioUsernameUpdateDTO usernameUpdateDTO){
         service.updateUsuarioUsername(usernameUpdateDTO);
@@ -83,35 +82,35 @@ public class FuncionarioResource {
     }
 
     @GET
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response findAll(){
         return Response.ok(service.findAll()).build();
     }
 
     @GET
     @Path("/search/id/{id}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response findById( @PathParam("id") Long id){
         return Response.ok(service.findById(id)).build();
     }
 
     @GET
     @Path("/search/nome/{nome}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response findByNome( @PathParam("nome") String nome){
         return Response.ok(service.findByNome(nome)).build();
     }
 
     @GET
     @Path("/search/cpf/{cpf}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response findByCpf( @PathParam("cpf") String cpf){
         return Response.ok(service.findByCpf(cpf)).build();
     }
 
     @GET
     @Path("/search/username/{username}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response findByUsername( @PathParam("username") String username){
         return Response.ok(service.findByUsername(username)).build();
     }

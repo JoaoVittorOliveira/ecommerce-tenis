@@ -1,6 +1,5 @@
 package br.unitins.joaovittor.basqueteiros.Funcionario.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,8 +12,7 @@ import br.unitins.joaovittor.basqueteiros.Funcionario.dto.FuncionarioDTO;
 import br.unitins.joaovittor.basqueteiros.Funcionario.dto.FuncionarioResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Funcionario.repository.FuncionarioRepository;
 import br.unitins.joaovittor.basqueteiros.Hash.service.HashService;
-import br.unitins.joaovittor.basqueteiros.PessoaFisica.model.PessoaFisica;
-import br.unitins.joaovittor.basqueteiros.PessoaFisica.repository.PessoaFisicaRepository;
+import br.unitins.joaovittor.basqueteiros.Telefone.model.Telefone;
 import br.unitins.joaovittor.basqueteiros.Usuario.dto.UsuarioResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Usuario.model.Usuario;
 import br.unitins.joaovittor.basqueteiros.Usuario.repository.UsuarioRepository;
@@ -32,9 +30,6 @@ public class FuncionarioServiceImp implements FuncionarioService {
     FuncionarioRepository repository;
 
     @Inject
-    PessoaFisicaRepository pessoaFisicaRepository;
-
-    @Inject
     UsuarioRepository usuarioRepository;
 
     @Inject
@@ -49,46 +44,41 @@ public class FuncionarioServiceImp implements FuncionarioService {
     @Override
     @Transactional
     public FuncionarioResponseDTO create(@Valid FuncionarioDTO dto) {
-        
+
         Usuario usuario = new Usuario();
         usuario.setUsername(dto.username());
         usuario.setPassword(hashService.getHashSenha(dto.senha()));
-
-        usuarioRepository.persist(usuario);
-
-
-        PessoaFisica pf = new PessoaFisica();
-        pf.setNome(dto.nome());
-        pf.setTelefone(dto.telefone());
-        pf.setDataNascimento(LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc()));
-        pf.setCpf(dto.cpf());
-        pf.setUsuario(usuario);
-
-        pessoaFisicaRepository.persist(pf);
-
+        usuarioRepository.persist(usuario);    
 
         Funcionario funcionario = new Funcionario();
+        funcionario.setCodigoAdmissao(dto.codigoAdmissao());
+        funcionario.setCpf(dto.cpf());
+        funcionario.setNome(dto.nome());
+        Telefone telefone = new Telefone();
+        telefone.setDdd(dto.ddd());
+        telefone.setNumero(dto.numero());
+        funcionario.setTelefone(telefone);        
+        funcionario.setDataNascimento(dto.dataNascimento());
+        funcionario.setDataAdmissao(dto.dataAdmissao());
 
-        funcionario.setCodigoContrato(dto.codigoContrato());
-        LocalDate dataAdmissao = LocalDate.of(dto.anoAdmissao(), dto.mesAdmissao(), dto.diaAdmissao());
-        funcionario.setDataAdmissao(dataAdmissao);
-        funcionario.setPessoaFisica(pf);
-
+        funcionario.setUsuario(usuario);
         repository.persist(funcionario);
-        
         return FuncionarioResponseDTO.valueof(funcionario);
+
     }
 
     @Override
     @Transactional
     public boolean delete(Long id) {
         return repository.deleteById(id);
+        
     }
 
     @Override
     @Transactional
     public void update(Long id, FuncionarioDTO dto) throws ValidationException {
-        Usuario usuario = repository.findById(id).getPessoaFisica().getUsuario();
+
+        Usuario usuario = repository.findById(id).getUsuario();
         if(usuario != null){
             usuario.setUsername(dto.username());
             // fazer hash da nova senha
@@ -97,27 +87,24 @@ public class FuncionarioServiceImp implements FuncionarioService {
             throw new ValidationException("Funcionario inexistente");
         }
 
-        PessoaFisica pf = repository.findById(id).getPessoaFisica();
-        if(pf != null){
-            pf.setNome(dto.nome());
-            pf.setTelefone(dto.telefone());
-            pf.setDataNascimento(LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc()));
-            pf.setCpf(dto.cpf());
-            pf.setUsuario(usuario);
-        } else {
-            throw new ValidationException("Funcionario inexistente");
-        }
-        
         Funcionario funcionario = repository.findById(id);
-
         if(funcionario != null){
-            funcionario.setCodigoContrato(dto.codigoContrato());
-            LocalDate dataAdmissao = LocalDate.of(dto.anoAdmissao(), dto.mesAdmissao(), dto.diaAdmissao());
-            funcionario.setDataAdmissao(dataAdmissao);
-            funcionario.setPessoaFisica(pf);
+
+            funcionario.setCodigoAdmissao(dto.codigoAdmissao());
+            funcionario.setCpf(dto.cpf());
+            funcionario.setNome(dto.nome());
+            Telefone telefone = new Telefone();
+            telefone.setDdd(dto.ddd());
+            telefone.setNumero(dto.numero());
+            funcionario.setTelefone(telefone);        
+            funcionario.setDataNascimento(dto.dataNascimento());
+            funcionario.setDataAdmissao(dto.dataAdmissao());
+            funcionario.setUsuario(usuario);
+
         } else {
             throw new ValidationException("Funcionario inexistente");
         }
+
     }
 
     @Override
@@ -145,8 +132,8 @@ public class FuncionarioServiceImp implements FuncionarioService {
         if (usuario == null || funcionario == null) {
             throw new InternalError();
         }
-        funcionario.getPessoaFisica().getUsuario().setUsername(usernameUpdateDTO.newUsername());
-        usuarioService.update(funcionario.getPessoaFisica().getUsuario());
+        funcionario.getUsuario().setUsername(usernameUpdateDTO.newUsername());
+        usuarioService.update(funcionario.getUsuario());
         repository.persist(funcionario);
     }
 
@@ -160,9 +147,9 @@ public class FuncionarioServiceImp implements FuncionarioService {
     @Override
     public FuncionarioResponseDTO findById(Long id) {
 
-        Funcionario cor = repository.findById(id);
+        Funcionario funcionario = repository.findById(id);
 
-        if(cor != null)
+        if(funcionario != null)
             return FuncionarioResponseDTO.valueof(repository.findById(id));
         return null;       
     }
@@ -196,10 +183,13 @@ public class FuncionarioServiceImp implements FuncionarioService {
 
     @Override
     public UsuarioResponseDTO login(String username, String senha) {
+        /*
         Funcionario funcionario = repository.findByUsernameAndSenha(username, senha);
         // verificar se existe ou não
         if(funcionario != null)
             return UsuarioResponseDTO.valueof(funcionario.getPessoaFisica());
+        return null;
+        */
         return null;
     }
 

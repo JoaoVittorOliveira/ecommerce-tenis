@@ -5,7 +5,6 @@ import org.jboss.logging.Logger;
 import br.unitins.joaovittor.basqueteiros.Cor.resource.CorResource;
 import br.unitins.joaovittor.basqueteiros.Tenis.dto.TenisDTO;
 import br.unitins.joaovittor.basqueteiros.Tenis.service.TenisService;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;

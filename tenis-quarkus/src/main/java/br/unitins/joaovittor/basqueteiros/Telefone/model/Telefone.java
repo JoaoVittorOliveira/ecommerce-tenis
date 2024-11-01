@@ -7,10 +7,10 @@ import jakarta.persistence.Entity;
 @Entity
 public class Telefone extends DefaultEntity{
 
-    @Column(name = "ddd")
+    @Column(name = "ddd", nullable = false)
     private String ddd;
 
-    @Column(name = "numero")
+    @Column(name = "numero", nullable = false)
     private String numero;
 
     
@@ -29,4 +29,6 @@ public class Telefone extends DefaultEntity{
     public void setNumero(String numero) {
         this.numero = numero;
     }
+
+    
 }

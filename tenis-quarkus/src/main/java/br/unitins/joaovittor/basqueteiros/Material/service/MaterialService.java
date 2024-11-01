@@ -1,8 +1,6 @@
 package br.unitins.joaovittor.basqueteiros.Material.service;
 
 import java.util.List;
-
-import br.unitins.joaovittor.basqueteiros.Categoria.dto.CategoriaResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Material.dto.MaterialDTO;
 import br.unitins.joaovittor.basqueteiros.Material.dto.MaterialResponseDTO;
 import jakarta.validation.Valid;

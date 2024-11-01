@@ -20,8 +20,8 @@ values
 
 insert into cupom(codigo, porcentagem_desconto, valor_desconto, data_cadastro, data_vencimento)
 values
-('DEZ10', 10, 0, CURRENT_DATE, '2099-10-10'),
-('20VIN', 0, 20, CURRENT_DATE, '2099-10-10');
+('DEZ10', 10, 0, CURRENT_DATE, '2025-10-20'),
+('20VIN', 0, 20, CURRENT_DATE, '2025-06-21');
 
 insert into endereco(cep,rua,complemento) values 
 ('111','rua 1','em frente a rua 2');
@@ -73,29 +73,9 @@ values
 
 
 
-
--- ADICIONANDO CLIENTE
 insert into usuario (username, `password`) 
 values ('joao', 'Z7dL+3VaMV++fdWH0b8S3NV26muviRKuWXNk5ayr2RVBF9BE8tMorc/G7NB1P51lHzLhjc7irjXu+Q5f3T997w==');
 
-insert into pessoafisica (cpf, nome, telefone, data_nascimento, id_usuario)
-values ('999.999.999-00','João Víttor O','(99)9999-9999', CURRENT_DATE, 1);
-
-insert into cliente (saldo, id_pessoa_fisica)
-values (1000.00, 1);
-
-insert into endereco (cep, rua, complemento, id_cliente)
-values ('77001-000', 'Com asfalto', 'casa 2', 1);
-
--- ADICIONANDO FUNCIONARIO
-insert into usuario (username, `password`) 
-values ('rona', 'xMjCHZuQU+YIM0rmuq63vX4UgfwSDSsKE+9a+njtZWkjyD9dE9q6eZP7S5DMoRKXICJ//q4op6+AUmEVeMzkyw==');
-
-insert into pessoafisica (cpf, nome, telefone, data_nascimento, id_usuario)
-values ('000.111.222-33','Ronaldo','(00)0000-0000', CURRENT_DATE, 2);
-
-insert into funcionario(codigo_contrato, data_admissao, id_pessoa_fisica)
-values ('PJ#0001', CURRENT_DATE, 2);
 
 insert into produto (nome, descricao, quantidade, preco_compra, preco_venda, id_fornecedor, id_marca)
 values 

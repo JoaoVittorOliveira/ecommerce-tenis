@@ -4,13 +4,11 @@ import org.jboss.logging.Logger;
 
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClientePasswordUpdateDTO;
-import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteSaldoUpdateDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteUsernameUpdateDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.service.ClienteService;
 import br.unitins.joaovittor.basqueteiros.Jwt.service.JwtService;
 import br.unitins.joaovittor.basqueteiros.Usuario.repository.UsuarioRepository;
 import br.unitins.joaovittor.basqueteiros.Usuario.service.UsuarioService;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -59,7 +57,7 @@ public class ClienteResource {
 
     @DELETE
     @Path("/{id}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response delete( @PathParam("id") Long id){
         if(service.delete(id))
             return Response.status(Status.NO_CONTENT).build();
@@ -68,7 +66,7 @@ public class ClienteResource {
 
     @PUT
     @Path("/{id}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response update( @PathParam("id") Long id, ClienteDTO dto){
         try {
             service.update(id, dto);
@@ -79,15 +77,7 @@ public class ClienteResource {
     }
 
     @PATCH
-    @Path("/update-saldo/")
-    @RolesAllowed("Cliente")
-    public Response updateSaldo(ClienteSaldoUpdateDTO dto){
-        service.updateSaldo(dto);
-        return Response.status(Status.NO_CONTENT).build();
-    }
-
-    @PATCH
-    @RolesAllowed("Cliente")
+    //@RolesAllowed("Cliente")
     @Path("/update-password")
     public Response updateUsuarioPassword(ClientePasswordUpdateDTO passwordUpdateDTO){
         service.updateUsuarioPassword(passwordUpdateDTO);
@@ -95,7 +85,7 @@ public class ClienteResource {
     }
 
     @PATCH
-    @RolesAllowed("Cliente")
+    //@RolesAllowed("Cliente")
     @Path("/update-username")
     public Response updateUsuarioUsername(ClienteUsernameUpdateDTO usernameUpdateDTO){
         service.updateUsuarioUsername(usernameUpdateDTO);
@@ -103,21 +93,21 @@ public class ClienteResource {
     }
 
     @GET
-    @RolesAllowed({"Funcionario", "Cliente"})
+    //@RolesAllowed({"Funcionario", "Cliente"})
     public Response findAll(){
         return Response.ok(service.findAll()).build();
     }
 
     @GET
     @Path("/search/id/{id}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response findById( @PathParam("id") Long id){
         return Response.ok(service.findById(id)).build();
     }
 
     @GET
     @Path("/search/nome/{nome}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response findByNome( @PathParam("nome") String nome){
         // service.findByNome(nome);
         return Response.ok(service.findByNome(nome)).build();
@@ -125,7 +115,7 @@ public class ClienteResource {
 
     @GET
     @Path("/search/cpf/{cpf}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response findByCpf( @PathParam("cpf") String cpf){
         // service.findByNome(nome);
         return Response.ok(service.findByCpf(cpf)).build();
@@ -133,7 +123,7 @@ public class ClienteResource {
 
     @GET
     @Path("/search/username/{username}")
-    @RolesAllowed("Funcionario")
+    //@RolesAllowed("Funcionario")
     public Response findByUsername( @PathParam("username") String username){
         return Response.ok(service.findByUsername(username)).build();
     }

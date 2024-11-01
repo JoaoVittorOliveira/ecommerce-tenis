@@ -4,33 +4,33 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import br.unitins.joaovittor.basqueteiros.Funcionario.model.Funcionario;
+import br.unitins.joaovittor.basqueteiros.Telefone.dto.TelefoneResponseDTO;
+import br.unitins.joaovittor.basqueteiros.Usuario.dto.UsuarioResponseDTO;
 
 public record FuncionarioResponseDTO(
     Long id,
     String nome,
-    String telefone,
+    TelefoneResponseDTO telefone,
     LocalDate dataNascimento,
     String cpf,
-    String codigoContrato,
+    String codigoAdmissao,
     LocalDate dataAdmissao,
-    String username,
-    String senha,
+    UsuarioResponseDTO usuario,
     LocalDateTime dataCadastro,
     LocalDateTime dataAlteracao
 ) {
     public static FuncionarioResponseDTO valueof(Funcionario funcionario){
 
         return new FuncionarioResponseDTO(funcionario.getId(), 
-                                funcionario.getPessoaFisica().getNome(),
-                                funcionario.getPessoaFisica().getTelefone(),
-                                funcionario.getPessoaFisica().getDataNascimento(),
-                                funcionario.getPessoaFisica().getCpf(),
-                                funcionario.getCodigoContrato(), 
-                                funcionario.getDataAdmissao(),
-                                funcionario.getPessoaFisica().getUsuario().getUsername(),
-                                funcionario.getPessoaFisica().getUsuario().getPassword(),
-                                funcionario.getDataCadastro(), 
-                                funcionario.getDataAlteracao()
+                                          funcionario.getNome(),
+                                          TelefoneResponseDTO.valueof(funcionario.getTelefone()),
+                                          funcionario.getDataNascimento(),
+                                          funcionario.getCpf(),
+                                          funcionario.getCodigoAdmissao(), 
+                                          funcionario.getDataAdmissao(),
+                                          UsuarioResponseDTO.valueof(funcionario.getUsuario()),
+                                          funcionario.getDataCadastro(), 
+                                          funcionario.getDataAlteracao()
                                 );
     }
 }

@@ -1,29 +1,28 @@
 package br.unitins.joaovittor.basqueteiros.Funcionario.dto;
 
+import java.time.LocalDate;
 import jakarta.validation.constraints.NotBlank;
 
 public record FuncionarioDTO(
-    // Parte Pessoa
-    @NotBlank
-    String nome,
-    String telefone,
-    int diaNasc,
-    int mesNasc,
-    int anoNasc,
 
-    // Parte PessoaFisica
-    @NotBlank
-    String cpf,
-    
+    // Usuario   
     @NotBlank
     String username,
 
     @NotBlank
     String senha,
 
-    // Parte Funcionario
-    String codigoContrato,
-    int diaAdmissao,
-    int mesAdmissao,
-    int anoAdmissao
+    // Funcionario
+    @NotBlank
+    String nome,
+    
+    @NotBlank
+    String cpf,
+
+    String ddd,
+    String numero,
+
+    LocalDate dataNascimento,
+    String codigoAdmissao,
+    LocalDate dataAdmissao
 ) {}

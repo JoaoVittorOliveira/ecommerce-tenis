@@ -78,6 +78,9 @@ public class PedidoServiceImpl implements PedidoService{
             
         }
 
+        // FAZER COMPRA DE OUTRA MANEIRA
+
+        /*
         if(pedido.getValorTotal() <= pedido.getCliente().getSaldo()){
 
             // SALDO DO CLIENTE = CUIDAR DO TIPO DE PAGAMENTO ETC = IMPLEMENTAR
@@ -92,7 +95,8 @@ public class PedidoServiceImpl implements PedidoService{
                                           +"\n"
                                           +"Saldo atual: "+pedido.getCliente().getSaldo());
         }
-        
+        */
+        return null;
     }
 
     @Override

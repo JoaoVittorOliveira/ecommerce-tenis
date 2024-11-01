@@ -1,7 +1,5 @@
 package br.unitins.joaovittor.basqueteiros.Marca.repository;
 
-import java.util.List;
-
 import br.unitins.joaovittor.basqueteiros.Marca.model.Marca;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;

@@ -5,7 +5,6 @@ import org.jboss.logging.Logger;
 import br.unitins.joaovittor.basqueteiros.Cor.resource.CorResource;
 import br.unitins.joaovittor.basqueteiros.Marca.dto.MarcaDTO;
 import br.unitins.joaovittor.basqueteiros.Marca.service.MarcaService;
-import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.core.Response.Status;
 import jakarta.ws.rs.Consumes;
