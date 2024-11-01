@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Telefone } from '../../../models/telefone.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-telefone-form',
@@ -38,7 +39,7 @@ export class TelefoneFormComponent {
       ],
       
       numero: [
-        (telefone && telefone.numero) ? telefone.numero : '', [Validators.required, Validators.maxLength(9), Validators.minLength(8), Validators.pattern('^[0-9]+$')]
+        (telefone && telefone.numero) ? telefone.numero : '', [Validators.required, Validators.maxLength(9), Validators.minLength(9), Validators.pattern('^[0-9]+$')]
       ]
     });
 
@@ -94,4 +95,52 @@ export class TelefoneFormComponent {
   cancelar(){
     this.router.navigateByUrl('/telefones');
   }
+
+
+  tratarErros(errorResponse: HttpErrorResponse) {
+    if (errorResponse.status === 400) {
+      if (errorResponse.error?.errors) {
+        errorResponse.error.errors.forEach((validationError: any) => {
+          const formControl = this.formGroup.get(validationError.fieldName);
+          if (formControl) {
+            formControl.setErrors({apiError: validationError.message})
+          }
+        });
+      }
+    } else if (errorResponse.status < 400){
+      alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
+    } else if (errorResponse.status >= 500) {
+
+      alert(errorResponse.error?.details);
+    }
+  }
+
+  getErrorMessage(controlName : string, errors: ValidationErrors | null | undefined): string {
+    if (!errors){
+      return '';
+    }
+    for (const errorName in errors) {
+      if (errors.hasOwnProperty(errorName) && this.errorMessages[controlName][errorName]){
+        return this.errorMessages[controlName][errorName];
+      }
+    }
+
+    return 'invalid field';
+  }
+
+  errorMessages: {[controlName: string]: {[errorName: string]: string}} = {
+    
+    ddd : {
+      required: 'O ddd deve ser informado.',
+      minlength: 'O ddd deve conter 2 numeros.',
+      maxlength: 'O ddd deve conter 2 numeros.'
+    },
+    numero : {
+      required: 'O numero deve ser informado.',
+      minlength: 'O numero deve conter 9 caracteres numéricos.',
+      maxlength: 'O numero deve conter 9 caracteres numéricos.'
+    }
+  }
+
+
 }

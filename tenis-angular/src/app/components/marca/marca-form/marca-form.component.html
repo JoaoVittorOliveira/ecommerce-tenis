@@ -18,7 +18,8 @@
                     <mat-error *ngIf="formGroup.get('nome')
                                     && formGroup.get('nome')?.invalid
                                     && formGroup.get('nome')?.touched">
-                        O nome é obrigatório.
+                        {{getErrorMessage('nome', formGroup.get('nome')?.errors)}}   
+
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill" class="full-width-input">
@@ -27,7 +28,7 @@
                     <mat-error *ngIf="formGroup.get('logo')
                                     && formGroup.get('logo')?.invalid
                                     && formGroup.get('logo')?.touched">
-                        A logo é obrigatório.
+                        {{getErrorMessage('logo', formGroup.get('logo')?.errors)}}   
                     </mat-error>
                 </mat-form-field>
             </form>

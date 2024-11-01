@@ -9,7 +9,7 @@ public record EnderecoDTO(
     @Size(min = 8, max = 8, message = "O tamanho do cep deve ser de 8 caracteres.")
     String cep,
     
-    @NotBlank(message = "A rua não pode ser nulo ou vazio")
+    @NotBlank(message = "A rua não pode ser nula ou vazia")
     String rua,
 
     @NotBlank(message = "O complemento não pode ser nulo ou vazio")
