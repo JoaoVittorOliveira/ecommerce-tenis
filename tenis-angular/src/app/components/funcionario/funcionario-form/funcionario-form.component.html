@@ -18,7 +18,7 @@
                     <mat-error *ngIf="formGroup.get('nome') 
                                    && formGroup.get('nome')?.invalid
                                    && formGroup.get('nome')?.touched">
-                        
+                        {{getErrorMessage('nome', formGroup.get('nome')?.errors)}}   
                     </mat-error>
                 </mat-form-field>
                 
@@ -28,7 +28,7 @@
                     <mat-error *ngIf="formGroup.get('cpf') 
                                    && formGroup.get('cpf')?.invalid
                                    && formGroup.get('cpf')?.touched">
-                        
+                        {{getErrorMessage('cpf', formGroup.get('cpf')?.errors)}}   
                     </mat-error>
                 </mat-form-field>
                 
@@ -57,10 +57,8 @@
                   <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Código Admissao</mat-label>
                     <input matInput type="text" formControlName="codigoAdmissao">
-                    <mat-error *ngIf="formGroup.get('codigoAdmissao') 
-                                   && formGroup.get('codigoAdmissao')?.invalid
-                                   && formGroup.get('codigoAdmissao')?.touched">
-                        
+                    <mat-error *ngIf="formGroup.get('codigoAdmissao')?.errors?.['required']">
+                        {{getErrorMessage('codigoAdmissao', formGroup.get('codigoAdmissao')?.errors)}} 
                     </mat-error>
                 </mat-form-field>
 
@@ -70,17 +68,22 @@
                     <mat-error *ngIf="formGroup.get('username') 
                                    && formGroup.get('username')?.invalid
                                    && formGroup.get('username')?.touched">
+                        {{getErrorMessage('username', formGroup.get('username')?.errors)}} 
                         
+                        <!-- erros do back-end -->
+                        @if(formGroup.get('nome')?.hasError('apiError')) {
+                            <span>{{formGroup.get('username')?.getError('apiError')}}</span> 
+                         }
                     </mat-error>
                 </mat-form-field>
 
-                <mat-form-field appearance="fill" class="full-width-input">
+                <mat-form-field appearance="fill" class="full-width-input" *ngIf="!formGroup?.get('id')?.value">
                     <mat-label>Senha</mat-label>
                     <input matInput type="text" formControlName="senha">
                     <mat-error *ngIf="formGroup.get('senha') 
                                    && formGroup.get('senha')?.invalid
                                    && formGroup.get('senha')?.touched">
-                        
+                        {{getErrorMessage('senha', formGroup.get('senha')?.errors)}}
                     </mat-error>
                 </mat-form-field>
 
@@ -90,7 +93,7 @@
                     <mat-error *ngIf="formGroup.get('ddd') 
                                    && formGroup.get('ddd')?.invalid
                                    && formGroup.get('ddd')?.touched">
-                        
+                        {{getErrorMessage('ddd', formGroup.get('ddd')?.errors)}}
                     </mat-error>
                 </mat-form-field>
 
@@ -100,7 +103,7 @@
                     <mat-error *ngIf="formGroup.get('numero') 
                                    && formGroup.get('numero')?.invalid
                                    && formGroup.get('numero')?.touched">
-                        
+                        {{getErrorMessage('numero', formGroup.get('numero')?.errors)}}
                     </mat-error>
                 </mat-form-field>
 
@@ -116,7 +119,11 @@
                 Excluir
             </button>
 
-            <button mat-raised-button color="primary" (click)="salvar()" [disabled]="formGroup.invalid">
+            <button mat-raised-button color="primary" (click)="salvar()" [disabled]="formGroup.invalid" *ngIf="!formGroup?.get('id')?.value">
+                Salvar
+            </button>
+
+            <button mat-raised-button color="primary" (click)="salvar()" *ngIf="formGroup?.get('id')?.value">
                 Salvar
             </button>
 

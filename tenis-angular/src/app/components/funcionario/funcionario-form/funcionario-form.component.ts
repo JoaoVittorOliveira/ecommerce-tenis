@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,6 +17,7 @@ import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/cor
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { Funcionario } from '../../../models/funcionario.model';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-funcionario-form',
@@ -68,7 +69,7 @@ export class FuncionarioFormComponent {
   initializeForm(): void {
     
     const funcionario = this.activatedRoute.snapshot.data['funcionario'];
-    console.log(funcionario)
+    const isCadastro = !funcionario || !funcionario.id;
     
     this.formGroup = this.formBuilder.group({
       id: [
@@ -76,14 +77,14 @@ export class FuncionarioFormComponent {
       ],
       nome: [
         (funcionario && funcionario.nome) ? funcionario.nome : null, 
-        Validators.compose([Validators.required])
+        Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(80)])
       ],
       cpf: [
-        (funcionario && funcionario.cpf !== null && funcionario.cpf !== undefined) ? funcionario.cpf : 0, 
-        Validators.compose([Validators.required])
+        (funcionario && funcionario.cpf !== null && funcionario.cpf !== undefined) ? funcionario.cpf : '', 
+        Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(15)])
       ],
       dataAdmissao: [
-        (funcionario && funcionario.dataAdmissao !== null && funcionario.dataAdmissao !== undefined) ? funcionario.dataAdmissao : 0,
+        (funcionario && funcionario.dataAdmissao !== null && funcionario.dataAdmissao !== undefined) ? funcionario.dataAdmissao : '',
         Validators.compose([Validators.required])
       ],
       dataNascimento: [
@@ -95,30 +96,40 @@ export class FuncionarioFormComponent {
         Validators.compose([Validators.required])
       ],
       username: [
-        (funcionario && funcionario.usuario && funcionario.usuario.username) ? funcionario.usuario.username : '', 
-        Validators.required
+        (funcionario && funcionario.usuario.username) ? funcionario.usuario.username : '', 
+        Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(60)])
       ],
+
+      // Se for cadastro, validar por tamanho, se for update, validar só se existe
       senha: [
-        (funcionario && funcionario.usuario && funcionario.usuario.senha) ? funcionario.usuario.senha : '', 
-        Validators.required
+        funcionario?.usuario?.senha || '', 
+        isCadastro 
+        ? Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(60)])
+        : Validators.compose([Validators.required])
       ],
+
       ddd: [
         (funcionario && funcionario.telefone && funcionario.telefone.ddd) ? funcionario.telefone.ddd : '', 
-        Validators.required
+        Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(2)])
       ],
       numero: [
         (funcionario && funcionario.telefone && funcionario.telefone.numero) ? funcionario.telefone.numero : '', 
-        Validators.required
+        Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9)])
       ]
 
       
     })
 
-    
   }
 
   salvar() {
+    
+    console.log(this.formGroup.get('senha')?.removeValidators(Validators.maxLength(60)))
+    this.formGroup.updateValueAndValidity();
+
     this.formGroup.markAllAsTouched();
+    
+    //console.log(this.formGroup.get("senha")?.clearValidators());
     if (this.formGroup.valid) {
 
       const funcionario = this.formGroup.value;
@@ -138,6 +149,7 @@ export class FuncionarioFormComponent {
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
+            this.tratarErros(err);
           }
         });
       } else {
@@ -177,4 +189,74 @@ export class FuncionarioFormComponent {
       }
     }
   }
+
+  tratarErros(errorResponse: HttpErrorResponse) {
+    if (errorResponse.status === 400) {
+      if (errorResponse.error?.errors) {
+        errorResponse.error.errors.forEach((validationError: any) => {
+          const formControl = this.formGroup.get(validationError.fieldName);
+          if (formControl) {
+            formControl.setErrors({apiError: validationError.message})
+          }
+        });
+      }
+    } else if (errorResponse.status < 400){
+      alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
+    } else if (errorResponse.status >= 500) {
+
+      //melhorar isso (duplicar username/cpf)
+      alert(errorResponse.error?.details);
+    }
+  }
+
+  getErrorMessage(controlName : string, errors: ValidationErrors | null | undefined): string {
+    if (!errors){
+      return '';
+    }
+    for (const errorName in errors) {
+      if (errors.hasOwnProperty(errorName) && this.errorMessages[controlName][errorName]){
+        return this.errorMessages[controlName][errorName];
+      }
+    }
+
+    return 'invalid field';
+  }
+
+  errorMessages: {[controlName: string]: {[errorName: string]: string}} = {
+    nome : {
+      required: 'O nome deve ser informado.',
+      minlength: 'O nome deve conter ao menos 3 letras.',
+      maxlength: 'O nome deve conter no máximo 80 letras.'
+    },
+    cpf : {
+      required: 'O cpf deve ser informado.',
+      minlength: 'O cpf deve conter ao menos 8 caracteres.',
+      maxlength: 'O cpf deve conter no máximo 15 caracteres.'
+    },
+    codigoAdmissao : {
+      required: 'O codigo de admissao deve ser informado.',
+    },
+    username : {
+      required: 'O username deve ser informado.',
+      minlength: 'O username deve conter ao menos 3 caracteres.',
+      maxlength: 'O username deve conter no máximo 60 caracteres.',
+      apiError: ' '
+    },
+    senha : {
+      required: 'A senha deve ser informado.',
+      minlength: 'A senha deve conter ao menos 6 caracteres.',
+      maxlength: 'A senha deve conter no máximo 60 caracteres.'
+    },
+    ddd : {
+      required: 'O ddd deve ser informado.',
+      minlength: 'O ddd deve conter 2 numeros.',
+      maxlength: 'O ddd deve conter 2 numeros.'
+    },
+    numero : {
+      required: 'O numero deve ser informado.',
+      minlength: 'O numero deve conter 9 numeros.',
+      maxlength: 'O numero deve conter 9 numeros.'
+    },
+  }
+
 }

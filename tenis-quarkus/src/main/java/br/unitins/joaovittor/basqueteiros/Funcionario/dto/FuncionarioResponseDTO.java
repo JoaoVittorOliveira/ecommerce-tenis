@@ -15,7 +15,7 @@ public record FuncionarioResponseDTO(
     String cpf,
     String codigoAdmissao,
     LocalDate dataAdmissao,
-    //UsuarioResponseDTO usuario,
+    UsuarioResponseDTO usuario,
     LocalDateTime dataCadastro,
     LocalDateTime dataAlteracao
 ) {
@@ -28,7 +28,7 @@ public record FuncionarioResponseDTO(
                                           funcionario.getCpf(),
                                           funcionario.getCodigoAdmissao(), 
                                           funcionario.getDataAdmissao(),
-                                          //UsuarioResponseDTO.funcionario.getUsuario(),
+                                          UsuarioResponseDTO.valueof(funcionario.getUsuario()),
                                           funcionario.getDataCadastro(), 
                                           funcionario.getDataAlteracao()
                                 );
