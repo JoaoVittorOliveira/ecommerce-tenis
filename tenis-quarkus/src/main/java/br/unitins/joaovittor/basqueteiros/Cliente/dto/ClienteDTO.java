@@ -1,5 +1,6 @@
 package br.unitins.joaovittor.basqueteiros.Cliente.dto;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import br.unitins.joaovittor.basqueteiros.Endereco.dto.EnderecoDTO;
@@ -13,11 +14,13 @@ public record ClienteDTO(
     String nome,    
     
     List<EnderecoDTO> listaEndereco,
+    String numero,
+    LocalDate dataNascimento,
+
+
+    //Telefone
     String cpf,
-    TelefoneDTO telefone,
-    int diaNasc,
-    int mesNasc,
-    int anoNasc,
+    String ddd,
 
     // Usuario
     @NotBlank

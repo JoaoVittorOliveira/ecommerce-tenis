@@ -59,12 +59,12 @@ public class ClienteServiceImp implements ClienteService {
         cliente.setNome(dto.nome());
 
         Telefone telefone = new Telefone();
-        telefone.setDdd(dto.telefone().ddd());
-        telefone.setNumero(dto.telefone().numero());
+        telefone.setDdd(dto.ddd());
+        telefone.setNumero(dto.numero());
         cliente.setTelefone(telefone);   
 
-        LocalDate dataNascimento = LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc());
-        cliente.setDataNascimento(dataNascimento);
+    
+        cliente.setDataNascimento(dto.dataNascimento());
         
         cliente.setListaEndereco(new ArrayList<Endereco>());
         for(EnderecoDTO endereco : dto.listaEndereco()){
@@ -107,12 +107,11 @@ public class ClienteServiceImp implements ClienteService {
             cliente.setNome(dto.nome());
 
             Telefone telefone = new Telefone();
-            telefone.setDdd(dto.telefone().ddd());
-            telefone.setNumero(dto.telefone().numero());
+            telefone.setDdd(dto.ddd());
+            telefone.setNumero(dto.numero());
             cliente.setTelefone(telefone);  
 
-            LocalDate dataNascimento = LocalDate.of(dto.anoNasc(),dto.mesNasc(),dto.diaNasc());
-            cliente.setDataNascimento(dataNascimento);
+            cliente.setDataNascimento(dto.dataNascimento());
 
             cliente.setListaEndereco(new ArrayList<Endereco>());
             for(EnderecoDTO endereco : dto.listaEndereco()){
