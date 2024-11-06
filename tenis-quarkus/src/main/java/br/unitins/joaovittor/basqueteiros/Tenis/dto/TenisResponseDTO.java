@@ -18,6 +18,7 @@ public record TenisResponseDTO(
     MaterialResponseDTO material, 
     CorResponseDTO cor,
     CategoriaResponseDTO categoria,
+    String nomeImagem,
     TamanhoResponseDTO tamanho
 ) 
     {
@@ -32,6 +33,7 @@ public record TenisResponseDTO(
                                         MaterialResponseDTO.valueof(tenis.getMaterial()), 
                                         CorResponseDTO.valueof(tenis.getCor()), 
                                         CategoriaResponseDTO.valueof(tenis.getCategoria()), 
+                                        tenis.getNomeImagem(),
                                         TamanhoResponseDTO.valueof(tenis.getTamanho()));
         }
     } 

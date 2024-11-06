@@ -1,14 +1,18 @@
 package br.unitins.joaovittor.basqueteiros.Tenis.resource;
 
 import org.jboss.logging.Logger;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import br.unitins.joaovittor.basqueteiros.Cor.resource.CorResource;
 import br.unitins.joaovittor.basqueteiros.Tenis.dto.TenisDTO;
+import br.unitins.joaovittor.basqueteiros.Tenis.service.TenisFileServiceImpl;
 import br.unitins.joaovittor.basqueteiros.Tenis.service.TenisService;
+import br.unitins.joaovittor.basqueteiros.form.ImageForm;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
@@ -25,6 +29,9 @@ public class TenisResource {
 
     @Inject
     public TenisService service;
+
+    @Inject
+    public TenisFileServiceImpl fileService;
 
     private static final Logger LOG = Logger.getLogger(CorResource.class);
 
@@ -69,6 +76,24 @@ public class TenisResource {
         if(service.delete(id))
             return Response.status(Status.NO_CONTENT).build();
         return Response.status(Status.NOT_FOUND).build();
+    }
+
+    @PATCH
+    @Path("/{id}/imagem/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    //@RolesAllowed("Funcionario")
+    public Response upload(@PathParam("id") Long id, @MultipartForm ImageForm form) {
+        fileService.upload(id, form.getNomeImagem(), form.getImagem());
+        return Response.noContent().build();
+    }
+
+    @GET
+    @Path("/image/download/{nomeImagem}")
+    @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    //@RolesAllowed({"Cliente", "Funcionario"})
+    public Response download(@PathParam("nomeImagem") String nomeImagem) {
+        return Response.ok(fileService.download(nomeImagem))
+               .header("Content-Disposition", "attachment;filename=" + nomeImagem).build();
     }
     
 }

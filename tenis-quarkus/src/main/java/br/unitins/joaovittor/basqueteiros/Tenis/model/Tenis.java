@@ -49,9 +49,20 @@ public class Tenis extends DefaultEntity{
     @JoinColumn(name = "id_tamanho")
     private Tamanho tamanho;
 
+    @Column(name = "nome_imagem")
+    private String nomeImagem;
+
     // fornecedor
     // avaliacao
 
+
+    public String getNomeImagem() {
+        return nomeImagem;
+    }
+
+    public void setNomeImagem(String nomeImagem) {
+        this.nomeImagem = nomeImagem;
+    }
 
     public String getNome() {
         return nome;

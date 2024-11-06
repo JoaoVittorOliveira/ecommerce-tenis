@@ -76,7 +76,7 @@ values
 insert into usuario (username, `password`) 
 values ('joao', 'Z7dL+3VaMV++fdWH0b8S3NV26muviRKuWXNk5ayr2RVBF9BE8tMorc/G7NB1P51lHzLhjc7irjXu+Q5f3T997w==');
 
-
+/*
 insert into produto (nome, descricao, quantidade, preco_compra, preco_venda, id_fornecedor, id_marca)
 values 
 ('Nike Air Max', 'Tênis de corrida Nike Air Max', 50, 150.00, 250.00, 1, 2),
@@ -91,3 +91,4 @@ values
 ('Meia Originals Hoodie', 'Meia Originals', 18, 70.00, 130.00, 2, 1),
 ('Meia Classic Backpack', 'Meia Classic', 12, 40.00, 90.00, 2, 1),
 ('Meia 3-Stripes Shorts', 'Meia 3-Stripes', 30, 25.00, 50.00, 2, 1);
+*/
