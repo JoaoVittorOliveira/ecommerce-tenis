@@ -3,6 +3,11 @@
     text-align: center;
     font-size: 1.5em;
   }
+
+.filter-title{
+  display: flex;
+  align-items: center;
+}
   
   .flex-container {
     display: flex;
@@ -83,25 +88,24 @@ button[mat-icon-button]:hover mat-icon {
     transition: transform 0.2s;
 }
 
-
-/* Ajustes para as imagens na coluna logo */
 img {
-  max-width: 100%; /* Manter proporções */
-  max-height: 50px; /* Limitar altura das imagens */
-  object-fit: contain; /* Ajustar a imagem sem distorcer */
+  max-width: 100%; 
+  max-height: 50px; 
+  object-fit: contain; 
   align-items: center;
 }
 
-/* Estilo do contêiner de filtros */
+/* Estilo filtros */
 .filter-container {
   display: flex;
-  flex-wrap: wrap; /* Permite que os filtros se movam para a linha seguinte, se necessário */
-  justify-content: space-between; /* Distribui o espaço entre os filtros */
-  margin: 16px; /* Adiciona uma margem ao redor do contêiner */
+  flex-wrap: wrap; 
+  align-items: center;
+  justify-content: space-between; 
+  margin: 16px; 
   padding: 16px;
-  background-color: #f5f5f5; /* Fundo claro para destacar a seção de filtros */
-  border-radius: 8px; /* Bordas arredondadas */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para profundidade */
+  background-color: #f5f5f5; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); 
 }
 
 

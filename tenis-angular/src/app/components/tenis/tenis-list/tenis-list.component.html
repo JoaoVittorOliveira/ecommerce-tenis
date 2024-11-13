@@ -21,17 +21,18 @@
 
 <!-- Filtros por Categoria, Cor e Marca -->
 <div class="filter-container">
+  <span class="filter-title">Selecione um filtro</span>
     <mat-form-field appearance="fill">
-      <mat-label>Filtrar por Categoria</mat-label>
+      <mat-label>Categoria (Apenas nome)</mat-label>
       <mat-select [(ngModel)]="selectedCategoria" (selectionChange)="applyFilters()">
         <mat-option *ngFor="let categoria of categorias" [value]="categoria.nome">
-          {{ categoria.nome }} - {{categoria.genero }} -{{categoria.faixaEtaria}}
+          {{ categoria.nome }}
         </mat-option>
       </mat-select>
     </mat-form-field>
   
     <mat-form-field appearance="fill">
-      <mat-label>Filtrar por Cor</mat-label>
+      <mat-label>Cor</mat-label>
       <mat-select [(ngModel)]="selectedCor" (selectionChange)="applyFilters()">
         <mat-option *ngFor="let cor of cores" [value]="cor.nome">
           {{ cor.nome }}
@@ -40,7 +41,7 @@
     </mat-form-field>   
   
     <mat-form-field appearance="fill">
-      <mat-label>Filtrar por Marca</mat-label>
+      <mat-label>Marca</mat-label>
       <mat-select [(ngModel)]="selectedMarca" (selectionChange)="applyFilters()">
         <mat-option *ngFor="let marca of marcas" [value]="marca.nome">
           {{ marca.nome }}
