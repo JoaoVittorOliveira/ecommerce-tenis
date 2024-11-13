@@ -24,11 +24,15 @@
                 
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>CPF</mat-label>
-                    <input matInput type="text" formControlName="cpf">
+                    <input matInput type="text" formControlName="cpf" maxLength="15">
                     <mat-error *ngIf="formGroup.get('cpf') 
                                    && formGroup.get('cpf')?.invalid
                                    && formGroup.get('cpf')?.touched">
-                        {{getErrorMessage('cpf', formGroup.get('cpf')?.errors)}}   
+                        {{getErrorMessage('cpf', formGroup.get('cpf')?.errors)}} 
+                        
+                        <span *ngIf="formGroup.get('cpf')?.hasError('apiError')">
+                            {{ formGroup.get('cpf')?.getError('apiError') }}
+                        </span>
                     </mat-error>
                 </mat-form-field>
                 
@@ -70,10 +74,9 @@
                                    && formGroup.get('username')?.touched">
                         {{getErrorMessage('username', formGroup.get('username')?.errors)}} 
                         
-                        <!-- erros do back-end -->
-                        @if(formGroup.get('nome')?.hasError('apiError')) {
-                            <span>{{formGroup.get('username')?.getError('apiError')}}</span> 
-                         }
+                        <span *ngIf="formGroup.get('username')?.hasError('apiError')">
+                            {{ formGroup.get('username')?.getError('apiError') }}
+                        </span>
                     </mat-error>
                 </mat-form-field>
 
@@ -89,7 +92,7 @@
 
                 <mat-form-field appearance="fill" class="half-width-input">
                     <mat-label>DDD</mat-label>
-                    <input matInput type="text" formControlName="ddd">
+                    <input matInput type="text" formControlName="ddd" maxlength="2">
                     <mat-error *ngIf="formGroup.get('ddd') 
                                    && formGroup.get('ddd')?.invalid
                                    && formGroup.get('ddd')?.touched">
@@ -99,7 +102,7 @@
 
                 <mat-form-field appearance="fill" class="half-width-input">
                     <mat-label>Numero</mat-label>
-                    <input matInput type="text" formControlName="numero">
+                    <input matInput type="text" formControlName="numero" maxlength="9">
                     <mat-error *ngIf="formGroup.get('numero') 
                                    && formGroup.get('numero')?.invalid
                                    && formGroup.get('numero')?.touched">

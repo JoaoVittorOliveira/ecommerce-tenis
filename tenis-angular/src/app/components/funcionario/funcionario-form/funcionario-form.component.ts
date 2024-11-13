@@ -191,7 +191,9 @@ export class FuncionarioFormComponent {
   }
 
   tratarErros(errorResponse: HttpErrorResponse) {
+
     if (errorResponse.status === 400) {
+
       if (errorResponse.error?.errors) {
         errorResponse.error.errors.forEach((validationError: any) => {
           const formControl = this.formGroup.get(validationError.fieldName);
@@ -200,13 +202,29 @@ export class FuncionarioFormComponent {
           }
         });
       }
-    } else if (errorResponse.status < 400){
-      alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
-    } else if (errorResponse.status >= 500) {
 
-      //melhorar isso (duplicar username/cpf)
-      alert(errorResponse.error?.details);
+    } else if (errorResponse.status === 409){
+
+      // Duplicata de username
+      if (errorResponse.error?.errors) {
+        errorResponse.error.errors.forEach((validationError: any) => {
+          const formControl = this.formGroup.get(validationError.fieldName);
+          if (formControl) {
+            formControl.setErrors({apiError: validationError.message})
+          }
+        });
+      }
+
+    } else if (errorResponse.status < 400){
+
+      alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
+
+    } else if (errorResponse.status >= 500) {
+      
+      alert('Erro interno do servidor.');
+
     }
+
   }
 
   getErrorMessage(controlName : string, errors: ValidationErrors | null | undefined): string {
@@ -231,7 +249,8 @@ export class FuncionarioFormComponent {
     cpf : {
       required: 'O cpf deve ser informado.',
       minlength: 'O cpf deve conter ao menos 8 caracteres.',
-      maxlength: 'O cpf deve conter no máximo 15 caracteres.'
+      maxlength: 'O cpf deve conter no máximo 15 caracteres.',
+      apiError: ' '
     },
     codigoAdmissao : {
       required: 'O codigo de admissao deve ser informado.',
