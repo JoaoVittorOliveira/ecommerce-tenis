@@ -32,6 +32,9 @@ import { tenisResolver } from './components/tenis/resolver';
 import { FuncionarioListComponent } from './components/funcionario/funcionario-list/funcionario-list.component';
 import { FuncionarioFormComponent } from './components/funcionario/funcionario-form/funcionario-form.component';
 import { funcionarioResolver } from './components/funcionario/resolver';
+import { ClienteListComponent } from './components/cliente/cliente-list/cliente-list.component';
+import { ClienteFormComponent } from './components/cliente/cliente-form/cliente-form.component';
+import { clienteResolver } from './components/cliente/resolver';
 
 
 export const routes: Routes = [
@@ -75,6 +78,10 @@ export const routes: Routes = [
     {path: 'funcionarios', component: FuncionarioListComponent, title: 'Lista de Funcionarios'},
     {path: 'funcionarios/new',component: FuncionarioFormComponent, title: 'Novo Funcionario'},
     {path: 'funcionarios/edit/:id',component: FuncionarioFormComponent, resolve: {funcionario: funcionarioResolver}},
+
+    {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes'},
+    {path: 'clientes/new',component: ClienteFormComponent, title: 'Novo Cliente'},
+    {path: 'clientes/edit/:id',component: ClienteFormComponent, resolve: {cliente: clienteResolver}},
 
     {path: '', component: IndexListComponent, title: 'Gerenciamento'},
 

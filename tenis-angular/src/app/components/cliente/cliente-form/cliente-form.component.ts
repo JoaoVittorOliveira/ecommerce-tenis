@@ -10,34 +10,34 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Telefone } from '../../../models/telefone.model';
-import { FuncionarioService } from '../../../services/funcionario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { forkJoin } from 'rxjs';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
-import { Funcionario } from '../../../models/funcionario.model';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Cliente } from '../../../models/Cliente.model';
+import { ClienteService } from '../../../services/cliente.service';
 
 @Component({
-  selector: 'app-funcionario-form',
+  selector: 'app-cliente-form',
   standalone: true,
   providers: [provideNativeDateAdapter(),
     {provide: MAT_DATE_LOCALE, useValue: 'pt-br'}
   ],
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, RouterModule, MatSelectModule, MatIcon, MatDatepickerModule],
-  templateUrl: './funcionario-form.component.html',
-  styleUrl: './funcionario-form.component.css',
+  templateUrl: './cliente-form.component.html',
+  styleUrl: './cliente-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FuncionarioFormComponent {
+export class ClienteFormComponent {
 
   formGroup: FormGroup;
-  funcionarios: Funcionario[] = [];
+  clientes: Cliente[] = [];
   
 
   constructor(private formBuilder: FormBuilder,
-    private funcionarioService: FuncionarioService,
+    private clienteService: ClienteService,
     private router: Router,
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute) {
@@ -45,9 +45,7 @@ export class FuncionarioFormComponent {
       id: [null],
       nome: ['', Validators.required],
       cpf: ['', Validators.required],
-      codigoAdmissao: ['', Validators.required],
       dataNascimento: ['', Validators.required],
-      dataAdmissao: ['', Validators.required],
 
       //usuario
       username: ['', Validators.required],
@@ -55,66 +53,78 @@ export class FuncionarioFormComponent {
 
       //telefone
       ddd: ['', Validators.required],
-      numero: ['', Validators.required]
+      numero: ['', Validators.required],
+
+      //endereco
+      cep:['', Validators.required],
+      rua:['', Validators.required],
+      complemento:['', Validators.required],
     })
   }
 
   ngOnInit(): void {
-    this.funcionarioService.findAll().subscribe(data=> {
-      this.funcionarios = data;
+    this.clienteService.findAll().subscribe(data=> {
+      this.clientes = data;
       this.initializeForm();
     })
   }
 
   initializeForm(): void {
     
-    const funcionario = this.activatedRoute.snapshot.data['funcionario'];
-    const isCadastro = !funcionario || !funcionario.id;
+    const cliente = this.activatedRoute.snapshot.data['cliente'];
+    const isCadastro = !cliente || !cliente.id;
     
     this.formGroup = this.formBuilder.group({
       id: [
-        (funcionario && funcionario.id) ? funcionario.id : null
+        (cliente && cliente.id) ? cliente.id : null
       ],
       nome: [
-        (funcionario && funcionario.nome) ? funcionario.nome : null, 
+        (cliente && cliente.nome) ? cliente.nome : null, 
         Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(80)])
       ],
       cpf: [
-        (funcionario && funcionario.cpf !== null && funcionario.cpf !== undefined) ? funcionario.cpf : '', 
+        (cliente && cliente.cpf !== null && cliente.cpf !== undefined) ? cliente.cpf : '', 
         Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(15)])
       ],
-      dataAdmissao: [
-        (funcionario && funcionario.dataAdmissao !== null && funcionario.dataAdmissao !== undefined) ? funcionario.dataAdmissao : '',
-        Validators.compose([Validators.required])
-      ],
       dataNascimento: [
-        (funcionario && funcionario.dataNascimento !== null && funcionario.dataNascimento !== undefined) ? funcionario.dataNascimento : '',
+        (cliente && cliente.dataNascimento !== null && cliente.dataNascimento !== undefined) ? cliente.dataNascimento : '',
         Validators.compose([Validators.required])
       ],
-      codigoAdmissao: [
-        (funcionario && funcionario.codigoAdmissao !== null && funcionario.codigoAdmissao !== undefined) ? funcionario.codigoAdmissao : '',
-        Validators.compose([Validators.required])
-      ],
+      
       username: [
-        (funcionario && funcionario.usuario.username) ? funcionario.usuario.username : '', 
+        (cliente && cliente.usuario.username) ? cliente.usuario.username : '', 
         Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(60)])
       ],
 
       // Se for cadastro, validar por tamanho, se for update, validar só se existe
       senha: [
-        funcionario?.usuario?.senha || '', 
+        cliente?.usuario?.senha || '', 
         isCadastro 
         ? Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(60)])
         : Validators.compose([Validators.required])
       ],
 
       ddd: [
-        (funcionario && funcionario.telefone && funcionario.telefone.ddd) ? funcionario.telefone.ddd : '', 
+        (cliente && cliente.telefone && cliente.telefone.ddd) ? cliente.telefone.ddd : '', 
         Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(2)])
       ],
       numero: [
-        (funcionario && funcionario.telefone && funcionario.telefone.numero) ? funcionario.telefone.numero : '', 
+        (cliente && cliente.telefone && cliente.telefone.numero) ? cliente.telefone.numero : '', 
         Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9)])
+      ],
+
+/*0 */
+      cep: [
+        (cliente && cliente.endereco && cliente.endereco.cep) ? cliente.endereco.cep : '', 
+        Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(8)])
+      ],
+      rua: [
+        (cliente && cliente.rua && cliente.endereco.rua) ? cliente.endereco.rua : '', 
+        Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(50)])
+      ],
+      complemento: [
+        (cliente && cliente.endereco && cliente.endereco.complemento) ? cliente.endereco.complemento : '', 
+        Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(50)])
       ]
 
       
@@ -132,20 +142,25 @@ export class FuncionarioFormComponent {
     //console.log(this.formGroup.get("senha")?.clearValidators());
     if (this.formGroup.valid) {
 
-      const funcionario = this.formGroup.value;
+      const cliente = this.formGroup.value;
 
-      if (!funcionario.telefone) {
-        funcionario.telefone = { ddd: funcionario.ddd, numero: funcionario.numero };
+      if (!cliente.telefone) {
+        cliente.telefone = { ddd: cliente.ddd, numero: cliente.numero };
       }
       
-      if (!funcionario.usuario) {
-        funcionario.usuario = { username: funcionario.username, senha: funcionario.senha }; 
+      if (!cliente.usuario) {
+        cliente.usuario = { username: cliente.username, senha: cliente.senha }; 
       }
 
-      if (funcionario.id == null) {
-        this.funcionarioService.insert(funcionario).subscribe({
-          next: (funcionarioCadastrado) => {
-            this.router.navigateByUrl('/funcionarios');
+      if (!cliente.endereco) {
+        cliente.endereco = { cep: cliente.cep, rua: cliente.rua, complemento:cliente.complemento }; 
+      }
+      console.log(cliente);
+
+      if (cliente.id == null) {
+        this.clienteService.insert(cliente).subscribe({
+          next: (clienteCadastrado) => {
+            this.router.navigateByUrl('/clientes');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -153,9 +168,9 @@ export class FuncionarioFormComponent {
           }
         });
       } else {
-        this.funcionarioService.update(funcionario).subscribe({
-          next: (funcionarioAlterado) => {
-            this.router.navigateByUrl('/funcionarios');
+        this.clienteService.update(cliente).subscribe({
+          next: (clienteAlterado) => {
+            this.router.navigateByUrl('/clientes');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -169,18 +184,18 @@ export class FuncionarioFormComponent {
 
   excluir() {
     if (this.formGroup.valid) {
-      const funcionario = this.formGroup.value;
-      if (funcionario.id != null) {
+      const cliente = this.formGroup.value;
+      if (cliente.id != null) {
 
         const dialogRef = this.dialog.open(ConfirmDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
           if (result) {
-            this.funcionarioService.delete(funcionario).subscribe({
+            this.clienteService.delete(cliente).subscribe({
               next: () => {
-                this.router.navigateByUrl('/funcionarios');
+                this.router.navigateByUrl('/clientes');
               },
               error: (err) => {
-                console.error('Erro ao tentar excluir o funcionario', err);
+                console.error('Erro ao tentar excluir o cliente', err);
               }
             });
           }
@@ -191,9 +206,7 @@ export class FuncionarioFormComponent {
   }
 
   tratarErros(errorResponse: HttpErrorResponse) {
-
     if (errorResponse.status === 400) {
-
       if (errorResponse.error?.errors) {
         errorResponse.error.errors.forEach((validationError: any) => {
           const formControl = this.formGroup.get(validationError.fieldName);
@@ -202,29 +215,13 @@ export class FuncionarioFormComponent {
           }
         });
       }
-
-    } else if (errorResponse.status === 409){
-
-      // Duplicata de username
-      if (errorResponse.error?.errors) {
-        errorResponse.error.errors.forEach((validationError: any) => {
-          const formControl = this.formGroup.get(validationError.fieldName);
-          if (formControl) {
-            formControl.setErrors({apiError: validationError.message})
-          }
-        });
-      }
-
     } else if (errorResponse.status < 400){
-
       alert(errorResponse.error?.message || 'Erro genérico do envio do formulário.');
-
     } else if (errorResponse.status >= 500) {
-      
-      alert('Erro interno do servidor.');
 
+      //melhorar isso (duplicar username/cpf)
+      alert(errorResponse.error?.details);
     }
-
   }
 
   getErrorMessage(controlName : string, errors: ValidationErrors | null | undefined): string {
@@ -249,11 +246,7 @@ export class FuncionarioFormComponent {
     cpf : {
       required: 'O cpf deve ser informado.',
       minlength: 'O cpf deve conter ao menos 8 caracteres.',
-      maxlength: 'O cpf deve conter no máximo 15 caracteres.',
-      apiError: ' '
-    },
-    codigoAdmissao : {
-      required: 'O codigo de admissao deve ser informado.',
+      maxlength: 'O cpf deve conter no máximo 15 caracteres.'
     },
     username : {
       required: 'O username deve ser informado.',
@@ -275,6 +268,26 @@ export class FuncionarioFormComponent {
       required: 'O numero deve ser informado.',
       minlength: 'O numero deve conter 9 numeros.',
       maxlength: 'O numero deve conter 9 numeros.'
+    },
+
+
+
+    cep : {
+      required: 'O cep deve ser informado.',
+      minlength: 'O numero deve conter 8 numeros.',
+      maxlength: 'O numero deve conter 8 numeros.'
+    },
+
+    rua : {
+      required: 'A rua deve ser informado.',
+      minlength: 'A rua deve conter 4 caracteres.',
+      maxlength: 'A rua deve conter 50 caracteres.'
+    },
+
+    complemento : {
+      required: 'O complemento deve ser informado.',
+      minlength: 'O complemento deve conter 8 caracteres.',
+      maxlength: 'O complemento deve conter 8 caracteres.'
     },
   }
 
