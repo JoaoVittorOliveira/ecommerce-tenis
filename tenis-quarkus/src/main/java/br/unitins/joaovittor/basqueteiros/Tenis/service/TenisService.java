@@ -14,4 +14,6 @@ public interface TenisService {
     public TenisResponseDTO findById(Long id);
     public List<TenisResponseDTO> findAll();
 
+    public TenisResponseDTO salveImage(Long id, String nomeImagem);
+
 }

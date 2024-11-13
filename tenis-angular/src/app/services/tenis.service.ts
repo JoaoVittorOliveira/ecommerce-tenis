@@ -13,6 +13,10 @@ export class TenisService {
   constructor(private httpClient: HttpClient) {
   }
 
+  getUrlImage(nomeImagem: String){
+    return `${this.baseUrl}/image/download/${nomeImagem}`; 
+  }
+
   findAll(): Observable<Tenis[]> {
     return this.httpClient.get<Tenis[]>(this.baseUrl); 
   }

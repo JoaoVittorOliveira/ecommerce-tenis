@@ -95,5 +95,16 @@ public class TenisServiceImpl implements TenisService{
     public boolean delete(Long id) {
         return repository.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public TenisResponseDTO salveImage(Long id, String nomeImagem) {
+
+        Tenis entity = repository.findById(id);
+        entity.setNomeImagem(nomeImagem);
+
+        return TenisResponseDTO.valueOf(entity);
+    }
+
     
 }
