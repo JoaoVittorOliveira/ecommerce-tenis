@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
     <div class="toolbar-title" *ngIf="formGroup?.get('id')?.value">
         Atualização de Marca
     </div>
@@ -40,7 +40,7 @@
             <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()" [disabled]="formGroup.invalid">
                 Excluir
             </button>
-            <button mat-raised-button (click)="cancelar()" routerLink="/marcas">
+            <button mat-raised-button (click)="cancelar()" routerLink="../">
                 Cancelar
             </button>
         </mat-card-actions>

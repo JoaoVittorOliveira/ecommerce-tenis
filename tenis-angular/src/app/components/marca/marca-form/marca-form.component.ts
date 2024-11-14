@@ -51,7 +51,7 @@ export class MarcaFormComponent {
       if (marca.id == null) {
         this.marcaService.insert(marca).subscribe({
           next: (marcaCadastrado) => {
-            this.router.navigateByUrl('/marcas');
+            this.router.navigateByUrl('/admin/marcas');
           },
           error: (errorResponse) => {
             console.log('Erro ao salvar', + JSON.stringify(errorResponse));
@@ -60,7 +60,7 @@ export class MarcaFormComponent {
       } else {
         this.marcaService.update(marca).subscribe({
           next: (marcaAlterado) => {
-            this.router.navigateByUrl('/marcas');
+            this.router.navigateByUrl('/adimin/marcas');
           },
           error: (err) => {
             console.log('Erro ao salvar', + JSON.stringify(err));
@@ -80,7 +80,7 @@ export class MarcaFormComponent {
           if (result) {
             this.marcaService.delete(marca).subscribe({
               next: () => {
-                this.router.navigateByUrl('/marcas');
+                this.router.navigateByUrl('/admin/marcas');
               },
               error: (err) => {
                 console.error('Erro ao tentar excluir o marca', err);
