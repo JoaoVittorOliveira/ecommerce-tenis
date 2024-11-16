@@ -71,11 +71,9 @@ export class TenisListComponent {
         this.filteredTenis = data;
         this.totalRecords = data.length;
         this.populateFilterLists(data);
-        
-        // Supondo que você tenha um array `tenisList` que contém a lista de tênis
-        let allColors = this.tenisList.map(tenis => tenis.cor);
 
-        // Usar Set para remover duplicados
+        let allColors: Cor[] = this.tenisList.map(tenis => tenis.cor);
+
         this.uniqueColors = [...new Set(allColors)];
       }
     );
@@ -83,7 +81,7 @@ export class TenisListComponent {
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
+    this.filterValue = filterValue.trim().toLowerCase();
     this.filteredTenis = this.tenisList.filter(cor =>
       cor.nome.toLowerCase().includes(this.filterValue) ||
       cor.quantidade.toString().includes(this.filterValue) ||
@@ -92,7 +90,7 @@ export class TenisListComponent {
       cor.precoVenda.toString().toLowerCase().includes(this.filterValue)
 
     );
-    this.totalRecords = this.filteredTenis.length;  // Atualiza o número total de registros
+    this.totalRecords = this.filteredTenis.length; 
   }
 
   toggleSearch(): void {
@@ -102,9 +100,17 @@ export class TenisListComponent {
   
    populateFilterLists(data: Tenis[]): void {
     
-    // Para categorias únicas, mantendo a estrutura completa da categoria
-    this.categorias = Array.from(new Set(data.map(tenis => JSON.stringify(tenis.categoria))))
-        .map(categoriaJson => JSON.parse(categoriaJson) as Categoria); // Fazendo um cast para Categoria   
+    this.categorias = Array.from(new Set(data.map(tenis => tenis.categoria.nome)))
+        .map(nome => {
+            const categoriaEncontrada = data.find(tenis => tenis.categoria.nome === nome)?.categoria;
+            return {
+                id: categoriaEncontrada?.id,
+                nome: nome,
+                descricao: categoriaEncontrada?.descricao,
+                genero: categoriaEncontrada?.genero,
+                faixaEtaria: categoriaEncontrada?.faixaEtaria
+            } as Categoria;
+        });  
     
     
     const uniqueColorNames = Array.from(new Set(data.map(tenis => tenis.cor.nome)));
@@ -117,12 +123,10 @@ export class TenisListComponent {
         } as Cor; 
     });
 
-    // Para marcas únicas, mantendo a estrutura completa da marca
     this.marcas = Array.from(new Set(data.map(tenis => JSON.stringify(tenis.marca))))
-        .map(marcaJson => JSON.parse(marcaJson) as Marca); // Fazendo um cast para Marca
+        .map(marcaJson => JSON.parse(marcaJson) as Marca); 
   }
 
-  // Função para aplicar os filtros com base nos valores selecionados
   applyFilters(): void {
     this.filteredTenis = this.tenisList.filter(tenis => {
       return (
@@ -133,7 +137,6 @@ export class TenisListComponent {
     });
   }
 
-  // Função para resetar os filtros
   resetFilters(): void {
     this.selectedCategoria = '';
     this.selectedCor = '';
