@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
     <div class="flex-container">
-        <button mat-icon-button color="primary" routerLink="/">
+        <button mat-icon-button color="primary" routerLink="/admin">
             <mat-icon>home</mat-icon>
         </button>
         <div class="fixSearch">
@@ -13,7 +13,7 @@
             </mat-form-field>
         </div>
         <span class="toolbar-title">Controle de Cliente</span>
-        <button mat-fab color="accent" routerLink="/clientes/new">
+        <button mat-fab color="accent" routerLink="/admin/clientes/new">
             <mat-icon>add</mat-icon>
         </button>
     </div>
@@ -67,7 +67,7 @@
     <ng-container matColumnDef="acao">
         <th mat-header-cell *matHeaderCellDef> Ações </th>
         <td mat-cell *matCellDef="let cliente"> 
-            <button mat-icon-button color="primary" routerLink="/clientes/edit/{{cliente.id}}">
+            <button mat-icon-button color="primary" routerLink="/admin/clientes/edit/{{cliente.id}}">
                 <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="excluir(cliente)">

@@ -1,7 +1,7 @@
 <!-- CABEÇALHO -->
 <mat-toolbar color="primary">
     <div class="flex-container">
-      <button mat-icon-button color="primary" routerLink="/">
+      <button mat-icon-button color="primary" routerLink="/admin">
         <mat-icon>home</mat-icon>
       </button>
       
@@ -16,7 +16,7 @@
       </div>
       <span class="toolbar-title">Controle de Materiais</span>
 
-      <button mat-fab color="accent" routerLink="/materiais/new">
+      <button mat-fab color="accent" routerLink="/admin/materiais/new">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -46,7 +46,7 @@
     <ng-container matColumnDef="acao">
         <th mat-header-cell *matHeaderCellDef> Ações </th>
         <td mat-cell *matCellDef="let material"> 
-            <button mat-icon-button color="primary" routerLink="/materiais/edit/{{material.id}}">
+            <button mat-icon-button color="primary" routerLink="/admin/materiais/edit/{{material.id}}">
                 <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="excluir(material)">

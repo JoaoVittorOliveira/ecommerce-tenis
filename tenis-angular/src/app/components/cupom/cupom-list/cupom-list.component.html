@@ -1,7 +1,7 @@
 <!-- CABEÇALHO -->
 <mat-toolbar color="primary">
     <div class="flex-container">
-      <button mat-icon-button color="primary" routerLink="/">
+      <button mat-icon-button color="primary" routerLink="/admin">
         <mat-icon>home</mat-icon>
       </button>
       
@@ -16,7 +16,7 @@
       </div>
       <span class="toolbar-title">Controle de Cupons</span>
 
-      <button mat-fab color="accent" routerLink="/cupons/new">
+      <button mat-fab color="accent" routerLink="/admin/cupons/new">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -61,7 +61,7 @@
     <td mat-cell *matCellDef="let cupom"> 
         <button mat-icon-button 
                 color="primary"
-                routerLink="/cupons/edit/{{cupom.id}}">
+                routerLink="/admin/cupons/edit/{{cupom.id}}">
                 <mat-icon>edit</mat-icon>
         </button>
         <button mat-icon-button color="warn" (click)="excluir(cupom)">
