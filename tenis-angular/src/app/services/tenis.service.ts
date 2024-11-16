@@ -13,12 +13,23 @@ export class TenisService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getUrlImage(nomeImagem: String){
-    return `${this.baseUrl}/image/download/${nomeImagem}`; 
+  findAll(): Observable<Tenis[]>;
+  findAll(page: number, pageSize: number): Observable<Tenis[]>;
+
+  findAll(page?: number, pageSize?: number): Observable<Tenis[]> {
+    let params = {};
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    }
+    // console.log(params);
+    return this.httpClient.get<Tenis[]>(this.baseUrl, {params}); 
   }
 
-  findAll(): Observable<Tenis[]> {
-    return this.httpClient.get<Tenis[]>(this.baseUrl); 
+  getUrlImage(nomeImagem: String){
+    return `${this.baseUrl}/image/download/${nomeImagem}`; 
   }
 
   findById(id: string): Observable<Tenis> {

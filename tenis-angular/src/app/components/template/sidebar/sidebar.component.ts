@@ -13,8 +13,11 @@ import { SidebarService } from '../../../services/sidebar.service';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent implements OnInit {
+
   @ViewChild('drawer') public drawer!: MatDrawer;
+
   constructor(private sideBarService: SidebarService) { }
+  
   ngOnInit(): void {
     this.sideBarService.sideNavToggleSubject.subscribe(
       () => {

@@ -8,6 +8,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialog } from '@angular/material/dialog';
+import { DetalhesTenisComponent } from '../detalhes-tenis/detalhes-tenis.component';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 type Card = {
   titulo: string;
   nome: string
@@ -18,7 +21,9 @@ type Card = {
   selector: 'app-tenis-card-list',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule, NgFor, 
-    MatCardActions, MatCardContent, MatCardTitle, MatCardFooter, MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule],
+    MatCardActions, MatCardContent, MatCardTitle, MatCardFooter, 
+    MatToolbarModule, MatIconModule, MatFormFieldModule, MatInputModule, 
+    MatPaginator],
   templateUrl: './tenis-card-list.component.html',
   styleUrl: './tenis-card-list.component.css'
 })
@@ -32,7 +37,12 @@ export class TenisCardListComponent implements OnInit {
   filteredTenis: Tenis[] = [];
   showSearch = false;
 
-  constructor(private tenisService: TenisService) {
+  // terminar
+  totalRecords = 0;
+  pageSize = 4;
+  page = 0;
+
+  constructor(private dialog: MatDialog, private tenisService: TenisService) {
   }
 
   ngOnInit(): void {
@@ -59,7 +69,7 @@ export class TenisCardListComponent implements OnInit {
         titulo: tenis.nome,
         nome: tenis.nome,
         precoVenda: tenis.precoVenda,
-        imageUrl: this.tenisService.getUrlImage(tenis.nomeImagem)
+        imageUrl: this.tenisService.getUrlImage(tenis.nomeImagem),
       })
     });
     this.cards.set(cards);
@@ -80,7 +90,17 @@ export class TenisCardListComponent implements OnInit {
     );
 
     this.carregarCards();
-    //this.totalRecords = this.filteredTenis.length;  // Atualiza o número total de registros
   }
   
+  // VER MAIS
+  openDetalhes(card: Card) {
+    const tenis = this.tenis.find(t => t.nome === card.nome);
+    this.dialog.open(DetalhesTenisComponent, {
+      width: '90%',
+      height: '90%',
+      data: tenis ,
+      minWidth: '800px',
+    });
+  }
+
 }

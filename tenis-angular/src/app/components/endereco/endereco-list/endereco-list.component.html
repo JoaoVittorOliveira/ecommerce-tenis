@@ -1,10 +1,10 @@
 <mat-toolbar color="primary">
     <div class="flex-container">
-        <button mat-icon-button color="primary" routerLink="/">
+        <button mat-icon-button color="primary" routerLink="/admin">
             <mat-icon>home</mat-icon>
         </button>
         <span class="toolbar-title">Controle de Enderecos</span>
-        <button mat-fab color="accent" routerLink="/enderecos/new">
+        <button mat-fab color="accent" routerLink="/admin/enderecos/new">
             <!--Router Link: Direcionar para outra rota (outro componente para adicionar)-->
             <mat-icon>add</mat-icon>
         </button>
@@ -41,7 +41,7 @@
     <ng-container matColumnDef="acao">
         <th mat-header-cell *matHeaderCellDef> Ação </th>
         <td mat-cell *matCellDef="let endereco"> 
-            <button mat-icon-button color="primary" routerLink="/enderecos/edit/{{endereco.id}}">
+            <button mat-icon-button color="primary" routerLink="/admin/enderecos/edit/{{endereco.id}}">
                 <mat-icon>edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="excluir(endereco)">

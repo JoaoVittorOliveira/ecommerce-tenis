@@ -38,6 +38,7 @@ import { clienteResolver } from './components/cliente/resolver';
 import { TenisCardListComponent } from './components/tenis/tenis-card-list/tenis-card-list.component';
 import { AdminTemplateComponent } from './components/template/admin-template/admin-template.component';
 import { UserTemplateComponent } from './components/template/user-template/user-template.component';
+import { DetalhesTenisComponent } from './components/tenis/detalhes-tenis/detalhes-tenis.component';
 
 
 export const routes: Routes = [
@@ -106,6 +107,7 @@ export const routes: Routes = [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
             { path: 'ecommerce', component: TenisCardListComponent, title: 'Lista de Cards de Tênis'},
+            //{ path: 'ecommerce/tenis/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis'}
         ]
     }
 

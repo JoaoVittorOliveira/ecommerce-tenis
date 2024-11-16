@@ -1,6 +1,7 @@
 package br.unitins.joaovittor.basqueteiros.Tenis.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.unitins.joaovittor.basqueteiros.Categoria.repository.CategoriaRepository;
 import br.unitins.joaovittor.basqueteiros.Cor.repository.CorRepository;
@@ -80,6 +81,16 @@ public class TenisServiceImpl implements TenisService{
         if (tenis != null)
             return TenisResponseDTO.valueOf(tenis);
         return null;
+    }
+
+    @Override
+    public List<TenisResponseDTO> findAll(int page, int pageSize) {
+        List<Tenis> list = repository
+        .findAll()
+        .page(page,pageSize)
+        .list();
+        return list.stream()
+         .map(e -> TenisResponseDTO.valueOf(e)).collect(Collectors.toList());
     }
 
     @Override
