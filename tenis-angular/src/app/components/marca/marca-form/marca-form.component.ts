@@ -94,7 +94,7 @@ export class MarcaFormComponent {
   }
 
   cancelar(){
-    this.router.navigateByUrl('/marcas');
+    this.router.navigateByUrl('/admin/marcas');
   }
 
   tratarErros(errorResponse: HttpErrorResponse) {

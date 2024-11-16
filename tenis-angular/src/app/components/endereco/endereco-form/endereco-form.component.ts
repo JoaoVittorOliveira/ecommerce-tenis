@@ -45,7 +45,7 @@ export class EnderecoFormComponent {
       if (endereco.id == null) {
         this.enderecoService.insert(endereco).subscribe({
           next: (enderecoCadastrado) => {
-            this.router.navigateByUrl('/enderecos');
+            this.router.navigateByUrl('/admin/enderecos');
           },
           error: (errorResponse) => {
             console.log('Erro ao salvar', + JSON.stringify(errorResponse));
@@ -54,7 +54,7 @@ export class EnderecoFormComponent {
       } else {
         this.enderecoService.update(endereco).subscribe({
           next: (enderecoAlterado) => {
-            this.router.navigateByUrl('/enderecos');
+            this.router.navigateByUrl('/admin/enderecos');
           },
           error: (err) => {
             console.log('Erro ao salvar', + JSON.stringify(err));
@@ -74,7 +74,7 @@ export class EnderecoFormComponent {
           if (result) {
             this.enderecoService.delete(endereco).subscribe({
               next: () => {
-                this.router.navigateByUrl('/enderecos');
+                this.router.navigateByUrl('/admin/enderecos');
               },
               error: (err) => {
                 console.error('Erro ao tentar excluir o endereco', err);

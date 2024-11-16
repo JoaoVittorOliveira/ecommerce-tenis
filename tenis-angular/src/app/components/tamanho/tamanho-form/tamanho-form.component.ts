@@ -82,7 +82,7 @@ export class TamanhoFormComponent {
       if (tamanho.id ==null) {
         this.tamanhoService.insert(tamanho).subscribe({
           next: (tamanhoCadastrado) => {
-            this.router.navigateByUrl('/tamanhos');
+            this.router.navigateByUrl('/admin/tamanhos');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -93,7 +93,7 @@ export class TamanhoFormComponent {
       else {
         this.tamanhoService.update(tamanho).subscribe({
           next: (tamanhoAlterado) => {
-            this.router.navigateByUrl('/tamanhos');
+            this.router.navigateByUrl('/admin/tamanhos');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -116,7 +116,7 @@ export class TamanhoFormComponent {
           if (result) {
             this.tamanhoService.delete(tamanho).subscribe({
               next: () => {
-                this.router.navigateByUrl('/tamanhos');
+                this.router.navigateByUrl('/admin/tamanhos');
               },
               error: (err) => {
                 console.error('Erro ao tentar excluir o tamanho', err);

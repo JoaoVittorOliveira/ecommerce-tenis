@@ -91,7 +91,7 @@ export class CategoriaFormComponent {
       if (categoria.id ==null) {
         this.categoriaService.insert(categoria).subscribe({
           next: (categoriaCadastrada) => {
-            this.router.navigateByUrl('/categorias');
+            this.router.navigateByUrl('/admin/categorias');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -102,7 +102,7 @@ export class CategoriaFormComponent {
       else {
         this.categoriaService.update(categoria).subscribe({
           next: (categoriaAlterada) => {
-            this.router.navigateByUrl('/categorias');
+            this.router.navigateByUrl('/admin/categorias');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -124,7 +124,7 @@ export class CategoriaFormComponent {
           if (result) {
             this.categoriaService.delete(categoria).subscribe({
               next: () => {
-                this.router.navigateByUrl('/categorias');
+                this.router.navigateByUrl('/admin/categorias');
               },
               error: (err) => {
                 console.error('Erro ao tentar excluir a categoria', err);

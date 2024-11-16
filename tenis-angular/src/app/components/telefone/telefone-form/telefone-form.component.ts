@@ -50,7 +50,7 @@ export class TelefoneFormComponent {
       if (telefone.id == null) {
         this.telefoneService.insert(telefone).subscribe({
           next: (telefoneCadastrado) => {
-            this.router.navigateByUrl('/telefones');
+            this.router.navigateByUrl('/admin/telefones');
           },
           error: (errorResponse) => {
             console.log('Erro ao salvar', + JSON.stringify(errorResponse));
@@ -59,7 +59,7 @@ export class TelefoneFormComponent {
       } else {
         this.telefoneService.update(telefone).subscribe({
           next: (telefoneAlterado) => {
-            this.router.navigateByUrl('/telefones');
+            this.router.navigateByUrl('/admin/telefones');
           },
           error: (err) => {
             console.log('Erro ao salvar', + JSON.stringify(err));
@@ -79,7 +79,7 @@ export class TelefoneFormComponent {
           if (result) {
             this.telefoneService.delete(telefone).subscribe({
               next: () => {
-                this.router.navigateByUrl('/telefones');
+                this.router.navigateByUrl('/admin/telefones');
               },
               error: (err) => {
                 console.error('Erro ao tentar excluir o telefone', err);
