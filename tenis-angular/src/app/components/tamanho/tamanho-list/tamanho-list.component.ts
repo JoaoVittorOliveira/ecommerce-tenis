@@ -112,7 +112,6 @@ export class TamanhoListComponent implements OnInit {
       if (result) {
         this.tamanhoService.delete(tamanho).subscribe({
           next: () => {
-            this.tamanhos = this.tamanhos.filter((e) => e.id !== tamanho.id);
             this.applyCurrentFilter(); // Reaplica o filtro após excluir
           },
           error: (err) => {

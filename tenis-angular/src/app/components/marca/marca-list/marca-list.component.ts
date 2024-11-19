@@ -39,27 +39,45 @@ export class MarcaListComponent implements OnInit {
   constructor(private marcaService: MarcaService, private dialog: MatDialog){
 
   }
-  ngOnInit(): void {
-    this.marcaService.findAll(this.page, this.pageSize).subscribe(
-      data => { 
-        console.log(data); 
-        this.marcas = data;
-        this.filteredMarcas = data;
-        this.totalRecords = data.length; 
-      });
 
-    this.marcaService.count().subscribe(
-      data => { this.totalRecords = data }
+  ngOnInit(): void {
+    this.loadData();
+  }
+
+  loadData(): void{
+    this.marcaService.findAll(this.page, this.pageSize).subscribe((data) => {
+      this.marcas = data
+      this.applyCurrentFilter();      
+    });
+
+    this.marcaService.count().subscribe((count) => {
+      this.totalRecords = count;
+    });
+  }
+
+  applyCurrentFilter(): void {
+  
+    const normalizedFilter = this.filterValue.trim().toLowerCase();
+
+    const filtered = this.marcas.filter(
+      (marca) =>
+        marca.nome.toString().toLowerCase().includes(normalizedFilter)
     );
+
+    this.filteredMarcas = filtered.slice(
+      this.page * this.pageSize,
+      (this.page + 1) * this.pageSize
+    );
+
+    this.totalRecords = filtered.length;
   }
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
-    this.filteredMarcas = this.marcas.filter(marca =>
-      marca.nome.toLowerCase().includes(this.filterValue) 
-    );
-    this.totalRecords = this.filteredMarcas.length;  // Atualiza o número total de registros
+    
+    this.page = 0; 
+    this.applyCurrentFilter();
   }
 
   toggleSearch(): void {
@@ -69,7 +87,12 @@ export class MarcaListComponent implements OnInit {
   paginar(event: PageEvent): void {
     this.page = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.ngOnInit();
+   
+    if (this.filterValue) {
+      this.applyCurrentFilter(); // Reaplica o filtro para a nova página
+    } else {
+      this.loadData(); // Recarrega os dados sem filtro
+    }
   }
 
   excluir(marca: Marca): void {
@@ -79,7 +102,7 @@ export class MarcaListComponent implements OnInit {
       if (result) {
         this.marcaService.delete(marca).subscribe({
           next: () => {
-            this.marcas = this.marcas.filter(e => e.id !== marca.id);
+            this.applyCurrentFilter();
           },
           error: (err) => {
             console.error('Erro ao tentar excluir o marca', err);
@@ -87,5 +110,6 @@ export class MarcaListComponent implements OnInit {
         });
       }
     });
+    
   }
 }

@@ -39,29 +39,46 @@ export class MaterialListComponent implements OnInit {
   constructor(private materialService: MaterialService, private dialog: MatDialog){
 
   }
+
   ngOnInit(): void {
-    this.materialService.findAll(this.page, this.pageSize).subscribe(
-      data => { 
-        console.log(data); 
-        this.materiais = data;
-        this.filteredMateriais = data;
-        this.totalRecords = data.length;
-       }
+    this.loadData();
+  }
+
+  loadData(): void{
+    this.materialService.findAll(this.page, this.pageSize).subscribe((data) => {
+      this.materiais = data
+      this.applyCurrentFilter();      
+    });
+
+    this.materialService.count().subscribe((count) => {
+      this.totalRecords = count;
+    });
+  }
+
+  applyCurrentFilter(): void {
+  
+    const normalizedFilter = this.filterValue.trim().toLowerCase();
+
+    const filtered = this.materiais.filter(
+      (material) =>
+        material.descricao.toString().toLowerCase().includes(normalizedFilter) ||
+        material.categoria.toString().toLowerCase().includes(normalizedFilter)
     );
 
-    this.materialService.count().subscribe(
-      data => { this.totalRecords = data }
+    this.filteredMateriais = filtered.slice(
+      this.page * this.pageSize,
+      (this.page + 1) * this.pageSize
     );
+
+    this.totalRecords = filtered.length;
   }
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
-    this.filteredMateriais = this.materiais.filter(material =>
-      material.descricao.toLowerCase().includes(this.filterValue) ||
-      material.categoria.toLowerCase().includes(this.filterValue)
-    );
-    this.totalRecords = this.filteredMateriais.length;  // Atualiza o número total de registros
+    
+    this.page = 0; 
+    this.applyCurrentFilter();
   }
 
   toggleSearch(): void {
@@ -72,7 +89,12 @@ export class MaterialListComponent implements OnInit {
   paginar(event: PageEvent): void {
     this.page = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.ngOnInit();
+    
+    if (this.filterValue) {
+      this.applyCurrentFilter(); // Reaplica o filtro para a nova página
+    } else {
+      this.loadData(); // Recarrega os dados sem filtro
+    }
   }
 
   excluir(material: Material): void {
@@ -82,7 +104,7 @@ export class MaterialListComponent implements OnInit {
       if (result) {
         this.materialService.delete(material).subscribe({
           next: () => {
-            this.materiais = this.materiais.filter(e => e.id !== material.id);
+            this.applyCurrentFilter();
           },
           error: (err) => {
             console.error('Erro ao tentar excluir o material', err);
