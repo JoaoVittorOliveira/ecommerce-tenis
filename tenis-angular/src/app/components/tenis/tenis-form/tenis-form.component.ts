@@ -154,6 +154,7 @@ export class TenisFormComponent {
     }
   }
   private uploadImage(tenisId: number) {
+    
     if (this.selectedFile) {
       this.tenisService.uploadImage(tenisId, this.selectedFile.name, this.selectedFile)
       .subscribe({
@@ -174,13 +175,13 @@ export class TenisFormComponent {
 
   salvar() {
     this.formGroup.markAllAsTouched();
+    const tenis: Tenis = this.activatedRoute.snapshot.data['tenis'];
     if (this.formGroup.valid) {
       const tenis = this.formGroup.value;
       if (tenis.id ==null) {
         this.tenisService.insert(tenis).subscribe({
           next: (tenisCadastrado) => {
             this.uploadImage(tenisCadastrado.id);
-            this.router.navigateByUrl('/admin/tenis');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -190,8 +191,7 @@ export class TenisFormComponent {
         this.tenisService.update(tenis).subscribe({
           next: (tenisAlterado) => {
             console.log('Resposta da API:', tenisAlterado);
-            this.uploadImage(tenisAlterado.id);
-            this.router.navigateByUrl('/admin/tenis');
+            this.uploadImage(tenis.id);
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
