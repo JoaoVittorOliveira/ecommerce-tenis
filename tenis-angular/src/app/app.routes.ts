@@ -49,6 +49,9 @@ export const routes: Routes = [
         title: 'e-commerce',
         children: 
         [
+
+            { path: 'login', component: LoginComponent, title: 'Login'},
+
             {path: 'enderecos', component: EnderecoListComponent, title: 'Lista de Endereços'},
             {path: 'enderecos/new',component: EnderecoFormComponent, title: 'Novo Endereço'},
             {path: 'enderecos/edit/:id',component: EnderecoFormComponent, resolve: {endereco: enderecoResolver}},
@@ -112,7 +115,6 @@ export const routes: Routes = [
             // fazer dialog de ver mais virar component separado
             //{ path: 'ecommerce/tenis/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis'}
 
-            { path: 'login', component: LoginComponent, title: 'Login'},
         ]
     }
 

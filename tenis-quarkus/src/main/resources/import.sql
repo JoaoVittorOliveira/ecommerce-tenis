@@ -64,17 +64,13 @@ values
 
 
 
-
-
-
-
-
-
-
-
-
 insert into usuario (username, `password`) 
-values ('joao', 'Z7dL+3VaMV++fdWH0b8S3NV26muviRKuWXNk5ayr2RVBF9BE8tMorc/G7NB1P51lHzLhjc7irjXu+Q5f3T997w==');
+values ('joao', '46yTi0t0+jgXIiihSqFqSybow/5RMUFASBhBCz0679B6G+WEGaw84a+E+MuNPTSYgE0v6YBuruzc4JpHnETQzw==');
+
+insert into cliente
+(nome, cpf, id_usuario, id_telefone, data_nascimento, data_cadastro)
+values
+('joao vittor', '12312312312', 1, 1, '2004-09-16', CURRENT_DATE);
 
 /*
 insert into produto (nome, descricao, quantidade, preco_compra, preco_venda, id_fornecedor, id_marca)
