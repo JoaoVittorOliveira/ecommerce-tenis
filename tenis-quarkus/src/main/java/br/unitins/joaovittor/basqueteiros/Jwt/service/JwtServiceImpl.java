@@ -29,6 +29,7 @@ public class JwtServiceImpl implements JwtService{
 
         return Jwt.issuer("basqueteiros-jwt")
             .claim("userId", dto.id())
+            .claim("perfil", authDTO.perfil())
             .subject(dto.username())
             .groups(roles)
             .expiresAt(expiryDate)

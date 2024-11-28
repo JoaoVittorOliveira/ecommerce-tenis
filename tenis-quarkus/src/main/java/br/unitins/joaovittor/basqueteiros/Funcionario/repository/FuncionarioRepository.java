@@ -22,7 +22,7 @@ public class FuncionarioRepository implements PanacheRepository<Funcionario> {
     }
 
     public Funcionario findByUsernameAndSenha(String username, String senha){
-        return find("usuario.username = ?1 AND pessoaFisica.usuario.password = ?2", username, senha).firstResult();
+        return find("usuario.username = ?1 AND usuario.password = ?2", username, senha).firstResult();
     }
 
     public Funcionario findByIdUsuario(Long idUsuario) {

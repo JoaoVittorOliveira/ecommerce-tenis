@@ -189,10 +189,10 @@ public class ClienteServiceImp implements ClienteService {
     // REFAZER LOGIN
     @Override
     public UsuarioResponseDTO login(String username, String senha) {
-        //Cliente cliente = repository.findByUsernameAndSenha(username, senha);
-        // verificar se existe ou não
-        //if(cliente != null)
-            //return UsuarioResponseDTO.valueof(cliente.getPessoaFisica());
+        Cliente cliente = repository.findByUsernameAndSenha(username, senha);
+        
+        if(cliente != null)
+            return UsuarioResponseDTO.valueof(cliente.getUsuario());
         return null;
     }
 

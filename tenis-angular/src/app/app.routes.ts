@@ -39,6 +39,7 @@ import { TenisCardListComponent } from './components/tenis/tenis-card-list/tenis
 import { AdminTemplateComponent } from './components/template/admin-template/admin-template.component';
 import { UserTemplateComponent } from './components/template/user-template/user-template.component';
 import { DetalhesTenisComponent } from './components/tenis/detalhes-tenis/detalhes-tenis.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 export const routes: Routes = [
@@ -107,7 +108,11 @@ export const routes: Routes = [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
             { path: 'ecommerce', component: TenisCardListComponent, title: 'Lista de Cards de Tênis'},
+
+            // fazer dialog de ver mais virar component separado
             //{ path: 'ecommerce/tenis/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis'}
+
+            { path: 'login', component: LoginComponent, title: 'Login'},
         ]
     }
 
