@@ -14,7 +14,7 @@
                 
                 <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Nome</mat-label>
-                    <input matInput type="text" formControlName="nome">
+                    <input matInput type="text" formControlName="nome" #inputNome>
                     <mat-error *ngIf="formGroup.get('nome') 
                                    && formGroup.get('nome')?.invalid
                                    && formGroup.get('nome')?.touched">
@@ -58,7 +58,7 @@
                 
                 <mat-form-field floatLabel="always" class="half-width-input">
                     <mat-label>Valor de Venda</mat-label>
-                    <input matInput type="number" value="10" class="example-right-align" formControlName="precoVenda" maxlength="3"/>
+                    <input matInput type="number" value="10" class="example-right-align" formControlName="precoVenda" maxlength="3" #inputPreco/>
                     <span matTextPrefix>R$&nbsp;</span>
                     <span matTextSuffix>,00</span>
                     <mat-error *ngIf="formGroup.get('precoVenda') 
@@ -147,6 +147,38 @@
                     <button mat-icon-button color="secondary" routerLink="/admin/tamanhos/new">
                         <mat-icon>add</mat-icon>
                     </button>
+                </div>
+
+
+                <mat-form-field appearance="outline" class="full-width-input">
+                    <mat-label>Imagem do Tênis</mat-label>
+                    <input type="file" (change)="carregarImagemSelecionada($event)" hidden #fileInput>
+                    <input matInput [value]="fileName" readonly>
+                    
+                    <button mat-icon-button matSuffix (click)="fileInput.click()">
+                        <mat-icon>folder_open</mat-icon>
+                    </button>   
+                </mat-form-field>
+                
+                <div *ngIf="imagePreview" class="container responsive-grid">
+                    <mat-card>
+                
+                        <img mat-card-image [src]="imagePreview" >
+                       
+                        <mat-card-title class="centered-text"> {{inputNome.value}} </mat-card-title>
+                        
+=                        <br/>
+                        <mat-card-content class="centered-text"> {{inputPreco.value}} </mat-card-content>
+                
+                        <mat-card-actions class="centered-text">
+                            <button mat-button color="primary">Ver mais ...</button>
+                        </mat-card-actions>
+                
+                        <mat-card-footer>
+                            <button mat-flat-button color="accent"
+                                style="width: 100%; padding: 16px;">Adicionar ao carrinho</button>
+                        </mat-card-footer>
+                    </mat-card>
                 </div>
 
             </form>

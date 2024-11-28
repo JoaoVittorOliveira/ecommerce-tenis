@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 // Component-imports
 import {MatSelectModule} from '@angular/material/select';
-import { NgIf } from '@angular/common';
+import { Location,NgFor, NgIf } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,12 +25,12 @@ import { Tamanho } from '../../../models/tamanho.model';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
 import { forkJoin } from 'rxjs';
-import { MatIcon } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-tenis-form',
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, RouterModule, MatSelectModule, MatIcon],
+  imports: [NgIf, NgFor, MatIconModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule, RouterModule, MatSelectModule, MatIcon],
   templateUrl: './tenis-form.component.html',
   styleUrl: './tenis-form.component.css'
 })
@@ -43,6 +43,10 @@ export class TenisFormComponent {
   categorias: Categoria[] = [];
   tamanhos: Tamanho[] = [];
 
+  fileName: string = '';
+  selectedFile: File | null = null; 
+  imagePreview: string | ArrayBuffer | null = null;
+
   constructor(private formBuilder: FormBuilder,
     private tenisService: TenisService,
     private marcaService: MarcaService,
@@ -52,7 +56,8 @@ export class TenisFormComponent {
     private tamanhoService: TamanhoService,
     private router: Router,
     private dialog: MatDialog,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private location: Location) {
     this.formGroup = this.formBuilder.group({
       id: [null],
       nome: ['', Validators.required],
@@ -88,6 +93,10 @@ export class TenisFormComponent {
     });
   }
 
+  voltarPagina() {
+    this.location.back();
+  }
+
   initializeForm(): void {
 
     const tenis: Tenis = this.activatedRoute.snapshot.data['tenis'];
@@ -97,7 +106,15 @@ export class TenisFormComponent {
     const cor = this.cores.find(cor => cor.id === (tenis?.cor?.id || null));
     const categoria = this.categorias.find(categoria => categoria.id === (tenis?.categoria?.id || null));
     const tamanho = this.tamanhos.find(tamanho => tamanho.id === (tenis?.tamanho?.id || null));
-    
+
+
+    // carregando a imagem do preview
+    if (tenis && tenis.nomeImagem) {
+      this.imagePreview = this.tenisService.getUrlImage(tenis.nomeImagem);
+      this.fileName = tenis.nomeImagem;
+    }
+
+
     this.formGroup = this.formBuilder.group({
       id: [(tenis && tenis.id) ? tenis.id : null],
       nome: [(tenis && tenis.nome) ? tenis.nome : null, 
@@ -122,8 +139,38 @@ export class TenisFormComponent {
       tamanho: [tamanho, Validators.compose([Validators.required])]
 
     })
-
   }
+
+
+  carregarImagemSelecionada(event: any) {
+    this.selectedFile = event.target.files[0];
+    console.log('Arquivo selecionado:', this.selectedFile);
+    if (this.selectedFile) {
+      this.fileName = this.selectedFile.name;
+      // carregando image preview
+      const reader = new FileReader();
+      reader.onload = e => this.imagePreview = reader.result;
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+  private uploadImage(tenisId: number) {
+    if (this.selectedFile) {
+      this.tenisService.uploadImage(tenisId, this.selectedFile.name, this.selectedFile)
+      .subscribe({
+        next: () => {
+          this.router.navigateByUrl('/admin/tenis');
+        },
+        error: err => {
+          console.log('Erro ao fazer o upload da imagem');
+          // tratar o erro
+        }
+      })
+    } else {
+      this.router.navigateByUrl('/admin/tenis');
+    }
+  }
+
+
 
   salvar() {
     this.formGroup.markAllAsTouched();
@@ -132,6 +179,7 @@ export class TenisFormComponent {
       if (tenis.id ==null) {
         this.tenisService.insert(tenis).subscribe({
           next: (tenisCadastrado) => {
+            this.uploadImage(tenisCadastrado.id);
             this.router.navigateByUrl('/admin/tenis');
           },
           error: (err) => {
@@ -141,6 +189,8 @@ export class TenisFormComponent {
       } else {
         this.tenisService.update(tenis).subscribe({
           next: (tenisAlterado) => {
+            console.log('Resposta da API:', tenisAlterado);
+            this.uploadImage(tenisAlterado.id);
             this.router.navigateByUrl('/admin/tenis');
           },
           error: (err) => {

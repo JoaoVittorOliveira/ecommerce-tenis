@@ -1,10 +1,15 @@
 package br.unitins.joaovittor.basqueteiros.Tenis.resource;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
 import br.unitins.joaovittor.basqueteiros.Cor.resource.CorResource;
 import br.unitins.joaovittor.basqueteiros.Tenis.dto.TenisDTO;
+import br.unitins.joaovittor.basqueteiros.Tenis.form.TenisImageForm;
 import br.unitins.joaovittor.basqueteiros.Tenis.service.TenisFileServiceImpl;
 import br.unitins.joaovittor.basqueteiros.Tenis.service.TenisService;
 import br.unitins.joaovittor.basqueteiros.form.ImageForm;
@@ -86,6 +91,7 @@ public class TenisResource {
         return Response.status(Status.NOT_FOUND).build();
     }
 
+    /*
     @PATCH
     @Path("/{id}/imagem/upload")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
@@ -93,7 +99,42 @@ public class TenisResource {
     public Response upload(@PathParam("id") Long id, @MultipartForm ImageForm form) {
         fileService.upload(id, form.getNomeImagem(), form.getImagem());
         return Response.noContent().build();
+    } 
+
+    
+    @PATCH
+@Path("/imagem/upload")
+@Consumes(MediaType.MULTIPART_FORM_DATA)
+//@RolesAllowed("Funcionario")
+public Response salvarImagem(@MultipartForm TenisImageForm form) {
+    try {
+        // Realiza o upload da imagem
+        fileService.upload(form.getId(), form.getNomeImagem(), form.getImagem());
+        
+        // Cria a resposta com os dados processados
+        Map<String, Object> response = new HashMap<>();
+        response.put("id", form.getId()); // Exemplo: ID do recurso enviado
+        response.put("nomeImagem", form.getNomeImagem()); // Nome do arquivo
+
+        return Response.ok(response).build();
+    } catch (Exception e) {
+        // Trate erros e envie uma resposta com erro
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+                       .entity("Erro ao salvar a imagem: " + e.getMessage())
+                       .build();
     }
+}
+*/
+
+@PATCH
+    @Path("/imagem/upload")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    //@RolesAllowed("Funcionario")
+    public Response salvarImagem(@MultipartForm TenisImageForm form) {
+        fileService.upload(form.getId(), form.getNomeImagem(), form.getImagem());
+        return Response.noContent().build();
+    }
+
 
     @GET
     @Path("/image/download/{nomeImagem}")
