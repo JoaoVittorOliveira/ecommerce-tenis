@@ -66,7 +66,7 @@ export class TenisListComponent {
   ngOnInit(): void {
     this.tenisService.findAll().subscribe(
       data => { 
-        console.log(data); 
+        //console.log(data); 
         this.tenisList = data;
         this.filteredTenis = data;
         this.totalRecords = data.length;

@@ -21,67 +21,99 @@ import { MatInputModule } from '@angular/material/input';
   providers: [
     { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
   ],
-  imports: [NgIf,MatInputModule,MatFormField,MatPaginator, NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule],
+  imports: [
+    NgIf,
+    MatInputModule,
+    MatFormField,
+    MatPaginator,
+    NgFor,
+    MatTableModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    RouterModule
+  ],
   templateUrl: './tamanho-list.component.html',
   styleUrl: './tamanho-list.component.css'
 })
-export class TamanhoListComponent implements OnInit{
-  
+export class TamanhoListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'numeracao', 'tamanhoEmCm', 'pais', 'acao'];
-  tamanhos: Tamanho[] = [];
-  filteredTamanhos: Tamanho[] = [];
-
+  tamanhos: Tamanho[] = []; // Lista completa obtida do serviço
+  filteredTamanhos: Tamanho[] = []; // Lista filtrada para exibição
   totalRecords = 0;
   pageSize = 4;
   page = 0;
   showSearch = false;
   filterValue = '';
 
-  constructor(private tamanhoService: TamanhoService, private dialog: MatDialog) {
-
-  }
+  constructor(private tamanhoService: TamanhoService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.tamanhoService.findAll(this.page, this.pageSize).subscribe(data => {
+    this.loadData();
+  }
+
+  loadData(): void {
+    this.tamanhoService.findAll(this.page, this.pageSize).subscribe((data) => {
       this.tamanhos = data;
-      this.filteredTamanhos = data;
-      this.totalRecords = data.length;
+      this.applyCurrentFilter();
     });
-    this.tamanhoService.count().subscribe(
-      data => { this.totalRecords = data;}
+
+    this.tamanhoService.count().subscribe((count) => {
+      this.totalRecords = count;
+    });
+  }
+
+  applyCurrentFilter(): void {
+    
+    const normalizedFilter = this.filterValue.trim().toLowerCase();
+
+    const filtered = this.tamanhos.filter(
+      (tamanho) =>
+        tamanho.numeracao.toString().toLowerCase().includes(normalizedFilter) ||
+        tamanho.tamanhoEmCm.toString().toLowerCase().includes(normalizedFilter) ||
+        tamanho.pais.toLowerCase().includes(normalizedFilter)
     );
+
+    this.filteredTamanhos = filtered.slice(
+      this.page * this.pageSize,
+      (this.page + 1) * this.pageSize
+    );
+
+    this.totalRecords = filtered.length;
   }
 
   applyFilter(event: Event): void {
+    
     const filterValue = (event.target as HTMLInputElement).value;
-    this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
-    this.filteredTamanhos = this.tamanhos.filter(tamanho =>
-      tamanho.numeracao.toString().toLowerCase().includes(this.filterValue) ||
-      tamanho.tamanhoEmCm.toString().toLowerCase().includes(this.filterValue) ||
-      tamanho.pais.toLowerCase().includes(this.filterValue)
-    );
-    this.totalRecords = this.filteredTamanhos.length;  // Atualiza o número total de registros
+    this.filterValue = filterValue.trim().toLowerCase();
+    this.page = 0; 
+    this.applyCurrentFilter();
   }
 
   toggleSearch(): void {
     this.showSearch = !this.showSearch;
   }
+
   paginar(event: PageEvent): void {
     this.page = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.ngOnInit();
+
+    if (this.filterValue) {
+      this.applyCurrentFilter(); // Reaplica o filtro para a nova página
+    } else {
+      this.loadData(); // Recarrega os dados sem filtro
+    }
   }
 
   excluir(tamanho: Tamanho): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
-    dialogRef.beforeClosed()
-
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.tamanhoService.delete(tamanho).subscribe({
           next: () => {
-            this.tamanhos = this.tamanhos.filter(e => e.id !== tamanho.id);
+            this.tamanhos = this.tamanhos.filter((e) => e.id !== tamanho.id);
+            this.applyCurrentFilter(); // Reaplica o filtro após excluir
           },
           error: (err) => {
             console.error('Erro ao tentar excluir o tamanho', err);

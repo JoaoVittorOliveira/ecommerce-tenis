@@ -132,7 +132,7 @@ export class TenisFormComponent {
       if (tenis.id ==null) {
         this.tenisService.insert(tenis).subscribe({
           next: (tenisCadastrado) => {
-            this.router.navigateByUrl('/tenis');
+            this.router.navigateByUrl('/admin/tenis');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -141,7 +141,7 @@ export class TenisFormComponent {
       } else {
         this.tenisService.update(tenis).subscribe({
           next: (tenisAlterado) => {
-            this.router.navigateByUrl('/tenis');
+            this.router.navigateByUrl('/admin/tenis');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -163,7 +163,7 @@ export class TenisFormComponent {
           if (result) {
             this.tenisService.delete(tenis).subscribe({
               next: () => {
-                this.router.navigateByUrl('/tenis');
+                this.router.navigateByUrl('/admin/tenis');
               },
               error: (err) => {
                 console.error('Erro ao tentar excluir o tenis', err);

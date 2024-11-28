@@ -45,3 +45,7 @@ button[mat-icon-button]:hover mat-icon {
   transform: scale(1.2);
   transition: transform 0.2s;
 }
+
+table .mat-elevation-z8{
+  min-height: 100%;
+}

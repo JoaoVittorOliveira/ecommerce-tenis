@@ -16,4 +16,5 @@ export class Tenis {
     cor!: Cor;
     categoria!: Categoria;
     tamanho!: Tamanho;
+    nomeImagem!: string;
 }

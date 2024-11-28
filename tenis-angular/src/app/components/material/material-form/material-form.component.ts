@@ -49,7 +49,7 @@ export class MaterialFormComponent {
       if (material.id == null) {
         this.materialService.insert(material).subscribe({
           next: (materialCadastrado) => {
-            this.router.navigateByUrl('/materiais');
+            this.router.navigateByUrl('/admin/materiais');
           },
           error: (errorResponse) => {
             console.log('Erro ao salvar', + JSON.stringify(errorResponse));
@@ -58,7 +58,7 @@ export class MaterialFormComponent {
       } else {
         this.materialService.update(material).subscribe({
           next: (materialAlterado) => {
-            this.router.navigateByUrl('/materiais');
+            this.router.navigateByUrl('/admin/materiais');
           },
           error: (err) => {
             console.log('Erro ao salvar', + JSON.stringify(err));
@@ -78,7 +78,7 @@ export class MaterialFormComponent {
           if (result) {
             this.materialService.delete(material).subscribe({
               next: () => {
-                this.router.navigateByUrl('/materiais');
+                this.router.navigateByUrl('/admin/materiais');
               },
               error: (err) => {
                 console.error('Erro ao tentar excluir o material', err);

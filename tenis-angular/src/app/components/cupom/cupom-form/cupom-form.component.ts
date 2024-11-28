@@ -110,7 +110,7 @@ export class CupomFormComponent {
       if (cupom.id ==null) {
         this.cupomService.insert(cupom).subscribe({
           next: (cupomCadastrado) => {
-            this.router.navigateByUrl('/cupons');
+            this.router.navigateByUrl('/admin/cupons');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -121,7 +121,7 @@ export class CupomFormComponent {
       else {
         this.cupomService.update(cupom).subscribe({
           next: (cupomAlterado) => {
-            this.router.navigateByUrl('/cupons');
+            this.router.navigateByUrl('/admin/cupons');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -143,7 +143,7 @@ export class CupomFormComponent {
           if (result) {
             this.cupomService.delete(cupom).subscribe({
               next: () => {
-                this.router.navigateByUrl('/cupons');
+                this.router.navigateByUrl('/admin/cupons');
               },
               error: (err) => {
                 console.error('Erro ao tentar excluir o cupom', err);

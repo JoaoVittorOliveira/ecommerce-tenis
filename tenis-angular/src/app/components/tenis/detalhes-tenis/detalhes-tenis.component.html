@@ -1,0 +1,46 @@
+<div class="detalhes-container">
+    <button mat-icon-button (click)="fecharDialog()" class="close-button">
+        <mat-icon>close</mat-icon>
+    </button>
+
+    <img [src]="tenisService.getUrlImage(tenis.nomeImagem)" alt="{{ tenis.nome }}" class="detalhes-image">
+    <h2>{{ tenis.nome }}</h2>
+    <p>Preço: R${{ tenis.precoVenda }},00 </p>
+    <p>Marca: {{ tenis.marca.nome }}</p>
+    <p>Categoria: {{ tenis.categoria.nome }}</p>
+    <p>Cor: {{ tenis.cor.nome }}</p>
+    <p>Peso: {{ tenis.peso }}g.</p>
+    <p>Estoque: {{ tenis.quantidade }}un.</p>
+
+    <div class="buttons-container">
+        <button mat-button color="primary" (click)="fecharDialog()">Adicionar ao Carrinho</button>
+        <button mat-button color="accent" (click)="fecharDialog()">Fechar</button>
+    </div>
+</div>
+
+<!--
+
+OUTRA VERSAO
+
+<h2 mat-dialog-title>{{ tenis.nome }}</h2>
+
+<div mat-dialog-content class="detalhes-container">
+    
+    <img [src]="tenisService.getUrlImage(tenis.nomeImagem)" 
+        alt="{{ tenis.nome }}" 
+        style="width: 100%; max-height: 300px; object-fit: contain;"
+    >
+    <h3>Descrição do</h3>
+    <p><strong>Preço:</strong> R${{ tenis.precoVenda }},00 </p>
+    <p><strong>Categoria:</strong> {{ tenis.categoria.nome }}</p>
+    <p><strong>Cor:</strong> {{ tenis.cor.nome }}</p>
+    <p><strong>Marca:</strong> {{ tenis.marca.nome }}</p>
+    <p><strong>Material:</strong> {{ tenis.material.descricao }}</p>
+    <p><strong>Tamanho:</strong> {{ tenis.tamanho.pais }} {{ tenis.tamanho.numeracao }}</p>
+    
+</div>
+<div class="buttons-container">
+    <button mat-button color="primary" (click)="fecharDialog()">Adicionar ao Carrinho</button>
+    <button mat-button color="accent" (click)="fecharDialog()">Fechar</button>
+</div>
+-->

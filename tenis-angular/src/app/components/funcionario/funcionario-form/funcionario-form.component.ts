@@ -145,7 +145,7 @@ export class FuncionarioFormComponent {
       if (funcionario.id == null) {
         this.funcionarioService.insert(funcionario).subscribe({
           next: (funcionarioCadastrado) => {
-            this.router.navigateByUrl('/funcionarios');
+            this.router.navigateByUrl('/admin/funcionarios');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -155,7 +155,7 @@ export class FuncionarioFormComponent {
       } else {
         this.funcionarioService.update(funcionario).subscribe({
           next: (funcionarioAlterado) => {
-            this.router.navigateByUrl('/funcionarios');
+            this.router.navigateByUrl('/admin/funcionarios');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -177,7 +177,7 @@ export class FuncionarioFormComponent {
           if (result) {
             this.funcionarioService.delete(funcionario).subscribe({
               next: () => {
-                this.router.navigateByUrl('/funcionarios');
+                this.router.navigateByUrl('/admin/funcionarios');
               },
               error: (err) => {
                 console.error('Erro ao tentar excluir o funcionario', err);

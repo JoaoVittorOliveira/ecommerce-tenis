@@ -75,7 +75,7 @@ export class CorFormComponent {
       if (cor.id ==null) {
         this.corService.insert(cor).subscribe({
           next: (corCadastrada) => {
-            this.router.navigateByUrl('/cores');
+            this.router.navigateByUrl('/admin/cores');
           },
           error: (err) => {
             console.log('Erro ao Incluir' + JSON.stringify(err));
@@ -86,7 +86,7 @@ export class CorFormComponent {
       else {
         this.corService.update(cor).subscribe({
           next: (corAlterada) => {
-            this.router.navigateByUrl('/cores');
+            this.router.navigateByUrl('/admin/cores');
           },
           error: (err) => {
             console.log('Erro ao Editar' + JSON.stringify(err));
@@ -108,7 +108,7 @@ export class CorFormComponent {
           if (result) {
             this.corService.delete(cor).subscribe({
               next: () => {
-                this.router.navigateByUrl('/cores');
+                this.router.navigateByUrl('/admin/cores');
               },
               error: (err) => {
                 console.error('Erro ao tentar excluir o cor', err);
