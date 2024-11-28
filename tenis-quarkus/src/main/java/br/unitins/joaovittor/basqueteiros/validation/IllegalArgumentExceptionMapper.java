@@ -12,9 +12,9 @@ import jakarta.ws.rs.ext.Provider;
 
 @Provider
 @ApplicationScoped
-public class DuplicateEntityExceptionMapper implements ExceptionMapper<Throwable>{
+public class IllegalArgumentExceptionMapper implements ExceptionMapper<Throwable>{
 
-    private static final Logger LOG = Logger.getLogger(DuplicateEntityExceptionMapper.class);
+    private static final Logger LOG = Logger.getLogger(IllegalArgumentExceptionMapper.class);
 
     @Override
     public Response toResponse(Throwable exception) {
@@ -24,15 +24,15 @@ public class DuplicateEntityExceptionMapper implements ExceptionMapper<Throwable
         // Navega pela cadeia de exceções para encontrar a ConstraintViolationException
         while (cause != null) {
 
-            if (cause instanceof org.hibernate.exception.ConstraintViolationException hibernateEx) {
+            if (cause instanceof IllegalArgumentException hibernateEx) {
                 
-                ValidationError validationError = new ValidationError("409", "Erro de Duplicidade de Registro");
+                ValidationError validationError = new ValidationError("404", "usuario nao logado");
                 
                 String fieldName = extractFieldName(hibernateEx.getMessage());
-                String message = "Esse " + fieldName + " já existe. Tente outro";
+                String message = "usuario nao logado";
 
                 validationError.addFieldError(fieldName, message);
-                LOG.error("Erro de duplicidade: " + hibernateEx.getMessage());
+                LOG.error("Erro de 'not found': " + hibernateEx.getMessage());
 
                 return Response.status(Response.Status.CONFLICT).entity(validationError).build();
             }
@@ -41,9 +41,9 @@ public class DuplicateEntityExceptionMapper implements ExceptionMapper<Throwable
 
         }
 
-        //LOG.error("Erro não tratado: " + exception.getMessage());
-        return null;
-        //return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Erro interno do servidor").build();
+        LOG.error("Erro não tratado: " + exception.getMessage());
+        
+        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Erro interno do servidor").build();
     }
 
     private String extractFieldName(String errorMessage) {

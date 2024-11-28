@@ -24,6 +24,9 @@ public class GlobalExceptionMapper implements ExceptionMapper<org.jboss.resteasy
         }
 
         // se quiser colocar outros erros...
+        if(cause instanceof IllegalArgumentException){
+            return new IllegalArgumentExceptionMapper().toResponse((IllegalArgumentException) cause);
+        }
 
         // generico
         LOG.error("Erro não tratado: " + exception.getMessage());
