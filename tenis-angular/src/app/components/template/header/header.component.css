@@ -1,3 +1,21 @@
-.faixa-spacer { 
-    flex: 1 1 auto;
-}
+mat-toolbar {
+    background-color: #2e0854; /* Roxo escuro */
+    color: #dda0dd; /* Orquídea */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid #4b0082; /* Índigo Escuro */
+  }
+  
+  mat-toolbar .toolbar-title {
+    text-align: center;
+    font-weight: bold;
+    color: #f8f8ff; /* GhostWhite */
+  }
+  
+  button[mat-icon-button] {
+    color: #dda0dd; /* Orquídea */
+  }
+  
+  button[mat-icon-button]:hover mat-icon {
+    transform: scale(1.2);
+    transition: transform 0.2s;
+  }

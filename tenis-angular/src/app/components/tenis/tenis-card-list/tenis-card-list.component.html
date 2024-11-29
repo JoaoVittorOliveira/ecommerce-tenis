@@ -3,14 +3,24 @@
       <img src="tenis-angular\src\assets\logo.jpeg" alt="Logo" class="logo" />
       <mat-form-field appearance="outline" class="search-bar">
         <mat-label>Digite o que você procura</mat-label>
-        <input matInput (input)="applyFilter($event)" placeholder="Pesquisar..." class="inputBar"/>
+        <input matInput (input)="applyFilter($event)" placeholder="Pesquisar..."/>
         <button mat-icon-button matSuffix>
           <mat-icon>search</mat-icon>
         </button>
       </mat-form-field>
     </div>
     <div class="toolbar-right">
-      <button mat-button><mat-icon>support_agent</mat-icon> Central de Atendimento</button>
+      <div class="central-atendimento">
+        <button class="central-btn" mat-button ><mat-icon>support_agent</mat-icon> Central de Atendimento</button>
+        <div class="info-popup">
+          <p>Estamos no WhatsApp <br>
+            <strong><a href="https://w.app/PassoCerto">(12) 97407-0170</a></strong> <br>
+            
+            Horário de atendimento: <BR>10h às 18h
+          </p>
+        </div>
+      </div>
+  
       <button mat-button><mat-icon >person</mat-icon> Minha Conta</button>
       <button mat-icon-button>
         <mat-icon>shopping_cart</mat-icon>
@@ -47,7 +57,7 @@
             R${{card.precoVenda}},00
         </mat-card-content>
         <mat-card-actions class="centered-text">
-            <button mat-button color="#fa7d32" (click)="openDetalhes(card)">Ver Mais ...</button>
+            <button mat-button color="#fa7d32" style="width: 100%; padding: 10px;" (click)="openDetalhes(card)">Quero ver mais informações!</button>
         </mat-card-actions>
         <mat-card-footer>
             <button mat-button 

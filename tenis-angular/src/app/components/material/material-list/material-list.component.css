@@ -8,7 +8,9 @@
     align-items: center;
     width: 100%;
   }
-  
+  .flex-container mat-icon{
+    color:#4b0082;
+  }
   .fixSearch{
     width: 0;
   }
