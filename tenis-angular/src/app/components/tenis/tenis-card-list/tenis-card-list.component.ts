@@ -11,6 +11,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDialog } from '@angular/material/dialog';
 import { DetalhesTenisComponent } from '../detalhes-tenis/detalhes-tenis.component';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Categoria } from '../../../models/categoria.model';
+import { CategoriaService } from '../../../services/categoria.service';
 type Card = {
   titulo: string;
   nome: string
@@ -30,6 +32,8 @@ type Card = {
 export class TenisCardListComponent implements OnInit {
 
   tenis: Tenis[] = [];
+
+  categorias: Categoria[] = [];
   
   cards = signal<Card[]>([]);
   
@@ -42,17 +46,38 @@ export class TenisCardListComponent implements OnInit {
   pageSize = 4;
   page = 0;
 
-  constructor(private dialog: MatDialog, private tenisService: TenisService) {
+  constructor(private dialog: MatDialog, private tenisService: TenisService, private categoriaService: CategoriaService) {
   }
 
   ngOnInit(): void {
     this.carregarTenis();
+    this.carregarCategorias();
   }
 
+  carregarCategorias(){
+    this.categoriaService.findAll().subscribe((data)=>{
+      console.log(this.categorias = data);
+    })
+  }
+
+  categoriaSelecionada: number | null = null; // Armazena a categoria selecionada
+
+  filtrarPorCategoria(categoria: Categoria): void {
+    this.categoriaSelecionada = categoria.id;
+    this.filteredTenis = this.tenis.filter(tenis => tenis.categoria.id === categoria.id);
+    this.carregarCards();
+  }
+  
+  limparCategorias(): void {
+    this.categoriaSelecionada = null;
+    this.filteredTenis = [...this.tenis];
+    this.carregarCards();
+  }
   carregarTenis() {
     // buscando os tenis
     this.tenisService.findAll().subscribe({
       next: (data) => {
+        console.log(this.tenis = data);
         this.tenis = data;
         this.filteredTenis = data;
         this.carregarCards();

@@ -116,6 +116,5 @@ public class TenisServiceImpl implements TenisService{
 
         return TenisResponseDTO.valueOf(entity);
     }
-
     
 }

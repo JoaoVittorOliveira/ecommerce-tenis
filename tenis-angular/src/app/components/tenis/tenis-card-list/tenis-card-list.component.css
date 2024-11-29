@@ -1,9 +1,34 @@
+/*.color1 { #fa7d32 }; -- laranja vivo
+.color2 { #f59c5c }; ---- laranja claro
+.color3 { #784120 }; ---- marrom escuro
+.color4 { #a87450 }; ---- marrom claro
+.color5 { #dcccbc }; ---- bege / cinza
+*/
+
 .container {
   padding: 20px;
 }
 
-.categorias{
-  height: 60px;
+.categorias {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 16px 0;
+  flex-wrap: wrap;
+  overflow-x: auto;
+}
+
+.categorias button {
+  text-transform: uppercase;
+  font-weight: bold;
+  white-space: nowrap;
+  color: #784120;
+}
+
+.categorias button.active {
+  background-color: #f59c5c; /* Cor de destaque */
+  color: white;
+  font-weight: bold;
 }
 
 .responsive-grid {
@@ -13,7 +38,7 @@
 }
 
 mat-card {
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 5px rgba(72, 109, 13, 0.2);
   border-radius: 10px;
   overflow: hidden;
 }
@@ -28,7 +53,7 @@ mat-card-title, mat-card-content {
 }
 
 .cart-badge {
-  background: red;
+  background: #fa7d32;
   color: white;
   border-radius: 50%;
   padding: 5px 10px;
@@ -47,17 +72,59 @@ mat-card-title, mat-card-content {
   display: flex;
   align-items: center;
   flex: 1;
+  color: #784120;
 }
 
 .search-bar {
   flex: 1;
   margin-left: 20px;
+  color:#fff;
 }
+
+.search-bar input {
+  color: #fff; 
+}
+
+.search-bar mat-label {
+  color: #cfcfcf; 
+}
+
+
+.inputBar{
+  color: #ffffff;
+}
+
+
+mat-card-actions {
+  display: flex;         /* Ativa o flexbox */
+  justify-content: center; /* Centraliza o conteúdo horizontalmente */
+  align-items: center;   /* Centraliza o conteúdo verticalmente */
+}
+mat-card-actions button {
+  background-color: #f59c5c; 
+  color: white; 
+  border-radius: 5px;
+}
+
+mat-card-footer button {
+  background-color: #fa7d32; 
+  color: white;
+  border-radius: 5px;
+}
+
+
 
 .toolbar-right {
   display: flex;
   align-items: center;
   gap: 20px;
+  color: #fa7d32;
+
+}
+
+.toolbar-right button {
+ 
+  color: #fff;
 
 }
 
@@ -65,10 +132,10 @@ mat-toolbar {
   display: flex;
   justify-content: space-between;
   height: 100px;
-  background-color: #000; /* Preto */
-  color: #fff; 
+  background-color: #a87450;
+  color: #784120; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5); /* Sombra */
-  border-bottom: 2px solid #c7c5c5; /* Linha inferior (opcional) */
+  border-bottom: 2px solid #bd8964; /* Linha inferior (opcional) */
 }
 
 @media (max-width: 768px) {

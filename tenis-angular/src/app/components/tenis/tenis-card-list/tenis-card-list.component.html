@@ -1,9 +1,9 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
     <div class="toolbar-left">
-      <img src="C:\Users\gisele.ov\Documents\faculdade\ecommerce-tenis\tenis-angular\src\assets\logo.jpeg" alt="Logo" class="logo" />
+      <img src="tenis-angular\src\assets\logo.jpeg" alt="Logo" class="logo" />
       <mat-form-field appearance="outline" class="search-bar">
         <mat-label>Digite o que você procura</mat-label>
-        <input matInput (input)="applyFilter($event)" placeholder="Pesquisar..." />
+        <input matInput (input)="applyFilter($event)" placeholder="Pesquisar..." class="inputBar"/>
         <button mat-icon-button matSuffix>
           <mat-icon>search</mat-icon>
         </button>
@@ -11,7 +11,7 @@
     </div>
     <div class="toolbar-right">
       <button mat-button><mat-icon>support_agent</mat-icon> Central de Atendimento</button>
-      <button mat-button><mat-icon>person</mat-icon> Minha Conta</button>
+      <button mat-button><mat-icon >person</mat-icon> Minha Conta</button>
       <button mat-icon-button>
         <mat-icon>shopping_cart</mat-icon>
         <span class="cart-badge">0</span>
@@ -19,9 +19,20 @@
     </div>
   </mat-toolbar>
   
-<div class="categorias">
+  <div class="categorias">
+    <button mat-button [class.active]="!categoriaSelecionada" (click)="limparCategorias()">Todos</button>
+    <button
+      mat-button
+      *ngFor="let categoria of categorias"
+      [class.active]="categoriaSelecionada === categoria.id"
+      (click)="filtrarPorCategoria(categoria)"
+    >
+    {{categoria.nome}} - {{categoria.genero}} - {{categoria.faixaEtaria}}
+    </button>
+  </div>
   
-</div>
+
+
 <div class="container responsive-grid">
     <mat-card *ngFor="let card of cards()">
         
@@ -33,10 +44,10 @@
         </mat-card-content>
         <br/>
         <mat-card-content class="centered-text">
-            {{card.precoVenda}}
+            R${{card.precoVenda}},00
         </mat-card-content>
         <mat-card-actions class="centered-text">
-            <button mat-button color="primary" (click)="openDetalhes(card)">Ver Mais ...</button>
+            <button mat-button color="#fa7d32" (click)="openDetalhes(card)">Ver Mais ...</button>
         </mat-card-actions>
         <mat-card-footer>
             <button mat-button 

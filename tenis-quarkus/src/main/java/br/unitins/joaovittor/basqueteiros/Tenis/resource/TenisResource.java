@@ -1,9 +1,4 @@
 package br.unitins.joaovittor.basqueteiros.Tenis.resource;
-
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.jboss.logging.Logger;
 import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 
@@ -12,7 +7,6 @@ import br.unitins.joaovittor.basqueteiros.Tenis.dto.TenisDTO;
 import br.unitins.joaovittor.basqueteiros.Tenis.form.TenisImageForm;
 import br.unitins.joaovittor.basqueteiros.Tenis.service.TenisFileServiceImpl;
 import br.unitins.joaovittor.basqueteiros.Tenis.service.TenisService;
-import br.unitins.joaovittor.basqueteiros.form.ImageForm;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
