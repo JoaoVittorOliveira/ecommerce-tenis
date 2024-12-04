@@ -10,13 +10,14 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
+import { MatOption, MatSelect } from '@angular/material/select';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
     MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule,
-    RouterModule],
+    RouterModule, MatSelect, MatOption],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -24,7 +25,7 @@ export class LoginComponent implements OnInit{
 
   loginForm!: FormGroup;
 
-  perfil: number = 1; // default
+  perfil: number = 1; // já vai como cliente no forms por padrão
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,11 +50,15 @@ export class LoginComponent implements OnInit{
 
       const username = this.loginForm.get('username')?.value;
       const password = this.loginForm.get('password')?.value;
+      
 
       this.authService.login(username, password, this.perfil).subscribe ({
         next: (resp) => {
-          // redirecionando para a pagina principal
-          this.router.navigateByUrl('/admin');
+          if (this.perfil === 1) {
+            this.router.navigateByUrl('/');
+          } else if (this.perfil === 2) {
+            this.router.navigateByUrl('/admin');
+          }
         },
         error: (err) => {
           console.log('Erro no login', err);

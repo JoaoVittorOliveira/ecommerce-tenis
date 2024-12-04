@@ -65,7 +65,7 @@ values
 
 
 insert into usuario (username, `password`) 
-values ('joao', '46yTi0t0+jgXIiihSqFqSybow/5RMUFASBhBCz0679B6G+WEGaw84a+E+MuNPTSYgE0v6YBuruzc4JpHnETQzw==');
+values ('joao', 'Z7dL+3VaMV++fdWH0b8S3NV26muviRKuWXNk5ayr2RVBF9BE8tMorc/G7NB1P51lHzLhjc7irjXu+Q5f3T997w==');
 
 insert into cliente
 (nome, cpf, id_usuario, id_telefone, data_nascimento, data_cadastro)

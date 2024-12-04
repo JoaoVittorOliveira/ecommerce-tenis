@@ -5,6 +5,14 @@
 
         <h2 class="login-title">Bem-vindo</h2>
 
+        <mat-form-field class="login-input">
+            <mat-label>Perfil</mat-label>
+            <mat-select [(value)]="perfil">
+              <mat-option [value]="1">Cliente</mat-option>
+              <mat-option [value]="2">Funcionário</mat-option>
+            </mat-select>
+        </mat-form-field>
+
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
             <mat-form-field class="login-input">
