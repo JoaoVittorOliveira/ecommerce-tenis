@@ -22,10 +22,13 @@
       </div>
   
       <button mat-button><mat-icon >person</mat-icon> Minha Conta</button>
-      <button mat-icon-button>
+
+
+      <button mat-icon-button [routerLink]="'/carrinho'">
         <mat-icon>shopping_cart</mat-icon>
         <span class="cart-badge">0</span>
       </button>
+      
     </div>
   </mat-toolbar>
   
@@ -60,11 +63,7 @@
             <button mat-button color="#fa7d32" style="width: 100%; padding: 10px;" (click)="openDetalhes(card)">Quero ver mais informações!</button>
         </mat-card-actions>
         <mat-card-footer>
-            <button mat-button 
-                color="accent"
-                style="width: 100%; padding: 16px;">
-                Adicionar ao Carrinho
-            </button>
+          <button mat-button color="accent" style="width: 100%; padding: 16px; text-align: center;" (click)="adicionarAoCarrinho(card)">Adicionar ao Carrinho </button>
         </mat-card-footer>
     </mat-card>
 </div>
