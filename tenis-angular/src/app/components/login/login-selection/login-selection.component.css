@@ -1,0 +1,36 @@
+.selection-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #6E45E2, #FF6636);
+    color: #fff;
+  }
+  
+  .selection-container h2 {
+    font-size: 28px; /* Aumentado para maior destaque */
+    margin-bottom: 30px;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .buttons {
+    display: flex;
+    gap: 20px; /* Maior espaçamento entre os botões */
+  }
+  
+  button[mat-raised-button] {
+    padding: 15px 30px; /* Aumentado para botões maiores */
+    font-size: 18px; /* Texto maior nos botões */
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  button[mat-raised-button]:hover {
+    transform: scale(1.1); /* Aumento no efeito de hover */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  

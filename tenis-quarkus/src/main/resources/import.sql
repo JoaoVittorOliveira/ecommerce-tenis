@@ -72,6 +72,14 @@ insert into cliente
 values
 ('joao vittor', '12312312312', 1, 1, '2004-09-16', CURRENT_DATE);
 
+insert into usuario (username, `password`) 
+values ('jose', 'Z7dL+3VaMV++fdWH0b8S3NV26muviRKuWXNk5ayr2RVBF9BE8tMorc/G7NB1P51lHzLhjc7irjXu+Q5f3T997w==');
+
+insert into funcionario
+(nome, cpf, id_usuario, id_telefone, data_nascimento, data_cadastro, codigo_admissao, data_admissao)
+values
+('jose da silva', '12312312312', 2, 1, '2004-09-16', CURRENT_DATE, 'sla123', '2024-06-01');
+
 /*
 insert into produto (nome, descricao, quantidade, preco_compra, preco_venda, id_fornecedor, id_marca)
 values 

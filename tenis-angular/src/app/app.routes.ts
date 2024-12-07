@@ -40,18 +40,19 @@ import { AdminTemplateComponent } from './components/template/admin-template/adm
 import { UserTemplateComponent } from './components/template/user-template/user-template.component';
 import { DetalhesTenisComponent } from './components/tenis/detalhes-tenis/detalhes-tenis.component';
 import { LoginComponent } from './components/login/login.component';
+import { LoginSelectionComponent } from './components/login/login-selection/login-selection.component';
+import { LoginSelectionGuard } from './guards/login-selection.guard';
 
 
 export const routes: Routes = [
-    {
+    { path: 'login-selection', component: LoginSelectionComponent, title: 'Seleção de Login' },
+    { path: 'login', component: LoginComponent, canActivate: [LoginSelectionGuard], title: 'Login' },
+    
+    { 
         path: 'admin', 
         component: AdminTemplateComponent, 
         title: 'e-commerce',
-        children: 
-        [
-
-            { path: 'login', component: LoginComponent, title: 'Login'},
-
+        children: [
             {path: 'enderecos', component: EnderecoListComponent, title: 'Lista de Endereços'},
             {path: 'enderecos/new',component: EnderecoFormComponent, title: 'Novo Endereço'},
             {path: 'enderecos/edit/:id',component: EnderecoFormComponent, resolve: {endereco: enderecoResolver}},
@@ -98,24 +99,16 @@ export const routes: Routes = [
             {path: 'clientes/edit/:id',component: ClienteFormComponent, resolve: {cliente: clienteResolver}},
         
             {path: '', component: IndexListComponent, title: 'Gerenciamento'},
-        
         ]
     },
-    
-
     { 
         path: '', 
         component: UserTemplateComponent, 
         title: 'e-commerce',
         children: [
-            {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
-        
-            { path: 'ecommerce', component: TenisCardListComponent, title: 'Lista de Cards de Tênis'},
-
-            // fazer dialog de ver mais virar component separado
-            //{ path: 'ecommerce/tenis/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis'}
-
+            { path: '', pathMatch: 'full', redirectTo: 'ecommerce' },
+            { path: 'ecommerce', component: TenisCardListComponent, title: 'Lista de Cards de Tênis' }
         ]
     }
-
 ];
+

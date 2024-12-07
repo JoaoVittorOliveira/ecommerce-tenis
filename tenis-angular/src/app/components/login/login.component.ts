@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit{
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private activatedRoute: ActivatedRoute
   ) { 
 
   }
@@ -41,6 +42,12 @@ export class LoginComponent implements OnInit{
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
+
+    // pegar do login-selection
+    const state = history.state;
+    if (state && state.perfil) {
+      this.perfil = state.perfil;
+    }
   }
 
   
