@@ -144,7 +144,8 @@ export class TenisCardListComponent implements OnInit {
       id: card.idTenis,
       nome: card.titulo,
       preco: card.precoVenda,
-      quantidade: 1
+      quantidade: 1,
+      imageUrl: card.imageUrl
     })
   }
 
