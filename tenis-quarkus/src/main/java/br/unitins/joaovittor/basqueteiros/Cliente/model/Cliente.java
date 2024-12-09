@@ -36,7 +36,7 @@ public class Cliente extends DefaultEntity{
     private List<Endereco> listaEndereco;
 
     @OneToOne
-    @JoinColumn(name = "id_usuario", unique = true)
+    @JoinColumn(name = "id_usuario", unique = true, nullable = false)
     private Usuario usuario;
 
 

@@ -16,7 +16,7 @@ import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/cor
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Cliente } from '../../../models/Cliente.model';
+import { Cliente } from '../../../models/cliente.model';
 import { ClienteService } from '../../../services/cliente.service';
 
 @Component({

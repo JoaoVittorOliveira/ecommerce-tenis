@@ -1,14 +1,16 @@
 package br.unitins.joaovittor.basqueteiros.Cliente.service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.microprofile.jwt.JsonWebToken;
 
+import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteAddEnderecoDTO;
+import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteAllEnderecosResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteResponseDTO;
+import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteUpdateDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClientePasswordUpdateDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteUsernameUpdateDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.model.Cliente;
@@ -23,6 +25,7 @@ import br.unitins.joaovittor.basqueteiros.Usuario.repository.UsuarioRepository;
 import br.unitins.joaovittor.basqueteiros.Usuario.service.UsuarioService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.xml.bind.ValidationException;
@@ -89,16 +92,7 @@ public class ClienteServiceImp implements ClienteService {
 
     @Override
     @Transactional
-    public void update(Long id, ClienteDTO dto) throws ValidationException {
-
-        Usuario usuario = repository.findById(id).getUsuario();
-        if(usuario != null){
-            usuario.setUsername(dto.username());
-            // fazer hash da nova senha
-            usuario.setPassword(hashService.getHashSenha(dto.senha()));
-        } else {
-            throw new ValidationException("Funcionario inexistente");
-        }
+    public void update(Long id, ClienteUpdateDTO dto) throws ValidationException {
 
         Cliente cliente = repository.findById(id);
         if(cliente != null){
@@ -111,22 +105,31 @@ public class ClienteServiceImp implements ClienteService {
             telefone.setNumero(dto.numero());
             cliente.setTelefone(telefone);  
 
-            cliente.setDataNascimento(dto.dataNascimento());
-
-            cliente.setListaEndereco(new ArrayList<Endereco>());
-            for(EnderecoDTO endereco : dto.listaEndereco()){
-                Endereco end = new Endereco();
-                end.setCep(endereco.cep());
-                end.setRua(endereco.rua());
-                end.setComplemento(endereco.complemento());
-                cliente.getListaEndereco().add(end);
-            }
-
-            cliente.setUsuario(usuario);
+            cliente.setDataNascimento(dto.dataNascimento());          
 
         } else {
-            throw new ValidationException("Funcionario inexistente");
+            throw new ValidationException("Cliente inexistente");
         }
+    }
+
+    @Transactional
+    @Override
+    public void addEndereco(Long id, ClienteAddEnderecoDTO dto){
+
+        Cliente cliente = repository.findById(id);
+        if(cliente != null){
+
+            List<Endereco> enderecos = cliente.getListaEndereco();
+
+            Endereco end = new Endereco();
+            end.setCep(dto.novoEndereco().cep());
+            end.setRua(dto.novoEndereco().rua());
+            end.setComplemento(dto.novoEndereco().complemento());
+
+            enderecos.add(end);
+
+        }
+
     }
 
     @Transactional
@@ -137,12 +140,21 @@ public class ClienteServiceImp implements ClienteService {
                                 .map(e -> ClienteResponseDTO.valueof(e)).toList();
     }
 
+    @Transactional
+    @Override
+    public ClienteAllEnderecosResponseDTO findAllEnderecosById(Long id) {
+
+        Cliente cliente = repository.findById(id);
+
+        return ClienteAllEnderecosResponseDTO.valueof(cliente);
+    }
+
     @Override
     public ClienteResponseDTO findById(Long id) {
 
-        Cliente cor = repository.findById(id);
+        Cliente cliente = repository.findById(id);
 
-        if(cor != null)
+        if(cliente != null)
             return ClienteResponseDTO.valueof(repository.findById(id));
         return null;       
     }
@@ -177,10 +189,10 @@ public class ClienteServiceImp implements ClienteService {
     // REFAZER LOGIN
     @Override
     public UsuarioResponseDTO login(String username, String senha) {
-        //Cliente cliente = repository.findByUsernameAndSenha(username, senha);
-        // verificar se existe ou não
-        //if(cliente != null)
-            //return UsuarioResponseDTO.valueof(cliente.getPessoaFisica());
+        Cliente cliente = repository.findByUsernameAndSenha(username, senha);
+        
+        if(cliente != null)
+            return UsuarioResponseDTO.valueof(cliente.getUsuario());
         return null;
     }
 
@@ -188,10 +200,18 @@ public class ClienteServiceImp implements ClienteService {
     @Transactional
     public void updateUsuarioPassword(ClientePasswordUpdateDTO passwordUpdateDTO) {
 
-        Usuario usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
+        if(jwt.getClaim("userId") == null)
+            throw new IllegalArgumentException("Token JWT inválido ou claim ausente.");
+        
+        String claimValue = jwt.getClaim("userId").toString();
+
+        if(claimValue == null)
+            throw new IllegalArgumentException("Token JWT inválido ou claim ausente.");
+
+        Usuario usuario = usuarioRepository.findById(Long.valueOf(claimValue));
         Cliente cliente = repository.findByIdUsuario(usuario.getId());
         if (usuario == null || cliente == null) {
-            throw new InternalError();
+            throw new EntityNotFoundException("usuario nao logado");
         }
 
         if(usuario.getPassword().equals(hashService.getHashSenha(passwordUpdateDTO.oldPassword()))){
@@ -207,7 +227,7 @@ public class ClienteServiceImp implements ClienteService {
         Usuario usuario = usuarioRepository.findById(Long.valueOf(jwt.getClaim("userId").toString()));
         Cliente cliente = repository.findByIdUsuario(usuario.getId());
         if (usuario == null || cliente == null) {
-            throw new InternalError();
+            throw new EntityNotFoundException("usuario nao logado");
         }
         cliente.getUsuario().setUsername(usernameUpdateDTO.newUsername());
         usuarioService.update(cliente.getUsuario());

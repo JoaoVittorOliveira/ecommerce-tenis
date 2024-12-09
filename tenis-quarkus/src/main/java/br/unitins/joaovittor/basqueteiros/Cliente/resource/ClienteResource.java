@@ -2,8 +2,10 @@ package br.unitins.joaovittor.basqueteiros.Cliente.resource;
 
 import org.jboss.logging.Logger;
 
+import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteAddEnderecoDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClientePasswordUpdateDTO;
+import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteUpdateDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.dto.ClienteUsernameUpdateDTO;
 import br.unitins.joaovittor.basqueteiros.Cliente.service.ClienteService;
 import br.unitins.joaovittor.basqueteiros.Jwt.service.JwtService;
@@ -67,7 +69,7 @@ public class ClienteResource {
     @PUT
     @Path("/{id}")
     //@RolesAllowed("Funcionario")
-    public Response update( @PathParam("id") Long id, ClienteDTO dto){
+    public Response update( @PathParam("id") Long id, ClienteUpdateDTO dto){
         try {
             service.update(id, dto);
         } catch (ValidationException e) {
@@ -92,10 +94,24 @@ public class ClienteResource {
         return Response.status(Status.NO_CONTENT).build();
     }
 
+    @PATCH
+    @Path("/add-endereco/{id}")
+    public Response addEndereco(@PathParam("id") Long idCliente, ClienteAddEnderecoDTO dto){
+        service.addEndereco(idCliente, dto);
+        return Response.status(Status.NO_CONTENT).build();
+    }
+
     @GET
     //@RolesAllowed({"Funcionario", "Cliente"})
     public Response findAll(){
         return Response.ok(service.findAll()).build();
+    }
+
+    @GET
+    @Path("/search/{id}/enderecos")
+    //@RolesAllowed({"Funcionario", "Cliente"})
+    public Response findAllEnderecosById( @PathParam("id") Long id ){
+        return Response.ok(service.findAllEnderecosById(id)).build();
     }
 
     @GET

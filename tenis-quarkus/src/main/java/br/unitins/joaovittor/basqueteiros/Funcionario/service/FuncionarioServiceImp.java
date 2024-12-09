@@ -183,13 +183,10 @@ public class FuncionarioServiceImp implements FuncionarioService {
 
     @Override
     public UsuarioResponseDTO login(String username, String senha) {
-        /*
         Funcionario funcionario = repository.findByUsernameAndSenha(username, senha);
         // verificar se existe ou não
         if(funcionario != null)
-            return UsuarioResponseDTO.valueof(funcionario.getPessoaFisica());
-        return null;
-        */
+            return UsuarioResponseDTO.valueof(funcionario.getUsuario());
         return null;
     }
 
