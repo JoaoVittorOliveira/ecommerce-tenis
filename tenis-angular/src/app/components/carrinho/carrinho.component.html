@@ -1,0 +1,63 @@
+<mat-toolbar>
+  <div class="toolbar-left">
+    <img src="tenis-angular\src\assets\logo.jpeg" alt="Logo" class="logo" />
+    <mat-form-field appearance="outline" class="search-bar">
+      <mat-label>Digite o que você procura</mat-label>
+      <!-- <input matInput (input)="applyFilter($event)" placeholder="Pesquisar..."/>-->
+      <button mat-icon-button matSuffix>
+        <mat-icon>search</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="toolbar-right">
+    <div class="central-atendimento">
+      <button class="central-btn" mat-button ><mat-icon>support_agent</mat-icon> Central de Atendimento</button>
+      <div class="info-popup">
+        <p>Estamos no WhatsApp <br>
+          <strong><a href="https://w.app/PassoCerto">(12) 97407-0170</a></strong> <br>
+          
+          Horário de atendimento: <BR>10h às 18h
+        </p>
+      </div>
+    </div>
+
+    <button mat-button><mat-icon >person</mat-icon> Minha Conta</button>
+
+
+    <button mat-icon-button [routerLink]="'/carrinho'">
+      <mat-icon>shopping_cart</mat-icon>
+      <span class="cart-badge">0</span>
+    </button>
+    
+  </div>
+</mat-toolbar>
+
+<ng-container *ngIf="carrinhoItens.length > 0; else carrinhoVazio">
+  <div class="carrinho-lista">
+    <div *ngFor="let item of carrinhoItens" class="carrinho-item">
+      <img class="produto-imagem" [src]="item.imageUrl" alt="{{ item.nome }}" />
+      <div class="produto-detalhes">
+        <h3>{{ item.nome }}</h3>
+        <p>Cód: {{ item.quantidade }}</p>
+        <p>Tamanho: {{ item.quantidade }}</p>
+        <p>Entrega: {{ item.quantidade }}</p>
+      </div>
+      <div class="produto-acoes">
+        <p class="produto-preco">R$ {{ item.preco }}</p>
+        <div class="quantidade-controle">
+          <button (click)="alterarQuantidade(item, -1)">-</button>
+          <span>{{ item.quantidade }}</span>
+          <button (click)="alterarQuantidade(item, 1)">+</button>
+        </div>
+        <button class="remover-btn" (click)="removerItem(item)">🗑️</button>
+      </div>
+    </div>
+    <div class="carrinho-total">
+      <p>Subtotal: R$ {{ calcularTotal() }}</p>
+      <button class="finalizar-btn" (click)="finalizarCompra()">Finalizar Compra</button>
+    </div>
+  </div>
+</ng-container>
+<ng-template #carrinhoVazio>
+  <p>O carrinho está vazio.</p>
+</ng-template>

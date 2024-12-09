@@ -1,0 +1,17 @@
+mat-drawer {
+    color: #f8f8ff; /* GhostWhite */
+    padding: 10px;
+  }
+  
+  mat-nav-list mat-list-item {
+    font-weight: bold;
+    color: #dda0dd; /* Orquídea */
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  mat-nav-list mat-list-item:hover {
+    background-color: #dda0dd; /* Roxo */
+    color: white;
+  }
+  

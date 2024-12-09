@@ -1,22 +1,50 @@
-<mat-toolbar color="primary">
-    <div class="flex-container">
-        <button mat-icon-button color="primary" routerLink="/">
-            <mat-icon>home</mat-icon>
+<mat-toolbar>
+    <div class="toolbar-left">
+      <img src="tenis-angular\src\assets\logo.jpeg" alt="Logo" class="logo" />
+      <mat-form-field appearance="outline" class="search-bar">
+        <mat-label>Digite o que você procura</mat-label>
+        <input matInput (input)="applyFilter($event)" placeholder="Pesquisar..."/>
+        <button mat-icon-button matSuffix>
+          <mat-icon>search</mat-icon>
         </button>
-        
-        <div class="fixSearch">
-            <button mat-icon-button color="accent" (click)="toggleSearch()">
-              <mat-icon>search</mat-icon>
-            </button>
-            <mat-form-field *ngIf="showSearch" appearance="fill">
-              <mat-label>Pesquisar</mat-label>
-              <input matInput (input)="applyFilter($event)" placeholder="Digite para filtrar">
-            </mat-form-field>
-        </div>
-        
-        <span class="toolbar-title">Todos os Tenis</span>
+      </mat-form-field>
     </div>
-</mat-toolbar>
+    <div class="toolbar-right">
+      <div class="central-atendimento">
+        <button class="central-btn" mat-button ><mat-icon>support_agent</mat-icon> Central de Atendimento</button>
+        <div class="info-popup">
+          <p>Estamos no WhatsApp <br>
+            <strong><a href="https://w.app/PassoCerto">(12) 97407-0170</a></strong> <br>
+            
+            Horário de atendimento: <BR>10h às 18h
+          </p>
+        </div>
+      </div>
+  
+      <button mat-button><mat-icon >person</mat-icon> Minha Conta</button>
+
+
+      <button mat-icon-button [routerLink]="'/carrinho'">
+        <mat-icon>shopping_cart</mat-icon>
+        <span class="cart-badge">0</span>
+      </button>
+      
+    </div>
+  </mat-toolbar>
+  
+  <div class="categorias">
+    <button mat-button [class.active]="!categoriaSelecionada" (click)="limparCategorias()">Todos</button>
+    <button
+      mat-button
+      *ngFor="let categoria of categorias"
+      [class.active]="categoriaSelecionada === categoria.id"
+      (click)="filtrarPorCategoria(categoria)"
+    >
+    {{categoria.nome}} - {{categoria.genero}} - {{categoria.faixaEtaria}}
+    </button>
+  </div>
+  
+
 
 <div class="container responsive-grid">
     <mat-card *ngFor="let card of cards()">
@@ -29,17 +57,13 @@
         </mat-card-content>
         <br/>
         <mat-card-content class="centered-text">
-            {{card.precoVenda}}
+            R${{card.precoVenda}},00
         </mat-card-content>
         <mat-card-actions class="centered-text">
-            <button mat-button color="primary" (click)="openDetalhes(card)">Ver Mais ...</button>
+            <button mat-button color="#fa7d32" style="width: 100%; padding: 10px;" (click)="openDetalhes(card)">Quero ver mais informações!</button>
         </mat-card-actions>
         <mat-card-footer>
-            <button mat-button 
-                color="accent"
-                style="width: 100%; padding: 16px;">
-                Adicionar ao Carrinho
-            </button>
+          <button mat-button color="accent" style="width: 100%; padding: 16px; text-align: center;" (click)="adicionarAoCarrinho(card)">Adicionar ao Carrinho </button>
         </mat-card-footer>
     </mat-card>
 </div>
