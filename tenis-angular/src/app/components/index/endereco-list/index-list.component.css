@@ -2,6 +2,11 @@
     padding: 20px;
     text-align: center;
   }
+  .container h2{
+    color: #4b0082; /* Índigo Escuro */
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
   
   .action-grid {
     width: 100%;
@@ -22,18 +27,19 @@
   
   .action-button:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 16px rgba(151, 4, 236, 0.2);
   }
   
-  .action-icon {
-    font-size: 48px;
+  .action-button mat-icon {
+    font-size: 20px;
     margin-bottom: 10px;
-    
+    color:#4b0082;
   }
   
-  .action-text {
+  .action-button span {
     font-size: 1.1em;
     font-weight: 500;
+    color:#800080;
   }
   
   /* Responsividade */

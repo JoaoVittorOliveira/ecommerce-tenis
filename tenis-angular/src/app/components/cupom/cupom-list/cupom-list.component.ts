@@ -50,30 +50,43 @@ export class CupomListComponent{
   }
 
   ngOnInit(): void {
-    this.cupomService.findAll(this.page, this.pageSize).subscribe(data => {
-      this.cupons = data;
-      this.filteredCupons = data;
-      this.totalRecords = data.length;
+    this.loadData();
+  }
+
+  loadData(): void{
+    this.cupomService.findAll(this.page, this.pageSize).subscribe((data) => {
+      this.cupons = data
+      this.applyCurrentFilter();      
     });
 
-    this.cupomService.count().subscribe(
-      data => { this.totalRecords = data }
+    this.cupomService.count().subscribe((count) => {
+      this.totalRecords = count;
+    });
+  }
+
+  applyCurrentFilter(): void {
+  
+    const normalizedFilter = this.filterValue.trim().toLowerCase();
+
+    const filtered = this.cupons.filter(
+      (cupom) =>
+        cupom.codigo.toString().toLowerCase().includes(normalizedFilter)
     );
+
+    this.filteredCupons = filtered.slice(
+      this.page * this.pageSize,
+      (this.page + 1) * this.pageSize
+    );
+
+    this.totalRecords = filtered.length;
   }
 
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
-    console.log("Valor do filtro:", this.filterValue);
-
-    this.filteredCupons = this.cupons.filter(cupom =>
-      cupom.codigo.toLowerCase().includes(this.filterValue)||
-      cupom.porcentagemDesconto.toString().includes(filterValue) ||
-      cupom.valorDesconto.toString().includes(filterValue)
-
-    );
-    console.log("Resultado do filtro:", this.filteredCupons);
-    this.totalRecords = this.filteredCupons.length;  // Atualiza o número total de registros
+  
+    this.page = 0; 
+    this.applyCurrentFilter();
   }
 
   toggleSearch(): void {
@@ -83,7 +96,12 @@ export class CupomListComponent{
   paginar(event: PageEvent): void {
     this.page = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.ngOnInit();
+    
+    if (this.filterValue) {
+      this.applyCurrentFilter(); // Reaplica o filtro para a nova página
+    } else {
+      this.loadData(); // Recarrega os dados sem filtro
+    }
   }
 
   excluir(cupom: Cupom): void {
@@ -93,7 +111,7 @@ export class CupomListComponent{
       if (result) {
         this.cupomService.delete(cupom).subscribe({
           next: () => {
-            this.cupons = this.cupons.filter(e => e.id !== cupom.id);
+            this.applyCurrentFilter();
           },
           error: (err) => {
             console.error('Erro ao tentar excluir o cupom', err);

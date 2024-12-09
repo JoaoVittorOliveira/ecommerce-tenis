@@ -1,0 +1,265 @@
+/* Paleta Roxo Escuro */
+
+.container {
+    padding: 20px;
+  }
+  
+  .categorias {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin: 16px 0;
+    flex-wrap: wrap;
+    overflow-x: auto;
+  }
+  
+  .categorias button {
+    text-transform: uppercase;
+    font-weight: bold;
+    white-space: nowrap;
+    color: #4b0082; /* Índigo Escuro */
+  }
+  
+  .categorias button.active {
+    background-color: #800080; /* Roxo */
+    color: white;
+    font-weight: bold;
+  }
+  
+  .responsive-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  mat-card {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #f8f8ff; /* GhostWhite */
+  }
+  
+  mat-card img {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  mat-card-title,
+  mat-card-content {
+    text-align: center;
+    color: #4b0082; /* Índigo Escuro */
+  }
+  
+  .cart-badge {
+    background: #800080; /* Roxo */
+    color: white;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 0.8em;
+    position: relative;
+    top: -10px;
+    left: -10px;
+  }
+  
+  .logo {
+    height: 40px;
+    margin-right: 20px;
+  }
+  
+  .toolbar-left {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    color: #d6a5fa;
+  }
+  
+  .search-bar {
+    flex: 1;
+    margin-left: 20px;
+  
+  }
+  
+  .search-bar mat-label, .search-bar input{
+    color:#d6a5fa;
+  }
+  
+  .toolbar-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: #dda0dd; /* Orquídea */
+  }
+  .toolbar-right button {
+   
+    color: #dda0dd;;
+  
+  }
+  mat-toolbar {
+    display: flex;
+    justify-content: space-between;
+    height: 100px;
+    background-color: #2e0854; /* Roxo escuro */
+    color: #dda0dd; /* Orquídea */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid #4b0082;
+  }
+
+  
+  @media (max-width: 768px) {
+    .search-bar {
+      display: none;
+    }
+  
+    mat-toolbar {
+      height: 60px;
+    }
+  
+    .toolbar-right {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+  
+    mat-card img {
+      height: 150px;
+    }
+  }
+  
+  
+  .central-atendimento {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .central-btn {
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .info-popup {
+    display: none;
+    position: absolute;
+    top: 110%; /* Aparece logo abaixo do botão */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f8f8ff; /* GhostWhite */
+    color: #4b0082; /* Índigo Escuro */
+    border: 1px solid #800080;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    z-index: 10;
+    width: 180px; /* Diminuir a largura */
+    font-size: 0.85rem;
+  }
+  
+  .central-atendimento:hover .info-popup {
+    display: block;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+  .carrinho-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .carrinho-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .produto-imagem {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .produto-detalhes {
+    flex: 1;
+    margin-left: 10px;
+  }
+  
+  .produto-detalhes h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .produto-detalhes p {
+    margin: 5px 0;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .produto-acoes {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .produto-preco {
+    font-size: 16px;
+    color: #e53935;
+    font-weight: bold;
+  }
+  
+  .quantidade-controle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .quantidade-controle button {
+    background: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  .remover-btn {
+    background: none;
+    border: none;
+    color: #e53935;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .carrinho-total {
+    text-align: right;
+    margin-top: 20px;
+  }
+  
+  .finalizar-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .finalizar-btn:hover {
+    background-color: #45a045;
+  }
+  

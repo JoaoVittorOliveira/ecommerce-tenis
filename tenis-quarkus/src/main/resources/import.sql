@@ -51,7 +51,7 @@ values
 
 insert into tenis (nome, quantidade, peso, preco_compra, preco_venda, id_marca, id_material, id_cor, id_categoria, id_tamanho, nome_imagem)
 values
-('tenisPro1', 200, 120, 55, 110, 1, 1, 2, 1, 1, '2024-11-15-T-14h-30m-00s_123e4567-e89b-12d3-a456-426614174000.jpg'),
+('tenisPro1', 200, 120, 55, 110, 1, 1, 2, 1, 1, 'C:\Users\gisele.ov\Documents\faculdade\ecommerce-tenis\tenis-quarkus\src\main\resources\images\1.jpg'),
 ('tenisPro2', 150, 130, 60, 115, 2, 2, 2, 2, 2, '2024-11-15-T-14h-31m-00s_123e4567-e89b-12d3-a456-426614174001.png'),
 ('tenisPro3', 100, 140, 52, 105, 1, 3, 1, 3, 3, '2024-11-15-T-14h-32m-00s_123e4567-e89b-12d3-a456-426614174002.jpeg'),
 ('tenisPro4', 120, 110, 58, 108, 2, 1, 1, 4, 4, '2024-11-15-T-14h-33m-00s_123e4567-e89b-12d3-a456-426614174003.png'),

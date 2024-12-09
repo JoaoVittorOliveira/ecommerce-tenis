@@ -28,6 +28,15 @@ export class TenisService {
     return this.httpClient.get<Tenis[]>(this.baseUrl, {params}); 
   }
 
+  uploadImage(id: number, nomeImagem: string, imagem: File): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('id', id.toString());
+    formData.append('nomeImagem', imagem.name);
+    formData.append('imagem', imagem, imagem.name);
+    
+    return this.httpClient.patch<Tenis>(`${this.baseUrl}/imagem/upload`, formData);
+  }
+
   getUrlImage(nomeImagem: String){
     return `${this.baseUrl}/image/download/${nomeImagem}`; 
   }

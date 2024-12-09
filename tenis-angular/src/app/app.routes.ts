@@ -43,6 +43,8 @@ import { LoginComponent } from './components/login/login.component';
 import { LoginSelectionComponent } from './components/login/login-selection/login-selection.component';
 import { LoginSelectionGuard } from './guards/login-selection.guard';
 
+import { CarrinhoComponent } from './components/carrinho/carrinho.component';
+
 
 export const routes: Routes = [
     { path: 'login-selection', component: LoginSelectionComponent, title: 'Seleção de Login' },
@@ -106,8 +108,11 @@ export const routes: Routes = [
         component: UserTemplateComponent, 
         title: 'e-commerce',
         children: [
-            { path: '', pathMatch: 'full', redirectTo: 'ecommerce' },
-            { path: 'ecommerce', component: TenisCardListComponent, title: 'Lista de Cards de Tênis' }
+            {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
+        
+            { path: 'ecommerce', component: TenisCardListComponent, title: 'Lista de Cards de Tênis'},
+            //{ path: 'ecommerce/tenis/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis'}
+            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho de compra' },
         ]
     }
 ];

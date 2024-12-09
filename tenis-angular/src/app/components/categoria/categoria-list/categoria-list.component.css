@@ -2,7 +2,9 @@
     flex: 1;
     text-align: center;
   }
-  
+  .flex-container mat-icon{
+    color:#4b0082;
+  }
   .flex-container {
     display: flex;
     align-items: center;

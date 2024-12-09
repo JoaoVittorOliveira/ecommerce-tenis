@@ -41,50 +41,70 @@ export class CategoriaListComponent {
   }
 
   ngOnInit(): void {
-    this.categoriaService.findAll(this.page, this.pageSize).subscribe(
-      data => {
+    this.loadData();
+  }
+
+  loadData(): void{
+    this.categoriaService.findAll(this.page, this.pageSize).subscribe((data) => {
       this.categorias = data
-      this.filteredCategorias = data;
-      this.totalRecords = data.length;
+      this.applyCurrentFilter();      
     });
-      
-      
-      this.categoriaService.count().subscribe(
-        data => { this.totalRecords = data }
-      );
-    }
 
-    applyFilter(event: Event): void {
-      const filterValue = (event.target as HTMLInputElement).value;
-      this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
-      this.filteredCategorias = this.categorias.filter(categoria =>
-        categoria.nome.toLowerCase().includes(this.filterValue) ||
-        categoria.descricao.toLowerCase().includes(this.filterValue)||
-        categoria.genero.toLowerCase().includes(this.filterValue) ||
-        categoria.faixaEtaria.toLowerCase().includes(this.filterValue)||
-        categoria.nome.toLowerCase().includes(this.filterValue)   
-      );
-      this.totalRecords = this.filteredCategorias.length;  // Atualiza o número total de registros
-    }
+    this.categoriaService.count().subscribe((count) => {
+      this.totalRecords = count;
+    });
+  }
+
+  applyCurrentFilter(): void {
   
-    toggleSearch(): void {
-      this.showSearch = !this.showSearch;
-    }
+    const normalizedFilter = this.filterValue.trim().toLowerCase();
+
+    const filtered = this.categorias.filter(
+      (categoria) =>
+        categoria.nome.toString().toLowerCase().includes(normalizedFilter) ||
+        categoria.genero.toString().toLowerCase().includes(normalizedFilter) ||
+        categoria.faixaEtaria.toLowerCase().includes(normalizedFilter)
+    );
+
+    this.filteredCategorias = filtered.slice(
+      this.page * this.pageSize,
+      (this.page + 1) * this.pageSize
+    );
+
+    this.totalRecords = filtered.length;
+  }
+
+  applyFilter(event: Event): void {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
+    this.page = 0; 
+    this.applyCurrentFilter();
+  }
+  
+  toggleSearch(): void {
+    this.showSearch = !this.showSearch;
+  }
   
 
-    paginar(event: PageEvent): void {
-      this.page = event.pageIndex;
-      this.pageSize = event.pageSize;
-      this.ngOnInit();
+  paginar(event: PageEvent): void {
+    this.page = event.pageIndex;
+    this.pageSize = event.pageSize;
+
+    if (this.filterValue) {
+      this.applyCurrentFilter(); // Reaplica o filtro para a nova página
+    } else {
+      this.loadData(); // Recarrega os dados sem filtro
     }
-  excluir(categoria: Categoria): void {
+  }
+
+   excluir(categoria: Categoria): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.categoriaService.delete(categoria).subscribe({
           next: () => {
-            this.categorias = this.categorias.filter(e => e.id !== categoria.id);
+            this.applyCurrentFilter();
           },
           error: (err) => {
             console.error('Erro ao tentar excluir o categoria', err);
