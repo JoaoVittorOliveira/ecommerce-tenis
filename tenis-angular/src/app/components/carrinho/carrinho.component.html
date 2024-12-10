@@ -43,7 +43,7 @@
         <p>Entrega: {{ item.quantidade }}</p>
       </div>
       <div class="produto-acoes">
-        <p class="produto-preco">R$ {{ item.preco }}</p>
+        <p class="produto-preco">{{ item.preco | currency:'BRL':'symbol':'1.2-2' }}</p>
         <div class="quantidade-controle">
           <button (click)="alterarQuantidade(item, -1)">-</button>
           <span>{{ item.quantidade }}</span>

@@ -31,7 +31,8 @@ import { MatSelectModule } from '@angular/material/select';
             MatTableModule,
             RouterModule,
             MatCheckboxModule,
-            MatSelectModule],
+            MatSelectModule,
+            CommonModule],
   templateUrl: './tenis-list.component.html',
   styleUrl: './tenis-list.component.css'
 })
