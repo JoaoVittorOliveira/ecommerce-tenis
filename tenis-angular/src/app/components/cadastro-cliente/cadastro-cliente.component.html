@@ -1,143 +1,63 @@
-<mat-toolbar color="primary">
-    <div class="toolbar-title" *ngIf="formGroup?.get('id')?.value">
-        Atualização de Cliente
-    </div>
-    <div class="toolbar-title" *ngIf="!formGroup?.get('id')?.value">
-        Cadastro de Cliente
-    </div>
-</mat-toolbar>
-
-<div class="form-container">
-    <mat-card>
-        <mat-card-content>
-            <form [formGroup]="formGroup">
-                
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Nome</mat-label>
-                    <input matInput type="text" formControlName="nome">
-                    <mat-error *ngIf="formGroup.get('nome') 
-                                   && formGroup.get('nome')?.invalid
-                                   && formGroup.get('nome')?.touched">
-                        {{getErrorMessage('nome', formGroup.get('nome')?.errors)}}   
-                    </mat-error>
-                </mat-form-field>
-                
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>CPF</mat-label>
-                    <input matInput type="text" formControlName="cpf">
-                    <mat-error *ngIf="formGroup.get('cpf') 
-                                   && formGroup.get('cpf')?.invalid
-                                   && formGroup.get('cpf')?.touched">
-                        {{getErrorMessage('cpf', formGroup.get('cpf')?.errors)}}   
-                    </mat-error>
-                </mat-form-field>
-                
-                  <mat-form-field class="half-width-input">
-                    <mat-label>Escolha a data de nascimento</mat-label>
-                    <input matInput [matDatepicker]="nascimentoPicker" formControlName="dataNascimento" readonly>
-                    <mat-hint>Aperte no calendário para inserir a data</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="nascimentoPicker"></mat-datepicker-toggle>
-                    <mat-datepicker #nascimentoPicker></mat-datepicker>
-                    <mat-error *ngIf="formGroup.get('dataNascimento')?.errors?.['required']">
-                        A data de vencimento é obrigatória.
-                    </mat-error>
-                  </mat-form-field>
-
-                <mat-form-field appearance="fill" class="full-width-input">
-                    <mat-label>Username</mat-label>
-                    <input matInput type="text" formControlName="username">
-                    <mat-error *ngIf="formGroup.get('username') 
-                                   && formGroup.get('username')?.invalid
-                                   && formGroup.get('username')?.touched">
-                        {{getErrorMessage('username', formGroup.get('username')?.errors)}} 
-                        
-                        <!-- erros do back-end -->
-                        @if(formGroup.get('nome')?.hasError('apiError')) {
-                            <span>{{formGroup.get('username')?.getError('apiError')}}</span> 
-                         }
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" class="full-width-input" *ngIf="!formGroup?.get('id')?.value">
-                    <mat-label>Senha</mat-label>
-                    <input matInput type="text" formControlName="senha">
-                    <mat-error *ngIf="formGroup.get('senha') 
-                                   && formGroup.get('senha')?.invalid
-                                   && formGroup.get('senha')?.touched">
-                        {{getErrorMessage('senha', formGroup.get('senha')?.errors)}}
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" class="half-width-input">
-                    <mat-label>DDD</mat-label>
-                    <input matInput type="text" formControlName="ddd">
-                    <mat-error *ngIf="formGroup.get('ddd') 
-                                   && formGroup.get('ddd')?.invalid
-                                   && formGroup.get('ddd')?.touched">
-                        {{getErrorMessage('ddd', formGroup.get('ddd')?.errors)}}
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" class="half-width-input">
-                    <mat-label>Numero</mat-label>
-                    <input matInput type="text" formControlName="numero">
-                    <mat-error *ngIf="formGroup.get('numero') 
-                                   && formGroup.get('numero')?.invalid
-                                   && formGroup.get('numero')?.touched">
-                        {{getErrorMessage('numero', formGroup.get('numero')?.errors)}}
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" class="half-width-input">
-                    <mat-label>CEP</mat-label>
-                    <input matInput type="text" formControlName="cep">
-                    <mat-error *ngIf="formGroup.get('cep') 
-                                   && formGroup.get('cep')?.invalid
-                                   && formGroup.get('cep')?.touched">
-                        {{getErrorMessage('cep', formGroup.get('cep')?.errors)}}
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" class="half-width-input">
-                    <mat-label>Rua</mat-label>
-                    <input matInput type="text" formControlName="rua">
-                    <mat-error *ngIf="formGroup.get('rua') 
-                                   && formGroup.get('rua')?.invalid
-                                   && formGroup.get('rua')?.touched">
-                        {{getErrorMessage('rua', formGroup.get('rua')?.errors)}}
-                    </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="fill" class="half-width-input">
-                    <mat-label>Complemento</mat-label>
-                    <input matInput type="text" formControlName="complemento">
-                    <mat-error *ngIf="formGroup.get('complemento') 
-                                   && formGroup.get('complemento')?.invalid
-                                   && formGroup.get('complemento')?.touched">
-                        {{getErrorMessage('complemento', formGroup.get('complemento')?.errors)}}
-                    </mat-error>
-                </mat-form-field>
-
-            </form>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button routerLink="/admin/clientes">
-                Cancelar
-            </button>
-
-            <button mat-raised-button *ngIf="formGroup?.get('id')?.value" color="warn" (click)="excluir()"
-                [disabled]="formGroup.invalid">
-                Excluir
-            </button>
-
-            <button mat-raised-button color="primary" (click)="salvar()" [disabled]="formGroup.invalid" *ngIf="!formGroup?.get('id')?.value">
-                Salvar
-            </button>
-
-            <button mat-raised-button color="primary" (click)="salvar()" *ngIf="formGroup?.get('id')?.value">
-                Salvar
-            </button>
-
-        </mat-card-actions>
-    </mat-card>
-</div>
+<mat-vertical-stepper [linear]="isLinear">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <!-- Campos do formulário 1 -->
+        <mat-form-field>
+          <mat-label>Nome</mat-label>
+          <input matInput formControlName="nome" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>CPF</mat-label>
+          <input matInput formControlName="cpf" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Data de Nascimento</mat-label>
+          <input matInput formControlName="dataNascimento" required />
+        </mat-form-field>
+        <button mat-button matStepperNext>Próximo</button>
+      </form>
+    </mat-step>
+  
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <!-- Campos do formulário 2 -->
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Senha</mat-label>
+          <input matInput formControlName="senha" required />
+        </mat-form-field>
+        <button mat-button matStepperNext>Próximo</button>
+      </form>
+    </mat-step>
+  
+    <mat-step [stepControl]="thirdFormGroup">
+      <form [formGroup]="thirdFormGroup">
+        <!-- Campos do formulário 3 -->
+        <mat-form-field>
+          <mat-label>DDD</mat-label>
+          <input matInput formControlName="ddd" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Número</mat-label>
+          <input matInput formControlName="numero" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>CEP</mat-label>
+          <input matInput formControlName="cep" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Rua</mat-label>
+          <input matInput formControlName="rua" required />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Complemento</mat-label>
+          <input matInput formControlName="complemento" required />
+        </mat-form-field>
+        <button mat-button (click)="salvar()">Salvar</button>
+      </form>
+    </mat-step>
+  </mat-vertical-stepper>
+  
