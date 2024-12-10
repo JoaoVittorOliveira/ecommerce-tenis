@@ -97,6 +97,10 @@ export class AuthService {
       return this.usuarioLogadoSubject.asObservable();
     }
 
+    getUsuarioLogadoValue(): Usuario | null {
+      return this.usuarioLogadoSubject.value;
+    }
+
     getToken(): string | null {
       return this.localStorageService.getItem(this.tokenKey);
     }

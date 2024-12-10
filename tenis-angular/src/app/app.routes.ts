@@ -44,6 +44,8 @@ import { LoginSelectionComponent } from './components/login/login-selection/logi
 import { LoginSelectionGuard } from './guards/login-selection.guard';
 
 import { CarrinhoComponent } from './components/carrinho/carrinho.component';
+import { authGuard } from './guards/auth.guard';
+import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
 
 
 export const routes: Routes = [
@@ -54,6 +56,7 @@ export const routes: Routes = [
         path: 'admin', 
         component: AdminTemplateComponent, 
         title: 'e-commerce',
+        canActivate: [authGuard],
         children: [
             {path: 'enderecos', component: EnderecoListComponent, title: 'Lista de Endereços'},
             {path: 'enderecos/new',component: EnderecoFormComponent, title: 'Novo Endereço'},
@@ -114,6 +117,10 @@ export const routes: Routes = [
             //{ path: 'ecommerce/tenis/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis'}
             { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho de compra' },
         ]
-    }
+    },
+    { path: 'not-authorized', component: NotAuthorizedComponent, title: 'Não Autorizado' },
+
+    // Página de "Page Not Found"
+    //{ path: '**', component: PageNotFoundComponent, title: 'Página Não Encontrada' }
 ];
 
