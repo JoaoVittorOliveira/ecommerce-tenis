@@ -32,7 +32,7 @@ import { MatStepperModule } from '@angular/material/stepper';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CadastroClienteComponent {
-  isLinear = true;
+  isLinear = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -45,6 +45,7 @@ export class CadastroClienteComponent {
   ) {
     // Inicializa os grupos de formulário para cada etapa
     this.firstFormGroup = this.formBuilder.group({
+      id: [null],
       nome: ['', Validators.required],
       cpf: ['', Validators.required],
       dataNascimento: ['', Validators.required],
@@ -63,8 +64,80 @@ export class CadastroClienteComponent {
       complemento: ['', Validators.required],
     });
   }
-  salvar() {}
-/*
+
+  ngOnInit(): void {
+    this.clienteService.findAll().subscribe(data=> {
+      this.initializeForm();
+    })
+  }
+
+  initializeForm(): void {
+    
+    const cliente = this.activatedRoute.snapshot.data['cliente'];
+    const isCadastro = !cliente || !cliente.id;
+    
+    this.firstFormGroup = this.formBuilder.group({
+      id: [
+        (cliente && cliente.id) ? cliente.id : null
+      ],
+      nome: [
+        (cliente && cliente.nome) ? cliente.nome : null, 
+        Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(80)])
+      ],
+      cpf: [
+        (cliente && cliente.cpf !== null && cliente.cpf !== undefined) ? cliente.cpf : '', 
+        Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(15)])
+      ],
+      dataNascimento: [
+        (cliente && cliente.dataNascimento !== null && cliente.dataNascimento !== undefined) ? cliente.dataNascimento : '',
+        Validators.compose([Validators.required])
+      ],});
+
+      this.secondFormGroup = this.formBuilder.group({
+      
+      username: [
+        (cliente && cliente.usuario.username) ? cliente.usuario.username : '', 
+        Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(60)])
+      ],
+
+      // Se for cadastro, validar por tamanho, se for update, validar só se existe
+      senha: [
+        cliente?.usuario?.senha || '', 
+        isCadastro 
+        ? Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(60)])
+        : Validators.compose([Validators.required])
+      ],});
+
+      this.thirdFormGroup= this.formBuilder.group({
+      ddd: [
+        (cliente && cliente.telefone && cliente.telefone.ddd) ? cliente.telefone.ddd : '', 
+        Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(2)])
+      ],
+      numero: [
+        (cliente && cliente.telefone && cliente.telefone.numero) ? cliente.telefone.numero : '', 
+        Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9)])
+      ],
+
+/*0 */
+      cep: [
+        (cliente && cliente.endereco && cliente.endereco.cep) ? cliente.endereco.cep : '', 
+        Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(8)])
+      ],
+      rua: [
+        (cliente && cliente.rua && cliente.endereco.rua) ? cliente.endereco.rua : '', 
+        Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(50)])
+      ],
+      complemento: [
+        (cliente && cliente.endereco && cliente.endereco.complemento) ? cliente.endereco.complemento : '', 
+        Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(50)])
+      ]
+
+      
+    })
+
+  }
+
+
   salvar() {
     // Valida se os formulários são válidos
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid) {
@@ -90,6 +163,7 @@ export class CadastroClienteComponent {
       };
   
       // Envia os dados ao servidor
+
       this.clienteService.insert(cliente).subscribe({
         next: (clienteCadastrado) => {
           this.router.navigateByUrl('/admin/clientes');
@@ -98,6 +172,7 @@ export class CadastroClienteComponent {
           console.error('Erro ao salvar cliente:', err);
         }
       });
+      console.log(cliente);
     } else {
       console.log("Formulários inválidos");
     }
@@ -180,5 +255,5 @@ export class CadastroClienteComponent {
       minlength: 'O complemento deve conter 8 caracteres.',
       maxlength: 'O complemento deve conter 8 caracteres.'
     },
-  }*/
+  }
 }
