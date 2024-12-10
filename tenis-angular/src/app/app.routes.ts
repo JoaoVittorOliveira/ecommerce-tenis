@@ -44,11 +44,13 @@ import { LoginSelectionComponent } from './components/login/login-selection/logi
 import { LoginSelectionGuard } from './guards/login-selection.guard';
 
 import { CarrinhoComponent } from './components/carrinho/carrinho.component';
+import { CadastroClienteComponent } from './components/cadastro-cliente/cadastro-cliente.component';
 
 
 export const routes: Routes = [
     { path: 'login-selection', component: LoginSelectionComponent, title: 'Seleção de Login' },
     { path: 'login', component: LoginComponent, canActivate: [LoginSelectionGuard], title: 'Login' },
+    { path: 'cadastro-cliente', component: CadastroClienteComponent, canActivate: [LoginSelectionGuard], title: 'Cadastro de Cliente' },
     
     { 
         path: 'admin', 

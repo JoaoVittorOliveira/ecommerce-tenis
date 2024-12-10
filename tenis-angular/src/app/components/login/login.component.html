@@ -16,7 +16,11 @@
                 <input matInput type="password" placeholder="Senha" formControlName="password" required>
                 <mat-error *ngIf="loginForm.get('password')!.hasError('required')">A senha é obrigatória</mat-error>
             </mat-form-field>
-            <button mat-raised-button class="login-button" color="primary" type="submit">Login</button>
+            <button mat-raised-button class="login-button" type="submit">Login</button>
 
         </form>
+
+        <div class="login-footer">
+            <a routerLink="/cadastro-cliente" class="register-link">Não possui cadastro? Cadastre-se!</a>
+        </div>
     </div>

@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: linear-gradient(to right, #6E45E2, #FF6636);
+    background: linear-gradient(to right, #4b0082, #d6a5fa);
   }
   
   .login-box {
@@ -34,11 +34,27 @@
   .login-button {
     width: 100%;
     margin-top: 20px;
-    background: #FF6636;
+    background: #d6a5fa;
     color: #fff;
     transition: background 0.3s;
   }
   
   .login-button:hover {
-    background: #FF5722;
+    background: #d6a5fa;
   }
+
+
+  .login-footer {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.register-link {
+    color: #1976d2;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.register-link:hover {
+    text-decoration: underline;
+}
