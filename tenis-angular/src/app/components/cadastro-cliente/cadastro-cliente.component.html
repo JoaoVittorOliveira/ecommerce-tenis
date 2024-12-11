@@ -1,3 +1,11 @@
+<mat-toolbar class="toolbar" color="primary">
+  <button mat-icon-button (click)="voltarParaEcommerce()" class="voltar-btn">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <span class="toolbar-title">Cadastro de Cliente</span>
+</mat-toolbar>
+
+<div class="stepper-container">
 <mat-vertical-stepper [linear]="isLinear">
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
@@ -11,7 +19,7 @@
           <input matInput type="text" formControlName="cpf">
       </mat-form-field>
         <mat-form-field class="half-width-input">
-          <mat-label>Escolha a data de nascimento</mat-label>
+          <mat-label>Data de nascimento</mat-label>
           <input matInput [matDatepicker]="nascimentoPicker" formControlName="dataNascimento" readonly>
           <mat-hint>Aperte no calendário para inserir a data</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="nascimentoPicker"></mat-datepicker-toggle>
@@ -79,4 +87,5 @@
       </form>
     </mat-step>
   </mat-vertical-stepper>
+</div>
   

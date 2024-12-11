@@ -14,6 +14,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ClienteService } from '../../services/cliente.service';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatDialog } from '@angular/material/dialog';
+import { SuccessDialog } from '../success-dialog/success-dialog.component';
 
 @Component({
   selector: 'app-cadastro-cliente',
@@ -36,7 +38,8 @@ export class CadastroClienteComponent {
     private formBuilder: FormBuilder,
     private clienteService: ClienteService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     // Inicializa os grupos de formulário para cada etapa
     this.firstFormGroup = this.formBuilder.group({
@@ -64,6 +67,10 @@ export class CadastroClienteComponent {
     this.clienteService.findAll().subscribe(data=> {
       this.initializeForm();
     })
+  }
+  
+  voltarParaEcommerce() {
+    this.router.navigate(['/ecommerce']); // Substitua com a rota correta
   }
 
   initializeForm(): void {
@@ -159,12 +166,14 @@ export class CadastroClienteComponent {
       // Envia ao clienteService para salvar
       this.clienteService.insert(cliente).subscribe({
         next: () => {
-          this.router.navigateByUrl('/admin/clientes');
+            this.dialog.open(SuccessDialog, {
+                data: { message: 'Cadastro realizado com sucesso!' },
+            }).afterClosed().subscribe(() => {
+                this.router.navigate(['/login']);
+            });
         },
-        error: (err) => {
-          console.error('Erro ao salvar cliente:', err);
-        }
-      });
+        error: (err) => console.error('Erro ao salvar cliente:', err),
+    });
     } else {
       console.log('Formulários inválidos');
     }
