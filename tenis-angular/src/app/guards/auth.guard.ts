@@ -18,8 +18,9 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   } 
   
-  const usuarioLogado = authService.getUsuarioLogadoValue(); // Ex.: { id: 1, nome: 'Admin', role: 'FUNCIONARIO' }
-  if (usuarioLogado?.funcionario) {
+  const userLogado = authService.getUsuarioLogadoValue(); 
+
+  if (userLogado?.perfil != 'Funcionario') {
     router.navigate(['/not-authorized']);
     return false;
   }

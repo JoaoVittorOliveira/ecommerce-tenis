@@ -50,6 +50,7 @@ export class AuthService {
           if (authToken) {
             this.setToken(authToken);
             const usuarioLogado = res.body;
+            console.log('Really user:', usuarioLogado);
             if (usuarioLogado) {
               this.setUsuarioLogado(usuarioLogado);
               this.usuarioLogadoSubject.next(usuarioLogado);
@@ -131,5 +132,5 @@ export class AuthService {
       return this.getUsuarioLogado().pipe(
           map(usuario => usuario ? usuario.perfil : null)
       );
-  }
+    }
 }

@@ -48,6 +48,7 @@ public class FuncionarioServiceImp implements FuncionarioService {
         Usuario usuario = new Usuario();
         usuario.setUsername(dto.username());
         usuario.setPassword(hashService.getHashSenha(dto.senha()));
+        usuario.setPerfil("Funcionario");
         usuarioRepository.persist(usuario);    
 
         Funcionario funcionario = new Funcionario();

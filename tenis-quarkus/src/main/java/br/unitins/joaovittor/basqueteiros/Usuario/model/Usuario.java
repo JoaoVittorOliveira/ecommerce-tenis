@@ -13,6 +13,9 @@ public class Usuario extends DefaultEntity{
     @Column(name = "password")
     private String password;
 
+    @Column(name = "perfil")
+    private String perfil;
+
     public String getUsername() {
         return username;
     }
@@ -27,6 +30,14 @@ public class Usuario extends DefaultEntity{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        this.perfil = perfil;
     }
     
 }

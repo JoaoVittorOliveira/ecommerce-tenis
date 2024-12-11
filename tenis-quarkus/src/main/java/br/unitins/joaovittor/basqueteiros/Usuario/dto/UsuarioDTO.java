@@ -11,6 +11,10 @@ public record UsuarioDTO(
 
     @NotBlank(message = "A senha não pode ser nula ou vazia")
     @Size(min = 6, max = 60, message = "O tamanho da senha deve ser entre 6 e 60 caracteres.")
-    String password
+    String password,
+
+    @NotBlank
+    String perfil
+    
 ) { }  
 

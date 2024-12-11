@@ -30,6 +30,7 @@ export class ClienteService {
       numero: cliente.telefone.numero,
       username: cliente.usuario.username,
       senha: cliente.usuario.senha,
+      perfil: 'Cliente',
       listaEndereco: [
         {
           cep: cliente.endereco.cep,
