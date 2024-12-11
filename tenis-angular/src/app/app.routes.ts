@@ -47,6 +47,7 @@ import { CarrinhoComponent } from './components/carrinho/carrinho.component';
 import { authGuard } from './guards/auth.guard';
 import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { clientSectionGuard } from './guards/client-section.guard';
 
 
 export const routes: Routes = [
@@ -111,6 +112,7 @@ export const routes: Routes = [
         path: '', 
         component: UserTemplateComponent, 
         title: 'e-commerce',
+        canActivate: [clientSectionGuard],
         children: [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         

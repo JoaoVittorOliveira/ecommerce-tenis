@@ -21,7 +21,7 @@
       </div>
 
       <div *ngIf="usuarioLogado?.username">
-        <button  mat-icon-button (click)="deslogar()">
+        <button  mat-icon-button (click)="deslogar()" routerLink="/">
           <mat-icon>logout</mat-icon>
         </button>
       </div>
