@@ -2,60 +2,79 @@
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
         <!-- Campos do formulário 1 -->
-        <mat-form-field>
+        <mat-form-field appearance="fill" class="full-width-input">
           <mat-label>Nome</mat-label>
-          <input matInput formControlName="nome" required />
-        </mat-form-field>
-        <mat-form-field>
+          <input matInput type="text" formControlName="nome">   
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="full-width-input">
           <mat-label>CPF</mat-label>
-          <input matInput formControlName="cpf" required />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Data de Nascimento</mat-label>
-          <input matInput formControlName="dataNascimento" required />
+          <input matInput type="text" formControlName="cpf">
+      </mat-form-field>
+        <mat-form-field class="half-width-input">
+          <mat-label>Escolha a data de nascimento</mat-label>
+          <input matInput [matDatepicker]="nascimentoPicker" formControlName="dataNascimento" readonly>
+          <mat-hint>Aperte no calendário para inserir a data</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="nascimentoPicker"></mat-datepicker-toggle>
+          <mat-datepicker #nascimentoPicker></mat-datepicker>
         </mat-form-field>
         <button mat-button matStepperNext>Próximo</button>
       </form>
     </mat-step>
   
+
+
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
         <!-- Campos do formulário 2 -->
-        <mat-form-field>
-          <mat-label>Username</mat-label>
-          <input matInput formControlName="username" required />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Senha</mat-label>
-          <input matInput formControlName="senha" required />
-        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Username</mat-label>
+                    <input matInput type="text" formControlName="username">
+                    
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="full-width-input">
+                    <mat-label>Senha</mat-label>
+                    <input matInput type="text" formControlName="senha">
+                   
+                </mat-form-field>
         <button mat-button matStepperNext>Próximo</button>
       </form>
     </mat-step>
   
+
+
     <mat-step [stepControl]="thirdFormGroup">
       <form [formGroup]="thirdFormGroup">
         <!-- Campos do formulário 3 -->
-        <mat-form-field>
-          <mat-label>DDD</mat-label>
-          <input matInput formControlName="ddd" required />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Número</mat-label>
-          <input matInput formControlName="numero" required />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>CEP</mat-label>
-          <input matInput formControlName="cep" required />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Rua</mat-label>
-          <input matInput formControlName="rua" required />
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Complemento</mat-label>
-          <input matInput formControlName="complemento" required />
-        </mat-form-field>
+        <mat-form-field appearance="fill" class="half-width-input">
+                    <mat-label>DDD</mat-label>
+                    <input matInput type="text" formControlName="ddd">
+                  
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="half-width-input">
+                    <mat-label>Numero</mat-label>
+                    <input matInput type="text" formControlName="numero">
+                    
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="half-width-input">
+                    <mat-label>CEP</mat-label>
+                    <input matInput type="text" formControlName="cep">
+                  
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="half-width-input">
+                    <mat-label>Rua</mat-label>
+                    <input matInput type="text" formControlName="rua">
+                  
+                </mat-form-field>
+
+                <mat-form-field appearance="fill" class="half-width-input">
+                    <mat-label>Complemento</mat-label>
+                    <input matInput type="text" formControlName="complemento">
+                    
+                </mat-form-field>
         <button mat-button (click)="salvar()">Salvar</button>
       </form>
     </mat-step>

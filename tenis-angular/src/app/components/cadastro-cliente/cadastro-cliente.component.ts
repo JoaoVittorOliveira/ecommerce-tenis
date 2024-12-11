@@ -9,14 +9,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Telefone } from '../../models/telefone.model';
-import { MatDialog } from '@angular/material/dialog';
-import { forkJoin } from 'rxjs';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { ConfirmDialogComponent } from '../dialog/confirm-dialog-component';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Cliente } from '../../models/cliente.model';
 import { ClienteService } from '../../services/cliente.service';
 import { MatStepperModule } from '@angular/material/stepper';
 
@@ -139,44 +134,42 @@ export class CadastroClienteComponent {
 
 
   salvar() {
-    // Valida se os formulários são válidos
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid) {
       const cliente = {
-        id: null,  // Se for um novo cliente, você pode deixar o id como null
-        nome: this.firstFormGroup.get('nome')?.value,
-        cpf: this.firstFormGroup.get('cpf')?.value,
-        dataNascimento: this.firstFormGroup.get('dataNascimento')?.value,
-        usuario: {
-          username: this.secondFormGroup.get('username')?.value,  // Valor do formulário
-          senha: this.secondFormGroup.get('senha')?.value         // Valor do formulário
-        },
-        telefone: {
-          ddd: this.thirdFormGroup.get('ddd')?.value,
-          numero: this.thirdFormGroup.get('numero')?.value
-        },
-        endereco: {
-          cep: this.thirdFormGroup.get('cep')?.value,
-          rua: this.thirdFormGroup.get('rua')?.value,
-          complemento: this.thirdFormGroup.get('complemento')?.value
-        },
-        usuariots: new Date()  // Definindo a data de criação ou atualização
-      };
-  
-      // Envia os dados ao servidor
+        ...this.firstFormGroup.value,
+        ...this.secondFormGroup.value,
+        ...this.thirdFormGroup.value
+      };  
 
+      if (!cliente.telefone) {
+        cliente.telefone = { ddd: cliente.ddd, numero: cliente.numero };
+      }
+      
+      if (!cliente.usuario) {
+        cliente.usuario = { username: cliente.username, senha: cliente.senha }; 
+      }
+
+      if (!cliente.endereco) {
+        cliente.endereco = { cep: cliente.cep, rua: cliente.rua, complemento:cliente.complemento }; 
+      }
+
+      
+      console.log('Cliente enviado:', cliente);
+  
+      // Envia ao clienteService para salvar
       this.clienteService.insert(cliente).subscribe({
-        next: (clienteCadastrado) => {
+        next: () => {
           this.router.navigateByUrl('/admin/clientes');
         },
         error: (err) => {
           console.error('Erro ao salvar cliente:', err);
         }
       });
-      console.log(cliente);
     } else {
-      console.log("Formulários inválidos");
+      console.log('Formulários inválidos');
     }
   }
+  
   
 
   tratarErros(errorResponse: HttpErrorResponse) {
