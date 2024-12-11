@@ -21,6 +21,10 @@ export class ClienteService {
     return this.httpClient.get<Cliente>(`${this.baseUrl}/search/id/${id}`); 
   }
 
+  findByUsername(username: string): Observable<Cliente> {
+    return this.httpClient.get<Cliente>(`${this.baseUrl}/search/username/${username}`);
+  }
+
   insert(cliente: Cliente): Observable<Cliente> {
     const data = {
       nome: cliente.nome,

@@ -48,9 +48,13 @@ import { authGuard } from './guards/auth.guard';
 import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { clientSectionGuard } from './guards/client-section.guard';
+import { ClienteMyAccountComponent } from './components/cliente/cliente-my-account/cliente-my-account.component';
 
 
 export const routes: Routes = [
+
+    { path: 'minha-conta', component: ClienteMyAccountComponent, title: 'Minha Conta'},
+
     { path: 'login-selection', component: LoginSelectionComponent, title: 'Seleção de Login' },
     { path: 'login', component: LoginComponent, canActivate: [LoginSelectionGuard], title: 'Login' },
     
