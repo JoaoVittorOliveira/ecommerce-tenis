@@ -10,7 +10,7 @@
 }
 
 .detalhes-imagem {
-  max-width: 250px; /* Aumentei o tamanho da imagem */
+  max-width: 450px; 
   height: auto;
   object-fit: cover;
 }
@@ -62,7 +62,7 @@
 }
 
 .marca-logo {
-  width: 40px; /* Ajuste o tamanho da logo da marca */
+  width: 70px; /* Ajuste o tamanho da logo da marca */
   height: auto;
 }
 
@@ -102,6 +102,6 @@
 }
 
 .voltar button:hover {
-  background-color: #800080; /* Roxo */
+  background-color: #b660b6; /* Roxo */
   color: white;
 }
