@@ -9,6 +9,7 @@
 <mat-vertical-stepper [linear]="isLinear">
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Quem é você?</ng-template>
         <!-- Campos do formulário 1 -->
         <mat-form-field appearance="fill" class="full-width-input">
           <mat-label>Nome</mat-label>
@@ -33,6 +34,7 @@
 
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Seu usuário</ng-template>
         <!-- Campos do formulário 2 -->
         <mat-form-field appearance="fill" class="full-width-input">
                     <mat-label>Username</mat-label>
@@ -53,6 +55,7 @@
 
     <mat-step [stepControl]="thirdFormGroup">
       <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Suas informações</ng-template>
         <!-- Campos do formulário 3 -->
         <mat-form-field appearance="fill" class="half-width-input">
                     <mat-label>DDD</mat-label>
