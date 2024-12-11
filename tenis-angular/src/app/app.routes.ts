@@ -46,6 +46,7 @@ import { LoginSelectionGuard } from './guards/login-selection.guard';
 import { CarrinhoComponent } from './components/carrinho/carrinho.component';
 import { authGuard } from './guards/auth.guard';
 import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 
 export const routes: Routes = [
@@ -121,6 +122,6 @@ export const routes: Routes = [
     { path: 'not-authorized', component: NotAuthorizedComponent, title: 'Não Autorizado' },
 
     // Página de "Page Not Found"
-    //{ path: '**', component: PageNotFoundComponent, title: 'Página Não Encontrada' }
+    { path: '**', component: NotFoundComponent, title: 'Página Não Encontrada' }
 ];
 
