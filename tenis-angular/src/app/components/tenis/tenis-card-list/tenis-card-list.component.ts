@@ -16,6 +16,9 @@ import { CategoriaService } from '../../../services/categoria.service';
 import { CarrinhoService } from '../../../services/carrinho.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, RouterModule } from '@angular/router';
+import { Usuario } from '../../../models/usuario.model';
+import { AuthService } from '../../../services/auth.service';
+import { Subscription } from 'rxjs';
 type Card = {
   idTenis: number;
   titulo: string;
@@ -40,6 +43,9 @@ export class TenisCardListComponent implements OnInit {
   categorias: Categoria[] = [];
   
   cards = signal<Card[]>([]);
+
+  usuarioLogado: Usuario | null = null;
+  private subscription = new Subscription();
   
   filterValue = '';
   filteredTenis: Tenis[] = [];
@@ -51,17 +57,20 @@ export class TenisCardListComponent implements OnInit {
   page = 0;
 
   constructor(
+    private authService: AuthService,
     private dialog: MatDialog, 
     private tenisService: TenisService, 
     private categoriaService: CategoriaService, 
     private carrinhoService: CarrinhoService,
     private snackBar: MatSnackBar,
-    private router: Router) {
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
     this.carregarTenis();
     this.carregarCategorias();
+    this.carregarUsuarioLogado();
   }
 
   carregarCategorias(){
@@ -83,6 +92,13 @@ export class TenisCardListComponent implements OnInit {
     this.filteredTenis = [...this.tenis];
     this.carregarCards();
   }
+
+  carregarUsuarioLogado(): void {
+    this.subscription.add(this.authService.getUsuarioLogado().subscribe(
+      usuario => this.usuarioLogado = usuario
+    ));
+  }
+
   carregarTenis() {
     // buscando os tenis
     this.tenisService.findAll().subscribe({
@@ -125,6 +141,11 @@ export class TenisCardListComponent implements OnInit {
     );
 
     this.carregarCards();
+  }
+
+  deslogar() {
+    this.authService.removeToken();
+    this.authService.removeUsuarioLogado();
   }
   
   // VER MAIS
