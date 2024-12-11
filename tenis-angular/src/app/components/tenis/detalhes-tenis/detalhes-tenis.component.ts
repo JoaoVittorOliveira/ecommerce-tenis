@@ -22,8 +22,6 @@ export class DetalhesTenisComponent implements OnInit {
     private tenisService: TenisService
   ) {}
 
-  
-
   ngOnInit(): void {
     
     // pega id da url
@@ -41,5 +39,9 @@ export class DetalhesTenisComponent implements OnInit {
       } 
     });
 
+  }
+
+  Voltar(): void {
+    window.history.back();
   }
 }

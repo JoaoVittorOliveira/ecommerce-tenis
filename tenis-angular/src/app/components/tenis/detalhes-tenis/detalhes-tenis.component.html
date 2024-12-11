@@ -13,34 +13,49 @@
   
     <div class="detalhes-especificacoes">
       <h2>Especificações</h2>
-      <div class="especificacao">
-        <strong>Marca:</strong> {{ tenis?.marca?.nome }}
-        <img *ngIf="tenis?.marca?.logo" [src]="tenis?.marca?.logo" alt="Logo da Marca" class="marca-logo"/>
-      </div>
-      <div class="especificacao">
-        <strong>Material:</strong> {{ tenis?.material?.descricao }}
-      </div>
-      <div class="especificacao">
-        <strong>Cor:</strong> <span [style.background]="tenis?.cor?.codigoHex" class="cor?-swatch"></span>{{ tenis?.cor?.nome }}
-      </div>
-      <div class="especificacao">
-        <strong>Tamanho:</strong> {{ tenis?.tamanho?.numeracao }} ({{ tenis?.tamanho?.tamanhoEmCm }})
-      </div>
-      <div class="especificacao">
-        <strong>Categoria:</strong> {{ tenis?.categoria?.nome }} - {{ tenis?.categoria?.genero }} - Faixa etária: {{ tenis?.categoria?.faixaEtaria }}
-      </div>
-      <div class="especificacao">
-        <strong>Peso:</strong> {{ tenis?.peso }}g
-      </div>
-      <div class="especificacao">
-        <strong>Quantidade disponível:</strong> {{ tenis?.quantidade }}
-      </div>
+      <table class="especificacoes-tabela">
+        <tr>
+          <td><strong>Marca:</strong></td>
+          <td>{{ tenis?.marca?.nome }}</td>
+          <td *ngIf="tenis?.marca?.logo">
+            <img [src]="tenis?.marca?.logo" alt="Logo da Marca" class="marca-logo"/>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Material:</strong></td>
+          <td>{{ tenis?.material?.descricao }}</td>
+        </tr>
+        <tr>
+          <td><strong>Cor:</strong></td>
+          <td>{{ tenis?.cor?.nome }}</td>
+        </tr>
+        <tr>
+          <td><strong>Tamanho:</strong></td>
+          <td>{{ tenis?.tamanho?.numeracao }} ({{ tenis?.tamanho?.tamanhoEmCm }} cm)</td>
+        </tr>
+        <tr>
+          <td><strong>Categoria:</strong></td>
+          <td>{{ tenis?.categoria?.nome }} - {{ tenis?.categoria?.genero }} - Faixa etária: {{ tenis?.categoria?.faixaEtaria }}</td>
+        </tr>
+        <tr>
+          <td><strong>Peso:</strong></td>
+          <td>{{ tenis?.peso }}g</td>
+        </tr>
+        <tr>
+          <td><strong>Quantidade disponível:</strong></td>
+          <td>{{ tenis?.quantidade }}</td>
+        </tr>
+      </table>
     </div>
   
     <div class="detalhes-actions">
       <button mat-button color="accent" class="adicionar-carrinho">
         Adicionar ao Carrinho
       </button>
+    </div>
+  
+    <div class="voltar">
+      <button mat-button (click)="Voltar()">Voltar</button>
     </div>
   </div>
   
