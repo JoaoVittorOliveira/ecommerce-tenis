@@ -117,7 +117,11 @@ export const routes: Routes = [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
             { path: 'ecommerce', component: TenisCardListComponent, title: 'Lista de Cards de Tênis'},
+
+            { path: 'detalhes/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis' },
+
             //{ path: 'ecommerce/tenis/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis'}
+
             { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho de compra' },
         ]
     },

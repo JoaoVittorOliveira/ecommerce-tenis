@@ -1,46 +1,46 @@
 <div class="detalhes-container">
-    <button mat-icon-button (click)="fecharDialog()" class="close-button">
-        <mat-icon>close</mat-icon>
-    </button>
-
-    <img [src]="tenisService.getUrlImage(tenis.nomeImagem)" alt="{{ tenis.nome }}" class="detalhes-image">
-    <h2>{{ tenis.nome }}</h2>
-    <p>Preço: R${{ tenis.precoVenda }},00 </p>
-    <p>Marca: {{ tenis.marca.nome }}</p>
-    <p>Categoria: {{ tenis.categoria.nome }}</p>
-    <p>Cor: {{ tenis.cor.nome }}</p>
-    <p>Peso: {{ tenis.peso }}g.</p>
-    <p>Estoque: {{ tenis.quantidade }}un.</p>
-
-    <div class="buttons-container">
-        <button mat-button color="primary" (click)="fecharDialog()">Adicionar ao Carrinho</button>
-        <button mat-button color="accent" (click)="fecharDialog()">Fechar</button>
+    <div class="detalhes-header">
+      <img [src]="imageUrl" alt="Imagem do Tênis" class="detalhes-imagem" />
+      <div class="detalhes-info">
+        <h1>{{ tenis?.nome }}</h1>
+        <div class="detalhes-preco">
+          <span>R$ {{ tenis?.precoVenda }}</span>
+        </div>
+        <p class="detalhes-descricao">Descrição do Produto:</p>
+        <p class="descricao-texto">{{ tenis?.categoria?.descricao }}</p>
+      </div>
     </div>
-</div>
-
-<!--
-
-OUTRA VERSAO
-
-<h2 mat-dialog-title>{{ tenis.nome }}</h2>
-
-<div mat-dialog-content class="detalhes-container">
-    
-    <img [src]="tenisService.getUrlImage(tenis.nomeImagem)" 
-        alt="{{ tenis.nome }}" 
-        style="width: 100%; max-height: 300px; object-fit: contain;"
-    >
-    <h3>Descrição do</h3>
-    <p><strong>Preço:</strong> R${{ tenis.precoVenda }},00 </p>
-    <p><strong>Categoria:</strong> {{ tenis.categoria.nome }}</p>
-    <p><strong>Cor:</strong> {{ tenis.cor.nome }}</p>
-    <p><strong>Marca:</strong> {{ tenis.marca.nome }}</p>
-    <p><strong>Material:</strong> {{ tenis.material.descricao }}</p>
-    <p><strong>Tamanho:</strong> {{ tenis.tamanho.pais }} {{ tenis.tamanho.numeracao }}</p>
-    
-</div>
-<div class="buttons-container">
-    <button mat-button color="primary" (click)="fecharDialog()">Adicionar ao Carrinho</button>
-    <button mat-button color="accent" (click)="fecharDialog()">Fechar</button>
-</div>
--->
+  
+    <div class="detalhes-especificacoes">
+      <h2>Especificações</h2>
+      <div class="especificacao">
+        <strong>Marca:</strong> {{ tenis?.marca?.nome }}
+        <img *ngIf="tenis?.marca?.logo" [src]="tenis?.marca?.logo" alt="Logo da Marca" class="marca-logo"/>
+      </div>
+      <div class="especificacao">
+        <strong>Material:</strong> {{ tenis?.material?.descricao }}
+      </div>
+      <div class="especificacao">
+        <strong>Cor:</strong> <span [style.background]="tenis?.cor?.codigoHex" class="cor?-swatch"></span>{{ tenis?.cor?.nome }}
+      </div>
+      <div class="especificacao">
+        <strong>Tamanho:</strong> {{ tenis?.tamanho?.numeracao }} ({{ tenis?.tamanho?.tamanhoEmCm }})
+      </div>
+      <div class="especificacao">
+        <strong>Categoria:</strong> {{ tenis?.categoria?.nome }} - {{ tenis?.categoria?.genero }} - Faixa etária: {{ tenis?.categoria?.faixaEtaria }}
+      </div>
+      <div class="especificacao">
+        <strong>Peso:</strong> {{ tenis?.peso }}g
+      </div>
+      <div class="especificacao">
+        <strong>Quantidade disponível:</strong> {{ tenis?.quantidade }}
+      </div>
+    </div>
+  
+    <div class="detalhes-actions">
+      <button mat-button color="accent" class="adicionar-carrinho">
+        Adicionar ao Carrinho
+      </button>
+    </div>
+  </div>
+  

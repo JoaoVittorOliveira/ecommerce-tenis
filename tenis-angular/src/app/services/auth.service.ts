@@ -40,7 +40,7 @@ export class AuthService {
         perfil: perfil // 1 para Admin (Funcionario), 2 para Cliente, etc.
       };
 
-      console.log('Enviando dados para login:', params);
+      
     
       return this.httpClient.post(`${this.baseUrl}`, params, { observe: 'response' }).pipe(
         tap((res: any) => {

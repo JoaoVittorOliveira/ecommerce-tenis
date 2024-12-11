@@ -15,7 +15,7 @@ import { Categoria } from '../../../models/categoria.model';
 import { CategoriaService } from '../../../services/categoria.service';
 import { CarrinhoService } from '../../../services/carrinho.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 type Card = {
   idTenis: number;
   titulo: string;
@@ -55,7 +55,8 @@ export class TenisCardListComponent implements OnInit {
     private tenisService: TenisService, 
     private categoriaService: CategoriaService, 
     private carrinhoService: CarrinhoService,
-  private snackBar: MatSnackBar) {
+    private snackBar: MatSnackBar,
+    private router: Router) {
   }
 
   ngOnInit(): void {
@@ -65,7 +66,7 @@ export class TenisCardListComponent implements OnInit {
 
   carregarCategorias(){
     this.categoriaService.findAll().subscribe((data)=>{
-      console.log(this.categorias = data);
+      this.categorias = data
     })
   }
 
@@ -86,7 +87,6 @@ export class TenisCardListComponent implements OnInit {
     // buscando os tenis
     this.tenisService.findAll().subscribe({
       next: (data) => {
-        console.log(this.tenis = data);
         this.tenis = data;
         this.filteredTenis = data;
         this.carregarCards();
@@ -129,13 +129,7 @@ export class TenisCardListComponent implements OnInit {
   
   // VER MAIS
   openDetalhes(card: Card) {
-    const tenis = this.tenis.find(t => t.nome === card.nome);
-    this.dialog.open(DetalhesTenisComponent, {
-      width: '90%',
-      height: '90%',
-      data: tenis ,
-      minWidth: '800px',
-    });
+    this.router.navigate(['/detalhes', card.idTenis]); 
   }
 
   adicionarAoCarrinho(card: Card) {
