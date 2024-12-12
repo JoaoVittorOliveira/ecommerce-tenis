@@ -11,7 +11,9 @@ import br.unitins.joaovittor.basqueteiros.Cliente.service.ClienteService;
 import br.unitins.joaovittor.basqueteiros.Jwt.service.JwtService;
 import br.unitins.joaovittor.basqueteiros.Usuario.repository.UsuarioRepository;
 import br.unitins.joaovittor.basqueteiros.Usuario.service.UsuarioService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
@@ -76,6 +78,37 @@ public class ClienteResource {
             LOG.warnf("Erro de validação", e.getMessage());
         }
         return Response.status(Status.NO_CONTENT).build();
+    }
+
+    @GET
+    @Path("/my-account")
+    //@RolesAllowed("Cliente")
+    public Response getMyAccount() {
+        try {
+            return Response.ok(service.getMyAccount()).build();
+        } catch (EntityNotFoundException e) {
+            LOG.error("Cliente não encontrado.", e);
+            return Response.status(Status.NOT_FOUND).entity("Cliente não encontrado.").build();
+        } catch (Exception e) {
+            LOG.error("Erro ao buscar conta.", e);
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao buscar conta.").build();
+        }
+    }
+
+    @PUT
+    @Path("/my-account")
+    //@RolesAllowed("Cliente")
+    public Response updateMyAccount(ClienteUpdateDTO dto) {
+        try {
+            service.updateMyAccount(dto);
+            return Response.noContent().build();
+        } catch (EntityNotFoundException e) {
+            LOG.error("Cliente não encontrado.", e);
+            return Response.status(Status.NOT_FOUND).entity("Cliente não encontrado.").build();
+        } catch (Exception e) {
+            LOG.error("Erro ao atualizar conta.", e);
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao atualizar conta.").build();
+        }
     }
 
     @PATCH

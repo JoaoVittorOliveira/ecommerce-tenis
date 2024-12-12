@@ -23,11 +23,15 @@ import br.unitins.joaovittor.basqueteiros.Usuario.dto.UsuarioResponseDTO;
 import br.unitins.joaovittor.basqueteiros.Usuario.model.Usuario;
 import br.unitins.joaovittor.basqueteiros.Usuario.repository.UsuarioRepository;
 import br.unitins.joaovittor.basqueteiros.Usuario.service.UsuarioService;
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
 import jakarta.xml.bind.ValidationException;
 
 @ApplicationScoped
@@ -234,4 +238,39 @@ public class ClienteServiceImp implements ClienteService {
         usuarioService.update(cliente.getUsuario());
         repository.persist(cliente);
     }
+
+    @Override
+    @Transactional
+    public ClienteResponseDTO getMyAccount() {
+        Long userId = Long.valueOf(jwt.getClaim("userId").toString());
+        Cliente cliente = repository.findByIdUsuario(userId);
+
+        if (cliente == null) {
+            throw new EntityNotFoundException("Cliente não encontrado.");
+        }
+
+        return ClienteResponseDTO.valueof(cliente);
+    }
+
+    @Override
+    @Transactional
+    public void updateMyAccount(ClienteUpdateDTO dto) {
+        Long userId = Long.valueOf(jwt.getClaim("userId").toString());
+        Cliente cliente = repository.findByIdUsuario(userId);
+
+        if (cliente == null) {
+            throw new EntityNotFoundException("Cliente não encontrado.");
+        }
+
+        cliente.setNome(dto.nome());
+        cliente.setCpf(dto.cpf());
+        cliente.setDataNascimento(dto.dataNascimento());
+        Telefone telefone = new Telefone();
+        telefone.setDdd(dto.ddd());
+        telefone.setNumero(dto.numero());
+        cliente.setTelefone(telefone);
+
+        repository.persist(cliente);
+    }
+
 }

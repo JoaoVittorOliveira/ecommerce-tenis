@@ -28,4 +28,6 @@ public interface ClienteService {
     public UsuarioResponseDTO login(String username, String hashSenha);
     void addEndereco(Long id, ClienteAddEnderecoDTO dto);
     public ClienteAllEnderecosResponseDTO findAllEnderecosById(Long id);
+    public ClienteResponseDTO getMyAccount();
+    public void updateMyAccount(ClienteUpdateDTO dto);
 }
