@@ -42,4 +42,8 @@ export class CarrinhoComponent implements OnInit{
       }
     }
   }
+  quantidadeTotalItens(): number {
+    return this.carrinhoItens.reduce((total, item) => total + item.quantidade, 0);
+  }
+
 }

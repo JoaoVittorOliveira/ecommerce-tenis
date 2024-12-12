@@ -11,13 +11,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgIf } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { MatOption, MatSelect } from '@angular/material/select';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [NgIf, ReactiveFormsModule, MatFormFieldModule,
     MatInputModule, MatButtonModule, MatCardModule, MatToolbarModule,
-    RouterModule, MatSelect, MatOption],
+    RouterModule, MatIcon],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -36,7 +37,9 @@ export class LoginComponent implements OnInit{
   ) { 
 
   }
-  
+  voltarParaEcommerce() {
+    this.router.navigate(['/ecommerce']); // Substitua com a rota correta
+  } 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],

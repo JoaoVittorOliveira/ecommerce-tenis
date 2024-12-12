@@ -72,6 +72,9 @@ export class CadastroClienteComponent {
   voltarParaEcommerce() {
     this.router.navigate(['/ecommerce']); // Substitua com a rota correta
   }
+  voltarParaLogin() {
+    this.router.navigate(['/login']); // Substitua com a rota correta
+  }
 
   initializeForm(): void {
     

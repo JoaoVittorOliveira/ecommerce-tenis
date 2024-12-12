@@ -57,3 +57,10 @@ button[mat-raised-button]:hover {
 .back-button:hover {
   transform: scale(1.1); /* Mantendo o efeito de hover */
 }
+
+
+.voltar{
+  background: transparent; /* Remove o fundo do botão */
+  border: none; /* Remove bordas do botão */
+  cursor: pointer; /* Garante que seja clicável */
+}

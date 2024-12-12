@@ -2,10 +2,6 @@
     text-align: right;
 }
 
-.toolbar-title {
-    flex: 1;
-    text-align: center;
-}
 
 .full-width-input {
     width: 100%;
@@ -52,7 +48,7 @@ button[mat-raised-button]:not(:last-child) {
     margin-bottom: 20px;
 }
 
-.mat-form-field {
+mat-form-field {
     margin: 8px 0;
     flex: 1;
 }
@@ -72,44 +68,20 @@ button[mat-icon-button] {
 }
 mat-vertical-stepper {
     width: 100%;
-    max-width: 600px;
-    margin-top: 100px;
-    
+    max-width: 600px;    
 }
 
 
 
 
   /*STEPPER*/
-
-  .mat-stepper-horizontal {
-    justify-content: center;
-    display: flex; /* Alinha horizontalmente */
-    margin: 20px auto; /* Centraliza no container */
-    margin-top: 8px;
-  }
   
-  .mat-horizontal-stepper-header-container {
-    justify-content: center;
-  }
-  
-
-  
-  mat-step {
-    padding: 0 16px; /* Espaçamento entre os steps */
-    margin-top: 8px;
-  }
   .stepper-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
   }
-
-  mat-toolbar .span{
-    text-align: center;
-  }
-
 
   /*tool bar*/
   .toolbar {
@@ -134,4 +106,79 @@ mat-vertical-stepper {
   }
   
 
+  .registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #4b0082, #dda0dd);
+  }
   
+  .registration-form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    max-width: 500px;
+  }
+  
+  .registration-illustration-container {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .registration-illustration {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  
+  .voltar-btn {
+    position: absolute;
+    left: 10px;
+    color: #fff;
+  }
+
+  .ecommerce-btn{
+    color: #fff;
+    width: 50px; 
+  height: 50px; 
+
+  }
+  
+  .stepper-container {
+    padding: 32px 0;
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  
+  .half-width-input {
+    width: 48%;
+  }
+  
+  .full-width-input {
+    width: 100%;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+  
+  button[mat-raised-button] {
+    background-color: #800080;
+    color: #fff;
+  }
+  
+  button[mat-raised-button]:hover {
+    background-color: #6b006b;
+  }

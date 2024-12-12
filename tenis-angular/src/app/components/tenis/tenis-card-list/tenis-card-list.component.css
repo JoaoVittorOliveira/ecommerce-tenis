@@ -1,5 +1,3 @@
-/* Paleta Roxo Escuro */
-
 .container {
   padding: 20px;
 }
@@ -62,8 +60,16 @@ mat-card-content {
 }
 
 .logo {
-  height: 40px;
-  margin-right: 20px;
+  max-height: 150px; /* Ajuste a altura máxima para caber no mat-toolbar */
+  max-width: 100%; /* Evita que a largura ultrapasse o container */
+  object-fit: contain; /* Garante que a imagem se ajuste sem distorções */
+}
+.voltar{
+  max-height: 150px; /* Ajuste a altura máxima para caber no mat-toolbar */
+  max-width: 100%; /* Evita que a largura ultrapasse o container */
+  background: transparent; /* Remove o fundo do botão */
+  border: none; /* Remove bordas do botão */
+  cursor: pointer; /* Garante que seja clicável */
 }
 
 .toolbar-left {
