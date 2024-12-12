@@ -32,12 +32,12 @@
       <img class="produto-imagem" [src]="item.imageUrl" alt="{{ item.nome }}" />
       <div class="produto-detalhes">
         <h3>{{ item.nome }}</h3>
-        <p>Cód: {{ item.quantidade }}</p>
-        <p>Tamanho: {{ item.quantidade }}</p>
-        <p>Entrega: {{ item.quantidade }}</p>
+        <p>Quantidade: {{ item.quantidade}}</p>
+        <p>Valor unitário: {{ item.preco | currency:'BRL':'symbol':'1.2-2'  }}</p>
+
       </div>
       <div class="produto-acoes">
-        <p class="produto-preco">{{ item.preco | currency:'BRL':'symbol':'1.2-2' }}</p>
+        <p class="produto-preco">{{ item.preco*item.quantidade | currency:'BRL':'symbol':'1.2-2' }}</p>
         <div class="quantidade-controle">
           <button (click)="alterarQuantidade(item, -1)">-</button>
           <span>{{ item.quantidade }}</span>
@@ -52,6 +52,10 @@
     </div>
   </div>
 </ng-container>
+
 <ng-template #carrinhoVazio>
-  <p>O carrinho está vazio.</p>
+  <mat-icon class="icon-vazio">sentiment_very_dissatisfied</mat-icon>
+  <h1 class="vazio">O carrinho está vazio.</h1>
+  <h3 class="h3-vazio">Que tal começar conferindo alguns produtos que podem ser amor à primeira vista?  </h3>
+  <button class="compras"  [routerLink]="'/ecommerce'">Ir às compras</button>
 </ng-template>
