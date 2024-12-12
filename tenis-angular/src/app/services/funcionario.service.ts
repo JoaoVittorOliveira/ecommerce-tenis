@@ -47,7 +47,8 @@ count(): Observable<number> {
       ddd: funcionario.telefone.ddd,
       numero: funcionario.telefone.numero,
       username: funcionario.usuario.username,
-      senha: funcionario.usuario.senha
+      senha: funcionario.usuario.senha,
+      perfil: 'Funcionario'
     }
     return this.httpClient.post<Funcionario>(this.baseUrl, data);
   }

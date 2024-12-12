@@ -55,6 +55,7 @@ public class ClienteServiceImp implements ClienteService {
         Usuario usuario = new Usuario();
         usuario.setUsername(dto.username());
         usuario.setPassword(hashService.getHashSenha(dto.senha()));
+        usuario.setPerfil("Cliente");
         usuarioRepository.persist(usuario);    
 
         Cliente cliente = new Cliente();

@@ -23,9 +23,6 @@ values
 ('DEZ10', 10, 0, CURRENT_DATE, '2025-10-20'),
 ('20VIN', 0, 20, CURRENT_DATE, '2025-06-21');
 
-insert into endereco(cep,rua,complemento) values 
-('111','rua 1','em frente a rua 2');
-
 insert into telefone(ddd,numero,data_cadastro) 
 values 
 (99, 999999999, CURRENT_DATE),
@@ -64,21 +61,24 @@ values
 
 
 
-insert into usuario (username, `password`) 
-values ('joao', 'Z7dL+3VaMV++fdWH0b8S3NV26muviRKuWXNk5ayr2RVBF9BE8tMorc/G7NB1P51lHzLhjc7irjXu+Q5f3T997w==');
+insert into usuario (perfil, username, `password`) 
+values ('Cliente', 'joao', 'Z7dL+3VaMV++fdWH0b8S3NV26muviRKuWXNk5ayr2RVBF9BE8tMorc/G7NB1P51lHzLhjc7irjXu+Q5f3T997w==');
 
 insert into cliente
 (nome, cpf, id_usuario, id_telefone, data_nascimento, data_cadastro)
 values
 ('joao vittor', '12312312312', 1, 1, '2004-09-16', CURRENT_DATE);
 
-insert into usuario (username, `password`) 
-values ('jose', 'Z7dL+3VaMV++fdWH0b8S3NV26muviRKuWXNk5ayr2RVBF9BE8tMorc/G7NB1P51lHzLhjc7irjXu+Q5f3T997w==');
+insert into usuario (perfil,username, `password`) 
+values ('Funcionario','jose', 'Z7dL+3VaMV++fdWH0b8S3NV26muviRKuWXNk5ayr2RVBF9BE8tMorc/G7NB1P51lHzLhjc7irjXu+Q5f3T997w==');
 
 insert into funcionario
 (nome, cpf, id_usuario, id_telefone, data_nascimento, data_cadastro, codigo_admissao, data_admissao)
 values
 ('jose da silva', '12312312312', 2, 1, '2004-09-16', CURRENT_DATE, 'sla123', '2024-06-01');
+
+insert into endereco(cep,rua,complemento, id_cliente) values 
+('111','rua 1','em frente a rua 2', 1);
 
 /*
 insert into produto (nome, descricao, quantidade, preco_compra, preco_venda, id_fornecedor, id_marca)

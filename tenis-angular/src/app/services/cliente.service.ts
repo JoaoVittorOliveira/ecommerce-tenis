@@ -21,6 +21,10 @@ export class ClienteService {
     return this.httpClient.get<Cliente>(`${this.baseUrl}/search/id/${id}`); 
   }
 
+  findByUsername(username: string): Observable<Cliente> {
+    return this.httpClient.get<Cliente>(`${this.baseUrl}/search/username/${username}`);
+  }
+
   insert(cliente: Cliente): Observable<Cliente> {
     const data = {
       nome: cliente.nome,
@@ -30,6 +34,7 @@ export class ClienteService {
       numero: cliente.telefone.numero,
       username: cliente.usuario.username,
       senha: cliente.usuario.senha,
+      perfil: 'Cliente',
       listaEndereco: [
         {
           cep: cliente.endereco.cep,

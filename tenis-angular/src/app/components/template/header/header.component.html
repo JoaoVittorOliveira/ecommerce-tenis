@@ -11,6 +11,7 @@
       <span *ngIf="usuarioLogado?.username" style="margin-right: 16px;">{{usuarioLogado?.username}}</span>
       <button mat-icon-button *ngIf="!usuarioLogado?.username" routerLink="/login-selection">
           <mat-icon>login</mat-icon>
+
       </button>
       <button mat-icon-button *ngIf="usuarioLogado?.username" (click)="deslogar()">
           <mat-icon>logout</mat-icon>

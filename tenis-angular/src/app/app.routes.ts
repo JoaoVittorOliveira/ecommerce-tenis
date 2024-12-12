@@ -44,10 +44,21 @@ import { LoginSelectionComponent } from './components/login/login-selection/logi
 import { LoginSelectionGuard } from './guards/login-selection.guard';
 
 import { CarrinhoComponent } from './components/carrinho/carrinho.component';
+
+import { authGuard } from './guards/auth.guard';
+import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
+import { clientSectionGuard } from './guards/client-section.guard';
+import { ClienteMyAccountComponent } from './components/cliente/cliente-my-account/cliente-my-account.component';
+
 import { CadastroClienteComponent } from './components/cadastro-cliente/cadastro-cliente.component';
 
 
+
 export const routes: Routes = [
+
+    { path: 'minha-conta', component: ClienteMyAccountComponent, title: 'Minha Conta'},
+
     { path: 'login-selection', component: LoginSelectionComponent, title: 'Seleção de Login' },
     { path: 'login', component: LoginComponent, canActivate: [LoginSelectionGuard], title: 'Login' },
     { path: 'cadastro-cliente', component: CadastroClienteComponent, canActivate: [LoginSelectionGuard], title: 'Cadastro de Cliente' },
@@ -56,6 +67,7 @@ export const routes: Routes = [
         path: 'admin', 
         component: AdminTemplateComponent, 
         title: 'e-commerce',
+        canActivate: [authGuard],
         children: [
             {path: 'enderecos', component: EnderecoListComponent, title: 'Lista de Endereços'},
             {path: 'enderecos/new',component: EnderecoFormComponent, title: 'Novo Endereço'},
@@ -109,13 +121,22 @@ export const routes: Routes = [
         path: '', 
         component: UserTemplateComponent, 
         title: 'e-commerce',
+        canActivate: [clientSectionGuard],
         children: [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
             { path: 'ecommerce', component: TenisCardListComponent, title: 'Lista de Cards de Tênis'},
+
+            { path: 'detalhes/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis' },
+
             //{ path: 'ecommerce/tenis/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis'}
+
             { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho de compra' },
         ]
-    }
+    },
+    { path: 'not-authorized', component: NotAuthorizedComponent, title: 'Não Autorizado' },
+
+    // Página de "Page Not Found"
+    { path: '**', component: NotFoundComponent, title: 'Página Não Encontrada' }
 ];
 

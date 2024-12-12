@@ -12,7 +12,7 @@ import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatToolbar, MatIcon, MatBadge, MatButton, MatIconButton, RouterModule, NgIf],
+  imports: [MatToolbar, MatIcon, MatBadge, MatButton, MatIconButton, RouterModule, NgIf, RouterModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })

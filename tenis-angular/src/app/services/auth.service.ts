@@ -40,7 +40,7 @@ export class AuthService {
         perfil: perfil // 1 para Admin (Funcionario), 2 para Cliente, etc.
       };
 
-      console.log('Enviando dados para login:', params);
+      
     
       return this.httpClient.post(`${this.baseUrl}`, params, { observe: 'response' }).pipe(
         tap((res: any) => {
@@ -50,6 +50,7 @@ export class AuthService {
           if (authToken) {
             this.setToken(authToken);
             const usuarioLogado = res.body;
+            console.log('Really user:', usuarioLogado);
             if (usuarioLogado) {
               this.setUsuarioLogado(usuarioLogado);
               this.usuarioLogadoSubject.next(usuarioLogado);
@@ -97,6 +98,10 @@ export class AuthService {
       return this.usuarioLogadoSubject.asObservable();
     }
 
+    getUsuarioLogadoValue(): Usuario | null {
+      return this.usuarioLogadoSubject.value;
+    }
+
     getToken(): string | null {
       return this.localStorageService.getItem(this.tokenKey);
     }
@@ -127,5 +132,5 @@ export class AuthService {
       return this.getUsuarioLogado().pipe(
           map(usuario => usuario ? usuario.perfil : null)
       );
-  }
+    }
 }

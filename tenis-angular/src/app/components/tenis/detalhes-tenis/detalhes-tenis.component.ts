@@ -1,25 +1,47 @@
-import { Component, Inject } from '@angular/core';
-import { Tenis } from '../../../models/tenis.model';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ActivatedRoute } from '@angular/router';
 import { TenisService } from '../../../services/tenis.service';
-import { MatIcon } from '@angular/material/icon';
+import { Component, OnInit } from '@angular/core';
+import { Tenis } from '../../../models/tenis.model';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-detalhes-tenis',
-  standalone: true,
-  imports: [MatIcon],
   templateUrl: './detalhes-tenis.component.html',
-  styleUrl: './detalhes-tenis.component.css'
+  styleUrls: ['./detalhes-tenis.component.css'],
+  standalone: true,
+  imports: [CommonModule]
 })
-export class DetalhesTenisComponent {
+export class DetalhesTenisComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public tenis: Tenis,
-              public tenisService: TenisService,
-              private dialogRef: MatDialogRef<DetalhesTenisComponent>) {
+  tenis: Tenis | null = null;
+
+  imageUrl: string = '';
+
+  constructor(
+    private route: ActivatedRoute, 
+    private tenisService: TenisService
+  ) {}
+
+  ngOnInit(): void {
+    
+    // pega id da url
+    const id = String(this.route.snapshot.paramMap.get('id'));
+
+    this.tenisService.findById(id).subscribe({
+      next: (data) => {
+        this.tenis = data;
+        this.imageUrl = this.tenisService.getUrlImage(this.tenis.nomeImagem);
+        console.log(this.imageUrl);
+        console.log('ID:', id);
+      },
+      error: (err) => {
+        console.error('Erro ao carregar os detalhes do tênis', err)
+      } 
+    });
 
   }
 
-  fecharDialog(): void {
-    this.dialogRef.close();
+  Voltar(): void {
+    window.history.back();
   }
 }
