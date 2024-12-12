@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: linear-gradient(to right, #6E45E2, #FF6636);
+  background: linear-gradient(to right, #4b0082, #d6a5fa);
   color: #fff;
   position: relative; /* Permite posicionar o botão em relação ao container */
 }
@@ -56,4 +56,11 @@ button[mat-raised-button]:hover {
 
 .back-button:hover {
   transform: scale(1.1); /* Mantendo o efeito de hover */
+}
+
+
+.voltar{
+  background: transparent; /* Remove o fundo do botão */
+  border: none; /* Remove bordas do botão */
+  cursor: pointer; /* Garante que seja clicável */
 }

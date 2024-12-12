@@ -1,22 +1,35 @@
 <div class="login-container">
-    <div class="login-box">
-
-        <img class="login-icon" src="../icons/passkey.svg" alt="Passkey">
-
-        <h2 class="login-title">Bem-vindo</h2>
-
+    <div class="login-content-container">
+      <div class="login-form-container">
+        <h1 class="login-title">Bem vindo!</h1>
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
-            <mat-form-field class="login-input">
-                <input matInput placeholder="Username" formControlName="username" required>
-                <mat-error *ngIf="loginForm.get('username')!.hasError('required')">O username é obrigatório</mat-error>
-            </mat-form-field>
-            
-            <mat-form-field class="login-input">
-                <input matInput type="password" placeholder="Senha" formControlName="password" required>
-                <mat-error *ngIf="loginForm.get('password')!.hasError('required')">A senha é obrigatória</mat-error>
-            </mat-form-field>
-            <button mat-raised-button class="login-button" color="primary" type="submit">Login</button>
-
+          <mat-form-field class="login-input">
+            <input matInput placeholder="Usuário" formControlName="username" required />
+            <mat-error *ngIf="loginForm.get('username')!.hasError('required')">
+              O usuário é requerido
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field class="login-input">
+            <input matInput type="password" placeholder="Senha" formControlName="password" required />
+            <mat-error *ngIf="loginForm.get('password')!.hasError('required')">
+                A senha é requerida
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button class="login-button" type="submit">
+            Enviar
+          </button>
         </form>
+        <div class="login-footer">
+          <a routerLink="/cadastro-cliente" class="register-link" *ngIf="perfil!=2">
+            Não tem uma conta? Cadastre-se!
+          </a>
+        </div>
+      </div>
+      <div class="login-illustration-container">
+        <img class="login-illustration" src="../icons/logo-preto.svg" alt="Login Illustration">
+        <button mat-icon-button (click)="voltarParaEcommerce()" class="ecommerce-btn">
+          <mat-icon>shopping_cart_checkout</mat-icon>
+        </button>
+      </div>
     </div>
+  </div>

@@ -2,7 +2,7 @@
 <mat-toolbar color="primary">
     <div class="flex-container">
       <button mat-icon-button color="primary" routerLink="/admin">
-        <mat-icon>home</mat-icon>
+        <mat-icon style="color: #4b0082;">home</mat-icon>
       </button>
       
       <div class="fixSearch">
@@ -47,7 +47,7 @@
         <th mat-header-cell *matHeaderCellDef> Ações </th>
         <td mat-cell *matCellDef="let material"> 
             <button mat-icon-button color="primary" routerLink="/admin/materiais/edit/{{material.id}}">
-                <mat-icon>edit</mat-icon>
+                <mat-icon style="color: #4b0082;">edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="excluir(material)">
                 <mat-icon>delete</mat-icon>

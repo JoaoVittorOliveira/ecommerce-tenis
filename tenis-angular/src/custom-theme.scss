@@ -13,8 +13,8 @@
 $tenis-angular-theme: mat.define-theme((
   color: (
     theme-type: light,
-    primary: mat.$azure-palette,
-    tertiary: mat.$blue-palette,
+    primary: #4b0082,
+    tertiary: #dda0dd,
   ),
   density: (
     scale: 0,
@@ -25,7 +25,11 @@ $tenis-angular-theme: mat.define-theme((
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 :root {
-  @include mat.all-component-themes($tenis-angular-theme);
+  --color-indigo-dark: #4b0082;
+  --color-purple: #800080;
+  --color-light-purple: #dda0dd;
+  --color-white: #fff;
+  --color-blue: #007bff;
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.

@@ -1,0 +1,102 @@
+<div class="registration-container">
+  <div class="registration-form-container">
+    <mat-toolbar class="toolbar" color="primary">
+      <button mat-icon-button (click)="voltarParaLogin()" class="voltar-btn">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span class="toolbar-title">Cadastre-se</span>
+    </mat-toolbar>
+
+    <div class="stepper-container">
+      <mat-vertical-stepper [linear]="isLinear">
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Quem é você?</ng-template>
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="half-width-input">
+                <mat-label>Nome</mat-label>
+                <input matInput type="text" formControlName="nome">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="half-width-input">
+                <mat-label>CPF</mat-label>
+                <input matInput type="text" formControlName="cpf">
+              </mat-form-field>
+            </div>
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="half-width-input">
+                <mat-label>Data de Nascimento</mat-label>
+                <input matInput [matDatepicker]="nascimentoPicker" formControlName="dataNascimento" readonly>
+                <mat-hint>Clique no calendário para selecionar a data</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="nascimentoPicker"></mat-datepicker-toggle>
+                <mat-datepicker #nascimentoPicker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="form-actions">
+              <button mat-raised-button color="primary" matStepperNext>Próximo</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Seu usuário</ng-template>
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="half-width-input">
+                <mat-label>Usuário</mat-label>
+                <input matInput type="text" formControlName="username">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="half-width-input">
+                <mat-label>Senha</mat-label>
+                <input matInput type="password" formControlName="senha">
+              </mat-form-field>
+            </div>
+            <div class="form-actions">
+              <button mat-raised-button color="primary" matStepperNext>Próximo</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="thirdFormGroup">
+          <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Suas informações</ng-template>
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="half-width-input">
+                <mat-label>DDD</mat-label>
+                <input matInput type="text" formControlName="ddd">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="half-width-input">
+                <mat-label>Número de Telefone</mat-label>
+                <input matInput type="text" formControlName="numero">
+              </mat-form-field>
+            </div>
+            <div class="form-row">
+              <mat-form-field appearance="outline" class="half-width-input">
+                <mat-label>CEP</mat-label>
+                <input matInput type="text" formControlName="cep">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="half-width-input">
+                <mat-label>Rua</mat-label>
+                <input matInput type="text" formControlName="rua">
+              </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline" class="full-width-input">
+              <mat-label>Complemento</mat-label>
+              <input matInput type="text" formControlName="complemento">
+            </mat-form-field>
+            <div class="form-actions">
+              <button mat-raised-button color="primary" (click)="salvar()">Salvar</button>
+            </div>
+          </form>
+        </mat-step>
+      </mat-vertical-stepper>
+    </div>
+  </div>
+
+  <div class="registration-illustration-container">
+    <img class="registration-illustration" src="../icons/logo-preto.svg" alt="Registration Illustration">
+    <button mat-icon-button (click)="voltarParaEcommerce()" class="ecommerce-btn">
+      <mat-icon>shopping_cart_checkout</mat-icon>
+    </button>
+  </div>
+  
+</div>

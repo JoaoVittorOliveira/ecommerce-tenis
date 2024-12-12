@@ -65,13 +65,12 @@ export class ClienteListComponent {
   }
 
   applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.filterValue = filterValue.trim().toLowerCase();  // Remove espaços e converte para lowercase
-    this.filteredCliente = this.filteredCliente.filter(cliente =>
-      cliente.nome.toLowerCase().includes(this.filterValue) ||
-      cliente.cpf.includes(this.filterValue)
+    const filterValue = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    this.filteredCliente = this.clienteList.filter(cliente =>
+      cliente.nome.toLowerCase().includes(filterValue) ||
+      cliente.cpf.includes(filterValue)
     );
-    this.totalRecords = this.filteredCliente.length;  // Atualiza o número total de registros
+    this.totalRecords = this.filteredCliente.length;
   }
 
   excluir(cliente: Cliente): void {

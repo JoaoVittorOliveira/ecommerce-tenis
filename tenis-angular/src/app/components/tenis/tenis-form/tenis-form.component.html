@@ -48,7 +48,6 @@
                     <mat-label>Valor de Compra</mat-label>
                     <input matInput type="number" value="10" class="example-right-align" formControlName="precoCompra" maxlength="3"/>
                     <span matTextPrefix>R$&nbsp;</span>
-                    <span matTextSuffix>,00</span>
                     <mat-error *ngIf="formGroup.get('precoCompra') 
                                    && formGroup.get('precoCompra')?.invalid
                                    && formGroup.get('precoCompra')?.touched">
@@ -60,7 +59,6 @@
                     <mat-label>Valor de Venda</mat-label>
                     <input matInput type="number" value="10" class="example-right-align" formControlName="precoVenda" maxlength="3" #inputPreco/>
                     <span matTextPrefix>R$&nbsp;</span>
-                    <span matTextSuffix>,00</span>
                     <mat-error *ngIf="formGroup.get('precoVenda') 
                                    && formGroup.get('precoVenda')?.invalid
                                    && formGroup.get('precoVenda')?.touched">

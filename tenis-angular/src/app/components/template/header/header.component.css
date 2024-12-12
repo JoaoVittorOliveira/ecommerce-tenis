@@ -1,9 +1,14 @@
 mat-toolbar {
-    background-color: #2e0854; /* Roxo escuro */
-    color: #dda0dd; /* Orquídea */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-    border-bottom: 2px solid #4b0082; /* Índigo Escuro */
-  }
+  height: 80px; /* Define a altura desejada */
+  display: flex; /* Garante que os elementos dentro do toolbar sejam flexíveis */
+  align-items: center; /* Centraliza os itens verticalmente */
+  justify-content: space-between; /* Garante espaçamento apropriado entre os elementos */
+  background-color: #2e0854; /* Roxo escuro */
+  color: #dda0dd; /* Orquídea */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #4b0082; /* Índigo Escuro */
+}
+
   
   mat-toolbar .toolbar-title {
     text-align: center;
@@ -18,4 +23,10 @@ mat-toolbar {
   button[mat-icon-button]:hover mat-icon {
     transform: scale(1.2);
     transition: transform 0.2s;
+  }
+
+  .logo {
+    max-height: 150px; /* Ajuste a altura máxima para caber no mat-toolbar */
+    max-width: 100%; /* Evita que a largura ultrapasse o container */
+    object-fit: contain; /* Garante que a imagem se ajuste sem distorções */
   }
