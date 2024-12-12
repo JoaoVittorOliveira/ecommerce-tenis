@@ -13,9 +13,25 @@ export class FuncionarioService {
   constructor(private httpClient: HttpClient) {
   }
 
-  findAll(): Observable<Funcionario[]> {
-    return this.httpClient.get<Funcionario[]>(this.baseUrl); 
+count(): Observable<number> {
+  return this.httpClient.get<number>(`${this.baseUrl}/count`); 
+}
+
+  findAll(): Observable<Funcionario[]>;
+  findAll(page: number, pageSize: number): Observable<Funcionario[]>;
+
+  findAll(page?: number, pageSize?: number): Observable<Funcionario[]> {
+    let params = {};
+    if (page !== undefined && pageSize !== undefined) {
+      params = {
+        page: page.toString(),
+        pageSize: pageSize.toString()
+      }
+    }
+    // console.log(params);
+    return this.httpClient.get<Funcionario[]>(this.baseUrl, {params}); 
   }
+
 
   findById(id: string): Observable<Funcionario> {
     return this.httpClient.get<Funcionario>(`${this.baseUrl}/search/id/${id}`); 

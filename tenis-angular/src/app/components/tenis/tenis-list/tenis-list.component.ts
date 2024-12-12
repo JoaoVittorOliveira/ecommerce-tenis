@@ -16,6 +16,7 @@ import { Categoria } from '../../../models/categoria.model';
 import { Cor } from '../../../models/cor.model';
 import { Marca } from '../../../models/marca.model';
 import { MatSelectModule } from '@angular/material/select';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-tenis-list',
@@ -32,7 +33,8 @@ import { MatSelectModule } from '@angular/material/select';
             RouterModule,
             MatCheckboxModule,
             MatSelectModule,
-            CommonModule],
+            CommonModule,
+            MatPaginator],
   templateUrl: './tenis-list.component.html',
   styleUrl: './tenis-list.component.css'
 })
@@ -162,4 +164,45 @@ export class TenisListComponent {
       }
     });
   }
+
+    paginar(event: PageEvent): void {
+      this.page = event.pageIndex;
+      this.pageSize = event.pageSize;
+      
+      if (this.filterValue) {
+        this.applyCurrentFilter(); // Reaplica o filtro para a nova página
+      } else {
+        this.loadData(); // Recarrega os dados sem filtro
+      }
+    }
+
+    
+  loadData(): void{
+    this.tenisService.findAll(this.page, this.pageSize).subscribe((data) => {
+      this.tenisList = data
+      this.applyCurrentFilter();      
+    });
+
+    this.tenisService.count().subscribe((count) => {
+      this.totalRecords = count;
+    });
+  }
+
+    applyCurrentFilter(): void {
+  
+      const normalizedFilter = this.filterValue.trim().toLowerCase();
+  
+      const filtered = this.tenisList.filter(
+        (tenis) =>
+          tenis.toString().toLowerCase().includes(normalizedFilter)
+      );
+  
+      this.filteredTenis = filtered.slice(
+        this.page * this.pageSize,
+        (this.page + 1) * this.pageSize
+      );
+  
+      this.totalRecords = filtered.length;
+    }
+  
 }

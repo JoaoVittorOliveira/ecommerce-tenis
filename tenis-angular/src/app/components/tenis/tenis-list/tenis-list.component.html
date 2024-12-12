@@ -1,11 +1,11 @@
 <mat-toolbar color="primary">
     <div class="flex-container">
         <button mat-icon-button color="primary" routerLink="/admin">
-            <mat-icon>home</mat-icon>
+            <mat-icon style="color: #4b0082;">home</mat-icon>
         </button>
         <div class="fixSearch">
             <button mat-icon-button color="accent" (click)="toggleSearch()">
-              <mat-icon>search</mat-icon>
+              <mat-icon style="color: #4b0082;">search</mat-icon>
             </button>
             <mat-form-field *ngIf="showSearch" appearance="fill">
               <mat-label>Pesquisar</mat-label>
@@ -125,7 +125,7 @@
         <th mat-header-cell *matHeaderCellDef> Ações </th>
         <td mat-cell *matCellDef="let tenis"> 
             <button mat-icon-button color="primary" routerLink="/admin/tenis/edit/{{tenis.id}}">
-                <mat-icon>edit</mat-icon>
+                <mat-icon style="color: #4b0082;">edit</mat-icon>
             </button>
             <button mat-icon-button color="warn" (click)="excluir(tenis)">
                 <mat-icon>delete</mat-icon>
@@ -136,3 +136,10 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr> <!--Colunas que serao exibidas-->
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<mat-paginator 
+    [pageSizeOptions]="[5, 10, 20]" 
+    [pageSize]="pageSize"
+    [length]="totalRecords"
+    (page)="paginar($event)">
+</mat-paginator>
