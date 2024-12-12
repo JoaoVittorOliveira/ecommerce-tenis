@@ -1,0 +1,50 @@
+/* Estilos para o componente Meus Dados */
+
+.container {
+    padding: 20px;
+    background-color: #f8f8ff; /* GhostWhite */
+    border: 1px solid #800080; /* Roxo */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  h2 {
+    color: #4b0082; /* Índigo Escuro */
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #333; /* Texto padrão */
+  }
+  
+  p strong {
+    color: #800080; /* Roxo */
+  }
+  
+  /* Estilos para o template de carregamento */
+  ng-template p {
+    text-align: center;
+    color: #4b0082; /* Índigo Escuro */
+    font-style: italic;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .container {
+      padding: 15px;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  
+    p {
+      font-size: 0.9rem;
+    }
+  }
+  

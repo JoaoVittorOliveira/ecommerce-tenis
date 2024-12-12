@@ -1,8 +1,9 @@
 <!-- meus-dados.component.html -->
-<div *ngIf="cliente | async as cliente; else loading">
+<div class="container" *ngIf="cliente | async as cliente; else loading">
     <h2>Meus Dados</h2>
     <p><strong>Nome:</strong> {{ cliente.nome }}</p>
     <p><strong>CPF:</strong> {{ cliente.cpf }}</p>
+    <p><strong>Username:</strong> {{ usuarioLogado?.username }}</p>
     <p><strong>Data de Nascimento:</strong> {{ cliente.dataNascimento }}</p>
     <p><strong>Telefone:</strong> {{ cliente.telefone.ddd }} {{ cliente.telefone.numero }}</p>
     <p><strong>Endereço:</strong> {{ cliente.endereco.rua }}, {{ cliente.endereco.cep }}</p>

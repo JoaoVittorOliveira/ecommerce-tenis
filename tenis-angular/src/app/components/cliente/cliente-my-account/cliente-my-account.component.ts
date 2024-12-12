@@ -4,6 +4,7 @@ import { AuthService } from '../../../services/auth.service';
 import { ClienteService } from '../../../services/cliente.service'; 
 import { Observable } from 'rxjs';
 import { CommonModule, NgIf } from '@angular/common';
+import { Usuario } from '../../../models/usuario.model';
 
 @Component({
   selector: 'app-cliente-my-account',
@@ -15,27 +16,21 @@ import { CommonModule, NgIf } from '@angular/common';
 export class ClienteMyAccountComponent {
 
   cliente: Observable<Cliente | null> = new Observable<Cliente | null>();
+  usuarioLogado: Usuario | undefined;
 
   constructor(private authService: AuthService, private clienteService: ClienteService) {}
 
   ngOnInit(): void {
-    console.log(this.cliente);
     this.loadCliente();
-    console.log(this.cliente);
+    
   }
 
   private loadCliente(): void {
     const usuarioLogado = this.authService.getUsuarioLogadoValue();
-    console.log('usuario logado:', usuarioLogado);
-    if (usuarioLogado && usuarioLogado.cliente) {
-      try {
-        console.log('cliente',this.cliente);
-        this.cliente = this.clienteService.findByUsername(usuarioLogado.username.toString());
-      } catch (error) {
-        console.log(error);
-      }
-      
-      
+
+    if (usuarioLogado) {
+      this.cliente = this.clienteService.findByUsername(usuarioLogado.username.toString());
+      this.usuarioLogado = usuarioLogado;
     }
   }
 
