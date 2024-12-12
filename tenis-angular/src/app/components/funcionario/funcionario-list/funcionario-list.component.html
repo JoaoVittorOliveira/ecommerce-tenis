@@ -38,18 +38,20 @@
         <th mat-header-cell *matHeaderCellDef> CPF </th>
         <td mat-cell *matCellDef="let funcionario"> {{funcionario.cpf}} </td>
     </ng-container>
-    
-    <!-- Data de Admissao Column -->
-    <ng-container matColumnDef="dataAdmissao">
-        <th mat-header-cell *matHeaderCellDef> Data de Admissao </th>
-        <td mat-cell *matCellDef="let funcionario"> {{funcionario.dataAdmissao}} </td>
-    </ng-container>
-    
+
     <!-- Data de Nascimento Column -->
     <ng-container matColumnDef="dataNascimento">
         <th mat-header-cell *matHeaderCellDef> Data de Nascimento </th>
         <td mat-cell *matCellDef="let funcionario"> {{ funcionario.dataNascimento | date: 'dd/MM/yyyy' }} </td>
     </ng-container>
+    
+    <!-- Data de Admissao Column -->
+    <ng-container matColumnDef="dataAdmissao">
+        <th mat-header-cell *matHeaderCellDef> Data de Admissão </th>
+        <td mat-cell *matCellDef="let funcionario"> {{funcionario.dataAdmissao | date: 'dd/MM/yyyy' }} </td>
+    </ng-container>
+    
+    
     
     <!-- Codigo de Admissao Column -->
     <ng-container matColumnDef="codigoAdmissao">

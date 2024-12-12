@@ -16,7 +16,8 @@ import { Categoria } from '../../../models/categoria.model';
 import { Cor } from '../../../models/cor.model';
 import { Marca } from '../../../models/marca.model';
 import { MatSelectModule } from '@angular/material/select';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
 
 @Component({
   selector: 'app-tenis-list',
@@ -36,6 +37,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
             CommonModule,
             MatPaginator],
   templateUrl: './tenis-list.component.html',
+  providers: [
+    { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl }
+  ],
   styleUrl: './tenis-list.component.css'
 })
 export class TenisListComponent {

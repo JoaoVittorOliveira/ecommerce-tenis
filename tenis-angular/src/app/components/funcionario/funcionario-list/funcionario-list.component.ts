@@ -13,7 +13,8 @@ import { Funcionario } from '../../../models/funcionario.model';
 import { FuncionarioService } from '../../../services/funcionario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
 
 @Component({
   selector: 'app-funcionario-list',
@@ -31,6 +32,9 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
             MatCheckboxModule,
             MatSelectModule,
           MatPaginator],
+  providers: [
+            { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+          ],
   templateUrl: './funcionario-list.component.html',
   styleUrl: './funcionario-list.component.css'
 })
