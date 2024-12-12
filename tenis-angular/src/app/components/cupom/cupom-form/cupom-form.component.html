@@ -42,7 +42,7 @@
                     <mat-label>Valor de Desconto</mat-label>
                     <input matInput type="number" value=0 class="example-right-align" formControlName="valorDesconto"/>
                     <span matTextPrefix>R$&nbsp;</span>
-                    <span matTextSuffix>,00</span>
+                    <span matTextSuffix></span>
                     <mat-error *ngIf="formGroup.get('valorDesconto')?.errors?.['required']">
                         O valor de desconto é obrigatório (Coloque 0 caso não use).
                       </mat-error>

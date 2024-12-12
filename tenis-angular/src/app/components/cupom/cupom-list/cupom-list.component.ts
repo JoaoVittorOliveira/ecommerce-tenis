@@ -1,4 +1,4 @@
-import { DatePipe, NgIf, NgFor } from '@angular/common';
+import { DatePipe, NgIf, NgFor, CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -20,7 +20,7 @@ import { MatFormField, MatInputModule } from '@angular/material/input';
     { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
     DatePipe
   ],
-  imports: [NgIf,MatInputModule,MatFormField,MatPaginator,NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule],
+  imports: [NgIf,MatInputModule,MatFormField,MatPaginator,NgFor, MatTableModule, MatToolbarModule, MatIconModule, MatButtonModule, RouterModule,CommonModule],
   templateUrl: './cupom-list.component.html',
   styleUrl: './cupom-list.component.css'
 })

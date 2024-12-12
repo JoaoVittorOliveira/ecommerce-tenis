@@ -1,6 +1,8 @@
 <mat-toolbar>
     <div class="toolbar-left">
-      <img src="tenis-angular\src\assets\logo.jpeg" alt="Logo" class="logo" />
+      <button [routerLink]="'/ecommerce'" class="voltar">  
+        <img src="../icons/logo-branco.svg" alt="Logo" class="logo" />
+      </button>
       <mat-form-field appearance="outline" class="search-bar">
         <mat-label>Digite o que você procura</mat-label>
         <input matInput (input)="applyFilter($event)" placeholder="Pesquisar..."/>
@@ -16,7 +18,6 @@
         <div class="info-popup">
           <p>Estamos no WhatsApp <br>
             <strong><a href="https://w.app/PassoCerto">(12) 97407-0170</a></strong> <br>
-            
             Horário de atendimento: <BR>10h às 18h
           </p>
         </div>
@@ -60,7 +61,7 @@
 
       <button mat-icon-button [routerLink]="'/carrinho'">
         <mat-icon>shopping_cart</mat-icon>
-        <span class="cart-badge">0</span>
+        <span class="cart-badge">{{ carrinhoService.quantidadeTotalItens() }}</span> <!-- Exibe a quantidade total de itens -->
       </button>
       
     </div>
@@ -91,7 +92,7 @@
         </mat-card-content>
         <br/>
         <mat-card-content class="centered-text">
-            R${{card.precoVenda}},00
+            {{card.precoVenda | currency:'BRL':'symbol':'1.2-2' }}
         </mat-card-content>
         <mat-card-actions class="centered-text">
             <button mat-button color="#fa7d32" style="width: 100%; padding: 10px;" (click)="openDetalhes(card)">Quero ver mais informações!</button>

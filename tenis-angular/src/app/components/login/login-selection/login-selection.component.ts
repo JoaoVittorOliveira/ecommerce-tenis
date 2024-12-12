@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { LoginSelectionGuard } from '../../../guards/login-selection.guard';
 import { MatIcon } from '@angular/material/icon';
 
@@ -8,7 +9,11 @@ import { MatIcon } from '@angular/material/icon';
   templateUrl: './login-selection.component.html',
   styleUrls: ['./login-selection.component.css'],
   standalone: true,
-  imports: [MatIcon, RouterModule]
+
+  imports: [MatIcon, RouterModule, RouterLink]
+
+
+
 })
 export class LoginSelectionComponent {
 

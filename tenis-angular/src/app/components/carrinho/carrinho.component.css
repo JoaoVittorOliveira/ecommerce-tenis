@@ -1,56 +1,4 @@
-/* Paleta Roxo Escuro */
-
-.container {
-    padding: 20px;
-  }
-  
-  .categorias {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-    margin: 16px 0;
-    flex-wrap: wrap;
-    overflow-x: auto;
-  }
-  
-  .categorias button {
-    text-transform: uppercase;
-    font-weight: bold;
-    white-space: nowrap;
-    color: #4b0082; /* Índigo Escuro */
-  }
-  
-  .categorias button.active {
-    background-color: #800080; /* Roxo */
-    color: white;
-    font-weight: bold;
-  }
-  
-  .responsive-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  
-  mat-card {
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    overflow: hidden;
-    background-color: #f8f8ff; /* GhostWhite */
-  }
-  
-  mat-card img {
-    height: 200px;
-    object-fit: cover;
-  }
-  
-  mat-card-title,
-  mat-card-content {
-    text-align: center;
-    color: #4b0082; /* Índigo Escuro */
-  }
-  
-  .cart-badge {
+.cart-badge {
     background: #800080; /* Roxo */
     color: white;
     border-radius: 50%;
@@ -60,27 +8,28 @@
     top: -10px;
     left: -10px;
   }
-  
+
   .logo {
-    height: 40px;
-    margin-right: 20px;
+    max-height: 150px; /* Ajuste a altura máxima para caber no mat-toolbar */
+    max-width: 100%; /* Evita que a largura ultrapasse o container */
+    object-fit: contain; /* Garante que a imagem se ajuste sem distorções */
   }
+  .voltar{
+    max-height: 150px; /* Ajuste a altura máxima para caber no mat-toolbar */
+    max-width: 100%; /* Evita que a largura ultrapasse o container */
+    background: transparent; /* Remove o fundo do botão */
+    border: none; /* Remove bordas do botão */
+    cursor: pointer; /* Garante que seja clicável */
+  }
+
+
+  
   
   .toolbar-left {
     display: flex;
     align-items: center;
     flex: 1;
     color: #d6a5fa;
-  }
-  
-  .search-bar {
-    flex: 1;
-    margin-left: 20px;
-  
-  }
-  
-  .search-bar mat-label, .search-bar input{
-    color:#d6a5fa;
   }
   
   .toolbar-right {
@@ -120,9 +69,6 @@
       gap: 10px;
     }
   
-    mat-card img {
-      height: 150px;
-    }
   }
   
   
@@ -132,6 +78,7 @@
   }
   
   .central-btn {
+    background-color: #2e0854;
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -262,4 +209,3 @@
   .finalizar-btn:hover {
     background-color: #45a045;
   }
-  

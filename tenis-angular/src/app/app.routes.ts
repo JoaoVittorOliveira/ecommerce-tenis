@@ -44,11 +44,15 @@ import { LoginSelectionComponent } from './components/login/login-selection/logi
 import { LoginSelectionGuard } from './guards/login-selection.guard';
 
 import { CarrinhoComponent } from './components/carrinho/carrinho.component';
+
 import { authGuard } from './guards/auth.guard';
 import { NotAuthorizedComponent } from './components/not-authorized/not-authorized.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { clientSectionGuard } from './guards/client-section.guard';
 import { ClienteMyAccountComponent } from './components/cliente/cliente-my-account/cliente-my-account.component';
+
+import { CadastroClienteComponent } from './components/cadastro-cliente/cadastro-cliente.component';
+
 
 
 export const routes: Routes = [
@@ -57,6 +61,7 @@ export const routes: Routes = [
 
     { path: 'login-selection', component: LoginSelectionComponent, title: 'Seleção de Login' },
     { path: 'login', component: LoginComponent, canActivate: [LoginSelectionGuard], title: 'Login' },
+    { path: 'cadastro-cliente', component: CadastroClienteComponent, canActivate: [LoginSelectionGuard], title: 'Cadastro de Cliente' },
     
     { 
         path: 'admin', 

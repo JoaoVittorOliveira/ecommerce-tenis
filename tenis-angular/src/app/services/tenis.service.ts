@@ -28,6 +28,11 @@ export class TenisService {
     return this.httpClient.get<Tenis[]>(this.baseUrl, {params}); 
   }
 
+  count(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl}/count`); 
+  }
+
+
   uploadImage(id: number, nomeImagem: string, imagem: File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('id', id.toString());

@@ -1,34 +1,20 @@
-
 <mat-toolbar color="primary">
+  <div style="display: flex; align-items: center;">
+      <button (click)="clickMenu()" mat-icon-button>
+          <mat-icon>menu</mat-icon>
+      </button>
+      
+      <img src="../icons/logo-branco.svg" alt="Logo" class="logo" />
+  </div>
 
-    <button (click)="clickMenu()" mat-icon-button>
-        <mat-icon>menu</mat-icon>
-    </button>
-    
-    <span>Passo Certo - ADM</span>
-    
-    
-    
-    <mat-toolbar color="primary">
-
-      <span class="faixa-spacer"></span>
-
-      <div *ngIf="!usuarioLogado?.username">
-        <button  mat-icon-button routerLink="/login-selection">
+  <div style="display: flex; align-items: center;">
+      <span *ngIf="usuarioLogado?.username" style="margin-right: 16px;">{{usuarioLogado?.username}}</span>
+      <button mat-icon-button *ngIf="!usuarioLogado?.username" routerLink="/login-selection">
           <mat-icon>login</mat-icon>
-          
-        </button>
-      </div>
 
-      <div *ngIf="usuarioLogado?.username">
-        <button  mat-icon-button (click)="deslogar()" routerLink="/">
+      </button>
+      <button mat-icon-button *ngIf="usuarioLogado?.username" (click)="deslogar()">
           <mat-icon>logout</mat-icon>
-        </button>
-      </div>
-       
-    </mat-toolbar>
-    
-
-    <span>{{usuarioLogado?.username}}</span>
-
+      </button>
+  </div>
 </mat-toolbar>

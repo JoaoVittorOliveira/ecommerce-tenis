@@ -61,11 +61,11 @@ export class TenisCardListComponent implements OnInit {
     private dialog: MatDialog, 
     private tenisService: TenisService, 
     private categoriaService: CategoriaService, 
-    private carrinhoService: CarrinhoService,
+
+    public carrinhoService: CarrinhoService,
     private snackBar: MatSnackBar,
     private router: Router
-  ) {
-  }
+  ) { }
 
   ngOnInit(): void {
     this.carregarTenis();
@@ -171,5 +171,7 @@ export class TenisCardListComponent implements OnInit {
       horizontalPosition: "center"
     });
   }
-
+  quantidadeTotalItens(): number {
+    return this.carrinhoService.quantidadeTotalItens();
+  }
 }

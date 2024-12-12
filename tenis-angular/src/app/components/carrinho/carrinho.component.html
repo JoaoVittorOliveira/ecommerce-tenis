@@ -1,13 +1,8 @@
 <mat-toolbar>
   <div class="toolbar-left">
-    <img src="tenis-angular\src\assets\logo.jpeg" alt="Logo" class="logo" />
-    <mat-form-field appearance="outline" class="search-bar">
-      <mat-label>Digite o que você procura</mat-label>
-      <!-- <input matInput (input)="applyFilter($event)" placeholder="Pesquisar..."/>-->
-      <button mat-icon-button matSuffix>
-        <mat-icon>search</mat-icon>
-      </button>
-    </mat-form-field>
+    <button [routerLink]="'/ecommerce'" class="voltar">  
+    <img src="../icons/logo-branco.svg" alt="Logo" class="logo" />
+  </button>
   </div>
   <div class="toolbar-right">
     <div class="central-atendimento">
@@ -15,18 +10,17 @@
       <div class="info-popup">
         <p>Estamos no WhatsApp <br>
           <strong><a href="https://w.app/PassoCerto">(12) 97407-0170</a></strong> <br>
-          
           Horário de atendimento: <BR>10h às 18h
         </p>
       </div>
     </div>
 
-    <button mat-button><mat-icon >person</mat-icon> Minha Conta</button>
+    <button class="central-btn" mat-button><mat-icon >person</mat-icon> Minha Conta</button>
 
 
-    <button mat-icon-button [routerLink]="'/carrinho'">
+    <button class="central-btn" mat-icon-button [routerLink]="'/carrinho'">
       <mat-icon>shopping_cart</mat-icon>
-      <span class="cart-badge">0</span>
+      <span class="cart-badge">{{ quantidadeTotalItens() }}</span>
     </button>
     
   </div>
@@ -43,7 +37,7 @@
         <p>Entrega: {{ item.quantidade }}</p>
       </div>
       <div class="produto-acoes">
-        <p class="produto-preco">R$ {{ item.preco }}</p>
+        <p class="produto-preco">{{ item.preco | currency:'BRL':'symbol':'1.2-2' }}</p>
         <div class="quantidade-controle">
           <button (click)="alterarQuantidade(item, -1)">-</button>
           <span>{{ item.quantidade }}</span>
@@ -53,7 +47,7 @@
       </div>
     </div>
     <div class="carrinho-total">
-      <p>Subtotal: R$ {{ calcularTotal() }}</p>
+      <p>Subtotal: {{ calcularTotal() | currency:'BRL':'symbol':'1.2-2' }}</p>
       <button class="finalizar-btn" (click)="finalizarCompra()">Finalizar Compra</button>
     </div>
   </div>

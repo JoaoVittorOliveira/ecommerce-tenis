@@ -1,0 +1,184 @@
+.example-right-align {
+    text-align: right;
+}
+
+
+.full-width-input {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.half-width-input:nth-child(2n) {
+    margin-right: 0;
+}
+
+
+.half-width-input {
+    width: 48%;
+    margin-right: 2%;
+    margin-bottom: 20px; /* Adiciona espaço entre os campos */
+}
+
+mat-card {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.form-container {
+    padding: 2rem;
+}
+
+button[mat-raised-button] {
+    width: 120px;
+}
+
+button[mat-raised-button]:not(:last-child) {
+    margin-right: 1rem;
+}
+
+
+.form-row {
+    display: flex;
+    /*align-items: center;*/ /* Alinha verticalmente o botão com o select */
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+mat-form-field {
+    margin: 8px 0;
+    flex: 1;
+}
+
+button[mat-icon-button] {
+    margin-left: 10px;
+    height: 56px; 
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 16px;
+}
+mat-vertical-stepper {
+    width: 100%;
+    max-width: 600px;    
+}
+
+
+
+
+  /*STEPPER*/
+  
+  .stepper-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  /*tool bar*/
+  .toolbar {
+    background-color: #4b0082; /* Índigo Escuro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .toolbar-title {
+    flex: 1;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: white; /* Título em branco */
+  }
+  
+  .voltar-btn {
+    position: absolute;
+    left: 10px;
+    color: white;
+  }
+  
+
+  .registration-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(to right, #4b0082, #dda0dd);
+  }
+  
+  .registration-form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    max-width: 500px;
+  }
+  
+  .registration-illustration-container {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  .registration-illustration {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  
+  .voltar-btn {
+    position: absolute;
+    left: 10px;
+    color: #fff;
+  }
+
+  .ecommerce-btn{
+    color: #fff;
+    width: 50px; 
+  height: 50px; 
+
+  }
+  
+  .stepper-container {
+    padding: 32px 0;
+  }
+  
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  
+  .half-width-input {
+    width: 48%;
+  }
+  
+  .full-width-input {
+    width: 100%;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+  
+  button[mat-raised-button] {
+    background-color: #800080;
+    color: #fff;
+  }
+  
+  button[mat-raised-button]:hover {
+    background-color: #6b006b;
+  }
