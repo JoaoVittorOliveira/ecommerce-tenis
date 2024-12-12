@@ -7,13 +7,15 @@ import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { DeleteDialog } from '../../delete-dialog/delete-dialog.component';
+import { DeleteDialogError } from '../../delete-dialog-error/delete-dialog-error.component';
 
 @Component({
   selector: 'app-tamanho-list',
@@ -46,7 +48,7 @@ export class TamanhoListComponent implements OnInit {
   showSearch = false;
   filterValue = '';
 
-  constructor(private tamanhoService: TamanhoService, private dialog: MatDialog) {}
+  constructor(private tamanhoService: TamanhoService, private dialog: MatDialog,  private router: Router) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -106,19 +108,31 @@ export class TamanhoListComponent implements OnInit {
   }
 
   excluir(tamanho: Tamanho): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    const dialogRef = this.dialog.open(DeleteDialog);
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.tamanhoService.delete(tamanho).subscribe({
           next: () => {
-            this.applyCurrentFilter(); // Reaplica o filtro após excluir
-          },
-          error: (err) => {
-            console.error('Erro ao tentar excluir o tamanho', err);
-          }
-        });
-      }
-    });
-  }
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/admin/tamanhos']); // Navega de volta para a lista
+            });          },
+            error: (err) => {
+              console.error('Erro ao tentar excluir o telefone', err);
+              this.erroExcluir();
+            }
+          });
+        }
+      });
+    }
+  
+    erroExcluir():void{
+      const dialogError = this.dialog.open(DeleteDialogError, {
+        data: { message: 'Erro ao tentar excluir o telefone. Por favor, tente novamente.' },
+      });
+      
+      dialogError.afterClosed().subscribe(result => {
+        // Aqui você pode lidar com o fechamento do diálogo, se necessário.
+      });
+    }
 }

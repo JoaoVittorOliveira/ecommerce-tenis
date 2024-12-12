@@ -4,7 +4,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MarcaService } from '../../../services/marca.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
@@ -12,6 +12,8 @@ import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/pag
 import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
 import { NgIf } from '@angular/common';
 import { MatFormField, MatInputModule } from '@angular/material/input';
+import { DeleteDialog } from '../../delete-dialog/delete-dialog.component';
+import { DeleteDialogError } from '../../delete-dialog-error/delete-dialog-error.component';
 
 @Component({
   selector: 'app-marca-list',
@@ -36,7 +38,7 @@ export class MarcaListComponent implements OnInit {
   filterValue = '';
 
 
-  constructor(private marcaService: MarcaService, private dialog: MatDialog){
+  constructor(private marcaService: MarcaService, private dialog: MatDialog, private router: Router){
 
   }
 
@@ -96,20 +98,31 @@ export class MarcaListComponent implements OnInit {
   }
 
   excluir(marca: Marca): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    const dialogRef = this.dialog.open(DeleteDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.marcaService.delete(marca).subscribe({
           next: () => {
-            this.applyCurrentFilter();
-          },
-          error: (err) => {
-            console.error('Erro ao tentar excluir o marca', err);
-          }
-        });
-      }
-    });
-    
-  }
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/admin/marcas']); // Navega de volta para a lista
+            });          },
+            error: (err) => {
+              console.error('Erro ao tentar excluir o telefone', err);
+              this.erroExcluir();
+            }
+          });
+        }
+      });
+    }
+  
+    erroExcluir():void{
+      const dialogError = this.dialog.open(DeleteDialogError, {
+        data: { message: 'Erro ao tentar excluir o telefone. Por favor, tente novamente.' },
+      });
+      
+      dialogError.afterClosed().subscribe(result => {
+        // Aqui você pode lidar com o fechamento do diálogo, se necessário.
+      });
+    }
 }

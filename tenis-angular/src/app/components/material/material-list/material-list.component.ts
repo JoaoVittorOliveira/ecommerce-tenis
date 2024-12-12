@@ -3,7 +3,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { MaterialService } from '../../../services/material.service';
@@ -13,6 +13,8 @@ import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgIf } from '@angular/common';
+import { DeleteDialog } from '../../delete-dialog/delete-dialog.component';
+import { DeleteDialogError } from '../../delete-dialog-error/delete-dialog-error.component';
 
 @Component({
   selector: 'app-material-list',
@@ -36,7 +38,7 @@ export class MaterialListComponent implements OnInit {
   showSearch = false;
   filterValue = '';
 
-  constructor(private materialService: MaterialService, private dialog: MatDialog){
+  constructor(private materialService: MaterialService, private dialog: MatDialog,  private router: Router){
 
   }
 
@@ -98,19 +100,31 @@ export class MaterialListComponent implements OnInit {
   }
 
   excluir(material: Material): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    const dialogRef = this.dialog.open(DeleteDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.materialService.delete(material).subscribe({
           next: () => {
-            this.applyCurrentFilter();
-          },
-          error: (err) => {
-            console.error('Erro ao tentar excluir o material', err);
-          }
-        });
-      }
-    });
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/admin/materiais']); // Navega de volta para a lista
+            });          },
+            error: (err) => {
+              console.error('Erro ao tentar excluir o telefone', err);
+              this.erroExcluir();
+            }
+          });
+        }
+      });
+    }
+  
+    erroExcluir():void{
+      const dialogError = this.dialog.open(DeleteDialogError, {
+        data: { message: 'Erro ao tentar excluir o telefone. Por favor, tente novamente.' },
+      });
+      
+      dialogError.afterClosed().subscribe(result => {
+        // Aqui você pode lidar com o fechamento do diálogo, se necessário.
+      });
     }
 }
