@@ -41,6 +41,10 @@ export class LoginComponent implements OnInit{
     this.router.navigate(['/ecommerce']); // Substitua com a rota correta
   } 
   ngOnInit(): void {
+
+    this.authService.removeToken();
+    this.authService.removeUsuarioLogado();
+
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]

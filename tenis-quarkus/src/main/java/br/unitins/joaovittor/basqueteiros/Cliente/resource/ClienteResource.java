@@ -91,7 +91,8 @@ public class ClienteResource {
             return Response.status(Status.NOT_FOUND).entity("Cliente não encontrado.").build();
         } catch (Exception e) {
             LOG.error("Erro ao buscar conta.", e);
-            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao buscar conta.").build();
+            
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao buscar conta. "+ e).build();
         }
     }
 
@@ -107,7 +108,7 @@ public class ClienteResource {
             return Response.status(Status.NOT_FOUND).entity("Cliente não encontrado.").build();
         } catch (Exception e) {
             LOG.error("Erro ao atualizar conta.", e);
-            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao atualizar conta.").build();
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity("Erro ao atualizar conta. "+ e).build();
         }
     }
 

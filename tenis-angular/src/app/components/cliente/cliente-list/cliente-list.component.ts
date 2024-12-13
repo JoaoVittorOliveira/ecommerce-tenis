@@ -58,6 +58,7 @@ export class ClienteListComponent {
         this.totalRecords = data.length;
       }
     );
+    console.log(this.clienteList);
   }
 
   toggleSearch(): void {

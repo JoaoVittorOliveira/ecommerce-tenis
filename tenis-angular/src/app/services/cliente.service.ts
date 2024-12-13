@@ -63,11 +63,11 @@ export class ClienteService {
   }
 
   getMyAccount(): Observable<Cliente> {
-    return this.httpClient.get<Cliente>(`${this.baseUrl}/clientes/my-account`);
+    return this.httpClient.get<Cliente>(`${this.baseUrl}/my-account`);
   }
   
   updateMyAccount(cliente: Cliente): Observable<void> {
-    return this.httpClient.put<void>(`${this.baseUrl}/clientes/my-account`, cliente);
+    return this.httpClient.put<void>(`${this.baseUrl}/my-account`, cliente);
   }
 
   delete(cliente: Cliente): Observable<any>{

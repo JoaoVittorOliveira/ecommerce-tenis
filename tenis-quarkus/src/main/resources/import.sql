@@ -70,12 +70,12 @@ values
 ('joao vittor', '12312312312', 1, 1, '2004-09-16', CURRENT_DATE);
 
 insert into usuario (perfil,username, `password`) 
-values ('Funcionario','jose', 'Z7dL+3VaMV++fdWH0b8S3NV26muviRKuWXNk5ayr2RVBF9BE8tMorc/G7NB1P51lHzLhjc7irjXu+Q5f3T997w==');
+values ('Funcionario','administrador', 'kkgpQBdqBcKXRA9KGNCp0xDJJaVy3V2rQsnuYU5cL5xJRz5NpE+MefayUVCwFEaf5MxS2chFp/Jj2cNgCv8LSA==');
 
 insert into funcionario
 (nome, cpf, id_usuario, id_telefone, data_nascimento, data_cadastro, codigo_admissao, data_admissao)
 values
-('jose da silva', '12312312312', 2, 1, '2004-09-16', CURRENT_DATE, 'sla123', '2024-06-01');
+('administrador', '00000000000', 2, 1, '2004-09-16', CURRENT_DATE, 'sla123', '2024-06-01');
 
 insert into endereco(cep,rua,complemento, id_cliente) values 
 ('111','rua 1','em frente a rua 2', 1);
