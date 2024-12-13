@@ -197,7 +197,7 @@ mat-toolbar {
 .info-popup {
   display: none;
   position: absolute;
-  top: 110%; /* Aparece logo abaixo do botão */
+  top: 100%; /* Aparece logo abaixo do botão */
   left: 50%;
   transform: translateX(-50%);
   background-color: #f8f8ff; /* GhostWhite */
@@ -584,6 +584,15 @@ body {
 
 .produtos-relacionados-container {
   margin-top: 20px;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+
 }
 
 .produtos-relacionados-container h3 {
@@ -620,4 +629,110 @@ body {
   border: none;
   border-radius: 5px;
 
+}
+
+
+
+
+.comentarios {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+.comentarios h3 {
+  font-size: 1.8em;
+  margin-bottom: 15px;
+  color: #2e0854;
+}
+
+.comentario {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #fff;
+  border: 1px solid #e3e3e3;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comentario strong {
+  font-weight: bold;
+  color: #800080;
+}
+
+.comentario em {
+  font-size: 0.9em;
+  color: #6c757d;
+}
+
+.comentario p {
+  margin: 10px 0 0;
+  font-size: 1em;
+  line-height: 1.5;
+  color: #444;
+  word-wrap: break-word;
+}
+
+.comentario button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  font-size: 0.9em;
+  color: #fff;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.comentario button:hover {
+  background-color: #c82333;
+}
+
+.novo-comentario {
+  margin-top: 20px;
+}
+
+.novo-comentario textarea {
+  width: 98%;
+  min-height: 60px;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: vertical;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.novo-comentario textarea:focus {
+  outline: none;
+  border-color: #800080;
+  box-shadow: 0 0 5px rgba(91, 8, 124, 0.5);
+}
+
+.novo-comentario button {
+  display: block;
+  margin-top: 10px;
+  padding: 8px 15px;
+  font-size: 1em;
+  color: #fff;
+  background-color: #28a745;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.novo-comentario button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.novo-comentario button:hover:not([disabled]) {
+  background-color: #218838;
 }

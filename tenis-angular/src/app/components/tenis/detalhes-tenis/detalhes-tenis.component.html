@@ -134,7 +134,7 @@
   
     <!-- Lista de Comentários -->
     <div *ngFor="let comentario of comentarios" class="comentario">
-      <strong>{{ comentario.usuario }}</strong> <em>{{ comentario.data | date }}</em>
+      <strong>{{ comentario.usuario }} | </strong> <em>{{ comentario.data | date }}</em>
       <p>{{ comentario.texto }}</p>
       <!-- Botão para excluir, se necessário -->
       <button (click)="excluirComentario(comentario.id)" *ngIf="usuarioLogado?.username === comentario.usuario">
@@ -151,26 +151,22 @@
 
 
 
-
-
-
   
+
+  <!--
   <div class="detalhes-produto-container">
-    <!-- Corpo Principal -->
+    
     <div class="conteudo">
-      <!-- Coluna da Imagem -->
       <div class="imagem-container">
         <img [src]="imageUrl" alt="Imagem do Tênis" class="imagem-produto" />
       </div>
   
-      <!-- Coluna das Informações -->
       <div>
         
           <h2 class="nome-produto">{{ tenis?.nome }}</h2> 
           <p class="preco-produto">{{ tenis?.precoVenda | currency:'BRL':'symbol':'1.2-2'  }}</p>
           <p class="descricao-produto">{{ tenis?.categoria?.descricao }}</p>
 
-        <!-- Especificações -->
         <div class="especificacoes">
           <h3>Especificações</h3>
           <ul>
@@ -180,8 +176,8 @@
             <li><strong>Tamanho:</strong> {{ tenis?.tamanho?.numeracao }} ({{ tenis?.tamanho?.tamanhoEmCm }} cm)</li>
           </ul>
         </div>
-        <!-- Botão -->
         <button class="buy-button" (click)="adicionarAoCarrinho()">Adicionar ao Carrinho </button>
         <button class="add-to-cart-button" routerLink="/carrinho" (click)="adicionarAoCarrinho()">Comprar</button>      </div>
     </div>
   </div>
+-->

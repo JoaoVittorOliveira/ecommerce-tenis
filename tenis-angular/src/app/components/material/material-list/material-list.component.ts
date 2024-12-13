@@ -33,7 +33,7 @@ export class MaterialListComponent implements OnInit {
 
 
   totalRecords = 0;
-  pageSize = 4;
+  pageSize = 10;
   page = 0;
   showSearch = false;
   filterValue = '';

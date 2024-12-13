@@ -43,7 +43,7 @@ export class TamanhoListComponent implements OnInit {
   tamanhos: Tamanho[] = []; // Lista completa obtida do serviço
   filteredTamanhos: Tamanho[] = []; // Lista filtrada para exibição
   totalRecords = 0;
-  pageSize = 4;
+  pageSize = 10;
   page = 0;
   showSearch = false;
   filterValue = '';

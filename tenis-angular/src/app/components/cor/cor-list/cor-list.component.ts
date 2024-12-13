@@ -33,7 +33,7 @@ export class CorListComponent implements OnInit{
   filteredCores: Cor[] = [];
 
   totalRecords = 0;
-  pageSize = 4;
+  pageSize = 10;
   page = 0;
   showSearch = false;
   filterValue = '';
