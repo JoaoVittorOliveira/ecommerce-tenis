@@ -19,6 +19,7 @@ import { Router, RouterModule } from '@angular/router';
 import { Usuario } from '../../../models/usuario.model';
 import { AuthService } from '../../../services/auth.service';
 import { Subscription } from 'rxjs';
+import { SnackbarComponent } from '../../snack-bar/snack-bar.component';
 type Card = {
   idTenis: number;
   titulo: string;
@@ -154,7 +155,7 @@ export class TenisCardListComponent implements OnInit {
   }
 
   adicionarAoCarrinho(card: Card) {
-    this.showSnackbarTopPosition('Produto adicionado ao carrinho');
+    this.showSnackbarTopPosition('Produto adicionado ao carrinho', 'success');
     this.carrinhoService.adicionar({
       id: card.idTenis,
       nome: card.titulo,
@@ -164,13 +165,28 @@ export class TenisCardListComponent implements OnInit {
     })
   }
 
-  showSnackbarTopPosition(content: any) {
-    this.snackBar.open(content, 'fechar', {
+  showSnackbarTopPosition(content: string, type: string) {
+    let icon = '';
+    let panelClass = '';
+  
+    if (type === 'success') {
+      icon = 'check_circle'; // Ícone de sucesso
+      panelClass = 'snackbar-success'; // Classe personalizada
+    } else if (type === 'error') {
+      icon = 'error'; // Ícone de erro
+      panelClass = 'snackbar-error'; // Classe personalizada
+    }
+  
+    this.snackBar.openFromComponent(SnackbarComponent, {
+      data: { message: content, icon: icon },
       duration: 3000,
       verticalPosition: "top",
-      horizontalPosition: "center"
+      horizontalPosition: "center",
+      panelClass: panelClass,
+      
     });
   }
+
   quantidadeTotalItens(): number {
     return this.carrinhoService.quantidadeTotalItens();
   }

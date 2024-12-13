@@ -189,3 +189,29 @@ mat-card-footer button {
 .central-atendimento:hover .info-popup {
   display: block;
 }
+
+
+
+
+
+
+
+
+
+::ng-deep .mat-snack-bar-container {
+  background-color: #4caf50; /* Cor de fundo verde (sugestão) */
+  color: white;  /* Cor do texto */
+  border-radius: 8px; /* Borda arredondada */
+  padding: 16px 24px; /* Mais padding para dar um visual mais elegante */
+  font-size: 16px; /* Tamanho de fonte maior */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2); /* Sombras para destaque */
+}
+
+::ng-deep .mat-snack-bar-action {
+  color: #ffffff; /* Cor do texto de "fechar" */
+  font-weight: bold;
+}
+
+::ng-deep .mat-snack-bar-container .mat-simple-snackbar {
+  font-size: 16px; /* Tamanho de fonte do conteúdo da snackbar */
+}
