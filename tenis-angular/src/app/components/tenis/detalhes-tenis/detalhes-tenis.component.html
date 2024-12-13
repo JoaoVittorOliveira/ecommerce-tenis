@@ -1,61 +1,187 @@
-<div class="detalhes-container">
-    <div class="detalhes-header">
-      <img [src]="imageUrl" alt="Imagem do Tênis" class="detalhes-imagem" />
-      <div class="detalhes-info">
-        <h1>{{ tenis?.nome }}</h1>
-        <div class="detalhes-preco">
-          <span>R$ {{ tenis?.precoVenda }}</span>
-        </div>
-        <p class="detalhes-descricao">Descrição do Produto:</p>
-        <p class="descricao-texto">{{ tenis?.categoria?.descricao }}</p>
+<mat-toolbar>
+  <div class="toolbar-left">
+    <button [routerLink]="'/ecommerce'" class="voltar">  
+      <img src="../icons/logo-branco.svg" alt="Logo" class="logo" />
+    </button>
+
+  </div>
+  <div class="toolbar-right">
+
+    <div class="central-atendimento">
+      <button class="central-btn" mat-button ><mat-icon>support_agent</mat-icon> Central de Atendimento</button>
+      <div class="info-popup">
+        <p>Estamos no WhatsApp <br>
+          <strong><a href="https://w.app/PassoCerto">(12) 97407-0170</a></strong> <br>
+          Horário de atendimento: <BR>10h às 18h
+        </p>
       </div>
     </div>
-  
-    <div class="detalhes-especificacoes">
-      <h2>Especificações</h2>
-      <table class="especificacoes-tabela">
-        <tr>
-          <td><strong>Marca:</strong></td>
-          <td>{{ tenis?.marca?.nome }}</td>
-          <td *ngIf="tenis?.marca?.logo">
-            <img [src]="tenis?.marca?.logo" alt="Logo da Marca" class="marca-logo"/>
-          </td>
-        </tr>
-        <tr>
-          <td><strong>Material:</strong></td>
-          <td>{{ tenis?.material?.descricao }}</td>
-        </tr>
-        <tr>
-          <td><strong>Cor:</strong></td>
-          <td>{{ tenis?.cor?.nome }}</td>
-        </tr>
-        <tr>
-          <td><strong>Tamanho:</strong></td>
-          <td>{{ tenis?.tamanho?.numeracao }} ({{ tenis?.tamanho?.tamanhoEmCm }} cm)</td>
-        </tr>
-        <tr>
-          <td><strong>Categoria:</strong></td>
-          <td>{{ tenis?.categoria?.nome }} - {{ tenis?.categoria?.genero }} - Faixa etária: {{ tenis?.categoria?.faixaEtaria }}</td>
-        </tr>
-        <tr>
-          <td><strong>Peso:</strong></td>
-          <td>{{ tenis?.peso }}g</td>
-        </tr>
-        <tr>
-          <td><strong>Quantidade disponível:</strong></td>
-          <td>{{ tenis?.quantidade }}</td>
-        </tr>
-      </table>
+
+    <div class="central-atendimento">
+      <button class="central-btn" mat-button><mat-icon >person</mat-icon> Minha Conta</button>
+      <div class="info-popup">
+        <p>Olá 
+          <strong *ngIf="usuarioLogado?.username">{{usuarioLogado?.username}}</strong>
+          <strong *ngIf="!usuarioLogado?.username">visitante</strong>
+        </p>
+        
+        <button *ngIf="!usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" routerLink="/login-selection">
+          <mat-icon>login</mat-icon>
+          Entrar
+        </button>
+
+        <button *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" routerLink="/minha-conta">
+          <mat-icon>account_circle</mat-icon>
+          Dados Pessoais
+        </button>
+
+        <br>
+
+        <button *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;">
+          <mat-icon>inventory_2</mat-icon>
+          Meus Pedidos
+        </button>
+
+        <br>
+
+        <button  *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" (click)="deslogar()">
+          <mat-icon>cancel</mat-icon>
+          Desconectar
+        </button>
+
+      </div>
     </div>
+
+
+    <button class="central-btn" mat-icon-button [routerLink]="'/carrinho'">
+      <mat-icon>shopping_cart</mat-icon>
+      <span class="cart-badge">{{ carrinhoService.quantidadeTotalItens() }}</span> <!-- Exibe a quantidade total de itens -->
+    </button>
+    
+  </div>
+</mat-toolbar>
+
   
-    <div class="detalhes-actions">
-      <button mat-button color="accent" class="adicionar-carrinho">
-        Adicionar ao Carrinho
+  <div class="detalhes-produto-container">
+    <!-- Corpo Principal -->
+    <div class="conteudo">
+      <!-- Coluna da Imagem -->
+      <div class="imagem-container">
+        <img [src]="imageUrl" alt="Imagem do Tênis" class="imagem-produto2" />
+      </div>
+  
+      <!-- Coluna das Informações -->
+      <div class="informacoes-container">
+        
+        <div class ="detalhes-principais">
+          <h2 class="nome-produto">{{ tenis?.nome }}</h2> 
+          <p class="preco-produto">{{ tenis?.precoVenda | currency:'BRL':'symbol':'1.2-2'  }}</p>
+          <p class="descricao-produto">{{ tenis?.categoria?.descricao }}</p>
+        </div>
+        <div class="logo-marca">
+          <img [src]="tenis?.marca?.logo" alt="Logo da Marca" class="marca-logo"/>
+        </div>
+
+        <!-- Especificações -->
+        <div class="especificacoes">
+          <h3>Especificações</h3>
+          <ul>
+            <li><strong>Marca:</strong> {{ tenis?.marca?.nome }}</li>
+            <li><strong>Material:</strong> {{ tenis?.material?.descricao }}</li>
+            <li><strong>Cor:</strong> {{ tenis?.cor?.nome }}</li>
+            <li><strong>Tamanho:</strong> {{ tenis?.tamanho?.numeracao }} ({{ tenis?.tamanho?.tamanhoEmCm }} cm)</li>
+          </ul>
+        </div>
+        <!-- Botão -->
+        <button class="buy-button" (click)="adicionarAoCarrinho()">Adicionar ao Carrinho </button>
+        <button class="add-to-cart-button" routerLink="/carrinho" (click)="adicionarAoCarrinho()">Comprar</button>      </div>
+    </div>
+  </div>
+
+  
+  <div class="produtos-relacionados-container">
+    <h3>Você também pode gostar</h3>
+    <div class="carrossel">
+      <button mat-icon-button (click)="scrollLeft()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+      <div class="produtos-relacionados" #carrossel>
+      <mat-card *ngFor="let card of relatedCards()">
+        <img mat-card-image [src]="card.imageUrl" />
+        <mat-card-title class="centered-text">{{ card.nome }}</mat-card-title>
+        <mat-card-content class="centered-text">
+          {{card.nome}}
+        </mat-card-content>
+        <br/>
+        <mat-card-content class="centered-text">
+            {{card.precoVenda | currency:'BRL':'symbol':'1.2-2' }}
+        </mat-card-content>
+        <mat-card-actions class="centered-text">
+          <button class="btn-mini-card" mat-button (click)="openDetalhes(card)">
+            Ver mais
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+  <button mat-icon-button (click)="scrollRight()">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+  </div>
+  
+  <div class="comentarios">
+    <h3>Comentários</h3>
+  
+    <!-- Lista de Comentários -->
+    <div *ngFor="let comentario of comentarios" class="comentario">
+      <strong>{{ comentario.usuario }}</strong> <em>{{ comentario.data | date }}</em>
+      <p>{{ comentario.texto }}</p>
+      <!-- Botão para excluir, se necessário -->
+      <button (click)="excluirComentario(comentario.id)" *ngIf="usuarioLogado?.username === comentario.usuario">
+        Excluir
       </button>
     </div>
   
-    <div class="voltar">
-      <button mat-button (click)="Voltar()">Voltar</button>
+    <!-- Adicionar Novo Comentário -->
+    <div class="novo-comentario">
+      <textarea [(ngModel)]="novoComentario" placeholder="Escreva seu comentário"></textarea>
+      <button (click)="adicionarComentario()" [disabled]="novoComentario.trim() === ''">Enviar</button>
     </div>
   </div>
+
+
+
+
+
+
   
+  <div class="detalhes-produto-container">
+    <!-- Corpo Principal -->
+    <div class="conteudo">
+      <!-- Coluna da Imagem -->
+      <div class="imagem-container">
+        <img [src]="imageUrl" alt="Imagem do Tênis" class="imagem-produto" />
+      </div>
+  
+      <!-- Coluna das Informações -->
+      <div>
+        
+          <h2 class="nome-produto">{{ tenis?.nome }}</h2> 
+          <p class="preco-produto">{{ tenis?.precoVenda | currency:'BRL':'symbol':'1.2-2'  }}</p>
+          <p class="descricao-produto">{{ tenis?.categoria?.descricao }}</p>
+
+        <!-- Especificações -->
+        <div class="especificacoes">
+          <h3>Especificações</h3>
+          <ul>
+            <li><strong>Marca:</strong> {{ tenis?.marca?.nome }}</li>
+            <li><strong>Material:</strong> {{ tenis?.material?.descricao }}</li>
+            <li><strong>Cor:</strong> {{ tenis?.cor?.nome }}</li>
+            <li><strong>Tamanho:</strong> {{ tenis?.tamanho?.numeracao }} ({{ tenis?.tamanho?.tamanhoEmCm }} cm)</li>
+          </ul>
+        </div>
+        <!-- Botão -->
+        <button class="buy-button" (click)="adicionarAoCarrinho()">Adicionar ao Carrinho </button>
+        <button class="add-to-cart-button" routerLink="/carrinho" (click)="adicionarAoCarrinho()">Comprar</button>      </div>
+    </div>
+  </div>
