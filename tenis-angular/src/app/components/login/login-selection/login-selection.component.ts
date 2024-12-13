@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { LoginSelectionGuard } from '../../../guards/login-selection.guard';
 import { MatIcon } from '@angular/material/icon';
 
