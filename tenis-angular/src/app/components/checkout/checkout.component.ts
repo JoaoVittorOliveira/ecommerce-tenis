@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CarrinhoService } from '../../services/carrinho.service';
 import { ClienteService } from '../../services/cliente.service';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
+import { MatToolbar } from '@angular/material/toolbar';
 
 @Component({
-  standalone: true,
-  imports: [NgFor,CommonModule],
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css']
+  styleUrls: ['./checkout.component.css'],
+  standalone: true,
+  imports: [CommonModule, MatToolbar]
 })
 export class CheckoutComponent implements OnInit {
   carrinhoItens: any[] = [];
@@ -25,7 +26,7 @@ export class CheckoutComponent implements OnInit {
 
   constructor(
     private carrinhoService: CarrinhoService,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
   ) {}
 
   ngOnInit(): void {
@@ -35,8 +36,7 @@ export class CheckoutComponent implements OnInit {
     // Carregar dados do cliente
     this.clienteService.getMyAccount().subscribe(cliente => {
       this.usuario = cliente;
-      console.log(this.usuario);
-
+      console.log('Cliente:', this.usuario);
     });
   }
 
@@ -45,13 +45,20 @@ export class CheckoutComponent implements OnInit {
   }
 
   finalizarCompra(): void {
+    // Construir o objeto do pedido no formato esperado pelo backend
     const pedido = {
-      itens: this.carrinhoItens,
-      cliente: this.usuario,
-      entrega: this.entregaSelecionada,
+      cliente: { id: this.usuario.id }, // ID do cliente
+      itens: this.carrinhoItens.map(item => ({
+        idProduto: item.id, // ID do produto
+        quantidade: item.quantidade,
+        preco: item.preco
+      })),
+      entrega: this.entregaSelecionada.descricao,
       pagamento: this.pagamentoSelecionado
     };
-    console.log('Pedido:', pedido);
-    alert('Compra finalizada com sucesso!');
+
+    console.log('Enviando pedido:', pedido);
+
+    
   }
 }

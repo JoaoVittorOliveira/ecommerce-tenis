@@ -1,83 +1,156 @@
-<div class="container">
-  <h2>Meus Dados</h2>
-  <form [formGroup]="formGroup">
+<mat-toolbar>
+  <div class="toolbar-left">
+    <button [routerLink]="'/ecommerce'" class="voltar">  
+      <img src="../icons/logo-branco.svg" alt="Logo" class="logo" />
+    </button>
 
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Nome</mat-label>
-        <input matInput formControlName="nome" />
-      </mat-form-field>
+  </div>
+  <div class="toolbar-right">
+
+    <div class="central-atendimento">
+      <button class="central-btn" mat-button ><mat-icon>support_agent</mat-icon> Central de Atendimento</button>
+      <div class="info-popup">
+        <p>Estamos no WhatsApp <br>
+          <strong><a href="https://w.app/PassoCerto">(12) 97407-0170</a></strong> <br>
+          Horário de atendimento: <BR>10h às 18h
+        </p>
+      </div>
     </div>
 
-    <div class="form-group">
-      <mat-form-field appearance="fill">
+    <div class="central-atendimento">
+      <button class="central-btn" mat-button><mat-icon >person</mat-icon> Minha Conta</button>
+      <div class="info-popup">
+        <p>Olá 
+          <strong *ngIf="usuarioLogado?.username">{{usuarioLogado?.username}}</strong>
+          <strong *ngIf="!usuarioLogado?.username">visitante</strong>
+        </p>
+        
+        <button *ngIf="!usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" routerLink="/login-selection">
+          <mat-icon>login</mat-icon>
+          Entrar
+        </button>
+
+        <button *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" routerLink="/minha-conta">
+          <mat-icon>account_circle</mat-icon>
+          Dados Pessoais
+        </button>
+
+        <br>
+
+        <button *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;">
+          <mat-icon>inventory_2</mat-icon>
+          Meus Pedidos
+        </button>
+
+        <br>
+
+        <button  *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" (click)="deslogar()">
+          <mat-icon>cancel</mat-icon>
+          Desconectar
+        </button>
+
+      </div>
+    </div>
+
+
+    <button class="central-btn" mat-icon-button [routerLink]="'/carrinho'">
+      <mat-icon>shopping_cart</mat-icon>
+      <span class="cart-badge">{{ carrinhoService.quantidadeTotalItens() }}</span> <!-- Exibe a quantidade total de itens -->
+    </button>
+    
+  </div>
+</mat-toolbar>
+
+
+<div class="container">
+  <h2 class="section-title">Meus Dados</h2>
+
+  <form [formGroup]="formGroup" class="form-container">
+    <div class="form-row">
+      <!-- Nome -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nome</mat-label>
+        <mat-icon matPrefix>person</mat-icon>
+        <input matInput formControlName="nome" />
+      </mat-form-field>
+
+      <!-- CPF -->
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>CPF</mat-label>
+        <mat-icon matPrefix>badge</mat-icon>
         <input matInput formControlName="cpf" />
       </mat-form-field>
     </div>
 
-    <div class="form-group">
-      <mat-form-field appearance="fill">
+    <div class="form-row">
+      <!-- Data de Nascimento -->
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Data de Nascimento</mat-label>
+        <mat-icon matPrefix>event</mat-icon>
         <input matInput formControlName="dataNascimento" type="date" />
       </mat-form-field>
-    </div>
 
-    <div class="form-group">
-      <mat-form-field appearance="fill">
+      <!-- Usuário
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Usuário</mat-label>
+        <mat-icon matPrefix>account_circle</mat-icon>
         <input matInput formControlName="username" />
       </mat-form-field>
     </div>
 
-    <div class="form-group">
-      <mat-form-field appearance="fill">
+    <div class="form-row">
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Senha</mat-label>
+        <mat-icon matPrefix>lock</mat-icon>
         <input matInput formControlName="senha" type="password" />
-      </mat-form-field>
-    </div>
+      </mat-form-field> -->
 
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>DDD</mat-label>
-        <input matInput formControlName="ddd" />
-      </mat-form-field>
-    </div>
-
-    <div class="form-group">
-      <mat-form-field appearance="fill">
-        <mat-label>Número</mat-label>
-        <input matInput formControlName="numero" />
-      </mat-form-field>
-    </div>
-
-    <div class="form-group">
-      <mat-form-field appearance="fill">
+      <!-- CEP -->
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>CEP</mat-label>
+        <mat-icon matPrefix>home</mat-icon>
         <input matInput formControlName="cep" />
       </mat-form-field>
     </div>
 
-    <div class="form-group">
-      <mat-form-field appearance="fill">
+    <div class="form-row">
+      <!-- Rua -->
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Rua</mat-label>
+        <mat-icon matPrefix>map</mat-icon>
         <input matInput formControlName="rua" />
       </mat-form-field>
-    </div>
 
-    <div class="form-group">
-      <mat-form-field appearance="fill">
+      <!-- Complemento -->
+      <mat-form-field appearance="outline" class="form-field">
         <mat-label>Complemento</mat-label>
+        <mat-icon matPrefix>add_location</mat-icon>
         <input matInput formControlName="complemento" />
       </mat-form-field>
     </div>
 
+    <div class="form-row">
+      <!-- DDD -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>DDD</mat-label>
+        <mat-icon matPrefix>phone</mat-icon>
+        <input matInput formControlName="ddd" />
+      </mat-form-field>
+
+      <!-- Número -->
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Número</mat-label>
+        <mat-icon matPrefix>smartphone</mat-icon>
+        <input matInput formControlName="numero" />
+      </mat-form-field>
+    </div>
+
+    <!-- Botão Salvar -->
     <div class="form-actions">
-      <button mat-raised-button color="primary" (click)="salvar()">Salvar</button>
+      <button mat-raised-button color="primary" class="save-button" (click)="salvar()">
+        <mat-icon>save</mat-icon>
+        Salvar
+      </button>
     </div>
   </form>
-
-  <ng-template #loading>
-    <p>Carregando dados...</p>
-  </ng-template>
 </div>
