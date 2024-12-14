@@ -267,9 +267,6 @@ public class ClienteServiceImp implements ClienteService {
             throw new IllegalArgumentException("Token JWT inválido ou claim ausente.");
         }
         
-
-        
-
         Long userId = Long.valueOf(jwt.getClaim("userId").toString());
         Cliente cliente = repository.findByIdUsuario(userId);
 

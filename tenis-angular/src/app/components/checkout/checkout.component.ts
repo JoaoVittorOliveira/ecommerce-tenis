@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CarrinhoService } from '../../services/carrinho.service';
 import { ClienteService } from '../../services/cliente.service';
 import { CommonModule, NgFor } from '@angular/common';
+import { PedidoService } from '../../services/pedido.service';
+import { Pedido } from '../../models/pedido.model';
+import { ItemPedido } from '../../models/itempedido.model';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   standalone: true,
@@ -22,15 +26,26 @@ export class CheckoutComponent implements OnInit {
   ];
   entregaSelecionada = this.opcoesEntrega[0];
   pagamentoSelecionado = '';
+  formGroup: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private carrinhoService: CarrinhoService,
-    private clienteService: ClienteService
-  ) {}
+    private clienteService: ClienteService,
+    private pedidoService: PedidoService
+  ) {
+    this.formGroup = this.formBuilder.group({
+      idCliente: [null, Validators.required],
+      itens: this.formBuilder.array([]) // FormArray para itens
+    });
+  }
 
   ngOnInit(): void {
     // Carregar itens do carrinho
     this.carrinhoItens = this.carrinhoService.obter();
+
+    // Atualizar idCliente no formGroup
+    this.formGroup.patchValue({ idCliente: this.usuario.id });
 
     // Carregar dados do cliente
     this.clienteService.getMyAccount().subscribe(cliente => {
@@ -38,6 +53,20 @@ export class CheckoutComponent implements OnInit {
       console.log(this.usuario);
 
     });
+
+    // Popular o FormArray com os itens do carrinho
+    this.carrinhoItens.forEach(item => {
+      this.itensFormArray.push(
+        this.formBuilder.group({
+          idTenis: [item.id, Validators.required],
+          quantidade: [item.quantidade, [Validators.required]]
+        })
+      );
+    });
+  }
+
+  get itensFormArray(): FormArray {
+    return this.formGroup.get('itens') as FormArray;
   }
 
   calcularTotal(): number {
@@ -45,13 +74,22 @@ export class CheckoutComponent implements OnInit {
   }
 
   finalizarCompra(): void {
-    const pedido = {
-      itens: this.carrinhoItens,
-      cliente: this.usuario,
-      entrega: this.entregaSelecionada,
-      pagamento: this.pagamentoSelecionado
-    };
-    console.log('Pedido:', pedido);
-    alert('Compra finalizada com sucesso!');
+
+    if (this.formGroup.valid) {
+      const pedido = this.formGroup.value; // Objeto gerado a partir do FormGroup
+
+      this.pedidoService.insert(pedido).subscribe({
+        next: () => {
+          console.log('Pedido enviado:', pedido);
+          alert('Compra finalizada com sucesso!');
+        },
+        error: (err) => {
+          console.error('Erro ao finalizar compra:', err);
+        }
+      });
+    } else {
+      this.formGroup.markAllAsTouched();
+      alert('Preencha todos os campos corretamente antes de finalizar a compra.');
+    }
   }
 }

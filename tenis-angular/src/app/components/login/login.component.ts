@@ -12,6 +12,7 @@ import { NgIf } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { MatOption, MatSelect } from '@angular/material/select';
 import { MatIcon } from '@angular/material/icon';
+import { CarrinhoService } from '../../services/carrinho.service';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +31,7 @@ export class LoginComponent implements OnInit{
 
   constructor(
     private formBuilder: FormBuilder,
+    private carrinhoService: CarrinhoService,
     private authService: AuthService,
     private router: Router,
     private snackBar: MatSnackBar,
@@ -42,6 +44,10 @@ export class LoginComponent implements OnInit{
   } 
   ngOnInit(): void {
 
+    // limpar carrinho
+    this.carrinhoService.removerTudo();
+
+    // deslogar
     this.authService.removeToken();
     this.authService.removeUsuarioLogado();
 

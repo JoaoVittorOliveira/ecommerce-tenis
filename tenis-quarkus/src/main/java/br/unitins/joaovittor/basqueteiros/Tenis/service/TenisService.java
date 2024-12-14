@@ -14,5 +14,6 @@ public interface TenisService {
     public List<TenisResponseDTO> findAll(int page, int pageSize);
     public List<TenisResponseDTO> findAll();
     public TenisResponseDTO salveImage(Long id, String nomeImagem);
+    public void updateEstoque(Long id, int qtdComprada);
 
 }

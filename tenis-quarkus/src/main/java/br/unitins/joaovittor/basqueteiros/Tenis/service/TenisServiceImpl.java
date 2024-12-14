@@ -76,6 +76,14 @@ public class TenisServiceImpl implements TenisService{
     }
 
     @Override
+    @Transactional
+    public void updateEstoque(Long id, int qtdComprada) {
+        // FAZER PATH DE ESTOQUE PRODUTO
+        Tenis tenis = repository.findById(id);
+        tenis.setQuantidade(tenis.getQuantidade() - qtdComprada);
+    }
+
+    @Override
     public TenisResponseDTO findById(Long id) {
         Tenis tenis = repository.findById(id);
         if (tenis != null)
