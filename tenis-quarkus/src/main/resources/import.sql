@@ -232,7 +232,7 @@ VALUES
 -- Inserção de endereços
 INSERT INTO endereco(cep, rua, complemento, id_cliente) 
 VALUES 
-('111','rua 1','em frente a rua 2', 1),
+('11111111','rua 1','em frente a rua 2', 1),
 ('33344455', 'Rua das Flores', 'Casa 15', 2),
 ('44455566', 'Travessa do Sol', 'Fundos', 3),
 ('12345678', 'Rua das Palmeiras', 'Apto 301', 4),

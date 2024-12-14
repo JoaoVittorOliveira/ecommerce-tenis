@@ -69,9 +69,7 @@
     <ng-container matColumnDef="acao">
         <th mat-header-cell *matHeaderCellDef> Ações </th>
         <td mat-cell *matCellDef="let cliente"> 
-            <button mat-icon-button color="primary" routerLink="/admin/clientes/edit/{{cliente.id}}">
-                <mat-icon style="color: #4b0082;">edit</mat-icon>
-            </button>
+
             <button mat-icon-button color="warn" (click)="excluir(cliente)">
                 <mat-icon>delete</mat-icon>
             </button>
