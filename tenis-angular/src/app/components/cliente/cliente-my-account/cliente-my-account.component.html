@@ -1,13 +1,83 @@
-<!-- meus-dados.component.html -->
-<div class="container" *ngIf="cliente | async as cliente; else loading">
-    <h2>Meus Dados</h2>
-    <p><strong>Nome:</strong> {{ cliente.nome }}</p>
-    <p><strong>CPF:</strong> {{ cliente.cpf }}</p>
-    <p><strong>Username:</strong> {{ usuarioLogado?.username }}</p>
-    <p><strong>Data de Nascimento:</strong> {{ cliente.dataNascimento }}</p>
-    <p><strong>Telefone:</strong> {{ cliente.telefone.ddd }} {{ cliente.telefone.numero }}</p>
-    <p><strong>Endereço:</strong> {{ cliente.endereco.rua }}, {{ cliente.endereco.cep }}</p>
-  </div>
+<div class="container">
+  <h2>Meus Dados</h2>
+  <form [formGroup]="formGroup">
+
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input matInput formControlName="nome" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>CPF</mat-label>
+        <input matInput formControlName="cpf" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput formControlName="dataNascimento" type="date" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Usuário</mat-label>
+        <input matInput formControlName="username" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Senha</mat-label>
+        <input matInput formControlName="senha" type="password" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>DDD</mat-label>
+        <input matInput formControlName="ddd" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Número</mat-label>
+        <input matInput formControlName="numero" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>CEP</mat-label>
+        <input matInput formControlName="cep" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Rua</mat-label>
+        <input matInput formControlName="rua" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field appearance="fill">
+        <mat-label>Complemento</mat-label>
+        <input matInput formControlName="complemento" />
+      </mat-form-field>
+    </div>
+
+    <div class="form-actions">
+      <button mat-raised-button color="primary" (click)="salvar()">Salvar</button>
+    </div>
+  </form>
+
   <ng-template #loading>
-    <p>Carregando...</p>
+    <p>Carregando dados...</p>
   </ng-template>
+</div>

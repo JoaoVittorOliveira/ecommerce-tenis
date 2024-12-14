@@ -62,6 +62,14 @@ export class ClienteService {
     return this.httpClient.put<any>(`${this.baseUrl}/${cliente.id}`, data); 
   }
 
+  getMyAccount(): Observable<Cliente> {
+    return this.httpClient.get<Cliente>(`${this.baseUrl}/my-account`);
+  }
+  
+  updateMyAccount(cliente: Cliente): Observable<void> {
+    return this.httpClient.put<void>(`${this.baseUrl}/my-account`, cliente);
+  }
+
   delete(cliente: Cliente): Observable<any>{
     return this.httpClient.delete<any>(`${this.baseUrl}/${cliente.id}`); 
   }

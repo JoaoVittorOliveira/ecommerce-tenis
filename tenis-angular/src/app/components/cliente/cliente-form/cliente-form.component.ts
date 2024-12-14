@@ -49,6 +49,7 @@ export class ClienteFormComponent {
 
       //usuario
       username: ['', Validators.required],
+      
       senha: ['', Validators.required],
 
       //telefone
@@ -74,6 +75,8 @@ export class ClienteFormComponent {
     const cliente = this.activatedRoute.snapshot.data['cliente'];
     const isCadastro = !cliente || !cliente.id;
     
+    console.log(cliente.listaEndereco[0].cep);
+
     this.formGroup = this.formBuilder.group({
       id: [
         (cliente && cliente.id) ? cliente.id : null
@@ -92,7 +95,7 @@ export class ClienteFormComponent {
       ],
       
       username: [
-        (cliente && cliente.usuario.username) ? cliente.usuario.username : '', 
+        (cliente && cliente.username) ? cliente.username : '', 
         Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(60)])
       ],
 
@@ -100,10 +103,11 @@ export class ClienteFormComponent {
       senha: [
         cliente?.usuario?.senha || '', 
         isCadastro 
-        ? Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(60)])
-        : Validators.compose([Validators.required])
+        ? Validators.compose([Validators.required])
+        : Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(60)])
       ],
-
+      
+      // 
       ddd: [
         (cliente && cliente.telefone && cliente.telefone.ddd) ? cliente.telefone.ddd : '', 
         Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(2)])
@@ -113,17 +117,18 @@ export class ClienteFormComponent {
         Validators.compose([Validators.required, Validators.minLength(9), Validators.maxLength(9)])
       ],
 
-/*0 */
+
+      // Endereco
       cep: [
-        (cliente && cliente.endereco && cliente.endereco.cep) ? cliente.endereco.cep : '', 
+        (cliente && cliente.listaEndereco[0]) ? cliente.listaEndereco[0].cep : '', 
         Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(8)])
       ],
       rua: [
-        (cliente && cliente.rua && cliente.endereco.rua) ? cliente.endereco.rua : '', 
+        (cliente && cliente.listaEndereco[0]) ? cliente.listaEndereco[0].rua : '', 
         Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(50)])
       ],
       complemento: [
-        (cliente && cliente.endereco && cliente.endereco.complemento) ? cliente.endereco.complemento : '', 
+        (cliente && cliente.listaEndereco[0]) ? cliente.listaEndereco[0].complemento : '', 
         Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(50)])
       ]
 
@@ -144,6 +149,8 @@ export class ClienteFormComponent {
 
       const cliente = this.formGroup.value;
 
+      console.log('antes: ',cliente);
+
       if (!cliente.telefone) {
         cliente.telefone = { ddd: cliente.ddd, numero: cliente.numero };
       }
@@ -155,7 +162,8 @@ export class ClienteFormComponent {
       if (!cliente.endereco) {
         cliente.endereco = { cep: cliente.cep, rua: cliente.rua, complemento:cliente.complemento }; 
       }
-      console.log(cliente);
+      
+      console.log('depois: ',cliente);
 
       if (cliente.id == null) {
         this.clienteService.insert(cliente).subscribe({

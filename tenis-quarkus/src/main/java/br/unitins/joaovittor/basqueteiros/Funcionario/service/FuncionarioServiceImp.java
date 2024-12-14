@@ -82,8 +82,9 @@ public class FuncionarioServiceImp implements FuncionarioService {
         Usuario usuario = repository.findById(id).getUsuario();
         if(usuario != null){
             usuario.setUsername(dto.username());
+            
             // fazer hash da nova senha
-            usuario.setPassword(hashService.getHashSenha(dto.senha()));
+            //usuario.setPassword(hashService.getHashSenha(dto.senha()));
         } else {
             throw new ValidationException("Funcionario inexistente");
         }

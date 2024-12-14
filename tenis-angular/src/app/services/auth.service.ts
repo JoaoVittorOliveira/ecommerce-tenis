@@ -38,9 +38,7 @@ export class AuthService {
         username: username,
         senha: senha,
         perfil: perfil // 1 para Admin (Funcionario), 2 para Cliente, etc.
-      };
-
-      
+      };   
     
       return this.httpClient.post(`${this.baseUrl}`, params, { observe: 'response' }).pipe(
         tap((res: any) => {

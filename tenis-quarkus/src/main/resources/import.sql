@@ -121,7 +121,6 @@ values
 
 insert into tenis(nome, quantidade, peso, preco_compra, preco_venda, id_marca, id_material, id_cor, id_categoria, id_tamanho, nome_imagem)
 values
-
 ('Air Max Revolution', 150, 110, 70, 140, 1, 1, 1, 1, 1, '9.jpg'),
 ('Trail Blazer Pro', 120, 130, 90, 180, 2, 3, 4, 2, 2, 'trail.jpg'),
 ('Urban Street 2.0', 200, 125, 60, 120, 3, 2, 2, 3, 3, 'urban.jpg'),
@@ -245,3 +244,4 @@ VALUES
 ('89012345', 'Avenida das Nações', 'Fundos', 10),
 ('23456789', 'Alameda das Rosas', 'Sobrado', 11),
 ('56789012', 'Rua do Comércio', 'Andar 2', 12);
+

@@ -102,7 +102,7 @@ export class FuncionarioFormComponent {
 
       // Se for cadastro, validar por tamanho, se for update, validar só se existe
       senha: [
-        funcionario?.usuario?.senha || '', 
+        funcionario?.usuario.senha || '', 
         isCadastro 
         ? Validators.compose([Validators.required, Validators.minLength(6), Validators.maxLength(60)])
         : Validators.compose([Validators.required])
