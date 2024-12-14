@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cliente } from '../models/cliente.model';
+import { ClientePasswordUpdateDTO } from '../models/cliente-password-update.dto';
+import { ClienteUsernameUpdateDTO } from '../models/cliente-username-update.dto';
 
 @Injectable({
   providedIn: 'root'
@@ -72,5 +74,14 @@ export class ClienteService {
 
   delete(cliente: Cliente): Observable<any>{
     return this.httpClient.delete<any>(`${this.baseUrl}/${cliente.id}`); 
+  }
+
+  updatePassword(dto: ClientePasswordUpdateDTO): Observable<void> {
+    return this.httpClient.patch<void>(`${this.baseUrl}/update-password`, dto);
+  }
+
+  // Atualizar username
+  updateUsername(dto: ClienteUsernameUpdateDTO): Observable<void> {
+    return this.httpClient.patch<void>(`${this.baseUrl}/update-username`, dto);
   }
 }

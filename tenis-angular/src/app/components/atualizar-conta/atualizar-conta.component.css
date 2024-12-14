@@ -1,66 +1,4 @@
-/* Estilos para o componente Meus Dados */
-
-.container {
-    padding: 20px;
-    background-color: #f8f8ff; /* GhostWhite */
-    border: 1px solid #800080; /* Roxo */
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  
-  h2 {
-    color: #4b0082; /* Índigo Escuro */
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #333; /* Texto padrão */
-  }
-  
-  p strong {
-    color: #800080; /* Roxo */
-  }
-  
-  /* Estilos para o template de carregamento */
-  ng-template p {
-    text-align: center;
-    color: #4b0082; /* Índigo Escuro */
-    font-style: italic;
-  }
-  
-  /* Responsividade */
-  @media (max-width: 768px) {
-    .container {
-      padding: 15px;
-    }
-  
-    h2 {
-      font-size: 1.5rem;
-    }
-  
-    p {
-      font-size: 0.9rem;
-    }
-  }
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  .cart-badge {
+.cart-badge {
     background: #800080; /* Roxo */
     color: white;
     border-radius: 50%;
@@ -150,7 +88,7 @@
   .info-popup {
     display: none;
     position: absolute;
-    top: 110%; /* Aparece logo abaixo do botão */
+    top: 100%; /* Aparece logo abaixo do botão */
     left: 50%;
     transform: translateX(-50%);
     background-color: #f8f8ff; /* GhostWhite */
@@ -167,7 +105,6 @@
   .central-atendimento:hover .info-popup {
     display: block;
   }
-  
   
 
 
@@ -302,65 +239,3 @@
     padding: 50px;
   }
   
-
-
-
-  /* Container principal */
-.container {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 30px;
-  background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Título da seção */
-.section-title {
-  text-align: center;
-  font-size: 1.8em;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-/* Formulário */
-.form-container {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-/* Linhas do formulário */
-.form-row {
-  display: flex;
-  gap: 20px;
-}
-
-/* Campos do formulário */
-.form-field {
-  flex: 1;
-}
-
-/* Botões */
-.form-actions {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.save-button {
-  background-color: green;
-  color: #fff;
-  font-weight: bold;
-  padding: 10px 20px;
-  border-radius: 10px;
-  border: none;
-
-}
-
-.save-button:hover {
-  background-color: #4caf50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-}
