@@ -53,6 +53,7 @@ import { ClienteMyAccountComponent } from './components/cliente/cliente-my-accou
 
 import { CadastroClienteComponent } from './components/cadastro-cliente/cadastro-cliente.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { AtualizarContaComponent } from './components/atualizar-conta/atualizar-conta.component';
 
 
 
@@ -134,12 +135,15 @@ export const routes: Routes = [
 
             { path: 'carrinho', component: CarrinhoComponent, title: 'Passo Certo - Carrinho' },
             { path: 'finalizar', component: CheckoutComponent, title: 'Passo Certo - Finalizar Compra' },
+            { path: 'atualizar-conta', component: AtualizarContaComponent },
+
 
         ]
     },
     { path: 'not-authorized', component: NotAuthorizedComponent, title: 'Não Autorizado' },
 
+
     // Página de "Page Not Found"
-    { path: '**', component: NotFoundComponent, title: 'Página Não Encontrada' }
+    //{ path: '**', component: NotFoundComponent, title: 'Página Não Encontrada' }
 ];
 

@@ -1,0 +1,36 @@
+<div class="container">
+  <h2>Atualizar Conta</h2>
+
+  <!-- Formulário de Atualização de Senha -->
+  <form [formGroup]="passwordForm" (ngSubmit)="atualizarSenha()">
+    <h3>Atualizar Senha</h3>
+    <mat-form-field appearance="fill">
+      <mat-label>Senha Atual</mat-label>
+      <input matInput type="password" formControlName="senhaAtual" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nova Senha</mat-label>
+      <input matInput type="password" formControlName="novaSenha" />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="passwordForm.invalid">
+      Atualizar Senha
+    </button>
+  </form>
+
+  <hr />
+
+  <!-- Formulário de Atualização de Nome de Usuário -->
+  <form [formGroup]="usernameForm" (ngSubmit)="atualizarUsername()">
+    <h3>Atualizar Nome de Usuário</h3>
+    <mat-form-field appearance="fill">
+      <mat-label>Novo Nome de Usuário</mat-label>
+      <input matInput formControlName="novoUsername" />
+    </mat-form-field>
+
+    <button mat-raised-button color="accent" type="submit" [disabled]="usernameForm.invalid">
+      Atualizar Nome de Usuário
+    </button>
+  </form>
+</div>
