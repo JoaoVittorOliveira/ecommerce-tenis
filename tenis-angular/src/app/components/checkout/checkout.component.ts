@@ -44,15 +44,15 @@ export class CheckoutComponent implements OnInit {
     // Carregar itens do carrinho
     this.carrinhoItens = this.carrinhoService.obter();
 
-    // Atualizar idCliente no formGroup
-    this.formGroup.patchValue({ idCliente: this.usuario.id });
+    
 
     // Carregar dados do cliente
     this.clienteService.getMyAccount().subscribe(cliente => {
       this.usuario = cliente;
-      console.log(this.usuario);
-
     });
+
+    // Atualizar idCliente no formGroup
+    this.formGroup.patchValue({ idCliente: this.usuario.id });
 
     // Popular o FormArray com os itens do carrinho
     this.carrinhoItens.forEach(item => {
@@ -63,6 +63,7 @@ export class CheckoutComponent implements OnInit {
         })
       );
     });
+
   }
 
   get itensFormArray(): FormArray {
@@ -74,6 +75,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   finalizarCompra(): void {
+
+    this.formGroup.patchValue({ idCliente: this.usuario.id });
 
     if (this.formGroup.valid) {
       const pedido = this.formGroup.value; // Objeto gerado a partir do FormGroup
