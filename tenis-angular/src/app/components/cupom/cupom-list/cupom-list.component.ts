@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Cupom } from '../../../models/cupom.model';
 import { CupomService } from '../../../services/cupom.service';
 import { OnInit, Component } from '@angular/core';
@@ -12,6 +12,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
 import { MatFormField, MatInputModule } from '@angular/material/input';
+import { DeleteDialog } from '../../delete-dialog/delete-dialog.component';
+import { DeleteDialogError } from '../../delete-dialog-error/delete-dialog-error.component';
 
 @Component({
   selector: 'app-cupom-list',
@@ -32,14 +34,15 @@ export class CupomListComponent{
 
 
   totalRecords = 0;
-  pageSize = 4;
+  pageSize = 10;
   page = 0;
   showSearch = false;
   filterValue = '';
 
   constructor(private cupomService: CupomService,
      private dialog: MatDialog,
-     private datePipe: DatePipe){
+     private datePipe: DatePipe,
+     private router: Router){
 
   }
 
@@ -105,19 +108,32 @@ export class CupomListComponent{
   }
 
   excluir(cupom: Cupom): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    const dialogRef = this.dialog.open(DeleteDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.cupomService.delete(cupom).subscribe({
           next: () => {
-            this.applyCurrentFilter();
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/admin/cupons']); // Navega de volta para a lista
+            });
           },
           error: (err) => {
-            console.error('Erro ao tentar excluir o cupom', err);
+            console.error('Erro ao tentar excluir o telefone', err);
+            this.erroExcluir();
           }
         });
       }
+    });
+  }
+
+  erroExcluir():void{
+    const dialogError = this.dialog.open(DeleteDialogError, {
+      data: { message: 'Erro ao tentar excluir o telefone. Por favor, tente novamente.' },
+    });
+    
+    dialogError.afterClosed().subscribe(result => {
+      // Aqui você pode lidar com o fechamento do diálogo, se necessário.
     });
   }
 

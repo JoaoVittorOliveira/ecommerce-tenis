@@ -8,13 +8,15 @@ import { MatFormField, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterModule } from '@angular/router';
 import { Funcionario } from '../../../models/funcionario.model';
 import { FuncionarioService } from '../../../services/funcionario.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
+import { DeleteDialog } from '../../delete-dialog/delete-dialog.component';
+import { DeleteDialogError } from '../../delete-dialog-error/delete-dialog-error.component';
 
 @Component({
   selector: 'app-funcionario-list',
@@ -31,6 +33,7 @@ import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
             RouterModule,
             MatCheckboxModule,
             MatSelectModule,
+            RouterLink,
           MatPaginator],
   providers: [
             { provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
@@ -44,17 +47,18 @@ export class FuncionarioListComponent {
   funcionarioList: Funcionario[]=[];
 
   totalRecords = 0;
-  pageSize = 5;
+  pageSize = 10;
   page = 0;
   showSearch = false;
   filterValue = '';
   filteredFuncionario: Funcionario[] = [];
 
-  constructor(private funcionarioService: FuncionarioService, private dialog: MatDialog){
-
+  constructor(private funcionarioService: FuncionarioService, private dialog: MatDialog, private router: Router){
+    
   }
 
   ngOnInit(): void {
+    
     this.funcionarioService.findAll().subscribe(
       data => { 
         console.log(data); 
@@ -81,19 +85,32 @@ export class FuncionarioListComponent {
   }
 
   excluir(funcionario: Funcionario): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    const dialogRef = this.dialog.open(DeleteDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.funcionarioService.delete(funcionario).subscribe({
           next: () => {
-            this.funcionarioList = this.funcionarioList.filter(e => e.id !== funcionario.id);
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/admin/funcionarios']); // Navega de volta para a lista
+            });
           },
           error: (err) => {
-            console.error('Erro ao tentar excluir o funcionario', err);
+            console.error('Erro ao tentar excluir o telefone', err);
+            this.erroExcluir();
           }
         });
       }
+    });
+  }
+
+  erroExcluir():void{
+    const dialogError = this.dialog.open(DeleteDialogError, {
+      data: { message: 'Erro ao tentar excluir o telefone. Por favor, tente novamente.' },
+    });
+    
+    dialogError.afterClosed().subscribe(result => {
+      // Aqui você pode lidar com o fechamento do diálogo, se necessário.
     });
   }
 

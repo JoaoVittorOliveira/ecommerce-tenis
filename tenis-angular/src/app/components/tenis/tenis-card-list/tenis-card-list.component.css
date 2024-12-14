@@ -189,3 +189,135 @@ mat-card-footer button {
 .central-atendimento:hover .info-popup {
   display: block;
 }
+
+
+
+
+
+
+
+
+
+::ng-deep .mat-snack-bar-container {
+  background-color: #4caf50; /* Cor de fundo verde (sugestão) */
+  color: white;  /* Cor do texto */
+  border-radius: 8px; /* Borda arredondada */
+  padding: 16px 24px; /* Mais padding para dar um visual mais elegante */
+  font-size: 16px; /* Tamanho de fonte maior */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2); /* Sombras para destaque */
+}
+
+::ng-deep .mat-snack-bar-action {
+  color: #ffffff; /* Cor do texto de "fechar" */
+  font-weight: bold;
+}
+
+::ng-deep .mat-snack-bar-container .mat-simple-snackbar {
+  font-size: 16px; /* Tamanho de fonte do conteúdo da snackbar */
+}
+
+
+
+
+.carousel {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out; /* Suavidade da troca de banners */
+}
+
+.carousel-slide {
+  min-width: 100%;
+}
+
+
+
+.carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 300px;
+}
+
+.carousel-track {
+  display: flex;
+  animation: scroll 10s linear infinite;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+}
+
+.carousel img {
+  width: 40%;
+  height: auto;
+  display: block;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-400%);
+  }
+}
+
+.info-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.info-item mat-icon {
+  font-size: 20px;
+  color: #333;
+}
+
+
+.banners-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  overflow: hidden; /* Impede que os elementos excedam o contêiner */
+}
+
+.banners {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto; /* Adiciona rolagem horizontal */
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+.banner {
+  flex: 0 0 auto; /* Impede o redimensionamento forçado dos elementos */
+  width: 100%; /* Ocupa todo o contêiner */
+  max-width: 900px; /* Define um tamanho máximo */
+  height: auto; /* Altura proporcional */
+}
+
+.banner img {
+  width: 100%;
+  height: 500px; /* Define altura fixa */
+   object-fit: cover;/* Evita distorções mantendo a proporção */
+  border-radius: 8px;
+}
+.banners::-webkit-scrollbar {
+  display: none; /* Oculta a barra de rolagem */
+}
+

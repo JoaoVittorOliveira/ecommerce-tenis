@@ -1,10 +1,12 @@
 <mat-toolbar>
   <div class="toolbar-left">
     <button [routerLink]="'/ecommerce'" class="voltar">  
-    <img src="../icons/logo-branco.svg" alt="Logo" class="logo" />
-  </button>
+      <img src="../icons/logo-branco.svg" alt="Logo" class="logo" />
+    </button>
+
   </div>
   <div class="toolbar-right">
+
     <div class="central-atendimento">
       <button class="central-btn" mat-button ><mat-icon>support_agent</mat-icon> Central de Atendimento</button>
       <div class="info-popup">
@@ -15,12 +17,45 @@
       </div>
     </div>
 
-    <button class="central-btn" mat-button><mat-icon >person</mat-icon> Minha Conta</button>
+    <div class="central-atendimento">
+      <button class="central-btn" mat-button><mat-icon >person</mat-icon> Minha Conta</button>
+      <div class="info-popup">
+        <p>Olá 
+          <strong *ngIf="usuarioLogado?.username">{{usuarioLogado?.username}}</strong>
+          <strong *ngIf="!usuarioLogado?.username">visitante</strong>
+        </p>
+        
+        <button *ngIf="!usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" routerLink="/login-selection">
+          <mat-icon>login</mat-icon>
+          Entrar
+        </button>
+
+        <button *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" routerLink="/minha-conta">
+          <mat-icon>account_circle</mat-icon>
+          Dados Pessoais
+        </button>
+
+        <br>
+
+        <button *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;">
+          <mat-icon>inventory_2</mat-icon>
+          Meus Pedidos
+        </button>
+
+        <br>
+
+        <button  *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" (click)="deslogar()">
+          <mat-icon>cancel</mat-icon>
+          Desconectar
+        </button>
+
+      </div>
+    </div>
 
 
     <button class="central-btn" mat-icon-button [routerLink]="'/carrinho'">
       <mat-icon>shopping_cart</mat-icon>
-      <span class="cart-badge">{{ quantidadeTotalItens() }}</span>
+      <span class="cart-badge">{{ quantidadeTotalItens() }}</span> <!-- Exibe a quantidade total de itens -->
     </button>
     
   </div>
@@ -32,12 +67,12 @@
       <img class="produto-imagem" [src]="item.imageUrl" alt="{{ item.nome }}" />
       <div class="produto-detalhes">
         <h3>{{ item.nome }}</h3>
-        <p>Cód: {{ item.quantidade }}</p>
-        <p>Tamanho: {{ item.quantidade }}</p>
-        <p>Entrega: {{ item.quantidade }}</p>
+        <p>Quantidade: {{ item.quantidade}}</p>
+        <p>Valor unitário: {{ item.preco | currency:'BRL':'symbol':'1.2-2'  }}</p>
+
       </div>
       <div class="produto-acoes">
-        <p class="produto-preco">{{ item.preco | currency:'BRL':'symbol':'1.2-2' }}</p>
+        <p class="produto-preco">{{ item.preco*item.quantidade | currency:'BRL':'symbol':'1.2-2' }}</p>
         <div class="quantidade-controle">
           <button (click)="alterarQuantidade(item, -1)">-</button>
           <span>{{ item.quantidade }}</span>
@@ -52,6 +87,10 @@
     </div>
   </div>
 </ng-container>
+
 <ng-template #carrinhoVazio>
-  <p>O carrinho está vazio.</p>
+  <mat-icon class="icon-vazio">sentiment_very_dissatisfied</mat-icon>
+  <h1 class="vazio">O carrinho está vazio.</h1>
+  <h3 class="h3-vazio">Que tal começar conferindo alguns produtos que podem ser amor à primeira vista?  </h3>
+  <button class="compras"  [routerLink]="'/ecommerce'">Ir às compras</button>
 </ng-template>
