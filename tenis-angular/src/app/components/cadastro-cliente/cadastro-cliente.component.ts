@@ -142,7 +142,6 @@ export class CadastroClienteComponent {
 
   }
 
-
   salvar() {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid) {
       const cliente = {

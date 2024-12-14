@@ -14,8 +14,6 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Pedido extends DefaultEntity{
-    
-    // Implementar pagamento
 
     private LocalDateTime data;
 

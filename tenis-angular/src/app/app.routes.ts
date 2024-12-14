@@ -53,6 +53,7 @@ import { ClienteMyAccountComponent } from './components/cliente/cliente-my-accou
 
 import { CadastroClienteComponent } from './components/cadastro-cliente/cadastro-cliente.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { PedidoListComponent } from './components/pedido/pedido-list/pedido-list.component';
 
 
 
@@ -70,6 +71,7 @@ export const routes: Routes = [
         title: 'e-commerce',
         canActivate: [authGuard],
         children: [
+
             {path: 'enderecos', component: EnderecoListComponent, title: 'Lista de Endereços',canActivate: [authGuard]},
             {path: 'enderecos/new',component: EnderecoFormComponent, title: 'Novo Endereço',canActivate: [authGuard]},
             {path: 'enderecos/edit/:id',component: EnderecoFormComponent, resolve: {endereco: enderecoResolver},canActivate: [authGuard]},
@@ -114,6 +116,8 @@ export const routes: Routes = [
             {path: 'clientes', component: ClienteListComponent, title: 'Lista de Clientes',canActivate: [authGuard]},
             {path: 'clientes/new',component: ClienteFormComponent, title: 'Novo Cliente',canActivate: [authGuard]},
             {path: 'clientes/edit/:id',component: ClienteFormComponent, resolve: {cliente: clienteResolver},canActivate: [authGuard]},
+
+            {path: 'pedidos', component: PedidoListComponent, title: 'Lista de Pedidos',canActivate: [authGuard]},
         
             {path: '', component: IndexListComponent, title: 'Gerenciamento',canActivate: [authGuard]},
         ]

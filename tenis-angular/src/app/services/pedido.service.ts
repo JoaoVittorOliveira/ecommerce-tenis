@@ -29,7 +29,6 @@ export class PedidoService {
     return this.httpClient.get<number>(`${this.baseUrl}/count`); 
   }
 
-
   findPedidoByClienteId(id: number): Observable<Pedido> {
     return this.httpClient.get<Pedido>(`${this.baseUrl}/search/cliente/id/${id}`); 
   }
@@ -37,5 +36,5 @@ export class PedidoService {
   insert(pedido: Pedido): Observable<Pedido> {
     return this.httpClient.post<Pedido>(this.baseUrl, pedido);
   }
-  
+
 }
