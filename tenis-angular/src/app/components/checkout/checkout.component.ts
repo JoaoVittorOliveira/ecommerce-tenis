@@ -92,6 +92,7 @@ export class CheckoutComponent implements OnInit {
   deslogar(): void {
     this.authService.removeToken();
     this.authService.removeUsuarioLogado();
+    window.location.reload();
   }
   calcularTotal(): number {
     return this.carrinhoItens.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
@@ -114,6 +115,8 @@ export class CheckoutComponent implements OnInit {
           alert('Erro ao finalizar compra.');
         },
       });
+// limpar carrinho
+this.carrinhoService.removerTudo();
     } else {
       this.formGroup.markAllAsTouched();
       alert('Preencha todos os campos corretamente antes de finalizar a compra.');

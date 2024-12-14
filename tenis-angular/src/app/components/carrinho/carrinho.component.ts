@@ -63,6 +63,7 @@ export class CarrinhoComponent implements OnInit{
   deslogar(): void {
     this.authService.removeToken();
     this.authService.removeUsuarioLogado();
+    window.location.reload();
   }
 
 

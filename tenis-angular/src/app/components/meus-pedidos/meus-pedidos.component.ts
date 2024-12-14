@@ -57,6 +57,7 @@ export class MeusPedidosComponent implements OnInit {
   deslogar(): void {
     this.authService.removeToken();
     this.authService.removeUsuarioLogado();
+    window.location.reload();
   }
 
 

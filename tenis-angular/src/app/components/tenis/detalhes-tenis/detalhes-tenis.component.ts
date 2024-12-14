@@ -132,6 +132,7 @@ export class DetalhesTenisComponent implements OnInit, AfterViewInit {
   deslogar(): void {
     this.authService.removeToken();
     this.authService.removeUsuarioLogado();
+    window.location.reload();
   }
 
   openDetalhes(card: Card) {

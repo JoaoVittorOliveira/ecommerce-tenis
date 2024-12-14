@@ -147,6 +147,6 @@ export const routes: Routes = [
 
 
     // Página de "Page Not Found"
-    //{ path: '**', component: NotFoundComponent, title: 'Página Não Encontrada' }
+    { path: '**', component: NotFoundComponent, title: 'Página Não Encontrada' }
 ];
 
