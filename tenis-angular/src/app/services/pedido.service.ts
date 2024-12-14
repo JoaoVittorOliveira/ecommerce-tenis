@@ -30,8 +30,8 @@ export class PedidoService {
   }
 
 
-  findPedidoByClienteId(id: number): Observable<Pedido> {
-    return this.httpClient.get<Pedido>(`${this.baseUrl}/search/cliente/id/${id}`); 
+  findPedidoByClienteId(id: number): Observable<Pedido[]> {
+    return this.httpClient.get<Pedido[]>(`${this.baseUrl}/search/cliente/id/${id}`); 
   }
 
   insert(pedido: Pedido): Observable<Pedido> {

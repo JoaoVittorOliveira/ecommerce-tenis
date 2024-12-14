@@ -43,10 +43,11 @@ public class PedidoResource {
     @Path("/search/cliente/id/{id}")
     public Response findPedidosByClienteId( @PathParam("id") Long id){
         LOG.infof("Executando o metodo findById. Id: %s", id.toString());
-        return Response.ok(service.findById(id)).build();
+        return Response.ok(service.findByCliente(id)).build();
     }
 
     @GET
+    
     public Response findByCliente( @PathParam("idCliente") Long idCliente ){
         LOG.infof("Executando o metodo findByCliente. IdCliente: %s", idCliente.toString());
         return Response.ok(service.findByCliente(idCliente)).build();

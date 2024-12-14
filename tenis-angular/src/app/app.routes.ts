@@ -54,6 +54,7 @@ import { ClienteMyAccountComponent } from './components/cliente/cliente-my-accou
 import { CadastroClienteComponent } from './components/cadastro-cliente/cadastro-cliente.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { AtualizarContaComponent } from './components/atualizar-conta/atualizar-conta.component';
+import { MeusPedidosComponent } from './components/meus-pedidos/meus-pedidos.component';
 
 
 
@@ -135,6 +136,8 @@ export const routes: Routes = [
 
             { path: 'carrinho', component: CarrinhoComponent, title: 'Passo Certo - Carrinho' },
             { path: 'finalizar', component: CheckoutComponent, title: 'Passo Certo - Finalizar Compra' },
+            { path: 'meus-pedidos', component: MeusPedidosComponent, title: 'Passo Certo - Meus pedidos' },
+
             { path: 'atualizar-conta', component: AtualizarContaComponent },
 
 

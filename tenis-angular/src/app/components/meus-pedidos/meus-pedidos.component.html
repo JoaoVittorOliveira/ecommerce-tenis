@@ -1,0 +1,21 @@
+<h2>Meus Pedidos</h2>
+
+<div *ngIf="pedidos.length > 0; else noPedidos">
+  <div *ngFor="let pedido of pedidos" class="pedido-card">
+    <h3>Pedido #{{ pedido.id }}</h3>
+    <p>Total: R$ {{ pedido.total }}</p>
+    <p>Itens:</p>
+    <ul>
+      <li *ngFor="let item of pedido.itens">
+        Produto ID: {{ item.id }} - Quantidade: {{ item.quantidade }} - Valor Unitário: R$ {{ item.valorProduto }}
+      </li>
+    </ul>
+    <p>Cliente: {{ pedido.cliente.nome }}</p>
+    <p>Telefone: ({{ pedido.cliente.telefone.ddd }}) {{ pedido.cliente.telefone.numero }}</p>
+    <p>Endereço: {{ pedido.cliente.listaEndereco[0]?.rua }} - {{ pedido.cliente.listaEndereco[0]?.complemento }}</p>
+  </div>
+</div>
+
+<ng-template #noPedidos>
+  <p>Você ainda não realizou nenhum pedido.</p>
+</ng-template>
