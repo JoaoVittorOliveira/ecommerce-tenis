@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
 import { Tenis } from '../../../models/tenis.model';
 import { TenisService } from '../../../services/tenis.service';
 import { MatCardActions, MatCardContent, MatCardFooter, MatCardModule, MatCardTitle } from '@angular/material/card';
@@ -38,6 +38,7 @@ type Card = {
   styleUrl: './tenis-card-list.component.css'
 })
 export class TenisCardListComponent implements OnInit {
+  @ViewChild('bannerContainer', { static: false }) bannerContainer!: ElementRef;
 
   tenis: Tenis[] = [];
 
@@ -72,6 +73,7 @@ export class TenisCardListComponent implements OnInit {
     this.carregarTenis();
     this.carregarCategorias();
     this.carregarUsuarioLogado();
+    //this.startCarousel();
   }
 
   carregarCategorias(){
@@ -80,6 +82,18 @@ export class TenisCardListComponent implements OnInit {
     })
   }
 
+  banners = [
+    { url: 'icons/BANNER1.svg' },
+    { url: 'icons/BANNER2.svg' },
+    { url: 'icons/BANNER3.svg' },
+    { url: 'icons/BANNER4.svg' },
+  ];
+
+  
+
+  currentBannerIndex = 0; // Índice atual do banner
+carouselInterval: any; // Referência ao intervalo
+
   categoriaSelecionada: number | null = null; // Armazena a categoria selecionada
 
   filtrarPorCategoria(categoria: Categoria): void {
@@ -87,6 +101,25 @@ export class TenisCardListComponent implements OnInit {
     this.filteredTenis = this.tenis.filter(tenis => tenis.categoria.id === categoria.id);
     this.carregarCards();
   }
+
+  scrollLeft(): void {
+    this.bannerContainer.nativeElement.scrollBy({ left: -800, behavior: 'smooth' });
+  }
+
+  scrollRight(): void {
+    this.bannerContainer.nativeElement.scrollBy({ left: 800, behavior: 'smooth' });
+  }
+/*
+  startCarousel(): void {
+    this.carouselInterval = setInterval(() => {
+      this.currentBannerIndex = (this.currentBannerIndex + 1) % this.banners.length;
+    }, 3000); // Troca a cada 3 segundos
+  }
+  
+  stopCarousel(): void {
+    clearInterval(this.carouselInterval);
+  }
+  */
   
   limparCategorias(): void {
     this.categoriaSelecionada = null;

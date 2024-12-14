@@ -67,6 +67,46 @@
     </div>
   </mat-toolbar>
   
+
+<!-- Carrossel de banners -->
+<div class="banners-container">
+  <button mat-icon-button (click)="scrollLeft()">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+  <div class="banners" #bannerContainer>
+    <div class="banner" *ngFor="let banner of banners">
+      <img [src]="banner.url" alt="Banner" />
+    </div>
+  </div>
+  <button mat-icon-button (click)="scrollRight()">
+    <mat-icon>chevron_right</mat-icon>
+  </button>
+</div>
+
+
+<!-- Barra de informações -->
+<div class="info-bar">
+  <div class="info-item">
+    <mat-icon>local_shipping</mat-icon>
+    <span>Descontos exclusivos no frete</span>
+  </div>
+  <div class="info-item">
+    <mat-icon>credit_card</mat-icon>
+    <span>Parcelamento em até 5x</span>
+  </div>
+  <div class="info-item">
+    <mat-icon>security</mat-icon>
+    <span>Compra segura com SSL</span>
+  </div>
+  <div class="info-item">
+    <mat-icon>payments</mat-icon>
+    <span>Cupons com os melhores benefícios</span>
+  </div>
+</div>
+
+
+
+
   <div class="categorias">
     <button mat-button [class.active]="!categoriaSelecionada" (click)="limparCategorias()">Todos</button>
     <button

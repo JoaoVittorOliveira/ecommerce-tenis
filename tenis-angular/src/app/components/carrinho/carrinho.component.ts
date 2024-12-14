@@ -6,6 +6,9 @@ import { CarrinhoService } from '../../services/carrinho.service';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
+import { Usuario } from '../../models/usuario.model';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-carrinho',
   standalone: true,
@@ -14,12 +17,17 @@ import { MatIcon } from '@angular/material/icon';
   styleUrl: './carrinho.component.css'
 })
 export class CarrinhoComponent implements OnInit{
+    usuarioLogado: Usuario | null = null;
+  private subscription = new Subscription();
+
   carrinhoItens: ItemCarrinho[] = [];
   constructor(
+        private authService: AuthService,
     private carrinhoService: CarrinhoService,
     private router: Router
   ) { }
   ngOnInit(): void {
+    this.carregarUsuarioLogado();
     this.carrinhoService.carrinho$.subscribe(itens => {
       this.carrinhoItens = itens;
     });
@@ -45,5 +53,18 @@ export class CarrinhoComponent implements OnInit{
   quantidadeTotalItens(): number {
     return this.carrinhoItens.reduce((total, item) => total + item.quantidade, 0);
   }
+
+  carregarUsuarioLogado(): void {
+    this.subscription.add(
+      this.authService.getUsuarioLogado().subscribe((usuario) => (this.usuarioLogado = usuario))
+    );
+  }
+
+  deslogar(): void {
+    this.authService.removeToken();
+    this.authService.removeUsuarioLogado();
+  }
+
+
 
 }

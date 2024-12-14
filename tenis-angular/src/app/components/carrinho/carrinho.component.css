@@ -88,7 +88,7 @@
   .info-popup {
     display: none;
     position: absolute;
-    top: 110%; /* Aparece logo abaixo do botão */
+    top: 100%; /* Aparece logo abaixo do botão */
     left: 50%;
     transform: translateX(-50%);
     background-color: #f8f8ff; /* GhostWhite */

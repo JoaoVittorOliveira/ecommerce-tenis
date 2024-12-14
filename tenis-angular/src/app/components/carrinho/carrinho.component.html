@@ -1,10 +1,12 @@
 <mat-toolbar>
   <div class="toolbar-left">
     <button [routerLink]="'/ecommerce'" class="voltar">  
-    <img src="../icons/logo-branco.svg" alt="Logo" class="logo" />
-  </button>
+      <img src="../icons/logo-branco.svg" alt="Logo" class="logo" />
+    </button>
+
   </div>
   <div class="toolbar-right">
+
     <div class="central-atendimento">
       <button class="central-btn" mat-button ><mat-icon>support_agent</mat-icon> Central de Atendimento</button>
       <div class="info-popup">
@@ -15,12 +17,45 @@
       </div>
     </div>
 
-    <button class="central-btn" mat-button><mat-icon >person</mat-icon> Minha Conta</button>
+    <div class="central-atendimento">
+      <button class="central-btn" mat-button><mat-icon >person</mat-icon> Minha Conta</button>
+      <div class="info-popup">
+        <p>Olá 
+          <strong *ngIf="usuarioLogado?.username">{{usuarioLogado?.username}}</strong>
+          <strong *ngIf="!usuarioLogado?.username">visitante</strong>
+        </p>
+        
+        <button *ngIf="!usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" routerLink="/login-selection">
+          <mat-icon>login</mat-icon>
+          Entrar
+        </button>
+
+        <button *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" routerLink="/minha-conta">
+          <mat-icon>account_circle</mat-icon>
+          Dados Pessoais
+        </button>
+
+        <br>
+
+        <button *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;">
+          <mat-icon>inventory_2</mat-icon>
+          Meus Pedidos
+        </button>
+
+        <br>
+
+        <button  *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" (click)="deslogar()">
+          <mat-icon>cancel</mat-icon>
+          Desconectar
+        </button>
+
+      </div>
+    </div>
 
 
     <button class="central-btn" mat-icon-button [routerLink]="'/carrinho'">
       <mat-icon>shopping_cart</mat-icon>
-      <span class="cart-badge">{{ quantidadeTotalItens() }}</span>
+      <span class="cart-badge">{{ quantidadeTotalItens() }}</span> <!-- Exibe a quantidade total de itens -->
     </button>
     
   </div>
