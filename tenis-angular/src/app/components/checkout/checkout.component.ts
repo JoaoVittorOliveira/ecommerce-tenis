@@ -7,20 +7,19 @@ import { Pedido } from '../../models/pedido.model';
 import { ItemPedido } from '../../models/itempedido.model';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-
 @Component({
+  standalone: true,
+  imports: [NgFor,CommonModule],
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css'],
-  standalone: true,
-  imports: [CommonModule, MatToolbar]
+  styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
   carrinhoItens: any[] = [];
   usuario: any = {};
   opcoesEntrega = [
     { descricao: 'Retirar no local', valor: 0, prazo: 31 },
-    { descricao: 'Frete Grátis', valor: 0, prazo: 40 },
+    { descricao: 'Frete GrÃ¡tis', valor: 0, prazo: 40 },
     { descricao: 'Jadlog', valor: 18.23, prazo: 36 },
     { descricao: 'PAC', valor: 27.50, prazo: 37 },
     { descricao: 'SEDEX', valor: 56.52, prazo: 32 }
@@ -63,6 +62,7 @@ export class CheckoutComponent implements OnInit {
           quantidade: [item.quantidade, [Validators.required]]
         })
       );
+    });
 
   }
 
