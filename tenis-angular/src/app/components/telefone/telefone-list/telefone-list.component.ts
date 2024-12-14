@@ -4,10 +4,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { TelefoneService } from '../../../services/telefone.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
+import { DeleteDialog } from '../../delete-dialog/delete-dialog.component';
+import { DeleteDialogError } from '../../delete-dialog-error/delete-dialog-error.component';
 
 @Component({
   selector: 'app-telefone-list',
@@ -20,7 +22,7 @@ export class TelefoneListComponent implements OnInit {
   displayedColumns: string[] = ['id','ddd','numero','acao'];
   telefones: Telefone[]=[];
 
-  constructor(private telefoneService: TelefoneService, private dialog: MatDialog){
+  constructor(private telefoneService: TelefoneService, private dialog: MatDialog,  private router: Router){
 
   }
   ngOnInit(): void {
@@ -32,19 +34,31 @@ export class TelefoneListComponent implements OnInit {
   }
 
   excluir(telefone: Telefone): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    const dialogRef = this.dialog.open(DeleteDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.telefoneService.delete(telefone).subscribe({
           next: () => {
-            this.telefones = this.telefones.filter(e => e.id !== telefone.id);
-          },
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/admin/telefones']); // Navega de volta para a lista
+            });          },
           error: (err) => {
             console.error('Erro ao tentar excluir o telefone', err);
+            this.erroExcluir();
           }
         });
       }
+    });
+  }
+
+  erroExcluir():void{
+    const dialogError = this.dialog.open(DeleteDialogError, {
+      data: { message: 'Erro ao tentar excluir o telefone. Por favor, tente novamente.' },
+    });
+    
+    dialogError.afterClosed().subscribe(result => {
+      // Aqui você pode lidar com o fechamento do diálogo, se necessário.
     });
   }
 }

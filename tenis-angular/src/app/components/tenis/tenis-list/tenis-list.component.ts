@@ -7,7 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule, NgIf } from '@angular/common';
 import { MatFormField, MatInputModule } from '@angular/material/input';
 import {MatCheckboxModule} from '@angular/material/checkbox';
@@ -18,6 +18,8 @@ import { Marca } from '../../../models/marca.model';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { CustomMatPaginatorIntl } from '../../../services/paginator.service';
+import { DeleteDialog } from '../../delete-dialog/delete-dialog.component';
+import { DeleteDialogError } from '../../delete-dialog-error/delete-dialog-error.component';
 
 @Component({
   selector: 'app-tenis-list',
@@ -65,7 +67,7 @@ export class TenisListComponent {
   filterValue = '';
 
 
-  constructor(private tenisService: TenisService, private dialog: MatDialog){
+  constructor(private tenisService: TenisService, private dialog: MatDialog,  private router: Router){
 
   }
   
@@ -153,21 +155,33 @@ export class TenisListComponent {
 
 
   excluir(tenis: Tenis): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    const dialogRef = this.dialog.open(DeleteDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.tenisService.delete(tenis).subscribe({
           next: () => {
-            this.tenisList = this.tenisList.filter(e => e.id !== tenis.id);
-          },
-          error: (err) => {
-            console.error('Erro ao tentar excluir o tenis', err);
-          }
-        });
-      }
-    });
-  }
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/admin/tenis']); // Navega de volta para a lista
+            });          },
+            error: (err) => {
+              console.error('Erro ao tentar excluir o telefone', err);
+              this.erroExcluir();
+            }
+          });
+        }
+      });
+    }
+  
+    erroExcluir():void{
+      const dialogError = this.dialog.open(DeleteDialogError, {
+        data: { message: 'Erro ao tentar excluir o telefone. Por favor, tente novamente.' },
+      });
+      
+      dialogError.afterClosed().subscribe(result => {
+        // Aqui você pode lidar com o fechamento do diálogo, se necessário.
+      });
+    }
 
     paginar(event: PageEvent): void {
       this.page = event.pageIndex;

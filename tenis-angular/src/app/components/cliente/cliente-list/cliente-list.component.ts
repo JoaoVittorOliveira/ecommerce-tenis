@@ -8,11 +8,13 @@ import { MatFormField, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from '../../dialog/confirm-dialog-component';
 import { Cliente } from '../../../models/cliente.model';
 import { ClienteService } from '../../../services/cliente.service';
+import { DeleteDialog } from '../../delete-dialog/delete-dialog.component';
+import { DeleteDialogError } from '../../delete-dialog-error/delete-dialog-error.component';
 
 @Component({
   selector: 'app-cliente-list',
@@ -39,13 +41,13 @@ export class ClienteListComponent {
   clienteList: Cliente[]=[];
 
   totalRecords = 0;
-  pageSize = 5;
+  pageSize = 10;
   page = 0;
   showSearch = false;
   filterValue = '';
   filteredCliente: Cliente[] = [];
 
-  constructor(private clienteService: ClienteService, private dialog: MatDialog){
+  constructor(private clienteService: ClienteService, private dialog: MatDialog, private router: Router){
 
   }
 
@@ -75,19 +77,32 @@ export class ClienteListComponent {
   }
 
   excluir(cliente: Cliente): void {
-    const dialogRef = this.dialog.open(ConfirmDialogComponent);
+    const dialogRef = this.dialog.open(DeleteDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.clienteService.delete(cliente).subscribe({
           next: () => {
-            this.clienteList = this.clienteList.filter(e => e.id !== cliente.id);
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/admin/clientes']); // Navega de volta para a lista
+            });
           },
           error: (err) => {
-            console.error('Erro ao tentar excluir o cliente', err);
+            console.error('Erro ao tentar excluir o telefone', err);
+            this.erroExcluir();
           }
         });
       }
+    });
+  }
+
+  erroExcluir():void{
+    const dialogError = this.dialog.open(DeleteDialogError, {
+      data: { message: 'Erro ao tentar excluir o telefone. Por favor, tente novamente.' },
+    });
+    
+    dialogError.afterClosed().subscribe(result => {
+      // Aqui você pode lidar com o fechamento do diálogo, se necessário.
     });
   }
 

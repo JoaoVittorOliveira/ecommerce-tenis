@@ -125,13 +125,13 @@ export const routes: Routes = [
         children: [
             {path: '', pathMatch: 'full', redirectTo: 'ecommerce'},
         
-            { path: 'ecommerce', component: TenisCardListComponent, title: 'Lista de Cards de Tênis'},
+            { path: 'ecommerce', component: TenisCardListComponent, title: 'Passo Certo'},
 
-            { path: 'detalhes/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis' },
+            { path: 'detalhes/:id', component: DetalhesTenisComponent, title: 'Passo Certo - Detalhes' },
 
             //{ path: 'ecommerce/tenis/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis'}
 
-            { path: 'carrinho', component: CarrinhoComponent, title: 'Carrinho de compra' },
+            { path: 'carrinho', component: CarrinhoComponent, title: 'Passo Certo - Carrinho' },
         ]
     },
     { path: 'not-authorized', component: NotAuthorizedComponent, title: 'Não Autorizado' },

@@ -88,7 +88,7 @@
   .info-popup {
     display: none;
     position: absolute;
-    top: 110%; /* Aparece logo abaixo do botão */
+    top: 100%; /* Aparece logo abaixo do botão */
     left: 50%;
     transform: translateX(-50%);
     background-color: #f8f8ff; /* GhostWhite */
@@ -209,3 +209,33 @@
   .finalizar-btn:hover {
     background-color: #45a045;
   }
+
+  .icon-vazio {
+    padding: 100px;
+    font-size: 120px; /* Aumenta o tamanho do ícone */
+    display: block; /* Faz o ícone ocupar a largura do seu container */
+    margin: 0 auto; /* Centraliza o ícone horizontalmente */
+  }
+  
+  .vazio {
+    text-align: center; /* Alinha o texto centralmente */
+    padding: 20px; /* Ajusta o padding para espaçar melhor */
+  }
+  
+  .compras {
+    font-size: large;
+    background-color: #2e0854;
+    color: white;
+    border: none;
+    padding: 20px 50px; /* Reduzi a padding para que o botão não ocupe tanto espaço */
+    border-radius: 5px;
+    cursor: pointer;
+    display: block; /* Torna o botão um bloco para ocupar toda a largura disponível */
+    margin: 20px auto; /* Centraliza horizontalmente com margem automática */
+  }
+  
+  .h3-vazio {
+    text-align: center;
+    padding: 50px;
+  }
+  
