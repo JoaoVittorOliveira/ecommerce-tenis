@@ -1,0 +1,94 @@
+/* Container principal */
+.checkout-container {
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Seções de checkout */
+.checkout-section {
+  margin-bottom: 20px;
+  background-color: white;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.section-title {
+  margin-bottom: 10px;
+  color: #333;
+  font-size: 1.2em;
+  border-bottom: 2px solid #fa7d32;
+  padding-bottom: 5px;
+}
+
+/* Produtos no carrinho */
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.product-total {
+  text-align: right;
+  font-size: 1.1em;
+  margin-top: 10px;
+}
+
+/* Dados do usuário */
+.user-info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* Opções de entrega */
+.shipping-option,
+.payment-option {
+  margin: 10px 0;
+}
+
+.shipping-option label,
+.payment-option label {
+  display: block;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.shipping-option input,
+.payment-option input {
+  margin-right: 10px;
+}
+
+.shipping-option label:hover,
+.payment-option label:hover {
+  background-color: #f3f3f3;
+}
+
+/* Botão Finalizar */
+.checkout-footer {
+  text-align: center;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  color: #fff;
+  background-color: #fa7d32;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #e6692b;
+}

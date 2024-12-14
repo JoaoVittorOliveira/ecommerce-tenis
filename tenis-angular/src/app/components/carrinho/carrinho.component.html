@@ -83,7 +83,7 @@
     </div>
     <div class="carrinho-total">
       <p>Subtotal: {{ calcularTotal() | currency:'BRL':'symbol':'1.2-2' }}</p>
-      <button class="finalizar-btn" (click)="finalizarCompra()">Finalizar Compra</button>
+      <button class="finalizar-btn" routerLink="/finalizar" (click)="finalizarCompra()">Finalizar Compra</button>
     </div>
   </div>
 </ng-container>

@@ -52,6 +52,7 @@ import { clientSectionGuard } from './guards/client-section.guard';
 import { ClienteMyAccountComponent } from './components/cliente/cliente-my-account/cliente-my-account.component';
 
 import { CadastroClienteComponent } from './components/cadastro-cliente/cadastro-cliente.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 
 
@@ -132,6 +133,8 @@ export const routes: Routes = [
             //{ path: 'ecommerce/tenis/:id', component: DetalhesTenisComponent, title: 'Detalhes do tenis'}
 
             { path: 'carrinho', component: CarrinhoComponent, title: 'Passo Certo - Carrinho' },
+            { path: 'finalizar', component: CheckoutComponent, title: 'Passo Certo - Finalizar Compra' },
+
         ]
     },
     { path: 'not-authorized', component: NotAuthorizedComponent, title: 'Não Autorizado' },

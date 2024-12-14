@@ -1,0 +1,71 @@
+
+
+
+<div class="checkout-container">
+  <!-- Resumo do Carrinho -->
+  <div class="checkout-section">
+    <h3 class="section-title">1. Produtos</h3>
+    <div *ngFor="let item of carrinhoItens" class="product-item">
+      <span>{{ item.nome }}</span>
+      <span>{{ item.quantidade }}x</span>
+      <span>{{ item.preco | currency:'BRL' }}</span>
+    </div>
+    <div class="product-total">
+      <strong>Subtotal:</strong> {{ calcularTotal() | currency:'BRL' }}
+    </div>
+  </div>
+
+  <!-- Dados do Cliente -->
+  <div class="checkout-section">
+    <h3 class="section-title">2. Dados cadastrais</h3>
+    <div class="user-info">
+      <p><strong>Nome:</strong> {{ usuario.nome }}</p>
+      <p><strong>Telefone:</strong> ({{ usuario.telefone.ddd }}) {{ usuario.telefone.numero }}</p>
+
+      <!--<p><strong>Email:</strong> {{ usuario.listaEndereco[0].cep }}</p>-->
+      <p><strong>CPF:</strong> {{ usuario.cpf }}</p>
+    </div>
+  </div>
+
+
+  <div class="checkout-section">
+    <h3 class="section-title">3. Endereço</h3>
+    <div class="user-info">
+      <p><strong>CEP:</strong> {{ usuario.listaEndereco[0].cep }}</p>
+      <p><strong>Rua:</strong> {{ usuario.listaEndereco[0].rua }}</p>
+      <p><strong>Complemento:</strong> {{ usuario.listaEndereco[0].complemento }}</p>
+    </div>
+  </div>
+
+  <!-- Opções de Entrega -->
+  <div class="checkout-section">
+    <h3 class="section-title">4. Entrega</h3>
+    <div *ngFor="let opcao of opcoesEntrega" class="shipping-option">
+      <label>
+        <input type="radio" name="frete" [value]="opcao" />
+        {{ opcao.descricao }} - {{ opcao.valor | currency:'BRL' }} ({{ opcao.prazo }} dias úteis)
+      </label>
+    </div>
+  </div>
+
+  <!-- Opções de Pagamento -->
+  <div class="checkout-section">
+    <h3 class="section-title">5. Pagamento</h3>
+    <div class="payment-option">
+      <label>
+        <input type="radio" name="pagamento" value="pix" /> Pix (5% de desconto)
+      </label>
+      <label>
+        <input type="radio" name="pagamento" value="boleto" /> Boleto (5% de desconto)
+      </label>
+      <label>
+        <input type="radio" name="pagamento" value="cartao" /> Cartão de Crédito
+      </label>
+    </div>
+  </div>
+
+  <!-- Botão Finalizar Compra -->
+  <div class="checkout-footer">
+    <button (click)="finalizarCompra()">Finalizar Compra</button>
+  </div>
+</div>

@@ -27,7 +27,6 @@ public class PedidoResource {
     private static final Logger LOG = Logger.getLogger(CorResource.class);
 
     @POST
-    @RolesAllowed("Cliente")
     public Response create(PedidoDTO dto){
         LOG.info("Executando o create");
         LOG.debugf("DTO: %s", dto);
@@ -35,7 +34,6 @@ public class PedidoResource {
     }
 
     @GET
-    @RolesAllowed("Funcionario")
     public Response findAll(){
         LOG.info("Executando o findAll");
         return Response.ok(service.findAll()).build();
@@ -43,14 +41,12 @@ public class PedidoResource {
 
     @GET
     @Path("/search/cliente/id/{id}")
-    @RolesAllowed("Funcionario")
     public Response findById( @PathParam("id") Long id){
         LOG.infof("Executando o metodo findById. Id: %s", id.toString());
         return Response.ok(service.findById(id)).build();
     }
 
     @GET
-    @RolesAllowed("Funcionario")
     public Response findByCliente( @PathParam("idCliente") Long idCliente ){
         LOG.infof("Executando o metodo findByCliente. IdCliente: %s", idCliente.toString());
         return Response.ok(service.findByCliente(idCliente)).build();
