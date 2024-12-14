@@ -1,21 +1,96 @@
-<h2>Meus Pedidos</h2>
+<mat-toolbar>
+  <div class="toolbar-left">
+    <button [routerLink]="'/ecommerce'" class="voltar">  
+      <img src="../icons/logo-branco.svg" alt="Logo" class="logo" />
+    </button>
 
-<div *ngIf="pedidos.length > 0; else noPedidos">
+  </div>
+  <div class="toolbar-right">
+
+    <div class="central-atendimento">
+      <button class="central-btn" mat-button ><mat-icon>support_agent</mat-icon> Central de Atendimento</button>
+      <div class="info-popup">
+        <p>Estamos no WhatsApp <br>
+          <strong><a href="https://w.app/PassoCerto">(12) 97407-0170</a></strong> <br>
+          Horário de atendimento: <BR>10h às 18h
+        </p>
+      </div>
+    </div>
+
+    <div class="central-atendimento">
+      <button class="central-btn" mat-button><mat-icon >person</mat-icon> Minha Conta</button>
+      <div class="info-popup">
+        <p>Olá 
+          <strong *ngIf="usuarioLogado?.username">{{usuarioLogado?.username}}</strong>
+          <strong *ngIf="!usuarioLogado?.username">visitante</strong>
+        </p>
+        
+        <button *ngIf="!usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" routerLink="/login-selection">
+          <mat-icon>login</mat-icon>
+          Entrar
+        </button>
+
+        <button *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" routerLink="/minha-conta">
+          <mat-icon>account_circle</mat-icon>
+          Dados Pessoais
+        </button>
+
+        <br>
+
+        <button *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" routerLink="/meus-pedidos">
+            <mat-icon>inventory_2</mat-icon>
+          Meus Pedidos
+        </button>
+
+        <br>
+
+        <button  *ngIf="usuarioLogado?.username" mat-button color="#fa7d32" style="width: 100%; padding: 10px;" (click)="deslogar()">
+          <mat-icon>cancel</mat-icon>
+          Desconectar
+        </button>
+
+      </div>
+    </div>
+
+
+    <button class="central-btn" mat-icon-button [routerLink]="'/carrinho'">
+      <mat-icon>shopping_cart</mat-icon>
+      <span class="cart-badge">{{ carrinhoService.quantidadeTotalItens() }}</span> <!-- Exibe a quantidade total de itens -->
+    </button>
+    
+  </div>
+</mat-toolbar>
+
+
+
+
+
+<h2 class="title">Meus Pedidos</h2>
+
+<div *ngIf="pedidos.length > 0; else noPedidos" class="pedidos-container">
   <div *ngFor="let pedido of pedidos" class="pedido-card">
-    <h3>Pedido #{{ pedido.id }}</h3>
-    <p>Total: R$ {{ pedido.total }}</p>
-    <p>Itens:</p>
-    <ul>
-      <li *ngFor="let item of pedido.itens">
-        Produto ID: {{ item.id }} - Quantidade: {{ item.quantidade }} - Valor Unitário: R$ {{ item.valorProduto }}
-      </li>
-    </ul>
-    <p>Cliente: {{ pedido.cliente.nome }}</p>
-    <p>Telefone: ({{ pedido.cliente.telefone.ddd }}) {{ pedido.cliente.telefone.numero }}</p>
-    <p>Endereço: {{ pedido.cliente.listaEndereco[0]?.rua }} - {{ pedido.cliente.listaEndereco[0]?.complemento }}</p>
+    <div class="pedido-header">
+      <h3>Pedido #{{ pedido.id }}</h3>
+      <p class="pedido-total">Total: <strong>R$ {{ pedido.total }}</strong></p>
+    </div>
+    <div class="pedido-body">
+      <p><strong>Itens:</strong></p>
+      <ul>
+        <li *ngFor="let item of pedido.itens" class="pedido-item">
+          <span>Produto ID: {{ item.id }}</span>
+          <span>Quantidade: {{ item.quantidade }}</span>
+          <span>Valor Unitário: R$ {{ item.valorProduto }}</span>
+        </li>
+      </ul>
+      <div class="pedido-cliente">
+        <p><strong>Cliente:</strong> {{ pedido.cliente.nome }}</p>
+        <p><strong>Telefone:</strong> ({{ pedido.cliente.telefone.ddd }}) {{ pedido.cliente.telefone.numero }}</p>
+        <p><strong>Endereço:</strong> {{ pedido.cliente.listaEndereco[0]?.rua }} - {{ pedido.cliente.listaEndereco[0]?.complemento }}</p>
+      </div>
+    </div>
   </div>
 </div>
 
 <ng-template #noPedidos>
-  <p>Você ainda não realizou nenhum pedido.</p>
+  <p class="no-pedidos">Você ainda não realizou nenhum pedido.</p>
 </ng-template>

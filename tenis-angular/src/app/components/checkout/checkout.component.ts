@@ -6,16 +6,24 @@ import { PedidoService } from '../../services/pedido.service';
 import { Pedido } from '../../models/pedido.model';
 import { ItemPedido } from '../../models/itempedido.model';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIcon } from '@angular/material/icon';
+import { AuthService } from '../../services/auth.service';
+import { Subscription } from 'rxjs';
+import { Usuario } from '../../models/usuario.model';
 
 @Component({
   standalone: true,
-  imports: [NgFor,CommonModule],
+  imports: [NgFor,CommonModule,MatToolbar,MatIcon,RouterLink],
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit {
+      usuarioLogado: Usuario | null = null;
+    private subscription = new Subscription();
+  
   carrinhoItens: any[] = [];
   usuario: any = {};
   opcoesEntrega = [
@@ -30,8 +38,10 @@ export class CheckoutComponent implements OnInit {
   formGroup: FormGroup;
 
   constructor(
+            private authService: AuthService,
+    
     private formBuilder: FormBuilder,
-    private carrinhoService: CarrinhoService,
+    public carrinhoService: CarrinhoService,
     private clienteService: ClienteService,
     private pedidoService: PedidoService,
     private router: Router // Importa o Router
@@ -46,6 +56,7 @@ export class CheckoutComponent implements OnInit {
   ngOnInit(): void {
     // Carregar itens do carrinho
     this.carrinhoItens = this.carrinhoService.obter();
+    this.carregarUsuarioLogado();
 
     
 
@@ -72,7 +83,16 @@ export class CheckoutComponent implements OnInit {
   get itensFormArray(): FormArray {
     return this.formGroup.get('itens') as FormArray;
   }
+  carregarUsuarioLogado(): void {
+    this.subscription.add(
+      this.authService.getUsuarioLogado().subscribe((usuario) => (this.usuarioLogado = usuario))
+    );
+  }
 
+  deslogar(): void {
+    this.authService.removeToken();
+    this.authService.removeUsuarioLogado();
+  }
   calcularTotal(): number {
     return this.carrinhoItens.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
   }

@@ -4,24 +4,39 @@ import { Pedido } from '../../models/pedido.model';
 import { CommonModule, NgIf } from '@angular/common';
 import { ClienteService } from '../../services/cliente.service';
 import { FormsModule } from '@angular/forms';
+import { MatToolbar } from '@angular/material/toolbar';
+import { MatIcon } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { Usuario } from '../../models/usuario.model';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../../services/auth.service';
+import { CarrinhoService } from '../../services/carrinho.service';
 
 @Component({
   standalone: true,
   selector: 'app-meus-pedidos',
   templateUrl: './meus-pedidos.component.html',
   styleUrls: ['./meus-pedidos.component.css'],
-  imports:[NgIf,FormsModule,CommonModule]
+  imports:[NgIf,FormsModule,CommonModule,MatToolbar,MatIcon,RouterLink]
 })
 export class MeusPedidosComponent implements OnInit {
   pedidos: any[] = [];
   usuario: any = {};
+      usuarioLogado: Usuario | null = null;
+    private subscription = new Subscription();
+  
 
 
   constructor(private pedidoService: PedidoService,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+            private authService: AuthService,
+            public carrinhoService: CarrinhoService
+    
   ) {}
 
   ngOnInit(): void {
+    this.carregarUsuarioLogado();
+
     this.clienteService.getMyAccount().subscribe({
       next: (cliente) => {
         this.usuario = cliente;
@@ -33,7 +48,18 @@ export class MeusPedidosComponent implements OnInit {
       }
     });
   }
-  
+  carregarUsuarioLogado(): void {
+    this.subscription.add(
+      this.authService.getUsuarioLogado().subscribe((usuario) => (this.usuarioLogado = usuario))
+    );
+  }
+
+  deslogar(): void {
+    this.authService.removeToken();
+    this.authService.removeUsuarioLogado();
+  }
+
+
 
   findPedido(): void {
     this.pedidoService.findPedidoByClienteId(this.usuario.id).subscribe({

@@ -22,7 +22,7 @@
   margin-bottom: 10px;
   color: #333;
   font-size: 1.2em;
-  border-bottom: 2px solid #fa7d32;
+  border-bottom: 2px solid #2e0854;
   padding-bottom: 5px;
 }
 
@@ -77,18 +77,269 @@
   text-align: center;
 }
 
-button {
+.btn {
   width: 100%;
   padding: 10px;
   font-size: 1em;
   color: #fff;
-  background-color: #fa7d32;
+  background-color: #2e0854;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
-button:hover {
-  background-color: #e6692b;
+.btn button:hover {
+  background-color: #2e0854;
+}
+
+
+
+
+
+
+
+
+
+
+
+.cart-badge {
+  background: #800080; /* Roxo */
+  color: white;
+  border-radius: 50%;
+  padding: 5px 10px;
+  font-size: 0.8em;
+  position: relative;
+  top: -10px;
+  left: -10px;
+}
+
+.logo {
+  max-height: 150px; /* Ajuste a altura máxima para caber no mat-toolbar */
+  max-width: 100%; /* Evita que a largura ultrapasse o container */
+  object-fit: contain; /* Garante que a imagem se ajuste sem distorções */
+}
+.voltar{
+  max-height: 150px; /* Ajuste a altura máxima para caber no mat-toolbar */
+  max-width: 100%; /* Evita que a largura ultrapasse o container */
+  background: transparent; /* Remove o fundo do botão */
+  border: none; /* Remove bordas do botão */
+  cursor: pointer; /* Garante que seja clicável */
+}
+
+
+
+
+.toolbar-left {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  color: #d6a5fa;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #dda0dd; /* Orquídea */
+}
+.toolbar-right button {
+ 
+  color: #dda0dd;;
+
+}
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  height: 100px;
+  background-color: #2e0854; /* Roxo escuro */
+  color: #dda0dd; /* Orquídea */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid #4b0082;
+}
+
+
+@media (max-width: 768px) {
+  .search-bar {
+    display: none;
+  }
+
+  mat-toolbar {
+    height: 60px;
+  }
+
+  .toolbar-right {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+  }
+
+}
+
+
+.central-atendimento {
+  position: relative;
+  display: inline-block;
+}
+
+.central-btn {
+  background-color: #2e0854;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.info-popup {
+  display: none;
+  position: absolute;
+  top: 100%; /* Aparece logo abaixo do botão */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #f8f8ff; /* GhostWhite */
+  color: #4b0082; /* Índigo Escuro */
+  border: 1px solid #800080;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  z-index: 10;
+  width: 180px; /* Diminuir a largura */
+  font-size: 0.85rem;
+}
+
+.central-atendimento:hover .info-popup {
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+.carrinho-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.carrinho-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.produto-imagem {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.produto-detalhes {
+  flex: 1;
+  margin-left: 10px;
+}
+
+.produto-detalhes h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.produto-detalhes p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #555;
+}
+
+.produto-acoes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.produto-preco {
+  font-size: 16px;
+  color: #2e0854;
+  font-weight: bold;
+}
+
+.quantidade-controle {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.quantidade-controle button {
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.remover-btn {
+  background: none;
+  border: none;
+  color: #2e0854;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.carrinho-total {
+  text-align: right;
+  margin-top: 20px;
+}
+
+.finalizar-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.finalizar-btn:hover {
+  background-color: #45a045;
+}
+
+.icon-vazio {
+  padding: 100px;
+  font-size: 120px; /* Aumenta o tamanho do ícone */
+  display: block; /* Faz o ícone ocupar a largura do seu container */
+  margin: 0 auto; /* Centraliza o ícone horizontalmente */
+}
+
+.vazio {
+  text-align: center; /* Alinha o texto centralmente */
+  padding: 20px; /* Ajusta o padding para espaçar melhor */
+}
+
+.compras {
+  font-size: large;
+  background-color: #2e0854;
+  color: white;
+  border: none;
+  padding: 20px 50px; /* Reduzi a padding para que o botão não ocupe tanto espaço */
+  border-radius: 5px;
+  cursor: pointer;
+  display: block; /* Torna o botão um bloco para ocupar toda a largura disponível */
+  margin: 20px auto; /* Centraliza horizontalmente com margem automática */
+}
+
+.h3-vazio {
+  text-align: center;
+  padding: 50px;
 }
