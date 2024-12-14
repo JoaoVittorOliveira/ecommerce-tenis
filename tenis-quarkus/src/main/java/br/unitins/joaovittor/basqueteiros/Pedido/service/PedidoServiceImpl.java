@@ -27,10 +27,10 @@ public class PedidoServiceImpl implements PedidoService{
     public PedidoRepository repository;
 
     @Inject
-    public TenisRepository produtoRepository;
+    public TenisRepository tenisRepository;
 
     @Inject
-    public TenisService produtoService;
+    public TenisService tenisService;
 
     @Inject
     public ClienteRepository clienteRepository;
@@ -48,9 +48,9 @@ public class PedidoServiceImpl implements PedidoService{
 
         for(ItemPedidoDTO itemDTO : dto.itens()){
             
-            Tenis produto = produtoRepository.findById(itemDTO.idTenis());
+            Tenis tenisItem = tenisRepository.findById(itemDTO.idTenis());
 
-            if(produto.getQuantidade() >= itemDTO.quantidade()){
+            if(tenisItem.getQuantidade() >= itemDTO.quantidade()){
                 ItemPedido itemUnidade = new ItemPedido();
 
                 //itemUnidade.setDesconto(itemDTO.desconto());
@@ -58,45 +58,32 @@ public class PedidoServiceImpl implements PedidoService{
                 //itemUnidade.setTenis(produtoRepository.findById(itemDTO.idTenis()));
 
                 // calcular valor total sem desconto
-                itemUnidade.setValor(produto.getPrecoVenda());
+                itemUnidade.setValor(tenisItem.getPrecoVenda());
 
                 itens.add(itemUnidade);
                 
-                // valor total do pedido (com desconto subtraindo o pedido)
-                //pedido.setValorTotal((pedido.getValorTotal() + (itemUnidade.getValor() * itemUnidade.getQuantidade()))-itemDTO.desconto()); 
+                // valor total do pedido 
+                pedido.setValorTotal( (pedido.getValorTotal() + ( itemUnidade.getValor() * itemUnidade.getQuantidade() ) ) ); 
 
                 // estoque do produto
-                //produtoService.updateEstoque(itemDTO.idTenis(), itemDTO.quantidade());
+                tenisService.updateEstoque(itemDTO.idTenis(), itemDTO.quantidade());
 
             } else{
                 // quantidade insuficiente daquele item
                 throw new ValidationException("Estoque Insuficiente", 
-                                             "estoque insuficiente do produto: "+produto.getNome()
+                                             "estoque insuficiente do produto: "+tenisItem.getNome()
                                              +"\n"
-                                             +"Estoque do produto:"+produto.getQuantidade());
+                                             +"Estoque do produto:"+tenisItem.getQuantidade());
             }
             
         }
 
-        // FAZER COMPRA DE OUTRA MANEIRA
-
-        /*
-        if(pedido.getValorTotal() <= pedido.getCliente().getSaldo()){
-
-            // SALDO DO CLIENTE = CUIDAR DO TIPO DE PAGAMENTO ETC = IMPLEMENTAR
-            
-
-            pedido.setItens(itens);
-            repository.persist(pedido);
-            return PedidoResponseDTO.valueOf(pedido);
-        } else{
-            throw new ValidationException("Saldo insuficiente",
-                                          "Valor total do pedido: "+pedido.getValorTotal()
-                                          +"\n"
-                                          +"Saldo atual: "+pedido.getCliente().getSaldo());
-        }
-        */
-        return null;
+        pedido.setItens(itens);
+        repository.persist(pedido);
+        return PedidoResponseDTO.valueOf(pedido);
+        
+        
+        
     }
 
     @Override
