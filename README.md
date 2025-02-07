@@ -20,20 +20,21 @@ Este projeto é um sistema de e-commerce especializado em tênis, permitindo que
 ### Clonando o repositório
 
 1. Clone o repositório:
-   - `git clone https://github.com/seu-repositorio/nome-do-projeto.git`
+   - `git clone https://github.com/JoaoVittorOliveira/ecommerce-tenis`
 
 ### Backend (Quarkus)
 
 1. Acesse a pasta do projeto backend:
-   - `cd backend`
+   - `cd tenis-quarkus`
 
 2. Execute o Quarkus:
-   - `./mvnw quarkus:dev`
+   - `/mvn compile quarkus:dev`
+   - nota: é necessário a instalação do maven para funcionamento adequado
 
 ### Frontend (Angular)
 
 1. Acesse a pasta do projeto frontend:
-   - `cd frontend`
+   - `cd tenis-angular`
 
 2. Instale as dependências:
    - `npm install`
