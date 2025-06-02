@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import org.jboss.logging.Logger;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.ext.ExceptionMapper;
 import jakarta.ws.rs.ext.Provider;
@@ -21,7 +22,7 @@ public class IllegalArgumentExceptionMapper implements ExceptionMapper<Throwable
 
         Throwable cause = exception;
         
-        // Navega pela cadeia de exceções para encontrar a ConstraintViolationException
+        // Navega pela cadeia de exceções para encontrar a Exception que foi lançada
         while (cause != null) {
 
             if (cause instanceof IllegalArgumentException hibernateEx) {
@@ -36,12 +37,23 @@ public class IllegalArgumentExceptionMapper implements ExceptionMapper<Throwable
 
                 return Response.status(Response.Status.CONFLICT).entity(validationError).build();
             }
+            else if (cause instanceof WebApplicationException){
+                ValidationError validationError = new ValidationError("400", "Bad Request");
+            
+                String fieldName = "CEP";
+                String message = "CEP mal informado (apenas 8 digitos)"; 
 
+                validationError.addFieldError(fieldName, message);
+                LOG.error("Erro de validação: " + exception.getMessage());
+
+                return Response.status(Response.Status.BAD_REQUEST).entity(validationError).build();
+            }
             cause = cause.getCause();
 
         }
 
         LOG.error("Erro não tratado: " + exception.getMessage());
+        
         
         return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity("Erro interno do servidor").build();
     }
